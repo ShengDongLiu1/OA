@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+">
+    
+    <bean id="studentDao" class="com.ht.dao.StudentDaoImpl" autowire="byType"/>
+    <bean id="studentService" class="com.ht.service.StudentServiceImpl" autowire="byType"/>
+	
+	<bean id="gradeDao" class="com.ht.dao.GradeDaoImpl" autowire="byType"/>
+	<bean id="gradeService" class="com.ht.service.GradeServiceImpl" autowire="byType"/>
+
+	<bean id="departmentDao" class="com.ht.dao.DepartmentDaoImpl" autowire="byType"/>
+    <bean id="departmentService" class="com.ht.service.DepartmentServiceImpl" autowire="byType"/>
+    
+    <bean id="depDao" class="com.ht.dao.DepDaoImpl" autowire="byType"/>
+    <bean id="depService" class="com.ht.service.DepServiceImpl" autowire="byType"/>
+    
+    <bean id="computerDao" class="com.ht.dao.ComputerDaoImpl" autowire="byType"/>
+    <bean id="computerService" class="com.ht.service.ComputerServiceImpl" autowire="byType"/>
+    
+    <bean id="itemsDao" class="com.ht.dao.ItemsDaoImp" autowire="byType"/>
+    <bean id="itemsService" class="com.ht.service.ItemsServiceImp" autowire="byType"/>
+    
+    <bean id="jobsDao" class="com.ht.dao.JobsDaoImpl" autowire="byType"/>
+    <bean id="jobsService" class="com.ht.service.JobsServiceImpl" autowire="byType"/>
+    
+    <bean id="userDao" class="com.ht.dao.UserDaoImpl" autowire="byType"/>
+    <bean id="userService" class="com.ht.service.UserServiceImpl" autowire="byType"/>
+    <bean id="createImageAction" class="com.ht.common.CreateImageAction" autowire="byType"></bean>
+    
+    
+    <bean id="worktypeDao" class="com.ht.dao.WorktypeDaoImpl" autowire="byType"/>
+    <bean id="worktypeService" class="com.ht.service.WorktypeServiceImpl" autowire="byType"/>
+    
+    <bean id="workDao" class="com.ht.dao.WorkDaoImpl" autowire="byType"/>
+    <bean id="workService" class="com.ht.service.WorkServiceImpl" autowire="byType"/>
+    
+    
+    <bean id="dutyDao" class="com.ht.dao.DutyDaoImpl" autowire="byType"/>
+    <bean id="dutyService" class="com.ht.service.DutyServiceImpl" autowire="byType"/>
+    
+    <bean id="hourseDao" class="com.ht.dao.HourseDaoImpl" autowire="byType"/>
+    <bean id="hourseService" class="com.ht.service.HourseServiceImpl" autowire="byType"/>
+    
+    <bean id="saysDao" class="com.ht.dao.SaysDaoImpl" autowire="byType"/>
+    <bean id="saysService" class="com.ht.service.SaysServiceImpl" autowire="byType"/>
+    
+    <bean id="rawpunDao" class="com.ht.dao.RawpunDaoImpl" autowire="byType"/>
+    <bean id="rawpunService" class="com.ht.service.RawpunServiceImpl" autowire="byType"/>
+    
+     <bean id="msgDao" class="com.ht.dao.MsgDaoImpl" autowire="byType"/>
+    <bean id="msgService" class="com.ht.service.MsgServiceImpl" autowire="byType"/>
+    
+    <bean id="fankuiDao" class="com.ht.dao.FankuiDaoImpl" autowire="byType"/>
+    <bean id="fankuiService" class="com.ht.service.FankuiServiceImpl" autowire="byType"/>
+    
+     <bean id="courseplandao" class="com.ht.dao.CourseplanDaoImp" autowire="byType"/>
+    <bean id="courseplanService" class="com.ht.service.CourseplanServiceImp" autowire="byType"/>
+    
+    <bean id="coursedao" class="com.ht.dao.CourseDaoImp" autowire="byType"/>
+    <bean id="courseService" class="com.ht.service.CourseServiceImp" autowire="byType"/>
+    
+    <bean id="incomedao" class="com.ht.dao.IncomeDaoImp" autowire="byType"/>
+    <bean id="incomeService" class="com.ht.service.IncomeServiceImp" autowire="byType"/>
+    
+    <bean id="expenddao" class="com.ht.dao.ExpendDaoImp" autowire="byType"/>
+    <bean id="expendService" class="com.ht.service.ExpendServiceImp" autowire="byType"/>
+    
+    <bean id="paysdao" class="com.ht.dao.PaysDaoImp" autowire="byType"/>
+    <bean id="paysService" class="com.ht.service.PaysServiceImp" autowire="byType"/>
+    
+    <bean id="classesDao" class="com.ht.dao.ClassesDaoImpl" autowire="byType"/>
+    <bean id="classesService" class="com.ht.service.ClassesServiceImpl" autowire="byType"/>
+    
+	<bean id="getjobDao" class="com.ht.dao.GetjobDaoImpl" autowire="byType" />
+	<bean id="getjobService" class="com.ht.service.GetjobServiceImpl" autowire="byType" />
+
+	<bean id="applyDao" class="com.ht.dao.ApplyDaoImpl" autowire="byType" />
+	<bean id="applyService" class="com.ht.service.ApplyServiceImpl" autowire="byType" />
+    
+    <bean id="workcheckDao" class="com.ht.dao.WorkcheckDaoImpl" autowire="byType"/>
+    <bean id="workcheckService" class="com.ht.service.WorkcheckServiceImpl" autowire="byType"/>
+    
+     <bean id="receiueDao" class="com.ht.dao.ReceiueDaoImpl" autowire="byType"/>
+    <bean id="receiueService" class="com.ht.service.ReceiueServiceImpl" autowire="byType"/>
+  
+    <bean id="stutotalDao" class="com.ht.dao.StutotalDaoImpl" autowire="byType"/>
+    <bean id="stutotalService" class="com.ht.service.StutotalServiceImpl" autowire="byType"/>
+</beans>  

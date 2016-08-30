@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ht.bean.Items" table="items" catalog="oa">
+        <id name="xid" type="java.lang.Integer">
+            <column name="xid" />
+            <generator class="native" />
+        </id>
+        <property name="sname" type="java.lang.String">
+            <column name="sname" />
+        </property>
+       
+        <property name="sdate" type="java.lang.String" >
+            <column name="sdate"  />
+        </property>
+        <property name="score" type="java.lang.Float">
+            <column name="score" />
+        </property>
+        
+        <many-to-one name="student" class="com.ht.bean.Student" lazy="false" column="sstuid">
+        </many-to-one>
+        
+        <many-to-one name="dep" class="com.ht.bean.Dep" lazy="false" column="steacher">
+        </many-to-one>
+    </class>
+</hibernate-mapping>

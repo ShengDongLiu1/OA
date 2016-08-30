@@ -1,0 +1,891 @@
+[33mcommit 78d98cb34403b9bf251dd531e94f3376043aaf6d[m
+Author: SunLe <1274603021@qq.com>
+Date:   Wed Aug 17 14:00:39 2016 +0800
+
+    员工家庭联系列表
+    
+    11
+
+[1mdiff --git a/README.md b/README.md[m
+[1mindex fcabb1c..e16fa27 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1 +1 @@[m
+[31m-#Automation[m
+[32m+[m[32m#Automation[m
+[1mdiff --git a/WebContent/WEB-INF/config/spring-context.xml b/WebContent/WEB-INF/config/spring-context.xml[m
+[1mindex 1406279..dd7ec41 100644[m
+[1m--- a/WebContent/WEB-INF/config/spring-context.xml[m
+[1m+++ b/WebContent/WEB-INF/config/spring-context.xml[m
+[36m@@ -4,12 +4,6 @@[m
+        xsi:schemaLocation="http://www.springframework.org/schema/beans[m
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd[m
+ ">[m
+[31m-    <!-- 测试 -->[m
+[31m-    <bean id="testDao" class="com.ht.dao.TestDaoImpl" autowire="byType"/>[m
+[31m-    <bean id="testService" class="com.ht.service.TestServiceImpl" autowire="byType"/>[m
+[31m-    <bean id="testAction" class="com.ht.action.TestAction" autowire="byType"/>[m
+[31m-    <bean id="test" class="com.ht.bean.Test" autowire="byType"/>[m
+[31m-    <!-- ^^测试^^ -->[m
+     [m
+     <bean id="studentDao" class="com.ht.dao.StudentDaoImpl" autowire="byType"/>[m
+     <bean id="studentService" class="com.ht.service.StudentServiceImpl" autowire="byType"/>[m
+[36m@@ -83,4 +77,9 @@[m
+     <bean id="rawpunAction" class="com.ht.action.RawpunAction" autowire="byType"/>[m
+     <bean id="rawpun" class="com.ht.bean.Rawpun"/>[m
+     [m
+[32m+[m[32m    <bean id="familyDao" class="com.ht.dao.FamilyDaoImpl" autowire="byType"/>[m
+[32m+[m[32m    <bean id="familyService" class="com.ht.service.FamilyServiceImpl" autowire="byType"/>[m
+[32m+[m[32m    <bean id="familyAction" class="com.ht.action.FamilyAction" autowire="byType"/>[m
+[32m+[m[32m    <bean id="family" class="com.ht.bean.Family"/>[m[41m [m
+[32m+[m[41m    [m
+ </beans>  [m
+\ No newline at end of file[m
+[1mdiff --git a/WebContent/WEB-INF/config/spring-hibernate.xml b/WebContent/WEB-INF/config/spring-hibernate.xml[m
+[1mindex c291a54..ce3a956 100644[m
+[1m--- a/WebContent/WEB-INF/config/spring-hibernate.xml[m
+[1m+++ b/WebContent/WEB-INF/config/spring-hibernate.xml[m
+[36m@@ -46,7 +46,7 @@[m
+         </property>[m
+         <property name="mappingResources">[m
+         <list>[m
+[31m-            <value>com/ht/bean/Test.hbm.xml</value>[m
+[32m+[m[32m        <!--     <value>com/ht/bean/Test.hbm.xml</value> -->[m
+             <value>com/ht/bean/Student.hbm.xml</value>[m
+ 			<value>com/ht/bean/Grade.hbm.xml</value>[m
+ 			<value>com/ht/bean/Department.hbm.xml</value>[m
+[36m@@ -60,7 +60,8 @@[m
+ 			<value>com/ht/bean/Duty.hbm.xml</value>[m
+             <value>com/ht/bean/Hourse.hbm.xml</value>[m
+             <value>com/ht/bean/Says.hbm.xml</value>[m
+[31m-             <value>com/ht/bean/Rawpun.hbm.xml</value>[m
+[32m+[m[32m            <value>com/ht/bean/Rawpun.hbm.xml</value>[m
+[32m+[m[32m            <value>com/ht/bean/Family.hbm.xml</value>[m
+         </list>[m
+         </property>[m
+     </bean>[m
+[1mdiff --git a/WebContent/WEB-INF/config/struts-main.xml b/WebContent/WEB-INF/config/struts-main.xml[m
+[1mindex 8fa8526..ea68374 100644[m
+[1m--- a/WebContent/WEB-INF/config/struts-main.xml[m
+[1m+++ b/WebContent/WEB-INF/config/struts-main.xml[m
+[36m@@ -17,12 +17,12 @@[m
+ 		</action>[m
+ 	</package>[m
+ 	[m
+[31m-    <package name="emptest-js" extends="json-default"  namespace="/test">[m
+[32m+[m[32m<!--     <package name="emptest-js" extends="json-default"  namespace="/test">[m
+         <action name="*" class="com.ht.action.TestAction" method="{1}" >[m
+         	<result name="success" type="json"></result>[m
+         	<result name="all">/Test.jsp</result>[m
+         </action>[m
+[31m-    </package>[m
+[32m+[m[32m    </package> -->[m
+ [m
+     <package name="student-js" extends="json-default"  namespace="/stu">[m
+         <action name="*" class="com.ht.action.StudentAction" method="{1}" >[m
+[36m@@ -133,4 +133,12 @@[m
+         </action>[m
+     </package>[m
+     [m
+[32m+[m[41m      [m
+[32m+[m[32m    <package name="family-js" extends="json-default" namespace="/family">[m
+[32m+[m[41m    [m	[32m<action name="*" class="com.ht.action.FamilyAction" method="{1}">[m
+[32m+[m[41m    [m		[32m<result name="success" type="json"></result>[m
+[32m+[m[41m    [m		[32m<result name="all">/WEB-INF/views/dep/familys.jsp</result>[m
+[32m+[m[41m    [m	[32m</action>[m
+[32m+[m[32m    </package>[m
+[32m+[m[41m    [m
+ </struts>[m
+\ No newline at end of file[m
+[1mdiff --git a/WebContent/WEB-INF/views/dep/deps.jsp b/WebContent/WEB-INF/views/dep/deps.jsp[m
+[1mindex f4d01ed..3ab9cfc 100644[m
+[1m--- a/WebContent/WEB-INF/views/dep/deps.jsp[m
+[1m+++ b/WebContent/WEB-INF/views/dep/deps.jsp[m
+[36m@@ -7,51 +7,50 @@[m
+ <html>[m
+ <head>[m
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">[m
+[31m-<title>部门管理</title>[m
+[31m-<link rel="stylesheet"[m
+[31m-	href="<%=path%>/js/jquery-easyui/themes/default/easyui.css" />[m
+[31m-<link rel="stylesheet" href="<%=path%>/css/site_main.css" />[m
+[31m-<script type="text/javascript" src="<%=path%>/js/jquery.min.js"></script>[m
+[31m-<script type="text/javascript"[m
+[31m-	src="<%=path%>/js/jquery-easyui/jquery.easyui.min.js"></script>[m
+[31m-<script type="text/javascript"[m
+[31m-	src="<%=path%>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>[m
+[31m-<script type="text/javascript" src="<%=path%>/js/site_easyui.js"></script>[m
+[32m+[m[32m<title>员工管理</title>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/css/site_main.css"/>[m
+[32m+[m[32m<link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>[m
+ </head>[m
+ [m
+ <script type="text/javascript">[m
+[31m-	$(function() {[m
+[31m-		setPagination("list");[m
+[31m-[m
+[31m-		$("#new").click(function() {[m
+[31m-			$.messager.alert("提示", "新建菜单", "info");[m
+[31m-		});[m
+[31m-[m
+[31m-		$("#list").datagrid({[m
+[31m-			onRowContextMenu : function(e, rowIndex, rowData) { // datagrid中的每一行都绑定右键菜单[m
+[31m-				e.preventDefault();[m
+[31m-				$('#mm').menu('show', {[m
+[31m-					left : e.pageX,[m
+[31m-					top : e.pageY[m
+[31m-				});[m
+[31m-			}[m
+[31m-		});[m
+[31m-	});[m
+[31m-[m
+ 	function setPagination(tableId) {[m
+ 		var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件[m
+ 		$(p).pagination({[m
+[31m-			pageSize : 3,[m
+[31m-			pageList : [ 3, 5, 10, 15 ],[m
+[31m-			beforePageText : "第",[m
+[31m-			afterPageText : "页    共{pages}页",[m
+[31m-			displayMsg : "当前显示{from} - {to} 条记录    共{total}条记录",[m
+[31m-			onBeforeRefresh : function() {[m
+[32m+[m			[32mpageSize:3,[m
+[32m+[m			[32mpageList:[3,5,10, 15],[m
+[32m+[m			[32mbeforePageText:"第",[m
+[32m+[m			[32mafterPageText:"页    共{pages}页",[m
+[32m+[m			[32mdisplayMsg:"当前显示{from} - {to} 条记录    共{total}条记录",[m
+[32m+[m			[32monBeforeRefresh:function() {[m
+ 				$(this).pagination("loading");[m
+ 				$(this).pagination("loaded");[m
+ 			}[m
+ 		});[m
+ 	}[m
+[32m+[m[41m	[m
+[32m+[m	[32m$(function() {[m
+[32m+[m		[32m$("#new").click(function(){[m
+[32m+[m			[32m$.messager.alert("提示","新建菜单","info");[m
+[32m+[m		[32m});[m
+[32m+[m[41m		[m
+[32m+[m		[32m$("#list").datagrid({[m
+[32m+[m			[32monRowContextMenu: function(e, rowindex, rowData) {//datagrid中的每一行都绑定右键菜单[m
+[32m+[m				[32me.preventDefault();[m
+[32m+[m				[32m$("#mm").menu("show",{[m
+[32m+[m					[32mleft:e.pageX,[m
+[32m+[m					[32mtop:e.pageY[m
+[32m+[m				[32m});[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32msetPagination("list");[m
+[32m+[m[41m		[m
+[32m+[m	[32m});[m
+[32m+[m[41m	[m
+ [m
+ 	function edit() {[m
+ 		var row = $("#list").datagrid("getSelected");[m
+[36m@@ -148,7 +147,7 @@[m
+ 		autoRowHeight: true,[m
+ 		pagination:true,[m
+ 		border:false,[m
+[31m-		pageSize:10">[m
+[32m+[m		[32m">[m
+ 		<thead>[m
+ 			<tr>[m
+ 				<th data-options="field:'eid',checkbox:true,width:100">员工编号</th>[m
+[36m@@ -203,7 +202,7 @@[m
+ 				</tr>[m
+ 		  		<tr>[m
+ 		  			<td>身份证号:</td>[m
+[31m-		  			<td><input class="easyui-textbox" id="ecertid" name="dep.ecertid" data-options="required:true" /></input></td>[m
+[32m+[m		[41m  [m			[32m<td><input class="easyui-textbox" id="ecertid" name="dep.ecertid"  data-options="required:true" /></input></td>[m
+ 		  		</tr>[m
+ 		  		<tr>[m
+ 		  			<td>员工籍贯:</td>[m
+[36m@@ -225,15 +224,14 @@[m
+ 		  			<td>员工状态:</td>[m
+ 		  			<td><input class="easyui-textbox" id="estatus" name="dep.estatus" data-options="required:true" /></input></td>[m
+ 		  		</tr>[m
+[31m-		  		<tr height="35px;">[m
+[31m-					<td></td>[m
+[31m-					<td><input type="button" onclick="doEdit();" value="确认"[m
+[31m-						style="margin-left: 150px;" /></td>[m
+[31m-				</tr>[m
+ 				<tr >[m
+ 		  			<td><input class="easyui-textbox" id="eid" name="dep.eid" data-options="required:true" type="hidden" /></input></td>[m
+ 		  		</tr>[m
+ 			</table>[m
+[32m+[m			[32m<div data-options="region:'south',border:false" style="text-align:right;padding:10px 0 0;">[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doEdit();" style="width:80px;height:20px;" >添加</a>[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px;height:20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+ 		</form>[m
+ 	</div>[m
+ [m
+[36m@@ -283,21 +281,14 @@[m
+ 		  			<td>员工状态:</td>[m
+ 		  			<td><input class="easyui-textbox"  name="dep.estatus" data-options="required:true" /></input></td>[m
+ 		  		</tr>[m
+[31m-				<tr>[m
+[31m-					<td></td>[m
+[31m-					<td><input type="button" onclick="doAdd();" value="确认"[m
+[31m-						style="margin-left: 150px; margin-top: 10px;" /></td>[m
+[31m-				</tr>[m
+ 			</table>[m
+[32m+[m				[32m<div data-options="region:'south',border:false" style="text-align:right;padding:30px 30px 0;">[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doAdd();" style="width:80px;height:20px;" >添加</a>[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px;height:20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+ 		</form>[m
+ 	</div>[m
+ [m
+[31m-	<div id="mm" class="easyui-menu" style="width: 120px;">[m
+[31m-		<div id="new" data-options="name:'new'">New</div>[m
+[31m-		<div data-options="name:'save',iconCls:'icon-save'">Save</div>[m
+[31m-		<div data-options="name:'print',iconCls:'icon-print'">Print</div>[m
+[31m-		<div class="menu-sep"></div>[m
+[31m-		<div data-options="name:'exit'">Exit</div>[m
+[31m-	</div>[m
+[32m+[m
+ </body>[m
+ </html>[m
+\ No newline at end of file[m
+[1mdiff --git a/WebContent/WEB-INF/views/dep/familys.jsp b/WebContent/WEB-INF/views/dep/familys.jsp[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2a6c5f1[m
+[1m--- /dev/null[m
+[1m+++ b/WebContent/WEB-INF/views/dep/familys.jsp[m
+[36m@@ -0,0 +1,276 @@[m
+[32m+[m[32m<%@ page language="java" contentType="text/html; charset=UTF-8"[m
+[32m+[m	[32mpageEncoding="UTF-8"%>[m
+[32m+[m[32m<%[m
+[32m+[m	[32mString path = request.getContextPath();[m
+[32m+[m[32m%>[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html>[m
+[32m+[m[32m<head>[m
+[32m+[m[32m<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">[m
+[32m+[m[32m<title>员工家庭联系人</title>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/css/site_main.css"/>[m
+[32m+[m[32m<link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>[m
+[32m+[m[32m</head>[m
+[32m+[m
+[32m+[m[32m<script type="text/javascript">[m
+[32m+[m	[32mfunction setPagination(tableId) {[m
+[32m+[m		[32mvar p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件[m
+[32m+[m		[32m$(p).pagination({[m
+[32m+[m			[32mpageSize:3,[m
+[32m+[m			[32mpageList:[3,5,10, 15],[m
+[32m+[m			[32mbeforePageText:"第",[m
+[32m+[m			[32mafterPageText:"页    共{pages}页",[m
+[32m+[m			[32mdisplayMsg:"当前显示{from} - {to} 条记录    共{total}条记录",[m
+[32m+[m			[32monBeforeRefresh:function() {[m
+[32m+[m				[32m$(this).pagination("loading");[m
+[32m+[m				[32m$(this).pagination("loaded");[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32m$(function() {[m
+[32m+[m		[32m$("#new").click(function(){[m
+[32m+[m			[32m$.messager.alert("提示","新建菜单","info");[m
+[32m+[m		[32m});[m
+[32m+[m[41m		[m
+[32m+[m		[32m$("#list").datagrid({[m
+[32m+[m			[32monRowContextMenu: function(e, rowindex, rowData) {//datagrid中的每一行都绑定右键菜单[m
+[32m+[m				[32me.preventDefault();[m
+[32m+[m				[32m$("#mm").menu("show",{[m
+[32m+[m					[32mleft:e.pageX,[m
+[32m+[m					[32mtop:e.pageY[m
+[32m+[m				[32m});[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32msetPagination("list");[m
+[32m+[m[41m		[m
+[32m+[m	[32m});[m
+[32m+[m
+[32m+[m
+[32m+[m	[32mfunction edit() {[m
+[32m+[m		[32mvar row = $("#list").datagrid("getSelected");[m
+[32m+[m		[32mif (row) {[m
+[32m+[m			[32m$("#fid").textbox("setValue", row.fid);[m
+[32m+[m			[32m$("#eid").textbox("setValue", row.eid);[m
+[32m+[m			[32m$("#fname").textbox('setValue', row.fname);[m
+[32m+[m			[32m$("#fjob").textbox("setValue", row.fjob);[m
+[32m+[m			[32m$("#frelation").textbox("setValue", row.frelation);[m
+[32m+[m			[32m$("#ftel").textbox("setValue", row.ftel);[m
+[32m+[m			[32m$("#editWin").window("open");[m
+[32m+[m		[32m} else {[m
+[32m+[m			[32m$.messager.alert('提示', '请选中需要修改的产品', 'info');// messager消息控件[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mfunction doEdit() {[m
+[32m+[m		[32mvar row = $("#list").datagrid("getSelected");[m
+[32m+[m		[32mif ($("#editForm").form("validate")) {[m
+[32m+[m			[32m$.post("family/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式[m
+[32m+[m			[32mfunction(data) {[m
+[32m+[m				[32mif (data.result.result == 'success') {[m
+[32m+[m					[32m$.messager.alert("提示", data.result.msg, "info", function() {[m
+[32m+[m						[32m$("#editWin").window("close");[m
+[32m+[m						[32m$("#list").datagrid("reload");[m
+[32m+[m					[32m});[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32m$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");[m
+[32m+[m				[32m}[m
+[32m+[m			[32m});[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m//删除方法[m
+[32m+[m	[32mfunction removeCP() {[m
+[32m+[m		[32mvar row = $("#list").datagrid("getSelected");[m
+[32m+[m		[32mif (row) {[m
+[32m+[m			[32m$.messager.confirm("提示", "确认要删除这个产品吗？", function(r) {[m
+[32m+[m				[32mif (r) {[m
+[32m+[m					[32m$.post("family/delete", {[m
+[32m+[m						[32m'fid' : row.fid[m
+[32m+[m					[32m}, function(data) {[m
+[32m+[m						[32mif (data.result.result == "success") {[m
+[32m+[m							[32m$.messager.alert("提示", data.result.msg, "info",[m
+[32m+[m									[32mfunction() {[m
+[32m+[m										[32m$("#list").datagrid("reload");[m
+[32m+[m									[32m});[m
+[32m+[m						[32m}[m
+[32m+[m					[32m});[m
+[32m+[m				[32m}[m
+[32m+[m			[32m});[m
+[32m+[m		[32m} else {[m
+[32m+[m			[32m$.messager.alert('提示', '请选中需要删除的产品', 'info');// messager消息控件[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32m//打开添加联系人窗口[m
+[32m+[m	[32mfunction addPro() {[m
+[32m+[m		[32m$("#addWin").window("open");[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mfunction doAdd() {[m
+[32m+[m		[32mif ($("#addForm").form("validate")) {[m[41m [m
+[32m+[m			[32m$.post("family/add", $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式[m
+[32m+[m			[32mfunction(data) {[m
+[32m+[m				[32mif (data.result.result == 'success') {[m
+[32m+[m					[32m$.messager.alert("提示", data.result.msg, "info", function() {[m
+[32m+[m						[32m$("#addWin").window("close");[m
+[32m+[m						[32m$("#list").datagrid("reload");[m
+[32m+[m						[32m$("#").form("clear");[m
+[32m+[m					[32m});[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32m$.messger.alert("提示", data.result.msg, "info");[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}, 'json')[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m[32m</script>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m	[32m<table id="list" class="easyui-datagrid"[m
+[32m+[m		[32mdata-options="[m[41m [m
+[32m+[m	[32mtoolbar:'#tb',[m
+[32m+[m	[32murl:'<%=path%>/family/queryAll',[m[41m [m
+[32m+[m		[32mmethod:'post',[m[41m [m
+[32m+[m		[32mrownumbers:true,[m
+[32m+[m		[32msingleSelect:true,[m
+[32m+[m		[32mautoRowHeight: true,[m
+[32m+[m		[32mpagination:true,[m
+[32m+[m		[32mborder:false,[m
+[32m+[m		[32mpageSize:10">[m
+[32m+[m		[32m<thead>[m
+[32m+[m			[32m<tr>[m
+[32m+[m				[32m<th data-options="field:'fid',checkbox:true" width="100">编号</th>[m
+[32m+[m				[32m<th data-options="field:'eid'" width="100">员工编号</th>[m
+[32m+[m				[32m<th data-options="field:'fname'" width="100">姓名</th>[m
+[32m+[m				[32m<th data-options="field:'fjob'" width="100">职位</th>[m
+[32m+[m				[32m<th data-options="field:'frelation'" width="100">与本人关系</th>[m
+[32m+[m				[32m<th data-options="field:'ftel'" width="100">联系电话</th>[m
+[32m+[m			[32m</tr>[m
+[32m+[m		[32m</thead>[m
+[32m+[m	[32m</table>[m
+[32m+[m
+[32m+[m	[32m<div id="tb" style="padding: 5px;">[m
+[32m+[m		[32m<a href="javascript:;" class="easyui-linkbutton"[m
+[32m+[m			[32mdata-options="iconCls:'icon-add'" onclick="addPro();">添加</a>[m
+[32m+[m		[32m<!-- 链接按钮控件 -->[m
+[32m+[m		[32m<a href="javascript:;" class="easyui-linkbutton"[m
+[32m+[m			[32mdata-options="iconCls:'icon-remove'" onclick="removeCP();">移除</a> <a[m
+[32m+[m			[32mhref="javascript:;" class="easyui-linkbutton"[m
+[32m+[m			[32mdata-options="iconCls:'icon-edit'" onclick="edit();">修改</a>[m
+[32m+[m	[32m</div>[m
+[32m+[m
+[32m+[m	[32m<div id="editWin" class="easyui-window" title="修改联系人 "[m
+[32m+[m		[32mdata-options="iconCls:'icon-edit', closable:true, closed:true"[m
+[32m+[m		[32mstyle="width: 270px; height: 300px; padding: 5px;">[m
+[32m+[m		[32m<form id="editForm" enctype="multipart/form-data" >[m
+[32m+[m			[32m<table >[m
+[32m+[m			[32m<tr height="35px;">[m
+[32m+[m					[32m<td>员工编号:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="eid"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox" name="family.eid"[m
+[32m+[m						[32mdata-options="required:true, validate:true" /> <!-- novalidate:true 不出现提示 -->[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>姓名:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="fname"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.fname" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m				[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>职位:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="fjob"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.fjob" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m				[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>与本人关系:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="frelation"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.frelation" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m					[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>联系电话:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="ftel"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.ftel" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m				[32m<tr style="border: 0px;">[m
+[32m+[m					[32m<td  style="border: 0px;"><input id="fid"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.fid" data-options="required:true" type="hidden" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m			[32m</table>[m
+[32m+[m			[32m<div></div>[m
+[32m+[m			[32m<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">[m
+[32m+[m				[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="doEdit();" style="width:80px; height: 20px;">保存</a>[m
+[32m+[m				[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px; height: 20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+[32m+[m		[32m</form>[m
+[32m+[m	[32m</div>[m
+[32m+[m
+[32m+[m	[32m<!-- 添加产品框  -->[m
+[32m+[m	[32m<div id="addWin" class="easyui-window" title="添加联系人"[m
+[32m+[m		[32mdata-options="iconCls:'icon-edit', closable:true, closed:true"[m
+[32m+[m		[32mstyle="width:270px; height:300px; padding: 5px;">[m
+[32m+[m		[32m<form id="addForm" enctype="multipart/form-data">[m
+[32m+[m			[32m<table>[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>员工编号:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="eid"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox" name="family.eid"[m
+[32m+[m						[32mdata-options="required:true, validate:true" /> <!-- novalidate:true 不出现提示 -->[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>姓名:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="fname"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.fname" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m				[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>职位:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="fjob"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.fjob" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m				[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>与本人关系:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="frelation"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.frelation" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m[41m					[m
+[32m+[m				[32m<tr height="35px;">[m
+[32m+[m					[32m<td>联系电话:</td>[m
+[32m+[m					[32m<td>&nbsp;<input id="ftel"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="family.ftel" data-options="required:true" />[m
+[32m+[m					[32m</td>[m
+[32m+[m				[32m</tr>[m
+[32m+[m			[32m</table>[m
+[32m+[m			[32m<div data-options="region:'south',border:false" style="text-align:right;padding:10px 0 0;">[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doAdd();" style="width:80px;height:20px;" >添加</a>[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px;height:20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+[32m+[m		[32m</form>[m
+[32m+[m	[32m</div>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/WebContent/WEB-INF/views/department/department.jsp b/WebContent/WEB-INF/views/department/department.jsp[m
+[1mindex cc1a89b..0128db0 100644[m
+[1m--- a/WebContent/WEB-INF/views/department/department.jsp[m
+[1m+++ b/WebContent/WEB-INF/views/department/department.jsp[m
+[36m@@ -8,57 +8,55 @@[m
+ <head>[m
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">[m
+ <title>部门管理</title>[m
+[31m-<link rel="stylesheet"[m
+[31m-	href="<%=path%>/js/jquery-easyui/themes/default/easyui.css" />[m
+[31m-<link rel="stylesheet" href="<%=path%>/css/site_main.css" />[m
+[31m-<script type="text/javascript" src="<%=path%>/js/jquery.min.js"></script>[m
+[31m-<script type="text/javascript"[m
+[31m-	src="<%=path%>/js/jquery-easyui/jquery.easyui.min.js"></script>[m
+[31m-<script type="text/javascript"[m
+[31m-	src="<%=path%>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>[m
+[31m-<script type="text/javascript" src="<%=path%>/js/site_easyui.js"></script>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>[m
+[32m+[m[32m<link rel="stylesheet" href="<%=path %>/css/site_main.css"/>[m
+[32m+[m[32m<link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>[m
+[32m+[m[32m<script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>[m
+ </head>[m
+ [m
+ <script type="text/javascript">[m
+[31m-	$(function() {[m
+[31m-		setPagination("list");[m
+[31m-[m
+[31m-		$("#new").click(function() {[m
+[31m-			$.messager.alert("提示", "新建菜单", "info");[m
+[31m-		});[m
+[31m-[m
+[31m-		$("#list").datagrid({[m
+[31m-			onRowContextMenu : function(e, rowIndex, rowData) { // datagrid中的每一行都绑定右键菜单[m
+[31m-				e.preventDefault();[m
+[31m-				$('#mm').menu('show', {[m
+[31m-					left : e.pageX,[m
+[31m-					top : e.pageY[m
+[31m-				});[m
+[31m-			}[m
+[31m-		});[m
+[31m-	});[m
+[31m-[m
+ 	function setPagination(tableId) {[m
+ 		var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件[m
+ 		$(p).pagination({[m
+[31m-			pageSize : 3,[m
+[31m-			pageList : [ 3, 5, 10, 15 ],[m
+[31m-			beforePageText : "第",[m
+[31m-			afterPageText : "页    共{pages}页",[m
+[31m-			displayMsg : "当前显示{from} - {to} 条记录    共{total}条记录",[m
+[31m-			onBeforeRefresh : function() {[m
+[32m+[m			[32mpageSize:3,[m
+[32m+[m			[32mpageList:[3,5,10, 15],[m
+[32m+[m			[32mbeforePageText:"第",[m
+[32m+[m			[32mafterPageText:"页    共{pages}页",[m
+[32m+[m			[32mdisplayMsg:"当前显示{from} - {to} 条记录    共{total}条记录",[m
+[32m+[m			[32monBeforeRefresh:function() {[m
+ 				$(this).pagination("loading");[m
+ 				$(this).pagination("loaded");[m
+ 			}[m
+ 		});[m
+ 	}[m
+[31m-[m
+[32m+[m[41m	[m
+[32m+[m	[32m$(function() {[m
+[32m+[m		[32m$("#new").click(function(){[m
+[32m+[m			[32m$.messager.alert("提示","新建菜单","info");[m
+[32m+[m		[32m});[m
+[32m+[m[41m		[m
+[32m+[m		[32m$("#list").datagrid({[m
+[32m+[m			[32monRowContextMenu: function(e, rowindex, rowData) {//datagrid中的每一行都绑定右键菜单[m
+[32m+[m				[32me.preventDefault();[m
+[32m+[m				[32m$("#mm").menu("show",{[m
+[32m+[m					[32mleft:e.pageX,[m
+[32m+[m					[32mtop:e.pageY[m
+[32m+[m				[32m});[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32msetPagination("list");[m
+[32m+[m[41m		[m
+[32m+[m	[32m});[m
+ 	function edit() {[m
+ 		var row = $("#list").datagrid("getSelected");[m
+ 		if (row) {[m
+ 			$("#did").textbox("setValue", row.did);[m
+ 			$("#dname").textbox('setValue', row.dname);[m
+ 			$("#dstatus").textbox("setValue", row.dstatus);[m
+[32m+[m			[32m$("#dcreatetime").textbox("setValue", row.dcreatetime);[m
+ 			/* $("#editForm").form("load",row); */[m
+ 			$("#editWin").window("open");[m
+ 		} else {[m
+[36m@@ -97,6 +95,11 @@[m
+ 									function() {[m
+ 										$("#list").datagrid("reload");[m
+ 									});[m
+[32m+[m						[32m}else{[m
+[32m+[m							[32m$.messager.alert("提示", data.result.msg, "info",[m
+[32m+[m									[32mfunction() {[m
+[32m+[m										[32m$("#list").datagrid("reload");[m
+[32m+[m									[32m});[m
+ 						}[m
+ 					});[m
+ 				}[m
+[36m@@ -160,49 +163,53 @@[m
+ 			data-options="iconCls:'icon-edit'" onclick="edit();">修改</a>[m
+ 	</div>[m
+ [m
+[31m-	<div id="editWin" class="easyui-window" title="修改产品"[m
+[32m+[m	[32m<div id="editWin" class="easyui-window" title="修改部门"[m
+ 		data-options="iconCls:'icon-edit', closable:true, closed:true"[m
+[31m-		style="width: 300px; height: 310px; padding: 5px;">[m
+[32m+[m		[32mstyle="width: 270px; height: 270px; padding: 5px;">[m
+ 		<form id="editForm" enctype="multipart/form-data">[m
+ 			<table>[m
+ 				<tr height="35px;">[m
+[31m-					<td>部门编号</td>[m
+[32m+[m					[32m<td>部门编号：</td>[m
+ 					<td>&nbsp;<input id="did" class="easyui-textbox"[m
+ 						name="department.did" readonly />[m
+ 					</td>[m
+ 				</tr>[m
+ 				<tr height="35px;">[m
+[31m-					<td>部门名称</td>[m
+[32m+[m					[32m<td>部门名称：</td>[m
+ 					<td>&nbsp;<input id="dname"[m
+ 						class="easyui-validatebox easyui-textbox" name="department.dname"[m
+ 						data-options="required:true, validate:true" /> <!-- novalidate:true 不出现提示 -->[m
+ 					</td>[m
+ 				</tr>[m
+ 				<tr height="35px;">[m
+[31m-					<td>部门状态</td>[m
+[32m+[m					[32m<td>部门状态：</td>[m
+ 					<td>&nbsp;<input id="dstatus"[m
+ 						class="easyui-validatebox easyui-textbox"[m
+ 						name="department.dstatus" data-options="required:true" />[m
+ 					</td>[m
+ 				</tr>[m
+[31m-[m
+[31m-				<tr height="35px;">[m
+[31m-					<td></td>[m
+[31m-					<td><input type="button" onclick="doEdit();" value="确认"[m
+[31m-						style="margin-left: 150px;" /></td>[m
+[32m+[m				[32m<tr >[m
+[32m+[m					[32m<td>&nbsp;<input id="dcreatetime"[m
+[32m+[m						[32mclass="easyui-validatebox easyui-textbox"[m
+[32m+[m						[32mname="department.dcreatetime" data-options="required:true" type="hidden"/>[m
+[32m+[m					[32m</td>[m
+ 				</tr>[m
+ 			</table>[m
+[32m+[m			[32m<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">[m
+[32m+[m				[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="doEdit();" style="width:80px; height: 20px;">保存</a>[m
+[32m+[m				[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px; height: 20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+ 		</form>[m
+ 	</div>[m
+ [m
+ 	<!-- 添加产品框  -->[m
+[31m-	<div id="addWin" class="easyui-window" title="添加产品"[m
+[32m+[m	[32m<div id="addWin" class="easyui-window" title="添加部门"[m
+ 		data-options="iconCls:'icon-edit', closable:true, closed:true"[m
+[31m-		style="width: 300px; height: 200px; padding: 5px;">[m
+[32m+[m		[32mstyle="width: 270px; height: 200px; padding: 5px;">[m
+ 		<form id="addForm" enctype="multipart/form-data">[m
+ 			<table>[m
+ 				<tr>[m
+[31m-					<td>部门名称</td>[m
+[32m+[m					[32m<td>部门名称：</td>[m
+ 					<td><input class="easyui-validatebox textbox"[m
+ 						name="department.dname"[m
+ 						data-options="required:true, validate:true" style="margin: 10px;" />[m
+[36m@@ -210,18 +217,18 @@[m
+ 					</td>[m
+ 				</tr>[m
+ 				<tr>[m
+[31m-					<td>部门状态</td>[m
+[32m+[m					[32m<td>部门状态：</td>[m
+ 					<td>&nbsp;<input class="easyui-validatebox easyui-numberbox"[m
+ 						name="department.dstatus" style="margin: 10px;"[m
+ 						data-options="required:true" />[m
+ 					</td>[m
+ 				</tr>[m
+[31m-				<tr>[m
+[31m-					<td></td>[m
+[31m-					<td><input type="button" onclick="doAdd();" value="确认"[m
+[31m-						style="margin-left: 150px; margin-top: 10px;" /></td>[m
+[31m-				</tr>[m
+[32m+[m[41m		[m
+ 			</table>[m
+[32m+[m			[32m<div data-options="region:'south',border:false" style="text-align:right;padding:10px 0 0;">[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doAdd();" style="width:80px;height:20px;" >添加</a>[m
+[32m+[m					[32m<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="" style="width:80px;height:20px;">取消</a>[m
+[32m+[m			[32m</div>[m
+ 		</form>[m
+ 	</div>[m
+ [m
+[1mdiff --git a/src/com/ht/action/FamilyAction.java b/src/com/ht/action/FamilyAction.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3b21833[m
+[1m--- /dev/null[m
+[1m+++ b/src/com/ht/action/FamilyAction.java[m
+[36m@@ -0,0 +1,125 @@[m
+[32m+[m[32mpackage com.ht.action;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32mimport org.apache.struts2.ServletActionContext;[m
+[32m+[m
+[32m+[m[32mimport com.ht.bean.Dep;[m
+[32m+[m[32mimport com.ht.bean.Family;[m
+[32m+[m[32mimport com.ht.common.ControllerResult;[m
+[32m+[m[32mimport com.ht.common.Pager;[m
+[32m+[m[32mimport com.ht.service.FamilyService;[m
+[32m+[m[32mimport com.opensymphony.xwork2.ActionSupport;[m
+[32m+[m[32m//Ա����ͥ��ϵ�˱�Action[m
+[32m+[m[32mpublic class FamilyAction extends ActionSupport{[m
+[32m+[m
+[32m+[m	[32mprivate static final long serialVersionUID = 4992848146429172579L;[m
+[32m+[m
+[32m+[m	[32mprivate ControllerResult result;[m
+[32m+[m	[32mprivate FamilyService familyService;[m
+[32m+[m	[32mprivate Pager<Family> pager;[m
+[32m+[m	[32mprivate Family family;[m
+[32m+[m	[32mprivate List<Family> rows;[m
+[32m+[m	[32mprivate long total;[m
+[32m+[m	[32mprivate int page;[m
+[32m+[m	[32mprivate Integer fid;[m
+[32m+[m
+[32m+[m	[32mpublic void setFamilyService(FamilyService familyService) {[m
+[32m+[m		[32mthis.familyService = familyService;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic Family getFamily() {[m
+[32m+[m		[32mreturn family;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic void setFamily(Family family) {[m
+[32m+[m		[32mthis.family = family;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic long getTotal() {[m
+[32m+[m		[32mreturn total;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic List<Family> getRows() {[m
+[32m+[m		[32mreturn rows;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic void setPage(int page) {[m
+[32m+[m		[32mthis.page = page;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic ControllerResult getResult() {[m
+[32m+[m		[32mreturn result;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic void setFid(Integer fid) {[m
+[32m+[m		[32mthis.fid = fid;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m
+[32m+[m	[32mpublic String add() {[m
+[32m+[m		[32mSystem.out.println("�{�����ӷ���");[m
+[32m+[m		[32mDep dep = new Dep();[m
+[32m+[m		[32mdep.setEid(family.getEid());[m
+[32m+[m		[32mfamily.setFid(fid);[m
+[32m+[m		[32mfamily.setDep(dep);[m
+[32m+[m		[32mFamily d = familyService.add(family);[m
+[32m+[m		[32mif(d == null){[m
+[32m+[m			[32mresult = ControllerResult.getFailResult("����ʧ��");[m
+[32m+[m		[32m}else{[m
+[32m+[m			[32mresult = ControllerResult.getSuccessRequest("���ӳɹ�");[m
+[32m+[m		[32m}[m
+[32m+[m		[32mreturn SUCCESS;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic String update(){[m
+[32m+[m		[32mSystem.out.println("�޸�------");[m
+[32m+[m		[32mSystem.out.println(family);[m
+[32m+[m		[32mDep d = new Dep();[m
+[32m+[m		[32md.setEid(family.getEid());[m
+[32m+[m		[32mfamily.setDep(d);[m
+[32m+[m		[32mfamily = familyService.update(family);[m
+[32m+[m		[32mSystem.out.println(family);[m
+[32m+[m		[32mif(family == null){[m
+[32m+[m			[32mresult = ControllerResult.getFailResult("�޸�ʧ��");[m
+[32m+[m		[32m}else{[m
+[32m+[m			[32mresult = ControllerResult.getSuccessRequest("�޸ĳɹ�");[m
+[32m+[m		[32m}[m
+[32m+[m		[32mreturn SUCCESS;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic String delete(){[m
+[32m+[m		[32mSystem.out.println("ɾ��----------");[m
+[32m+[m		[32mfamily.setFid(fid);[m
+[32m+[m		[32mfamilyService.delete(family);[m
+[32m+[m		[32mresult = ControllerResult.getSuccessRequest("ɾ���ɹ�");[m
+[32m+[m		[32mreturn SUCCESS;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic String query(){[m
+[32m+[m		[32mfamilyService.query(family);[m
+[32m+[m		[32mreturn SUCCESS;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpublic String queryAll(){[m
+[32m+[m		[32mpager = new Pager<>();[m
+[32m+[m		[32mpager.setPageNo(page);[m
+[32m+[m		[32mint pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));[m
+[32m+[m		[32mpager.setPageSize(pageSize);[m
+[32m+[m		[32mpager = familyService.queryAll(pager);[m
+[32m+[m		[32mfor(Family f : pager.getRows()){[m
+[32m+[m			[32mDep d = f.getDep();[m
+[32m+[m			[32mif(	d != null){[m
+[32m+[m				[32mf.setEid(d.getEid());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mrows = pager.getRows();[m
+[32m+[m		[32mtotal = pager.getTotal();[m
+[32m+[m		[32mSystem.out.println(pager.getRows().get(0).getEid());[m
+[32m+[m		[32mreturn SUCCESS;[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic String all() {[m
+[32m+[m		[32mreturn "all";[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/com/ht/bean/Computer.hbm.xml b/src/com/ht/bean/Computer.hbm.xml[m
+[1mindex 96801e0..5dd6ede 100644[m
+[1m--- a/src/com/ht/bean/Computer.hbm.xml[m
+[1m+++ b/src/com/ht/bean/Computer.hbm.xml[m
+[36m@@ -8,7 +8,7 @@[m
+     <class name="com.ht.bean.Computer" table="computer" catalog="oa">[m
+         <id name="comid" type="java.lang.Integer">[m
+             <column name="comid" />[m
+[31m-            <generator class="identity" />[m
+[32m+[m[32m            <generator class="native" />[m
+         </id>[m
+         <property name="coma" type="java.lang.String">[m
+             <column name="coma" />[m
+[1mdiff --git a/src/com/ht/bean/Dep.hbm.xml b/src/com/ht/bean/Dep.hbm.xml[m
+[1mindex d33778a..e6ca0cc 100644[m
+[1m--- a/src/com/ht/bean/Dep.hbm.xml[m
+[1m+++ b/src/com/ht/bean/Dep.hbm.xml[m
+[36m@@ -46,7 +46,12 @@[m
+         <property name="estatus" type="java.lang.Integer">[m
+             <column name="estatus" not-null="true" />[m
+         </property>[m
+[31m-        [m
+[32m+[m[32m        <one-to-one name="departments" class="com.ht.bean.Department" cascade="all"></one-to-one>[m[41m		[m
+[32m+[m[41m		[m
+[32m+[m		[32m<set name="

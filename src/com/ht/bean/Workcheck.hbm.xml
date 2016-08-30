@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ht.bean.Workcheck" table="workcheck" catalog="oa">
+        <id name="wid" type="java.lang.Integer">
+            <column name="wid" />
+            <generator class="native" />
+        </id>
+        <property name="wdate" type="java.util.Date">
+            <column name="wdate" length="0" />
+        </property>
+        <property name="status" type="java.lang.String">
+            <column name="status" length="50" />
+        </property>
+        <many-to-one name="dep" class="com.ht.bean.Dep" cascade="none" column="eid" ></many-to-one>
+    </class>
+</hibernate-mapping>

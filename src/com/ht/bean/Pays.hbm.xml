@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ht.bean.Pays" table="pays" catalog="oa">
+        <id name="paysid" type="java.lang.Integer">
+            <column name="paysid" />
+            <generator class="identity" />
+        </id>
+        <property name="paysa" type="java.lang.Double">
+            <column name="paysa">
+                <comment>奖励金额</comment>
+            </column>
+        </property>
+        <property name="paysb" type="java.lang.Double">
+            <column name="paysb" >
+                <comment>惩罚金额</comment>
+            </column>
+        </property>
+        <property name="payspro" type="java.lang.String">
+            <column name="payspro">
+                <comment>惩罚原因</comment>
+            </column>
+        </property>
+        <property name="payssta" type="java.lang.Double">
+            <column name="payssta" >
+                <comment>基本工资</comment>
+            </column>
+        </property>
+        <property name="paysc"  type="java.lang.Double">
+            <column name="paysc" >
+                <comment>补贴工资</comment>
+            </column>
+        </property>
+        <property name="paysd" type="java.lang.Double">
+            <column name="paysd" >
+                <comment>结余工资</comment>
+            </column>
+        </property>
+        <many-to-one name="dep" column="empid" class="com.ht.bean.Dep"></many-to-one>
+    </class>
+</hibernate-mapping>

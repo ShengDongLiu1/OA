@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ht.bean.Income" table="income" catalog="oa">
+        <id name="monid" type="java.lang.Integer">
+            <column name="monid" />
+            <generator class="identity" />
+        </id>
+        <property name="moncount" type="java.lang.Double">
+            <column name="moncount" precision="10" scale="2">
+            </column>
+        </property>
+        <property name="monpro" type="java.lang.String">
+            <column name="monpro">
+            </column>
+        </property>
+        <property name="mname" type="java.lang.String">
+            <column name="mname">
+            </column>
+        </property>
+        <property name="mdate" type="java.util.Date">
+            <column name="mdate">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

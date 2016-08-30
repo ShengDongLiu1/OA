@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+">
+
+
+    <context:property-placeholder location="WEB-INF/config/jdbc.properties"/>
+
+    <!-- 配置数据源，该数据源实际上是交给了spring管理 -->
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="${connection.driverClassName}"></property>
+        <property name="driverUrl" value="${connection.url}"></property>
+        <property name="user" value="${connection.username}"></property>
+        <property name="password" value="${connection.password}"></property>
+        <property name="houseKeepingTestSql" value="${proxool.houseKeepingTestSql}"/><!-- 测试连接也是否正常工作的sql语句 -->
+        <!-- 最少保持的空闲连接数 （默认2个） -->
+        <property name="prototypeCount" value="${proxool.prototypeCount}"/>
+        <!-- proxool自动侦察各个连接状态的时间间隔(毫秒),侦察到空闲的连接就马上回收,超时的销毁 默认30秒） -->
+        <property name="houseKeepingSleepTime" value="${proxool.hourseKeepingSleepTime}"/>
+        <!-- 最大活动时间(超过此时间线程将被kill,默认为5分钟) -->
+        <property name="maximumActiveTime" value="${proxool.maximumActiveTime}"/>
+        <!-- 连接最长时间(默认为4个小时) -->
+        <property name="maximumConnectionLifetime" value="${proxool.maximumConnectionLifetime}"/>
+        <!-- 最小连接数 （默认2个） -->
+        <property name="minimumConnectionCount" value="${proxool.minimumConnectionCount}"/>
+        <!-- 最大连接数 （默认5个） -->
+        <property name="maximumConnectionCount" value="${proxool.maximumConnectionCount}"/>
+        <property name="simultaneousBuildThrottle" value="${proxool.simultaneousBuildThrottle}"/>
+        <property name="trace" value="true" />
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+                <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+        <list>
+			<value>com/ht/bean/Apply.hbm.xml</value>
+			<value>com/ht/bean/Classes.hbm.xml</value>
+			<value>com/ht/bean/Computer.hbm.xml</value>
+			<value>com/ht/bean/Course.hbm.xml</value>
+			<value>com/ht/bean/Courseplan.hbm.xml</value>
+			<value>com/ht/bean/Dep.hbm.xml</value>
+			<value>com/ht/bean/Department.hbm.xml</value>
+			<value>com/ht/bean/Dstatus.hbm.xml</value>
+			<value>com/ht/bean/Duty.hbm.xml</value>
+			<value>com/ht/bean/Expend.hbm.xml</value>
+			<value>com/ht/bean/Fankui.hbm.xml</value> 
+			<value>com/ht/bean/Getjob.hbm.xml</value>
+			<value>com/ht/bean/Grade.hbm.xml</value>
+			<value>com/ht/bean/Hourse.hbm.xml</value>
+			<value>com/ht/bean/Income.hbm.xml</value>
+			<value>com/ht/bean/Items.hbm.xml</value>
+			<value>com/ht/bean/Jobs.hbm.xml</value>
+			<value>com/ht/bean/Msg.hbm.xml</value>
+			<value>com/ht/bean/Pays.hbm.xml</value>
+			<value>com/ht/bean/Rawpun.hbm.xml</value>
+			<value>com/ht/bean/Receiue.hbm.xml</value>
+			<value>com/ht/bean/Report.hbm.xml</value>
+			<value>com/ht/bean/Says.hbm.xml</value>
+			<value>com/ht/bean/Status.hbm.xml</value>
+			<value>com/ht/bean/Student.hbm.xml</value>
+			<value>com/ht/bean/Studentyx.hbm.xml</value>
+			<value>com/ht/bean/Stutotal.hbm.xml</value>
+			<value>com/ht/bean/User.hbm.xml</value>
+			<value>com/ht/bean/Work.hbm.xml</value>
+			<value>com/ht/bean/Workcheck.hbm.xml</value>
+			<value>com/ht/bean/Worktype.hbm.xml</value>
+        </list>
+        </property>
+    </bean>
+
+</beans>  

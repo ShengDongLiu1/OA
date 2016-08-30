@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ht.bean.Course" table="course" catalog="oa">
+        <id name="objectid" type="java.lang.Integer">
+            <column name="objectid" />
+            <generator class="identity" />
+        </id>
+        <property name="objectname"  type="java.lang.String">
+            <column name="objectname">
+            </column>
+        </property>
+        <property name="semester" column="semester"  type="java.lang.Integer"></property>
+        
+        <set name="courseplan" table="courseplan" lazy="false" >
+        	<key column="objectid"></key>
+        	<one-to-many class="com.ht.bean.Courseplan" />
+        </set>
+        
+        
+    </class>
+</hibernate-mapping>

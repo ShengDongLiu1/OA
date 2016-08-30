@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true"></constant><!-- 是否为开发模式，可支持struts提供的debug功能 -->
+    <constant name="struts.action.extension" value=",action,do"></constant><!-- action的扩展名 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+    <constant name="struts.multipart.maxSize" value="20971520"></constant><!-- 单位是字节 -->
+    
+	<package name="gotoHome" extends="json-default" namespace="/home">
+		<action name="home" class="com.ht.action.HomeAction">
+			<result name="success">/WEB-INF/views/home.jsp</result>
+		</action>
+	</package>
+
+    <package name="student-js" extends="json-default"  namespace="/stu">
+        <action name="yx-*" class="com.ht.action.StudentyxAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="allyx">/WEB-INF/views/student/studentyx.jsp</result>
+        </action>
+        <action name="*" class="com.ht.action.StudentAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/student.jsp</result>
+        	<result name="yx">/WEB-INF/views/student/yx.jsp</result>
+        </action>
+    </package>
+    
+	<package name="students" extends="json-default"  namespace="/student">
+        <action name="*" class="com.ht.action.GradeAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/grade.jsp</result>
+            <result name="PL">/WEB-INF/views/student/batch.jsp</result>
+        </action>
+    </package>
+    
+    <package name="department-js" extends="json-default"  namespace="/department">
+        <action name="*" class="com.ht.action.DepartmentAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/department/department.jsp</result>
+        </action>
+    </package>
+    
+    <package name="dep-js" extends="json-default"  namespace="/dep">
+        <action name="*" class="com.ht.action.DepAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/dep/deps.jsp</result>
+        	<result name="alln">/WEB-INF/views/dep/dep.jsp</result>
+        	<result name="tjls">/WEB-INF/views/dep/deps.jsp</result>
+        	<result name="byname">/WEB-INF/views/dep/depsbyname.jsp</result>
+        	<result name="byid">/WEB-INF/views/dep/depsbyname.jsp</result>
+        </action>
+    </package>
+    
+    <package name="items_struts" extends="json-default" namespace="/items" >
+		<action name="*" class="com.ht.action.ItemsAction" method="{1}">
+			<result name="success" type="json"></result>
+        	<result name="stud">/WEB-INF/views/student/items.jsp</result>
+        	<result name="all">/WEB-INF/views/student/items.jsp</result>
+		</action>
+	</package>
+    
+   <package name="jobs-js" extends="json-default"  namespace="/jobs">
+        <action name="*" class="com.ht.action.JobsAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="query">/WEB-INF/views/dep/jobs.jsp</result>
+        </action>
+    </package>
+    
+    <package name="workcheck-js" extends="json-default"  namespace="/workcheck">
+        <action name="*" class="com.ht.action.WorkcheckAction" method="{1}">
+        	<result name="success" type="json"></result>
+        	<result name="add">/WEB-INF/views/home.jsp</result>
+        	<result name="all">/WEB-INF/views/dep/Workcheck.jsp</result>
+        </action>
+    </package>
+    
+    <package name="empuser-js" extends="json-default"  namespace="/user">
+        <action name="*" class="com.ht.action.UserAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="fail">/WEB-INF/views/admin/login.jsp</result>
+        	<result name="input">/WEB-INF/views/admin/login.jsp</result>
+        	<result name="ss">/WEB-INF/views/home.jsp</result>
+        	<result name="student">/WEB-INF/views/student/login_stu.jsp</result>
+        	<result name="dep">/WEB-INF/views/dep/login_dep.jsp</result>
+        	<result name="set">/WEB-INF/views/admin/setting.jsp</result>
+        </action>
+    </package>
+    
+    <package name="yzm-js" extends="json-default"  namespace="/yzm">
+        <action name="createImageAction" class="com.ht.common.CreateImageAction">
+        	<result name="success" type="stream">
+        		<param name="contentType">image/jpeg</param>
+        		<param name="inputName">inputStream</param>
+                <param name="bufferSize">2048</param>
+        	</result>
+        </action>
+    </package>
+    
+    <package name="duty-js" extends="json-default"  namespace="/duty">
+        <action name="*" class="com.ht.action.DutyAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/dep/Duty.jsp</result>
+        </action>
+    </package>
+    
+	<package name="hourse-js" extends="json-default"  namespace="/hourse">
+        <action name="*" class="com.ht.action.HourseAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/Hourse.jsp</result>
+        </action>
+    </package>
+    
+    <package name="says-js" extends="json-default"  namespace="/says">
+        <action name="*" class="com.ht.action.SaysAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/Says.jsp</result>
+        </action>
+    </package>
+    
+    <package name="rawpun-js" extends="json-default"  namespace="/rawpun">
+        <action name="*" class="com.ht.action.RawpunAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/Rawpun.jsp</result>
+        </action>
+    </package>
+    
+	<package name="msg-js" extends="json-default"  namespace="/msg">
+        <action name="*" class="com.ht.action.MsgAction" method="{1}">
+        	<result name="success" type="json"></result>
+    		<result name="all">/WEB-INF/views/dep/msg.jsp</result>
+        </action>
+    </package>
+    
+    <package name="fankui-js" extends="json-default"  namespace="/fankui">
+        <action name="*" class="com.ht.action.FankuiAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/dep/fankui.jsp</result>
+        	<result name="xq">/WEB-INF/views/dep/fankuiXq.jsp</result>
+        </action>
+    </package>
+    
+    <package name="courseplan-js" extends="json-default"  namespace="/courseplan">
+        <action name="*" class="com.ht.action.CourseplanAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/courseplan.jsp</result>
+        	<result name="object">/WEB-INF/views/student/courseplan.jsp</result>
+        </action>
+    </package>
+    
+    <package name="course-js" extends="json-default"  namespace="/course">
+        <action name="*" class="com.ht.action.CourseAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/course.jsp</result>
+        </action>
+    </package>
+
+    
+    <package name="income-js" extends="json-default"  namespace="/income">
+        <action name="*" class="com.ht.action.IncomeAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/income.jsp</result>
+        	<result name="money">/WEB-INF/views/dep/button.jsp</result>
+            <result name="PL">/WEB-INF/views/dep/batchsl.jsp</result>
+        </action>
+    </package>
+    
+    <package name="expend-js" extends="json-default"  namespace="/expend">
+        <action name="*" class="com.ht.action.ExpendAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/expend.jsp</result>
+        </action>
+    </package>
+    
+    <package name="pays-js" extends="json-default"  namespace="/pays">
+        <action name="*" class="com.ht.action.PaysAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/dep/Pays.jsp</result>
+        	<result name="tjls">/WEB-INF/views/dep/Pays.jsp</result>
+        	<result name="pl">/WEB-INF/views/dep/paysBatch.jsp</result>
+        </action>
+    </package>
+    
+    <package name="classes-js" extends="json-default" namespace="/classes">
+    	<action name="*" class="com.ht.action.ClassesAction" method="{1}">
+    		<result name="success" type="json"></result>
+    		<result name="all">/WEB-INF/views/classes/classgl.jsp</result>
+    		<result name="tjls">/WEB-INF/views/classes/classgl.jsp</result>
+    		<result name="bjxq">/WEB-INF/views/classes/classxq.jsp</result>
+    		<result name="addfb">/WEB-INF/views/classes/classfb.jsp</result>
+    		<result name="money">/WEB-INF/views/dep/money.jsp</result>
+    		<result name="fhyk">/WEB-INF/views/classes/classykxq.jsp</result>
+    		<result name="addc">/WEB-INF/views/student/studentyx.jsp</result>
+    	</action>
+    </package>
+
+	<package name="getjob-js" extends="json-default" namespace="/getjob">
+		<action name="*" class="com.ht.action.GetjobAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="all">/WEB-INF/views/student/Getjob.jsp</result>
+			<result name="xzxs">/WEB-INF/views/student/Getjob.jsp</result>
+		</action>
+	</package>
+
+	<package name="apply-js" extends="json-default" namespace="/apply">
+		<action name="*" class="com.ht.action.ApplyAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="all">/WEB-INF/views/dep/Apply.jsp</result>
+			<result name="xzyg">/WEB-INF/views/dep/Apply.jsp</result>
+			<result name="xzlx">/WEB-INF/views/dep/Apply.jsp</result>
+		</action>
+	</package>
+    
+    <package name="computer-js" extends="json-default"  namespace="/computer">
+        <action name="*" class="com.ht.action.ComputerAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/student/computer.jsp</result>
+        	<result name="xzxs">/WEB-INF/views/student/computer.jsp</result>
+        </action>
+    </package>
+    
+    <package name="work-js" extends="json-default"  namespace="/work">
+        <action name="*" class="com.ht.action.WorkAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/work/Work.jsp</result>
+        	<result name="xzlx">/WEB-INF/views/work/Work.jsp</result>
+        </action>
+    </package>
+    
+   <package name="workcheck-js" extends="json-default"  namespace="/workcheck">
+        <action name="*" class="com.ht.action.WorkcheckAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="add">/WEB-INF/views/home.jsp</result>
+        	<result name="all">/WEB-INF/views/dep/Workcheck.jsp</result>
+        </action>
+    </package>
+    
+      <package name="receiue-js" extends="json-default" namespace="/receiue">
+    	<action name="*" class="com.ht.action.ReceiueAction" method="{1}">
+    		<result name="success" type="json"></result>
+    		<result name="all">/WEB-INF/views/dep/receiues.jsp</result>
+    		<result name="tjls">/WEB-INF/views/dep/receiues.jsp</result>
+    	</action>
+    </package>
+    
+          
+    <package name="stutotal-js" extends="json-default" namespace="/stutotal">
+    	<action name="*" class="com.ht.action.StutotalAction" method="{1}">
+    		<result name="success" type="json"></result>
+    		<result name="all">/WEB-INF/views/student/stutotals.jsp</result>
+    	</action>
+    </package>
+    
+</struts>

@@ -4,7 +4,7 @@
 <hibernate-mapping>
     <class name="com.ht.bean.Fankui" table="fankui" catalog="oa">
         <id name="Tbackid" type="java.lang.Integer">
-            <column name="T_backid" />
+            <column name="tbackid" />
             <generator class="identity" />
         </id>
         <property name="pro" type="java.lang.String">

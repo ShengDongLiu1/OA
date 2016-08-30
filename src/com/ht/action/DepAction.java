@@ -136,17 +136,29 @@ public class DepAction extends ActionSupport{
 		return "tjls";
 	}
 	public String add() {
-		Department depar = new Department();
-		depar.setDid(1);
-		dep.setDepartments(depar);
 		Dstatus ds = new Dstatus();
-		ds.setDsid(1);
+		Department depar = new Department();
+		if(dep.getMid() == null){
+			depar.setDid(1);
+		}else{
+			depar.setDid(dep.getMid());
+		}
+		dep.setDepartments(depar);
+		if(dep.getDstatuss() == null){
+			ds.setDsid(1);
+		}else{
+			ds = dep.getDstatuss();
+		}
 		dep.setDstatuss(ds);
 		dep = depService.add(dep);
+		if(jobs == null){
+			jobs = new Jobs();;
+		}
 		jobs.setJid(dep.getEid());
 		jobs.setDep(dep);
 		jobsService.add(jobs);
-		if(dep == null){
+		
+		if(dep==null){
 			result = ControllerResult.getFailResult("添加失败");
 		}else{
 			result = ControllerResult.getSuccessRequest("添加成功");

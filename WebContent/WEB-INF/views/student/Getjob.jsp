@@ -52,20 +52,19 @@
         <form id="ff" method="post">
             <table cellpadding="5">
                 <tr>
-                    <td>公司名称:</td>
-               		<td><input class="easyui-textbox"  name="getjob.jobname" style="width: 150px;"
-                           data-options="required:true,validType:'length[2,20]',novalidate:true"/></td>
+                    <td>Jobname:</td>
+                    <td><input class="easyui-textbox" name="getjob.jobname"
+                               data-options="required:true"/></td>
                 </tr>
                 <tr>
-                    <td>选择学生:</td>
+                    <td>Jobstu:</td>
                     <td><input class="easyui-combobox" id="jobstu" name="getjob.student.intenid"
                                data-options="required:true"/></td>
                 </tr>
                 <tr>
-                    <td>职位描述:</td>
+                    <td>Jobdesc:</td>
                     <td><input class="easyui-textbox" name="getjob.jobdesc"
-                           data-options="required:true,validType:'length[5,20]',novalidate:true, multiline:true" style="width: 150px;height: 55px;" name="dep.eaddr"
-                          /></td>
+                               data-options="required:true"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false"
@@ -85,13 +84,19 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
-          <input type="hidden" id="ji" name="getjob.jobid"/>
             <table>
+                <tr>
+                    <td>就业编号</td>
+                    <td>
+                        <input class="easyui-textbox" name="getjob.jobid" id="ji" readonly/>
+                    </td>
+                </tr>
                 <tr>
                     <td>公司名称</td>
                     <td>
-                       <input class="easyui-textbox" id="jn" name="getjob.jobname" style="width: 150px;"
-                           data-options="required:true,validType:'length[2,20]',novalidate:true"/></td>
+                        <input class="easyui-textbox" name="getjob.jobname" id="jn" data-options="required:true"/>
+                        <!-- 由dataoptions指定验证的规则 -->
+                    </td>
                 </tr>
                 <tr>
                     <td>学生编码</td>
@@ -100,9 +105,9 @@
                 </tr>
                 <tr>
                     <td>职位描述</td>
-					<td><input class="easyui-textbox" id="jd" name="getjob.jobdesc" 
-   								data-options="required:true,validType:'length[5,20]',novalidate:true, multiline:true" style="width: 150px;height: 55px;" name="dep.eaddr"  /></td>      
-   		      </table>
+                    <td><input class="easyui-textbox" id="jd" name="getjob.jobdesc" data-options="required:true"/></td>
+                </tr>
+            </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="edit();"
                    style="width:80px">保存</a>
@@ -153,22 +158,18 @@
     }
     // 添加(提交後臺)
     function add() {
-    	toValidate("ff");
-    	if (validateForm("ff")){
-         // 验证整个表单里的所有validatabox是否通过验证
-            $.post("getjob/add", $("#ff").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
-                  function (data) {
-                      if (data.result.result == 'success') {
-                          $.messager.alert("提示", data.result.msg, "info", function () {
-                              $("#addWindow").window("close");
-                              $("#list").datagrid("reload");
-                              $("#ff").form("clear");
-                          });
-                      } else {
-                          $.messger.alert("提示", data.msg, "info");
-                      }
-                  }, 'json');
+        if ($("#ff").form("validate")) {
+            $.get('getjob/add', $("#ff").serialize(), "JSON");
+            $("#ff").form("clear");
+            $("#addWindow").window("close");
+            $("#list").datagrid('reload');
+            $.messager.show({
+                title: '提示消息',
+                msg: '添加成功',
+                showType: 'show'
+            });
         }
+        $("#list").datagrid('reload');
     }
 
     function closeAdd() {
@@ -184,7 +185,7 @@
     function editOpen() {
         var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
         if (row) {
-        	 document.getElementById("ji").value = row.jobid;
+            $("#ji").textbox("setValue", row.jobid);
             $("#jn").textbox("setValue", row.jobname);
             $("#js").combobox({
                 url: "<%=path%>/getjob/xzxs",
@@ -192,11 +193,14 @@
                 valueField: 'id',
                 textField: 'name',
                 panelHeight: 'auto',
+                onLoadSuccess: function () { //数据加载完毕事件
+                    var data = $('#js').combobox('getData');
+                    if (data.length > 0) {
+                        $("#js").combobox('select', data[0].id);
+                    }
+                }
             });
-            $("#js").combobox("setValue", row.student.intenname);
-            $("#js").combobox('select', row.student.intenid);
             $("#jd").textbox("setValue", row.jobdesc);
-
             $("#editWindow").window("open");
         } else {
             $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
@@ -204,8 +208,7 @@
     }
     // 编辑提交
     function edit() {
-    	toValidate("editForm");
-    	if (validateForm("editForm")){
+        if ($("#editForm").form("validate")) {
             $.post('getjob/update', $("#editForm").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
@@ -226,15 +229,17 @@
             $("#editForm").form("load", row);
             $.post('getjob/delete', {'getjob.jobid': row.jobid}, "JSON");
             $("#list").datagrid('reload');
-            $.messager.alert("提示", "删除成功！", "info");
+            $.messager.show({
+                title: '提示消息',
+                msg: '删除成功',
+                showType: 'show'
+            });
             $("#list").datagrid('reload');
         } else {
             $.messager.alert('提示', '请选中需要删除的列', 'info');
         }
         $("#list").datagrid('reload');
     }
-    
-
 </script>
 </body>
 </html>

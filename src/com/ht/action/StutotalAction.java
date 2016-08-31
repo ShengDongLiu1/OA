@@ -116,13 +116,8 @@ public class StutotalAction extends ActionSupport{
 		Student stu = new Student();
 		stu.setIntenid(stutotal.getStuid());
 		stutotal.setStudent(stu);
-		Object obj  = stutotalService.queryXueqi(stutotal.getStuid(), stutotal.getSemester());
-		if(obj == null){
-			stutotal = stutotalService.update(stutotal);
-			result = ControllerResult.getSuccessRequest("修改成功");
-		}else{
-			result = ControllerResult.getFailResult("该学生已经有该学期的评语了");
-		}
+		stutotal = stutotalService.update(stutotal);
+		result = ControllerResult.getSuccessRequest("修改成功");
 		return SUCCESS;
 	}
 	

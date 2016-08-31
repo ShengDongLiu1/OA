@@ -25,7 +25,8 @@
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
         $(p).pagination({
-            pageList: [10, 15, 20, 25],
+            pageSize: 3,
+            pageList: [3, 5, 10, 15],
             beforePageText: "第",
             afterPageText: "页    共{pages}页",
             displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
@@ -56,7 +57,7 @@
     function edit() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-        	document.getElementById("sid").value = row.sid;
+            $("#sid").textbox("setValue", row.sid);
             $("#updatestuid").combobox({
                 url: '<%=path%>/stutotal/tjls',
                 method: 'get',
@@ -88,7 +89,7 @@
                                 $("#list").datagrid("reload");
                             });
                         } else {
-                        	$.messager.alert("提示", data.result.msg, "info");
+                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
                         }
                     }, "json");
         }
@@ -197,7 +198,6 @@
      data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 350px; height: 300px; padding: 5px;">
     <form id="editForm" enctype="multipart/form-data">
-   		  <input type="hidden" id="sid" name="stutotal.sid"/>
         <table>
             <tr>
                 <td>选择学生:</td>
@@ -220,11 +220,18 @@
                 </select>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <input id="sid"
+                           class="easyui-validatebox easyui-textbox"
+                           name="stutotal.sid" type="hidden"/>
+                </td>
+            </tr>
         </table>
         <div data-options="region:'south',border:false" style="text-align:right;padding:10px 40px 0px;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="doEdit();"
                style="width:80px; height: 20px;">保存</a>
-            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#editWin').dialog('close')"
+            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
                style="width:80px; height: 20px;">取消</a>
         </div>
     </form>
@@ -262,7 +269,7 @@
         <div data-options="region:'south',border:false" style="text-align:right;padding:10px 40px 0px;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doAdd();"
                style="width:80px;height:20px;">添加</a>
-            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#addWin').dialog('close')"
+            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
                style="width:80px;height:20px;">取消</a>
         </div>
     </form>

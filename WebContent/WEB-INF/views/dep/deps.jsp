@@ -182,22 +182,13 @@
                             $.messager.alert("提示", data.result.msg, "info", function () {
                                 $("#addWin").window("close");
                                 $("#list").datagrid("reload");
-                                $("#").form("clear");
+                                $("#addForm").form("clear");
                             });
                         } else {
                             $.messger.alert("提示", data.msg, "info");
                         }
                     }, 'json')
         }
-    }
-    function queryById() {
-        var row = $("#list").datagrid("getSelected");
-        if (row) {
-            window.location.href = "<%=path%>/family/byid?eid=" + row.eid;
-        } else {
-            $.messager.alert('提示', '请选中需要查看的员工', 'info');// messager消息控件
-        }
-
     }
 
     function queryById1() {

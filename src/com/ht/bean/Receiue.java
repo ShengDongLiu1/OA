@@ -1,8 +1,7 @@
 package com.ht.bean;
 
-/**
- * Receiue entity. @author MyEclipse Persistence Tools
- */
+import java.util.Date;
+
 
 public class Receiue implements java.io.Serializable {
 
@@ -14,8 +13,8 @@ public class Receiue implements java.io.Serializable {
 	private Integer eid;
 	private Integer ucount;
 	private String upurpose;
-	private String ucreattime;
-	private String uendtime;
+	private Date ucreattime;
+	private Date uendtime;
 	private Integer wid;
 	private String restore;
 	
@@ -24,13 +23,12 @@ public class Receiue implements java.io.Serializable {
 	private Worktype worktype;
 
 
-	/** default constructor */
 	public Receiue() {
 	}
 
 	/** full constructor */
 	public Receiue(Integer eid,Integer ucount, String upurpose,
-			String ucreattime, String uendtime) {
+			Date ucreattime, Date uendtime) {
 		this.eid = eid;
 		this.ucount = ucount;
 		this.upurpose = upurpose;
@@ -70,19 +68,19 @@ public class Receiue implements java.io.Serializable {
 		this.upurpose = upurpose;
 	}
 
-	public String getUcreattime() {
+	public Date getUcreattime() {
 		return ucreattime;
 	}
 
-	public void setUcreattime(String ucreattime) {
+	public void setUcreattime(Date ucreattime) {
 		this.ucreattime = ucreattime;
 	}
 
-	public String getUendtime() {
+	public Date getUendtime() {
 		return uendtime;
 	}
 
-	public void setUendtime(String uendtime) {
+	public void setUendtime(Date uendtime) {
 		this.uendtime = uendtime;
 	}
 

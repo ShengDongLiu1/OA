@@ -26,7 +26,7 @@
             </column>
         </property>
         <property name="uendtime" type="java.util.Date">
-            <column name="uendtime" length="0">
+            <column name="uendtime" >
                 <comment>结束时间</comment>
             </column>
         </property>

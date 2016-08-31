@@ -102,11 +102,12 @@ public class StutotalAction extends ActionSupport{
 		student.setIntenid(stutotal.getStuid());
 		stutotal.setSid(sid);
 		stutotal.setStudent(student);
-		Stutotal d = stutotalService.add(stutotal);
-		if(d == null){
-			result = ControllerResult.getFailResult("添加失败");
-		}else{
+		Object obj  = stutotalService.queryXueqi(stutotal.getStuid(), stutotal.getSemester());
+		if(obj == null){
+			stutotalService.add(stutotal);
 			result = ControllerResult.getSuccessRequest("添加成功");
+		}else{
+			result = ControllerResult.getFailResult("该学生已经有该学期的评语了");
 		}
 		return SUCCESS;
 	}
@@ -116,12 +117,7 @@ public class StutotalAction extends ActionSupport{
 		stu.setIntenid(stutotal.getStuid());
 		stutotal.setStudent(stu);
 		stutotal = stutotalService.update(stutotal);
-		System.out.println(stutotal);
-		if(stutotal == null){
-			result = ControllerResult.getFailResult("修改失败");
-		}else{
-			result = ControllerResult.getSuccessRequest("修改成功");
-		}
+		result = ControllerResult.getSuccessRequest("修改成功");
 		return SUCCESS;
 	}
 	
@@ -153,7 +149,6 @@ public class StutotalAction extends ActionSupport{
 		total = pager.getTotal();
 		return SUCCESS;
 	}
-	
 	
 	public String all() {
 		return "all";

@@ -8,4 +8,6 @@ import com.ht.dao.BaseDao;
 
 public interface StutotalService extends BaseDao<Stutotal, Integer> {
 	public List<Student> queryStudents();
+	
+	public Object queryXueqi(int sid , String xueqi);
 }

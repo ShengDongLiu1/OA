@@ -59,4 +59,9 @@ public class ReceiueServiceImpl implements ReceiueService {
 		return receiueDao.queryWorks();
 	}
 
+	@Override
+	public Receiue queryById(int uid) {
+		return receiueDao.queryById(uid);
+	}
+
 }

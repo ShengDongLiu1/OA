@@ -107,4 +107,16 @@ public class ReceiueDaoImpl implements ReceiueDao{
 		session.close();
 		return work;
 	}
+	
+	@Override
+	public Receiue queryById(int uid){
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("from Receiue where uid=?");
+		query.setInteger(0, uid);
+		Receiue receiue = (Receiue)query.uniqueResult();
+		transaction.commit();
+		session.close();
+		return receiue;
+	}
 }

@@ -95,5 +95,16 @@ public class StutotalDaoImpl implements StutotalDao{
 		session.close();
 		return stu;
 	}
+	
+	@Override
+	public Object queryXueqi(int sid , String xueqi){
+		session = sessionFactory.openSession();
+		Query query = session.createSQLQuery("select sid from stutotal where semester=? and stuid=? ");
+		query.setString(0, xueqi);
+		query.setInteger(1, sid);
+		Object stu = query.uniqueResult();
+		session.close();
+		return stu;
+	}
 
 }

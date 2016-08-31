@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.ht.bean.Dep;
 import com.ht.bean.Receiue;
 import com.ht.bean.Work;
+import com.ht.bean.Worktype;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
@@ -138,7 +139,6 @@ public class ReceiueAction extends ActionSupport{
 	
 	public String add(){
 		System.out.println("add--------------");
-		System.out.println(receiue+"--------------------------");
 		Work work = new Work();
 		work.setWid(receiue.getWid());
 		receiue.setWork(work);
@@ -176,7 +176,6 @@ public class ReceiueAction extends ActionSupport{
 	
 	public String delete(){
 		System.out.println("delete--");
-		receiue = receiueService.query(receiue);
 		receiueService.delete(receiue);
 		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
@@ -203,8 +202,8 @@ public class ReceiueAction extends ActionSupport{
 		receiue.setWork(work);
 		System.out.println(receiue.getWork().getWname()+"wname-----");
 		work = workService.queryById(work.getWid());
-		int wamount = work.getWamount();//����Ʒ�Ŀ����
-		int ucount2  = Integer.valueOf(receiue.getUcount());//�޸ĺ����Ʒ����
+		int wamount = work.getWamount();
+		int ucount2  = Integer.valueOf(receiue.getUcount());
 		if(ucount2>ucounts){
 			int c = wamount - ucount2;
 			work.setWamount(c);
@@ -256,8 +255,7 @@ public class ReceiueAction extends ActionSupport{
 	public String guihuan(){
 		System.out.println("guihuan----");
 		int wid = receiue.getWid();
-		System.out.println(receiue.getUid());
-		receiue = receiueService.query(receiue);
+		receiue = receiueService.queryById(receiue.getUid());
 		System.out.println(receiue.getRestore()+" "+receiue.getUcount()+" "+receiue.getWid());
 		int ucount = Integer.valueOf(receiue.getUcount());
 		Work work = new Work();
@@ -266,13 +264,10 @@ public class ReceiueAction extends ActionSupport{
 		int wamount = work.getWamount();
 		int a = ucount + wamount;
 		work.setWamount(a);
-		System.out.println("ucont"+ucount+" "+work.getWid()+" "+work.getWname());
 		receiue.setWork(work);
 		workService.update(work);
 		receiue.setRestore("还");
 		receiueService.update(receiue);
-		System.out.println(receiue.getRestore()+"---归还状态״̬");
-		System.out.println(receiue);
 		result = ControllerResult.getSuccessRequest("归还成功");
 		return SUCCESS;
 	}

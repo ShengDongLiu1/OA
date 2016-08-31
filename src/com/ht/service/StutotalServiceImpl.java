@@ -55,4 +55,10 @@ public class StutotalServiceImpl implements StutotalService {
 		return stutatolDao.queryStudents();
 	}
 
+
+	@Override
+	public Object queryXueqi(int sid , String xueqi) {
+		return stutatolDao.queryXueqi(sid, xueqi);
+	}
+
 }

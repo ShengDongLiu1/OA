@@ -46,7 +46,7 @@ public class WorkDaoImpl implements WorkDao {
 	@Override
 	public Work query(Work t) {
 		session = sessionFactory.openSession();
-		session.get(Work.class, t.getWid());
+		t = (Work)session.get(Work.class, t.getWid());
 		session.close();
 		return t;
 	}
@@ -89,6 +89,7 @@ public class WorkDaoImpl implements WorkDao {
 		session.close();
 	}
 	
+	@Override
 	public List<Worktype> queryWorktype() {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Worktype");

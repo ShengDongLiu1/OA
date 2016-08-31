@@ -155,7 +155,7 @@
                                 $("#addForm").form("clear");
                             });
                         } else {
-                            $.messger.alert("提示", data.msg, "info");
+                        	 $.messager.alert("提示", data.result.msg, "info");
                         }
                     }, 'json')
         }
@@ -201,20 +201,18 @@
         <table>
             <tr>
                 <td>选择学生:</td>
-                <td><br>&nbsp;
+                <td><br>
                     <input class="easyui-combobox" data-options="required:true" id="updatestuid" name="stutotal.stuid"/><br/><br/>
                 </td>
             </tr>
-            <tr height="35px;">
-                <td>学生评语：</td>
-                <td>&nbsp;<input id="ssay" class="easyui-textbox"
-                                 name="stutotal.ssay" data-options="multiline:true"
-                                 style="width: 200px; height: 100px;"/>
-                </td>
+            <tr>
+                <td><br/>学生评语:</td>
+                <td><br/><input class="easyui-textbox" id="ssay" style="width: 200px; height: 100px;" name="stutotal.ssay"
+                                data-options="multiline:true,validType:'length[10,50]'"></td>
             </tr>
             <tr height="35px;">
                 <td>第几学期：</td>
-                <td>&nbsp;<select class="easyui-combobox" name="stutotal.semester" id="semester" style="width:150px;">
+                <td><select class="easyui-combobox" name="stutotal.semester" id="semester" style="width:150px;">
                     <option value="第一学期">第一学期</option>
                     <option value="第二学期">第二学期</option>
                     <option value="第三学期">第三学期</option>
@@ -247,21 +245,19 @@
         <table>
             <tr>
                 <td>选择学生:</td>
-                <td><br>&nbsp;
+                <td><br>
                     <input class="easyui-combobox" data-options="required:true" id="addstuid"
                            name="stutotal.stuid"/><br/><br/>
                 </td>
             </tr>
-            <tr height="35px;">
-                <td>学生评语：</td>
-                <td>&nbsp;<input id="ssay" class="easyui-textbox"
-                                 name="stutotal.ssay" data-options="multiline:true"
-                                 style="width: 200px; height: 100px;"/>
-                </td>
+              <tr>
+                <td><br/>学生评语:</td>
+                <td><br/><input class="easyui-textbox" id="ssay" style="width: 200px; height: 100px;" name="stutotal.ssay"
+                                data-options="multiline:true,validType:'length[10,50]'"></td>
             </tr>
             <tr height="35px;">
                 <td>第几学期：</td>
-                <td>&nbsp;<select class="easyui-combobox" name="stutotal.semester" id="semester2" style="width:150px;">
+                <td><select class="easyui-combobox" name="stutotal.semester" id="semester2" style="width:150px;">
                     <option value="第一学期">第一学期</option>
                     <option value="第二学期">第二学期</option>
                     <option value="第三学期">第三学期</option>

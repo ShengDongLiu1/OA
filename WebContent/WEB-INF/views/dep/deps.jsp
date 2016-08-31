@@ -254,8 +254,6 @@
         <a href="javascript:;" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit'" onclick="edit();">修改</a>
         <a href="javascript:;" class="easyui-linkbutton"
-           data-options="iconCls:'icon-search'" onclick="queryById();">查看该员工家庭信息</a>
-        <a href="javascript:;" class="easyui-linkbutton"
            data-options="iconCls:'icon-search'" onclick="queryById1();">查看该员工工作经历</a>
     </div>
     <p style="clear: both;"></p>

@@ -11,4 +11,6 @@ public interface ReceiueService extends BaseDao<Receiue, Integer>{
 	public List<Dep> queryDeps();
 	
 	public List<Work> queryWorks();
+	
+	public Receiue queryById(int uid);
 }

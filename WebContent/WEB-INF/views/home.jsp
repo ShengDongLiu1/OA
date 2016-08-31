@@ -21,7 +21,7 @@
     <div class="north wel_msg">
         欢迎您:&nbsp;&nbsp;<b>${sessionScope.user.dep.getEname()    }</b>&nbsp;&nbsp;
         <a href="javascript:void(0);" id="update" onclick="update();">刷新打开的页面</a>&nbsp;&nbsp;
-        <a href="<%=path %>/#">安全退出</a>
+        <a href="<%=path %>/login">安全退出</a>
     </div>
 </div>
 <div data-options="region:'west',split:true,title:'功能菜单'" class="west">

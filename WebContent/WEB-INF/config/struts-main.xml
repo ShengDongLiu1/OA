@@ -11,11 +11,13 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
     <constant name="struts.multipart.maxSize" value="20971520"></constant><!-- 单位是字节 -->
     
-	<package name="gotoHome" extends="json-default" namespace="/home">
-		<action name="home" class="com.ht.action.HomeAction">
-			<result name="success">/WEB-INF/views/home.jsp</result>
-		</action>
-	</package>
+    <package name="Useridenx" extends="json-default"  namespace="/">
+        <action name="*" class="com.ht.action.HomeAction" method="{1}" >
+        	<result name="succ">/WEB-INF/views/home.jsp</result>
+        	<result name="fail">/WEB-INF/views/admin/login.jsp</result>
+        	<result name="login">/WEB-INF/views/admin/login.jsp</result>
+        </action>
+    </package>
 
     <package name="student-js" extends="json-default"  namespace="/stu">
         <action name="yx-*" class="com.ht.action.StudentyxAction" method="{1}" >

@@ -37,9 +37,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User query(User t) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from User t where t.uname=? and t.pwd = ?");
-		query.setString(0, t.getUname());
-		query.setString(1, t.getPwd());
+		String hql = "from User u where u.uname = :name";
+		Query query = session.createQuery(hql);
+		query.setString("name", t.getUname());
 		t = (User) query.uniqueResult();
 		session.close();
 		return t;

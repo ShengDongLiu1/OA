@@ -91,6 +91,7 @@ public class ReceiueAction extends ActionSupport{
 	
 	
 	public String tjls() throws IOException{
+		System.out.println("aaaaaaaaaaaaaaa");
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
@@ -113,6 +114,7 @@ public class ReceiueAction extends ActionSupport{
 	}
 	
 	public String tjls2() throws IOException{
+		System.out.println("aaaaaaaaaaaaaaa");
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
@@ -135,18 +137,24 @@ public class ReceiueAction extends ActionSupport{
 	}
 	
 	public String add(){
+		System.out.println("add--------------");
+		System.out.println(receiue+"--------------------------");
 		Work work = new Work();
 		work.setWid(receiue.getWid());
 		receiue.setWork(work);
+		System.out.println(work.getWid()+"-----");
 		Dep dep = new Dep();
+		System.out.println("eid:-----"+receiue.getEid());
 		dep.setMid(receiue.getEid());
 		receiue.setDep(dep);
 		receiue.setRestore("借");
+		System.out.println(receiue.getWork().getWid()+"work");
 		work = workService.queryById(work.getWid());
+		System.out.println("---"+work.getWamount()+" id:"+work.getWid()+" name:"+work.getWname());
 		int w = work.getWamount();
 		int re = Integer.valueOf(receiue.getUcount());
+		System.out.println("w:"+w+"  re:"+re+""+receiue.getEid());
 		if(w>re){
-			receiue.setWork(work);
 			Dep dep2 = new Dep();
 			dep2.setEid(receiue.getEid());
 			receiue.setDep(dep2);
@@ -160,7 +168,6 @@ public class ReceiueAction extends ActionSupport{
 			}else{
 				result = ControllerResult.getFailResult("添加失败");
 			}
-			return SUCCESS;
 		}else{
 			result = ControllerResult.getFailResult("没有那么多数量了");
 		}
@@ -168,17 +175,15 @@ public class ReceiueAction extends ActionSupport{
 	}
 	
 	public String delete(){
+		System.out.println("delete--");
 		receiue = receiueService.query(receiue);
-		if(receiue.getRestore().equals("还")){
-			receiueService.delete(receiue);
-			result = ControllerResult.getSuccessRequest("删除成功");
-		}else {
-			result = ControllerResult.getFailResult("不能删除正在借用的物品记录");
-		}
+		receiueService.delete(receiue);
+		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
 	}
 	public String count1(){
 		 int count =  Integer.valueOf(ServletActionContext.getRequest().getParameter("ucount1"));//�ϴ��û���ȡ����Ʒ����
+		 System.out.println("count:--------------"+count);
 		 if(count > 0){
 			HttpServletRequest req = ServletActionContext.getRequest();
 			HttpSession session  = req.getSession();
@@ -187,32 +192,34 @@ public class ReceiueAction extends ActionSupport{
 		 return SUCCESS;
 	}
 	public String update(){
+		System.out.println("update--");
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpSession session  = req.getSession();	
 		int ucounts = Integer.valueOf(session.getAttribute("counts").toString());
+		System.out.println("ucounts:==="+ucounts);
+		System.out.println(receiue);
 		Work work = new Work();
 		work.setWid(receiue.getWid());
 		receiue.setWork(work);
-		if(receiue.getRestore().equals("借")){
-			work = workService.queryById(work.getWid());
-			int wamount = work.getWamount();//����Ʒ�Ŀ����
-			int ucount2  = Integer.valueOf(receiue.getUcount());//�޸ĺ����Ʒ����
-			if(ucount2>ucounts){
-				int c = wamount - ucount2;
-				work.setWamount(c);
-				if(c>=1){
-					workService.update(work);
-				}else{
-					result = ControllerResult.getFailResult("没有那么多数量了");
-					return SUCCESS;
-				}
-			}else if(ucount2<ucounts){
-				int c = wamount + (ucounts-ucount2);
-				work.setWamount(c);
+		System.out.println(receiue.getWork().getWname()+"wname-----");
+		work = workService.queryById(work.getWid());
+		int wamount = work.getWamount();//����Ʒ�Ŀ����
+		int ucount2  = Integer.valueOf(receiue.getUcount());//�޸ĺ����Ʒ����
+		if(ucount2>ucounts){
+			int c = wamount - ucount2;
+			work.setWamount(c);
+			if(c>=1){
 				workService.update(work);
+			}else{
+				result = ControllerResult.getFailResult("没有那么多数量了");
+				return SUCCESS;
 			}
+		}else if(ucount2<ucounts){
+			int c = wamount + (ucounts-ucount2);
+			work.setWamount(c);
+			workService.update(work);
 		}
-		receiue.setWork(work);
+		System.out.println(receiue.getEid()+" "+receiue.getUcount()+" ");
 		Dep dep2 = new Dep();
 		dep2.setEid(receiue.getEid());
 		receiue.setDep(dep2);
@@ -226,36 +233,47 @@ public class ReceiueAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
+		System.out.println("queryAll---");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		pager = receiueService.queryAll(pager);		
+		for(Receiue r : pager.getRows()){
+			Work w = r.getWork();
+			Dep dep = r.getDep();
+			if(w != null && dep != null){
+				System.out.println("ooooooooo");
+				r.setWid(w.getWid());
+				r.setEid(dep.getEid());
+			}
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
 	}
 	
 	public String guihuan(){
+		System.out.println("guihuan----");
 		int wid = receiue.getWid();
+		System.out.println(receiue.getUid());
 		receiue = receiueService.query(receiue);
-		if(!receiue.getRestore().equals("还")){
-			int ucount = Integer.valueOf(receiue.getUcount());
-			Work work = new Work();
-			work.setWid(wid);
-			work = workService.queryById(work.getWid());
-			int wamount = work.getWamount();
-			int a = ucount + wamount;
-			work.setWamount(a);
-			receiue.setWork(work);
-			workService.update(work);
-			receiue.setRestore("还");
-			receiueService.update(receiue);
-			result = ControllerResult.getSuccessRequest("归还成功");
-			return SUCCESS;
-		}else{
-			result = ControllerResult.getFailResult("该物品已经归还了");
-		}
+		System.out.println(receiue.getRestore()+" "+receiue.getUcount()+" "+receiue.getWid());
+		int ucount = Integer.valueOf(receiue.getUcount());
+		Work work = new Work();
+		work.setWid(wid);
+		work = workService.queryById(work.getWid());
+		int wamount = work.getWamount();
+		int a = ucount + wamount;
+		work.setWamount(a);
+		System.out.println("ucont"+ucount+" "+work.getWid()+" "+work.getWname());
+		receiue.setWork(work);
+		workService.update(work);
+		receiue.setRestore("还");
+		receiueService.update(receiue);
+		System.out.println(receiue.getRestore()+"---归还状态״̬");
+		System.out.println(receiue);
+		result = ControllerResult.getSuccessRequest("归还成功");
 		return SUCCESS;
 	}
 	

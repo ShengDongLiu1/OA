@@ -232,6 +232,13 @@
         </action>
     </package>
     
+     <package name="worktype-js" extends="json-default"  namespace="/worktype">
+        <action name="*" class="com.ht.action.WorktypeAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="all">/WEB-INF/views/work/Worktype.jsp</result>
+        </action>
+    </package>
+    
    <package name="workcheck-js" extends="json-default"  namespace="/workcheck">
         <action name="*" class="com.ht.action.WorkcheckAction" method="{1}" >
         	<result name="success" type="json"></result>

@@ -25,7 +25,8 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,
+		fit:true">
     <thead>
     <tr>
         <th data-options="field:'jobid',checkbox:true,width:100">就业编号</th>

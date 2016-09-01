@@ -2,6 +2,9 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
+
 /**
  * Classes entity. @author MyEclipse Persistence Tools
  */
@@ -14,14 +17,14 @@ public class Classes implements java.io.Serializable {
 	private Integer classid;
 	private String classname;
 	private Integer classcount;
+	private String classaddr;
+	private String classlx;
 	private Dep empteach;
 	private Dep empteachs;
 	private Dep empteaches;
-	private String classaddr;
-	private String classlx;
-	
 	private Set<Student> stu;
-	
+
+	@JSON(serialize=false)
 	public Set<Student> getStu() {
 		return stu;
 	}

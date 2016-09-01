@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * WMF
  */
@@ -15,7 +17,8 @@ public class Course implements java.io.Serializable {
 	private int semester;
 	private Set<Courseplan> courseplan;
 	
-	
+
+	@JSON(serialize=false)
 	public Set<Courseplan> getCourseplan() {
 		return courseplan;
 	}

@@ -3,6 +3,8 @@ package com.ht.bean;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Dep entity. @author MyEclipse Persistence Tools
  */
@@ -39,58 +41,6 @@ public class Dep implements java.io.Serializable {
 	private Department departments;
 	private Dstatus dstatuss;
 
-	
-	public Set<Workcheck> getWorkcheck() {
-		return workcheck;
-	}
-
-	public void setWorkcheck(Set<Workcheck> workcheck) {
-		this.workcheck = workcheck;
-	}
-
-	public Set<Apply> getApply() {
-		return apply;
-	}
-
-	public void setApply(Set<Apply> apply) {
-		this.apply = apply;
-	}
-
-	public Set<Receiue> getReceiues() {
-		return receiues;
-	}
-
-	public void setReceiues(Set<Receiue> receiues) {
-		this.receiues = receiues;
-	}
-
-	public Set<Items> getItems() {
-		return items;
-	}
-
-	public Set<Pays> getPays() {
-		return pays;
-	}
-
-	public void setPays(Set<Pays> pays) {
-		this.pays = pays;
-	}
-
-	public void setItems(Set<Items> items) {
-		this.items = items;
-	}
-
-	public Jobs getJobs() {
-		return jobs;
-	}
-
-	public void setJobs(Jobs jobs) {
-		this.jobs = jobs;
-	}
-
-	public Dep() {
-	}
-
 	public Dep(String ename, String esex, Integer mid, String ebirth,
 			String ecertid, String ecity, String eanton, String edu,
 			String eaddr, Date etry, String ecreate, Dstatus dstatuss) {
@@ -108,8 +58,12 @@ public class Dep implements java.io.Serializable {
 		this.dstatuss = dstatuss;
 	}
 
+	public Dep() {
+		
+	}
+
 	public Integer getEid() {
-		return this.eid;
+		return eid;
 	}
 
 	public void setEid(Integer eid) {
@@ -117,7 +71,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEname() {
-		return this.ename;
+		return ename;
 	}
 
 	public void setEname(String ename) {
@@ -125,7 +79,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEsex() {
-		return this.esex;
+		return esex;
 	}
 
 	public void setEsex(String esex) {
@@ -133,11 +87,19 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public Integer getMid() {
-		return this.mid;
+		return mid;
 	}
 
 	public void setMid(Integer mid) {
 		this.mid = mid;
+	}
+
+	public String getEbirth() {
+		return ebirth;
+	}
+
+	public void setEbirth(String ebirth) {
+		this.ebirth = ebirth;
 	}
 
 	public String getEnumber() {
@@ -148,16 +110,8 @@ public class Dep implements java.io.Serializable {
 		this.enumber = enumber;
 	}
 
-	public String getEbirth() {
-		return this.ebirth;
-	}
-
-	public void setEbirth(String ebirth) {
-		this.ebirth = ebirth;
-	}
-
 	public String getEcertid() {
-		return this.ecertid;
+		return ecertid;
 	}
 
 	public void setEcertid(String ecertid) {
@@ -165,7 +119,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEcity() {
-		return this.ecity;
+		return ecity;
 	}
 
 	public void setEcity(String ecity) {
@@ -173,7 +127,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEanton() {
-		return this.eanton;
+		return eanton;
 	}
 
 	public void setEanton(String eanton) {
@@ -181,7 +135,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEdu() {
-		return this.edu;
+		return edu;
 	}
 
 	public void setEdu(String edu) {
@@ -189,7 +143,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEaddr() {
-		return this.eaddr;
+		return eaddr;
 	}
 
 	public void setEaddr(String eaddr) {
@@ -197,7 +151,7 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public Date getEtry() {
-		return this.etry;
+		return etry;
 	}
 
 	public void setEtry(Date etry) {
@@ -205,29 +159,14 @@ public class Dep implements java.io.Serializable {
 	}
 
 	public String getEcreate() {
-		return this.ecreate;
+		return ecreate;
 	}
 
 	public void setEcreate(String ecreate) {
 		this.ecreate = ecreate;
 	}
-	
-	public Department getDepartments() {
-		return departments;
-	}
 
-	public void setDepartments(Department departments) {
-		this.departments = departments;
-	}
-
-	public Set<Fankui> getFankuis() {
-		return fankuis;
-	}
-
-	public void setFankuis(Set<Fankui> fankuis) {
-		this.fankuis = fankuis;
-	}
-
+	@JSON(serialize=false)
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -236,6 +175,25 @@ public class Dep implements java.io.Serializable {
 		this.users = users;
 	}
 
+	@JSON(serialize=false)
+	public Set<Fankui> getFankuis() {
+		return fankuis;
+	}
+
+	public void setFankuis(Set<Fankui> fankuis) {
+		this.fankuis = fankuis;
+	}
+
+	@JSON(serialize=false)
+	public Set<Items> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Items> items) {
+		this.items = items;
+	}
+
+	@JSON(serialize=false)
 	public Set<Classes> getClassch() {
 		return classch;
 	}
@@ -244,6 +202,7 @@ public class Dep implements java.io.Serializable {
 		this.classch = classch;
 	}
 
+	@JSON(serialize=false)
 	public Set<Classes> getClasschs() {
 		return classchs;
 	}
@@ -252,6 +211,7 @@ public class Dep implements java.io.Serializable {
 		this.classchs = classchs;
 	}
 
+	@JSON(serialize=false)
 	public Set<Classes> getClassches() {
 		return classches;
 	}
@@ -260,20 +220,73 @@ public class Dep implements java.io.Serializable {
 		this.classches = classches;
 	}
 
-	public Dstatus getDstatuss() {
-		return dstatuss;
+	@JSON(serialize=false)
+	public Set<Receiue> getReceiues() {
+		return receiues;
 	}
 
-	public void setDstatuss(Dstatus dstatuss) {
-		this.dstatuss = dstatuss;
+	public void setReceiues(Set<Receiue> receiues) {
+		this.receiues = receiues;
 	}
 
+	@JSON(serialize=false)
+	public Set<Apply> getApply() {
+		return apply;
+	}
+
+	public void setApply(Set<Apply> apply) {
+		this.apply = apply;
+	}
+
+	@JSON(serialize=false)
+	public Set<Workcheck> getWorkcheck() {
+		return workcheck;
+	}
+
+	public void setWorkcheck(Set<Workcheck> workcheck) {
+		this.workcheck = workcheck;
+	}
+
+	@JSON(serialize=false)
+	public Set<Pays> getPays() {
+		return pays;
+	}
+
+	public void setPays(Set<Pays> pays) {
+		this.pays = pays;
+	}
+
+	@JSON(serialize=false)
 	public Set<Duty> getDutys() {
 		return dutys;
 	}
 
 	public void setDutys(Set<Duty> dutys) {
 		this.dutys = dutys;
+	}
+
+	public Jobs getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(Jobs jobs) {
+		this.jobs = jobs;
+	}
+
+	public Department getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(Department departments) {
+		this.departments = departments;
+	}
+
+	public Dstatus getDstatuss() {
+		return dstatuss;
+	}
+
+	public void setDstatuss(Dstatus dstatuss) {
+		this.dstatuss = dstatuss;
 	}
 	
 

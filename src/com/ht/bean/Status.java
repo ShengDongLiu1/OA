@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Status entity. @author MyEclipse Persistence Tools
  */
@@ -48,6 +50,7 @@ public class Status implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@JSON(serialize=false)
 	public Set<User> getUser() {
 		return user;
 	}
@@ -56,6 +59,7 @@ public class Status implements java.io.Serializable {
 		this.user = user;
 	}
 
+	@JSON(serialize=false)
 	public Set<Student> getStudents() {
 		return students;
 	}
@@ -64,6 +68,7 @@ public class Status implements java.io.Serializable {
 		this.students = students;
 	}
 
+	@JSON(serialize=false)
 	public Set<Studentyx> getStudentsyx() {
 		return studentsyx;
 	}

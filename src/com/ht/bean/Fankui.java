@@ -5,7 +5,7 @@ import java.util.Date;
 public class Fankui implements java.io.Serializable {
 
 	private static final long serialVersionUID = 6796036839125534595L;
-	private Integer Tbackid;
+	private Integer tbackid;
 	private String pro;
 	private String ans;
 	private String title;
@@ -16,8 +16,8 @@ public class Fankui implements java.io.Serializable {
 	public Fankui() {
 	}
 
-	public Fankui(Integer tBackid, String pro, String ans, String title, Date time) {
-		Tbackid = tBackid;
+	public Fankui(Integer tbackid, String pro, String ans, String title, Date time) {
+		this.tbackid = tbackid;
 		this.pro = pro;
 		this.ans = ans;
 		this.title = title;
@@ -49,11 +49,11 @@ public class Fankui implements java.io.Serializable {
 	}
 
 	public Integer getTbackid() {
-		return this.Tbackid;
+		return this.tbackid;
 	}
 
-	public void setTbackid(Integer Tbackid) {
-		this.Tbackid = Tbackid;
+	public void setTbackid(Integer tbackid) {
+		this.tbackid = tbackid;
 	}
 
 	public String getPro() {
@@ -74,7 +74,7 @@ public class Fankui implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Fankui [Tbackid=" + Tbackid + ", pro=" + pro + ", ans=" + ans + ", title=" + title + ", time=" + time
+		return "Fankui [Tbackid=" + tbackid + ", pro=" + pro + ", ans=" + ans + ", title=" + title + ", time=" + time
 				+ ", dep=" + dep + "]";
 	}
 

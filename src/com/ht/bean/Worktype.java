@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Worktype entity. @author MyEclipse Persistence Tools
  */
@@ -40,6 +42,7 @@ public class Worktype implements java.io.Serializable {
 		this.swname = swname;
 	}
 
+	@JSON(serialize=false)
 	public Set<Apply> getApplys() {
 		return applys;
 	}
@@ -48,6 +51,7 @@ public class Worktype implements java.io.Serializable {
 		this.applys = applys;
 	}
 
+	@JSON(serialize=false)
 	public Set<Work> getWorks() {
 		return works;
 	}
@@ -56,6 +60,7 @@ public class Worktype implements java.io.Serializable {
 		this.works = works;
 	}
 
+	@JSON(serialize=false)
 	public Set<Receiue> getReceiue() {
 		return receiue;
 	}

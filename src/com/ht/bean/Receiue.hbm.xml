@@ -21,7 +21,7 @@
             </column>
         </property>
         <property name="ucreattime" type="java.util.Date">
-            <column name="ucreattime" length="0">
+            <column name="ucreattime" >
                 <comment>创建时间</comment>
             </column>
         </property>

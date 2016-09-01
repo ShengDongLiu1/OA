@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Hourse entity. @author MyEclipse Persistence Tools
  */
@@ -47,6 +49,7 @@ public class Hourse implements java.io.Serializable {
 		this.hourname = hourname;
 	}
 
+	@JSON(serialize=false)
 	public Set<Student> getStudents() {
 		return students;
 	}

@@ -78,7 +78,7 @@
         </set>
         
         <!--一个班主任多个班级  -->
-        <set name="classches" cascade="delete" inverse="true" fetch="join"  lazy="extra" >
+        <set name="classches" cascade="delete" inverse="true" fetch="join"  lazy="true" >
             <key column="empteaches" />
             <one-to-many class="com.ht.bean.Classes" />
         </set>

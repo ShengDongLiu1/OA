@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.ht.bean.Fankui" table="fankui" catalog="oa">
-        <id name="Tbackid" type="java.lang.Integer">
+        <id name="tbackid" type="java.lang.Integer">
             <column name="tbackid" />
             <generator class="identity" />
         </id>

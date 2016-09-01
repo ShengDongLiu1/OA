@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 public class Dstatus {
 	private Integer dsid;
 	private String dsname;
@@ -31,6 +33,7 @@ public class Dstatus {
 		this.dsname = dsname;
 	}
 
+	@JSON(serialize=false)
 	public Set<Dep> getDep() {
 		return dep;
 	}

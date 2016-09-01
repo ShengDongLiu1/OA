@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Depsartment entity. @author MyEclipse Persistence Tools
  */
@@ -48,6 +50,7 @@ public class Department implements java.io.Serializable {
 		this.dcreatetime = dcreatetime;
 	}
 
+	@JSON(serialize=false)
 	public Set<Dep> getDeps() {
 		return deps;
 	}

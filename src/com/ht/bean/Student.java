@@ -3,6 +3,8 @@ package com.ht.bean;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * Student entity. @author MyEclipse Persistence Tools
  */
@@ -35,12 +37,12 @@ public class Student implements java.io.Serializable {
 	
 	private Set<Items> items;
 	private Set<Grade> grades;
-	private Status status;
-	private Classes classes;
-	private Hourse hourse;
 	private Set<Computer> computer;
 	private Set<Getjob> getjob;
 	private Set<Stutotal> stutotal;
+	private Status status;
+	private Classes classes;
+	private Hourse hourse;
 	/** default constructor */
 	public Student() {
 	}
@@ -189,6 +191,7 @@ public class Student implements java.io.Serializable {
 		this.intendate = intendate;
 	}
 
+	@JSON(serialize=false)
 	public Set<Grade> getGrades() {
 		return grades;
 	}
@@ -245,6 +248,7 @@ public class Student implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@JSON(serialize=false)
 	public Set<Items> getItems() {
 		return items;
 	}
@@ -253,6 +257,7 @@ public class Student implements java.io.Serializable {
 		this.items = items;
 	}
 
+	@JSON(serialize=false)
 	public Set<Computer> getComputer() {
 		return computer;
 	}
@@ -261,6 +266,7 @@ public class Student implements java.io.Serializable {
 		this.computer = computer;
 	}
 
+	@JSON(serialize=false)
 	public Set<Getjob> getGetjob() {
 		return getjob;
 	}
@@ -269,6 +275,7 @@ public class Student implements java.io.Serializable {
 		this.getjob = getjob;
 	}
 
+	@JSON(serialize=false)
 	public Set<Stutotal> getStutotal() {
 		return stutotal;
 	}

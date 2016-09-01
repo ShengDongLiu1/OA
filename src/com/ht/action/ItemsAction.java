@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import com.alibaba.fastjson.JSON;
+import com.ht.bean.Classes;
 import com.ht.bean.Dep;
 import com.ht.bean.Items;
 import com.ht.bean.Student;
@@ -34,7 +35,12 @@ public class ItemsAction extends ActionSupport{
 	private long total;
 	private int page;
 	private ControllerResult result;
-	private List<Student> student;
+	private List<Classes> classes;
+	private int count;
+
+	public int getCount() {
+		return count;
+	}
 
 	public void setitemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
@@ -43,7 +49,6 @@ public class ItemsAction extends ActionSupport{
 	public ControllerResult getResult() {
 		return result;
 	}
-	
 	
 	public Items getItems() {
 		return items;
@@ -70,6 +75,9 @@ public class ItemsAction extends ActionSupport{
 		User user=(User) session.getAttribute("user");
 		Dep d=new Dep();
 		d.setEid(user.getDep().getEid());
+		Student st=new Student();
+		st.setIntenid(items.getSstuid());
+		items.setStudent(st);
 		items.setDep(d);
 		items.setSteacher(user.getDep().getEid());
 		items = itemsService.add(items);
@@ -104,35 +112,54 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
-		System.out.println("queryAll method");
+		HttpServletRequest request = ServletActionContext.getRequest();
 		pager = new Pager<>();
 		pager.setPageNo(page);
-		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
+		int pageSize = Integer.valueOf(request.getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = itemsService.queryAll(pager);
+		int  begin=0;
+		int end=0;
+		int classid=0;
+		if(request.getParameter("class_name")!=null)
+			classid=Integer.valueOf(request.getParameter("class_name"));
+		if(request.getParameter("begin")!=null)
+			begin=Integer.valueOf(request.getParameter("begin"));
+		if(request.getParameter("end")!=null)
+			end=Integer.valueOf(request.getParameter("end"));
+		
+		if(request.getParameter("name") != null){
+			pager = itemsService.queryByName(pager, request.getParameter("name"));
+		}else if( classid!= 0){
+			System.out.println("classid:"+request.getParameter("class_name"));
+			pager = itemsService.queryByClass(pager, Integer.valueOf(request.getParameter("class_name")));
+		}else if(begin != 0 || end!=0){
+			pager = itemsService.queryByScore(pager, begin, end);
+		}else{
+			pager = itemsService.queryAll(pager);	
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
 	}
 	
-	public String stud() throws IOException{
+	public String classes() throws IOException{
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
 		PrintWriter out=resp.getWriter();
-		student = itemsService.queryStudent();
+		classes = itemsService.queryClasses();
 		List<Combox> list = new ArrayList<>();
-		for (Student student : student) {
+		for (Classes clas : classes) {
 			Combox combox = new Combox();
-			combox.setId(String.valueOf(student.getIntenid()));
-			combox.setName(student.getIntenname());
+			combox.setId(String.valueOf(clas.getClassid()));
+			combox.setName(clas.getClassname());
 			list.add(combox);
 		}
 		out.write(JSON.toJSONString(list));
 		out.close();
-		return "stud";
+		return "all";
 	}
 	
 	public String all(){

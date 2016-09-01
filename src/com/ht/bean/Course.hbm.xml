@@ -12,7 +12,9 @@
             <column name="objectname">
             </column>
         </property>
-        <property name="semester" column="semester"  type="java.lang.Integer"></property>
+        <property name="semester" column="semester"></property>
+        
+        <property name="period" column="period"></property>
         
         <set name="courseplan" table="courseplan" lazy="false" >
         	<key column="objectid"></key>

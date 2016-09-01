@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.ServletActionContext;
-
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Course;
 import com.ht.common.Combox;
+import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.CourseService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,11 +20,16 @@ public class CourseAction extends ActionSupport {
 	private static final long serialVersionUID = 3850018290101883580L;
 
 	private CourseService courseService;
+	private ControllerResult result;
 	private Pager<Course> pager;
 	private Course course;
 	private List<Course> rows;
 	private long total;
 	private int page;
+
+	public ControllerResult getResult() {
+		return result;
+	}
 
 	public void setCourseService(CourseService courseService) {
 		this.courseService = courseService;
@@ -53,26 +56,32 @@ public class CourseAction extends ActionSupport {
 	}
 
 	public String add() {
-		System.out.println("action add");
 		course = courseService.add(course);
+		if(course == null){
+			result = ControllerResult.getFailResult("添加失败");
+		}else{
+			result = ControllerResult.getSuccessRequest("添加成功");
+		}
 		return SUCCESS;
 	}
 
 	public String update() {
-		System.out.println("update");
-		System.out.println("course数据:" + course.toString());
 		courseService.update(course);
+		if(course == null){
+			result = ControllerResult.getFailResult("修改失败");
+		}else{
+			result = ControllerResult.getSuccessRequest("修改成功");
+		}
 		return SUCCESS;
+		
 	}
 
 	public String delete() {
-		System.out.println("action delete");
 		courseService.delete(course);
 		return SUCCESS;
 	}
 
 	public String query() {
-		System.out.println("query");
 		courseService.query(course);
 		return SUCCESS;
 	}
@@ -89,7 +98,6 @@ public class CourseAction extends ActionSupport {
 	}
 
 	public String all() {
-		System.out.println("all");
 		return "all";
 	}
 

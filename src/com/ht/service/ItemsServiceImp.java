@@ -1,10 +1,9 @@
 package com.ht.service;
 
 import java.util.List;
-import com.ht.bean.Course;
+import com.ht.bean.Classes;
 import com.ht.bean.Dep;
 import com.ht.bean.Items;
-import com.ht.bean.Student;
 import com.ht.common.Pager;
 import com.ht.dao.ItemsDao;
 
@@ -52,28 +51,28 @@ public class ItemsServiceImp implements ItemsService {
 	}
 
 	@Override
-	public Pager<Items> queryByClass(Pager<Items> tem, String name) {
-		return itemsDao.queryByClass(tem, name);
+	public Pager<Items> queryByClass(Pager<Items> tem, int classid) {
+		return itemsDao.queryByClass(tem, classid);
 	}
 
 	@Override
-	public Pager<Items> queryByScore(Pager<Items> tem) {
-		return itemsDao.queryByScore(tem);
-	}
-
-	@Override
-	public List<Student> queryStudent() {
-		return itemsDao.queryStudent();
-	}
-
-	@Override
-	public List<Course> queryCourse() {
-		return itemsDao.queryCourse();
+	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end) {
+		return itemsDao.queryByScore(tem,begin,end);
 	}
 
 	@Override
 	public List<Dep> queryDep() {
 		return itemsDao.queryDep();
+	}
+
+	@Override
+	public int maxvalue() {
+		return itemsDao.maxvalue();
+	}
+
+	@Override
+	public List<Classes> queryClasses() {
+		return itemsDao.queryClasses();
 	}
 
 

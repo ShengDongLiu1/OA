@@ -289,7 +289,7 @@
 
 	<div id="editWin" class="easyui-window" title="修改申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
-		style="width: 350px; height: 300px; padding: 5px;">
+		style="width: 350px; height: 360px; padding: 5px;">
 		<form id="editForm" enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -299,9 +299,15 @@
 		  			</td>
 		  		</tr>
 				<tr>
+		  			<td>选择物品类型:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="worktype" name="receiue.worktype" /><br/><br/>
+		  			</td>
+		  		</tr>
+				<tr>
 		  			<td>选择物品:</td>
 		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="workname" name="receiue.wid" /><br/><br/>
+		  			<input class="easyui-combobox" data-options="required:true" id="workname" name="receiue.uwork" /><br/><br/>
 		  			</td>
 		  		</tr>
 				<tr>
@@ -351,7 +357,7 @@
 
 	<div id="addWin" class="easyui-window" title="添加申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
-		style="width: 350px; height: 300px; padding: 5px;">
+		style="width: 350px; height: 360px; padding: 5px;">
 		<form id="addForm" enctype="multipart/form-data">
 			<table>
 			<tr>
@@ -361,9 +367,15 @@
 		  			</td>
 		  		</tr>
 				<tr>
+		  			<td>选择物品类型:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="addtype" name="receiue.worktype" /><br/><br/>
+		  			</td>
+		  		</tr>
+				<tr>
 		  			<td>选择物品:</td>
 		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="addwork" name="receiue.wid" /><br/><br/>
+		  			<input class="easyui-combobox" data-options="required:true" id="addwork" name="receiue.uwork" /><br/><br/>
 		  			</td>
 		  		</tr>
 				<tr>

@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : oa
 Source Server Version : 50712
 Source Host           : localhost:3306
 Source Database       : oa
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-08-30 14:37:46
+Date: 2016-09-01 09:36:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,11 +35,12 @@ CREATE TABLE `apply` (
   KEY `wid` (`wid`),
   CONSTRAINT `apply_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `apply_ibfk_2` FOREIGN KEY (`wid`) REFERENCES `worktype` (`swid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of apply
 -- ----------------------------
+INSERT INTO `apply` VALUES ('5', '1', '2', '篮球', '99', '999.00', '1000.00', '999', '2016-08-30 20:35:38', '已购买');
 
 -- ----------------------------
 -- Table structure for classes
@@ -61,11 +62,12 @@ CREATE TABLE `classes` (
   CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`empteach`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`empteachs`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `classes_ibfk_3` FOREIGN KEY (`empteaches`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of classes
 -- ----------------------------
+INSERT INTO `classes` VALUES ('34', '15春', '1', '2', '2', '2', '2', '2');
 
 -- ----------------------------
 -- Table structure for computer
@@ -79,11 +81,12 @@ CREATE TABLE `computer` (
   PRIMARY KEY (`comid`),
   KEY `stuid` (`stuid`),
   CONSTRAINT `computer_ibfk_1` FOREIGN KEY (`stuid`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of computer
 -- ----------------------------
+INSERT INTO `computer` VALUES ('7', '1', '1', '3');
 
 -- ----------------------------
 -- Table structure for course
@@ -117,11 +120,12 @@ CREATE TABLE `courseplan` (
   KEY `objectid` (`objectid`),
   CONSTRAINT `courseplan_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `courseplan_ibfk_2` FOREIGN KEY (`objectid`) REFERENCES `course` (`objectid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of courseplan
 -- ----------------------------
+INSERT INTO `courseplan` VALUES ('4', '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for dep
@@ -146,13 +150,33 @@ CREATE TABLE `dep` (
   KEY `estatus` (`estatus`),
   CONSTRAINT `dep_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `dep_ibfk_2` FOREIGN KEY (`estatus`) REFERENCES `dstatus` (`dsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dep
 -- ----------------------------
 INSERT INTO `dep` VALUES ('1', '未分配', '男', '1', '2016-08-29 11:15:14', '1', '1', '1', '1', '1', '1', '2016-08-29 11:15:26', '1');
-INSERT INTO `dep` VALUES ('2', '武平', '男', '2', '2016-08-30 14:27:25', '11', '1111111', '1', '1', '1', '1', '2016-08-30 14:27:25', '5');
+INSERT INTO `dep` VALUES ('2', '武平1', '男', '2', '2016-08-31 14:59:02', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:02', '5');
+INSERT INTO `dep` VALUES ('3', '武平2', '男', '2', '2016-08-31 14:58:57', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:58:57', '5');
+INSERT INTO `dep` VALUES ('4', '武平3', '男', '2', '2016-08-31 14:59:05', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:05', '5');
+INSERT INTO `dep` VALUES ('5', '武平4', '男', '2', '2016-08-31 14:59:06', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:06', '5');
+INSERT INTO `dep` VALUES ('6', '武平5', '男', '2', '2016-08-31 14:59:10', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:10', '5');
+INSERT INTO `dep` VALUES ('7', '武平6', '男', '2', '2016-08-31 14:59:11', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:11', '5');
+INSERT INTO `dep` VALUES ('8', '武平7', '男', '2', '2016-08-31 14:59:12', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:12', '5');
+INSERT INTO `dep` VALUES ('9', '武平8', '男', '2', '2016-08-31 14:59:14', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:14', '5');
+INSERT INTO `dep` VALUES ('10', '武平9', '男', '2', '2016-08-31 14:59:15', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:15', '5');
+INSERT INTO `dep` VALUES ('11', '武平10', '男', '2', '2016-08-31 14:59:17', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:17', '5');
+INSERT INTO `dep` VALUES ('12', '武平11', '男', '2', '2016-08-31 14:59:18', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:18', '5');
+INSERT INTO `dep` VALUES ('13', '武平12', '男', '2', '2016-08-31 14:59:19', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:19', '5');
+INSERT INTO `dep` VALUES ('14', '武平13', '男', '2', '2016-08-31 14:59:21', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:21', '5');
+INSERT INTO `dep` VALUES ('15', '武平14', '男', '2', '2016-08-31 14:59:23', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:23', '5');
+INSERT INTO `dep` VALUES ('16', '武平15', '男', '2', '2016-08-31 14:59:26', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:26', '5');
+INSERT INTO `dep` VALUES ('17', '武平16', '男', '2', '2016-08-31 14:59:30', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:30', '5');
+INSERT INTO `dep` VALUES ('18', '武平17', '男', '2', '2016-08-31 14:59:32', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:32', '5');
+INSERT INTO `dep` VALUES ('19', '武平18', '男', '2', '2016-08-31 14:59:34', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:34', '5');
+INSERT INTO `dep` VALUES ('20', '武平19', '男', '2', '2016-08-31 14:59:37', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:37', '5');
+INSERT INTO `dep` VALUES ('21', '武平20', '男', '2', '2016-08-31 14:59:39', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:39', '5');
+INSERT INTO `dep` VALUES ('22', '武平21', '男', '2', '2016-08-31 14:59:40', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:40', '5');
 
 -- ----------------------------
 -- Table structure for department
@@ -223,7 +247,7 @@ CREATE TABLE `expend` (
   `ptime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `payname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`payid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of expend
@@ -234,6 +258,8 @@ INSERT INTO `expend` VALUES ('3', '发放工资', '44.00', null, null);
 INSERT INTO `expend` VALUES ('4', '发放工资', '44.00', null, null);
 INSERT INTO `expend` VALUES ('5', '发放工资', '2521.00', null, null);
 INSERT INTO `expend` VALUES ('6', '发放工资', '7300.00', null, null);
+INSERT INTO `expend` VALUES ('7', '购买物品', '98901.00', null, null);
+INSERT INTO `expend` VALUES ('8', '发放工资', '0.00', null, null);
 
 -- ----------------------------
 -- Table structure for fankui
@@ -249,11 +275,12 @@ CREATE TABLE `fankui` (
   PRIMARY KEY (`tbackid`),
   KEY `tep_tde_pk` (`eid`),
   CONSTRAINT `tep_tde_pk` FOREIGN KEY (`eid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fankui
 -- ----------------------------
+INSERT INTO `fankui` VALUES ('3', '1', '1', '1', '1', '2016-08-31 19:44:00');
 
 -- ----------------------------
 -- Table structure for getjob
@@ -267,12 +294,13 @@ CREATE TABLE `getjob` (
   PRIMARY KEY (`jobid`),
   KEY `jobstu` (`jobstu`),
   CONSTRAINT `getjob_ibfk_1` FOREIGN KEY (`jobstu`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of getjob
 -- ----------------------------
-INSERT INTO `getjob` VALUES ('2', '后天', null, '经理');
+INSERT INTO `getjob` VALUES ('2', '后天', '5', '经理');
+INSERT INTO `getjob` VALUES ('3', '1', '3', '1');
 
 -- ----------------------------
 -- Table structure for grade
@@ -286,11 +314,12 @@ CREATE TABLE `grade` (
   PRIMARY KEY (`scoid`),
   KEY `stuid` (`stuid`),
   CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`stuid`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grade
 -- ----------------------------
+INSERT INTO `grade` VALUES ('36', '3', '11.00', 'C++');
 
 -- ----------------------------
 -- Table structure for hourse
@@ -303,15 +332,16 @@ CREATE TABLE `hourse` (
   `houryz` int(11) DEFAULT NULL,
   `hourhkz` int(11) DEFAULT NULL,
   PRIMARY KEY (`hourid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hourse
 -- ----------------------------
 INSERT INTO `hourse` VALUES ('1', '未分配', null, null, null);
-INSERT INTO `hourse` VALUES ('2', '二栋', null, null, null);
+INSERT INTO `hourse` VALUES ('2', '二栋1', null, null, null);
 INSERT INTO `hourse` VALUES ('3', '小红楼', null, null, null);
 INSERT INTO `hourse` VALUES ('4', '土砖楼', null, null, null);
+INSERT INTO `hourse` VALUES ('5', '123', null, null, null);
 
 -- ----------------------------
 -- Table structure for income
@@ -350,11 +380,12 @@ CREATE TABLE `items` (
   KEY `steacher` (`steacher`),
   CONSTRAINT `items_ibfk_1` FOREIGN KEY (`sstuid`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `items_ibfk_2` FOREIGN KEY (`steacher`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of items
 -- ----------------------------
+INSERT INTO `items` VALUES ('5', '1', '3', '2', '2016-08-31 19:45:35', '1');
 
 -- ----------------------------
 -- Table structure for jobs
@@ -375,6 +406,7 @@ CREATE TABLE `jobs` (
 -- ----------------------------
 -- Records of jobs
 -- ----------------------------
+INSERT INTO `jobs` VALUES ('1', '1', '2016-08-31 19:46:04', '2016-08-31 19:46:07', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for msg
@@ -386,7 +418,7 @@ CREATE TABLE `msg` (
   `msgks` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '开始时间',
   `msgjz` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '结束时间',
   PRIMARY KEY (`msgid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of msg
@@ -395,13 +427,11 @@ INSERT INTO `msg` VALUES ('2', '放假一天', '2016-08-13 00:19:31', '2016-08-2
 INSERT INTO `msg` VALUES ('5', '放假一天', '2016-08-28 04:17:40', '2016-08-29 04:17:56');
 INSERT INTO `msg` VALUES ('6', '放假一天', '2016-08-29 04:18:11', '2016-08-30 04:17:58');
 INSERT INTO `msg` VALUES ('7', '放假一天', '2016-08-29 04:18:14', '2016-08-30 04:17:43');
-INSERT INTO `msg` VALUES ('8', '放假一天', '2016-08-29 04:18:18', '2016-08-30 04:17:44');
 INSERT INTO `msg` VALUES ('9', '放假一天', '2016-08-29 04:18:22', '2016-08-30 04:17:44');
-INSERT INTO `msg` VALUES ('10', '213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456213456', '2016-08-29 02:40:08', '2016-09-01 02:39:44');
 INSERT INTO `msg` VALUES ('11', '放假一天', '2016-08-29 04:18:28', '2016-08-30 04:17:45');
 INSERT INTO `msg` VALUES ('12', '放假一天', '2016-08-29 04:18:31', '2016-08-30 04:17:46');
-INSERT INTO `msg` VALUES ('13', '放假一天', '2016-08-29 04:18:34', '2016-08-30 04:17:48');
-INSERT INTO `msg` VALUES ('14', 'ss', '2016-08-29 08:42:00', '2016-09-02 08:42:04');
+INSERT INTO `msg` VALUES ('13', '放假一天\r\n', '2016-08-29 04:18:34', '2016-10-27 04:17:48');
+INSERT INTO `msg` VALUES ('15', '招收教员', '2016-09-01 09:11:56', '2017-02-07 15:12:07');
 
 -- ----------------------------
 -- Table structure for pays
@@ -416,14 +446,25 @@ CREATE TABLE `pays` (
   `payssta` decimal(10,0) DEFAULT NULL COMMENT '基本工资',
   `paysc` decimal(10,0) DEFAULT NULL COMMENT '补贴工资',
   `paysd` decimal(10,0) DEFAULT NULL COMMENT '结余工资',
+  `paytime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`paysid`),
   KEY `empid` (`empid`),
   CONSTRAINT `pays_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pays
 -- ----------------------------
+INSERT INTO `pays` VALUES ('18', '2', '123', '-123', '123', '123', '123', '246', '2016-08-31 11:45:41');
+INSERT INTO `pays` VALUES ('19', '2', '1234', '-1234', '12345678', '1234', '1234', '2468', '2016-08-31 11:49:17');
+INSERT INTO `pays` VALUES ('20', '3', '1234', '-1234', '12345678', '1234', '1234', '2468', '2016-08-31 11:49:20');
+INSERT INTO `pays` VALUES ('21', '4', '1234', '-1234', '12345678', '1234', '1234', '2468', '2016-08-31 11:49:23');
+INSERT INTO `pays` VALUES ('22', '2', '12', '-1', '12', '1221', '1212', '2444', '2016-08-31 14:07:42');
+INSERT INTO `pays` VALUES ('23', '2', '1234', '-1234', '1234', '1234', '1234', '2468', '2016-08-31 14:14:32');
+INSERT INTO `pays` VALUES ('24', '3', '1234', '-1234', '2345', '1234', '1234', '2468', '2016-08-31 14:14:32');
+INSERT INTO `pays` VALUES ('25', '4', '2345', '-2345', '2345', '345', '2345', '2690', '2016-08-31 14:14:32');
+INSERT INTO `pays` VALUES ('26', '2', '111', '-111', '111', '111', '111', '222', '2016-08-23 14:27:43');
+INSERT INTO `pays` VALUES ('27', '3', '111', '-111', '111', '111', '111', '222', '2016-08-23 14:27:43');
 
 -- ----------------------------
 -- Table structure for rawpun
@@ -437,11 +478,12 @@ CREATE TABLE `rawpun` (
   PRIMARY KEY (`jid`),
   KEY `jstuid` (`jstuid`),
   CONSTRAINT `rawpun_ibfk_1` FOREIGN KEY (`jstuid`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16;
 
 -- ----------------------------
 -- Records of rawpun
 -- ----------------------------
+INSERT INTO `rawpun` VALUES ('4', '3', '1', '1');
 
 -- ----------------------------
 -- Table structure for receiue
@@ -450,7 +492,6 @@ DROP TABLE IF EXISTS `receiue`;
 CREATE TABLE `receiue` (
   `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '申领编号',
   `eid` int(11) DEFAULT NULL COMMENT '员工编号',
-  `uworktype` int(11) DEFAULT NULL COMMENT '类型',
   `uwork` int(11) DEFAULT NULL COMMENT '申领物品名称',
   `ucount` int(11) DEFAULT NULL COMMENT '申领物品数量',
   `upurpose` varchar(255) DEFAULT NULL COMMENT '用途',
@@ -460,15 +501,14 @@ CREATE TABLE `receiue` (
   PRIMARY KEY (`uid`),
   KEY `eid` (`eid`),
   KEY `receiue_work_wid` (`uwork`),
-  KEY `uworktype` (`uworktype`),
   CONSTRAINT `receiue_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `receiue_ibfk_2` FOREIGN KEY (`uworktype`) REFERENCES `worktype` (`swid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `receiue_work_wid` FOREIGN KEY (`uwork`) REFERENCES `work` (`wid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of receiue
 -- ----------------------------
+INSERT INTO `receiue` VALUES ('13', '2', '17', '1', '1', '2016-08-31 00:00:00', '2016-08-31 00:00:00', '借');
 
 -- ----------------------------
 -- Table structure for report
@@ -511,11 +551,12 @@ CREATE TABLE `says` (
   KEY `sayempid` (`sayempid`),
   CONSTRAINT `says_ibfk_1` FOREIGN KEY (`sayface`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `says_ibfk_2` FOREIGN KEY (`sayempid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf16;
 
 -- ----------------------------
 -- Records of says
 -- ----------------------------
+INSERT INTO `says` VALUES ('6', '3', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for status
@@ -573,11 +614,32 @@ CREATE TABLE `student` (
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`hourid`) REFERENCES `hourse` (`hourid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_ibfk_2` FOREIGN KEY (`classid`) REFERENCES `classes` (`classid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_ibfk_3` FOREIGN KEY (`stustatus`) REFERENCES `status` (`zid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
+INSERT INTO `student` VALUES ('1', '钟胜峰1', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:57', '1');
+INSERT INTO `student` VALUES ('2', '钟胜峰2', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:49:01', '1');
+INSERT INTO `student` VALUES ('3', '钟胜峰3', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:18', '1');
+INSERT INTO `student` VALUES ('4', '钟胜峰4', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:19', '1');
+INSERT INTO `student` VALUES ('5', '钟胜峰5', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:19', '1');
+INSERT INTO `student` VALUES ('6', '钟胜峰6', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:20', '1');
+INSERT INTO `student` VALUES ('7', '钟胜峰7', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:21', '1');
+INSERT INTO `student` VALUES ('8', '钟胜峰8', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:22', '1');
+INSERT INTO `student` VALUES ('9', '钟胜峰9', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:22', '1');
+INSERT INTO `student` VALUES ('10', '钟胜峰10', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:31', '1');
+INSERT INTO `student` VALUES ('11', '钟胜峰11', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:35', '1');
+INSERT INTO `student` VALUES ('12', '钟胜峰12', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:36', '1');
+INSERT INTO `student` VALUES ('13', '钟胜峰13', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:39', '1');
+INSERT INTO `student` VALUES ('14', '钟胜峰14', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:40', '1');
+INSERT INTO `student` VALUES ('15', '钟胜峰15', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:40', '1');
+INSERT INTO `student` VALUES ('16', '钟胜峰16', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:43', '1');
+INSERT INTO `student` VALUES ('17', '钟胜峰17', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:47', '1');
+INSERT INTO `student` VALUES ('18', '钟胜峰18', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:49', '1');
+INSERT INTO `student` VALUES ('19', '钟胜峰19', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:52', '1');
+INSERT INTO `student` VALUES ('20', '钟胜峰20', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:55', '1');
+INSERT INTO `student` VALUES ('21', '钟胜峰21', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:49:03', '1');
 
 -- ----------------------------
 -- Table structure for studentyx
@@ -607,7 +669,6 @@ CREATE TABLE `studentyx` (
 -- Records of studentyx
 -- ----------------------------
 INSERT INTO `studentyx` VALUES ('22', '张青', '人头', '男', '12', '1990-01-01', '张浩', '13435', '413414', '413141', '21414', '汉', '江西', '8');
-INSERT INTO `studentyx` VALUES ('23', '张青', '人头', '男', '12', '1990-01-01', '张浩', '135987652874', '135795468263', '江西', '无', '汉', '江西', '8');
 
 -- ----------------------------
 -- Table structure for stutotal
@@ -621,11 +682,12 @@ CREATE TABLE `stutotal` (
   PRIMARY KEY (`sid`),
   KEY `stuid` (`stuid`),
   CONSTRAINT `stutotal_ibfk_1` FOREIGN KEY (`stuid`) REFERENCES `student` (`intenid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stutotal
 -- ----------------------------
+INSERT INTO `stutotal` VALUES ('9', '3', 'sd', '第一学期');
 
 -- ----------------------------
 -- Table structure for user
@@ -649,6 +711,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', '13876619779', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '1', '1');
 INSERT INTO `user` VALUES ('2', '15779753872', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '1', '1');
+INSERT INTO `user` VALUES ('3', '123456', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '11', '2');
 INSERT INTO `user` VALUES ('11', '110120119', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '11', '2');
 
 -- ----------------------------
@@ -668,7 +731,7 @@ CREATE TABLE `work` (
 -- ----------------------------
 -- Records of work
 -- ----------------------------
-INSERT INTO `work` VALUES ('17', '2', '吉他', '11');
+INSERT INTO `work` VALUES ('17', '2', '吉他', '10');
 INSERT INTO `work` VALUES ('18', '1', '篮球', '23');
 INSERT INTO `work` VALUES ('19', '1', '羽毛球', '23');
 

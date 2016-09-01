@@ -225,7 +225,6 @@ public class ReceiueAction extends ActionSupport{
 			Work w = r.getWork();
 			Dep dep = r.getDep();
 			if(w != null && dep != null){
-				System.out.println("ooooooooo");
 				r.setUwork(w.getWid());
 				r.setEid(dep.getEid());
 			}

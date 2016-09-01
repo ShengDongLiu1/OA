@@ -36,7 +36,6 @@
         	</column>
         </property>
         <many-to-one name="work" class="com.ht.bean.Work" column="uwork" lazy="false" insert="true"/>
-        <many-to-one name="worktype" class="com.ht.bean.Worktype" column="uworktype" lazy="false" insert="true"/>
        	<many-to-one name="dep" class="com.ht.bean.Dep" column="eid" lazy="false"  insert="true"></many-to-one>
     </class>
 </hibernate-mapping>

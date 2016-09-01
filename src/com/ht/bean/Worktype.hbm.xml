@@ -26,10 +26,5 @@
         	<one-to-many class="com.ht.bean.Apply"/>
         </set>
         
-		<!-- 一个办公用品类型多个物品申领 -->
-        <set name="receiue"  lazy="false" inverse="false" >
-        	<key column="uworktype"></key>
-        	<one-to-many class="com.ht.bean.Receiue"/>
-        </set>
     </class>
 </hibernate-mapping>

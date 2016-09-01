@@ -14,7 +14,6 @@ public class Receiue implements java.io.Serializable {
 	
 	private Integer uid;
 	private Integer eid;
-	private Integer uworktype;
 	private Integer uwork;
 	private Integer ucount;
 	private String upurpose;
@@ -87,14 +86,6 @@ public class Receiue implements java.io.Serializable {
 
 	public void setUendtime(Date uendtime) {
 		this.uendtime = uendtime;
-	}
-
-	public Integer getUworktype() {
-		return uworktype;
-	}
-
-	public void setUworktype(Integer uworktype) {
-		this.uworktype = uworktype;
 	}
 
 	public Integer getUwork() {

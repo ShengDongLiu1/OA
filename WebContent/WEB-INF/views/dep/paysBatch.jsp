@@ -51,11 +51,15 @@
                     style="font-size:15px; width:100px;height:32px">
             </div>
             <div style="margin-bottom:20px; padding-left: 20px; ">
-                <span style="margin-left:158px; font-size: 13px;">奖罚原因：</span>
+                <span style="margin-left:158px; font-size: 13px;">奖罚原因和备注：</span>
                 <textarea id="xgwordtext" name="payspro" style="width:300px;height:50px;"></textarea>
             </div>
             <hr/>
         </c:forEach>
+       		<div style="margin-bottom:20px; padding-left: 20px; ">
+                <span style="margin-left:158px; font-size: 13px;">发放时间:</span>
+                <input class="easyui-datetimebox" name="pays.paytime" data-options="required:true"/>
+            </div>
         <br/>
         <div style="margin-left: 350px;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="adds();"

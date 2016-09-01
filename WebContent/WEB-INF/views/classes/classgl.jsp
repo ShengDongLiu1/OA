@@ -190,18 +190,22 @@
         function removeCP() {
             var row = $("#list").datagrid("getSelected");
             if (row) {
-                $.messager.confirm("提示", "确认要删除这个班级吗？", function (r) {
-                    if (r) {
-                        $.post("classes/delete",
-                                {'classes.classid': row.classid}, function (data) {
-                                    if (data.result.result == "success") {
-                                        $.messager.alert("提示", data.result.msg, "info", function () {
-                                            $("#list").datagrid("reload");
-                                        });
-                                    }
-                                });
-                    }
-                });
+            	if(row.classcount == 0 ){
+        			$.messager.confirm("提示","确认要删除这个班级吗？",function(r){
+        				if(r){
+        					$.post("classes/delete",
+        						{'classes.classid':row.classid},function(data) {
+        						if (data.result.result == "success") {
+        							$.messager.alert("提示", data.result.msg, "info", function() {
+        								$("#list").datagrid("reload");	
+        							});
+        						}
+        					});
+        				}
+        			});
+        		}else{
+        			$.messager.alert('提示', '班级内还有学生，不能删除！', 'info');
+        		}
             } else {
                 $.messager.alert('提示', '请选中需要删除的班级', 'info');// messager消息控件
             }
@@ -415,12 +419,9 @@
                     <div id="xgclassnamets"></div>
                 </div>
                 <div style="margin-bottom:20px;margin-left: 40px;">
-                    任课老师：<input id="xgrkls" class="easyui-combobox" data-options="required:true"
-                                name="classes.empteach.eid"/><br/><br/>
-                    辅导老师：<input id="xgfdls" class="easyui-combobox" data-options="required:true"
-                                name="classes.empteachs.eid"/><br/><br/>
-                    &nbsp;班主任：<input id="xgbzr" class="easyui-combobox" data-options="required:true"
-                                     name="classes.empteaches.eid"/>
+			                    任课老师：<input id="xgrkls" class="easyui-combobox" data-options="required:true" name="classes.empteach.eid"/><br/><br/>
+			                    辅导老师：<input id="xgfdls" class="easyui-combobox" data-options="required:true" name="classes.empteachs.eid"/><br/><br/>
+                   &nbsp;班主任：<input id="xgbzr" class="easyui-combobox" data-options="required:true" name="classes.empteaches.eid"/>
                 </div>
                 <div style="margin-bottom: 20px;margin-left: 40px;">
                     <div>班级地址:</div>

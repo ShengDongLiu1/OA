@@ -27,7 +27,7 @@ public class PaysDaoImp implements PaysDao{
 	@Override
 	public Pager<Pays> queryAll(Pager<Pays> tem) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Pays");
+		Query query = session.createQuery("from Pays order by paytime desc");
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -36,7 +36,6 @@ public class PaysDaoImp implements PaysDao{
 		tem.setTotal((long) count());
 		session.close();
 		return tem;
-		
 	}
 
 	@Override
@@ -135,4 +134,56 @@ public class PaysDaoImp implements PaysDao{
 		 transaction.commit();
 		 session.close();
 	}
+
+	@Override
+	public Pager<Pays> DateQuery(Pager<Pays> pager, String kssj, String jssj) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Pays where paytime between ? and ? order by paytime desc");
+		query.setString(0,kssj);
+		query.setString(1,jssj);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Pays> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) DateCount(kssj,jssj));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Pays where dep.eid=:id");
+		query.setInteger("id",Integer.valueOf(ygxm));
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Pays> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) NameCount(ygxm));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object NameCount(String ygxm) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Pays t where dep.eid=:id");
+		q.setInteger("id",Integer.valueOf(ygxm));
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+	
+	@Override
+	public Object DateCount(String kssj,String jssj) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Pays t where paytime between ? and ?");
+		q.setString(0,kssj);
+		q.setString(1,jssj);
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+
+	
 }

@@ -28,6 +28,7 @@
         	<result name="success" type="json"></result>
         	<result name="all">/WEB-INF/views/student/student.jsp</result>
         	<result name="yx">/WEB-INF/views/student/yx.jsp</result>
+        	<result name="xs">/WEB-INF/views/classes/classxs.jsp</result>
         </action>
     </package>
     

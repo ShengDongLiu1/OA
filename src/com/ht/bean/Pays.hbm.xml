@@ -38,6 +38,12 @@
                 <comment>结余工资</comment>
             </column>
         </property>
+        <property name="paytime">
+            <column name="paytime" >
+                <comment>发放时间</comment>
+            </column>
+        </property>
+        
         <many-to-one name="dep" column="empid" class="com.ht.bean.Dep"></many-to-one>
     </class>
 </hibernate-mapping>

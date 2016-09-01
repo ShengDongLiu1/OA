@@ -21,7 +21,7 @@ import com.ht.service.PaysService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 
- * @author WMF
+ * @author 
  * 
  */
 public class PaysAction extends ActionSupport{
@@ -147,6 +147,7 @@ public class PaysAction extends ActionSupport{
 
 	public String add() {
 		pays.setPaysb(0 - pays.getPaysb());
+		pays.setPaysd(pays.getPaysa()+pays.getPaysb()+pays.getPaysc()+pays.getPayssta());
 		pays=paysService.add(pays);
 		Expend e = new Expend();
 		e.setPaypro("发放工资");
@@ -182,11 +183,23 @@ public class PaysAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
+		HttpServletRequest req = ServletActionContext.getRequest();
+		String kssj = req.getParameter("ks");
+		String jssj = req.getParameter("js");
+		String ygxm =req.getParameter("xm");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = paysService.queryAll(pager);
+		if(kssj == null || jssj == null || kssj.equals("") || jssj.equals("")){
+			if(ygxm == null){
+				pager = paysService.queryAll(pager);
+			}else{
+				pager = paysService.NameQuery(pager,ygxm);
+			}
+		}else{
+			pager = paysService.DateQuery(pager,kssj,jssj);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
@@ -230,6 +243,7 @@ public class PaysAction extends ActionSupport{
 	
 	public String BatchAdd(){
 		List<Pays> payList = new ArrayList<>();
+		String time = pays.getPaytime();
 		for (int i = 0; i < depid.length; i++) {
 			Pays pays = new Pays();
 			Dep dep = new Dep();
@@ -240,6 +254,8 @@ public class PaysAction extends ActionSupport{
 			pays.setPaysc(paysc[i]);
 			pays.setPayspro(payspro[i]);
 			pays.setPayssta(payssta[i]);
+			pays.setPaysd(pays.getPaysa()+pays.getPaysb()+pays.getPaysc()+pays.getPayssta());
+			pays.setPaytime(time);
 			payList.add(pays);
 		}
 		paysService.BatchAdd(payList);

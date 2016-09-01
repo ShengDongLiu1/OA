@@ -16,6 +16,7 @@ public class Pays implements java.io.Serializable {
 	private double payssta;	//基本工资
 	private double paysc;	//补贴工资
 	private double paysd;	//结余工资
+	private String paytime;
 	private Dep dep;
 
 	public Pays() {
@@ -85,6 +86,14 @@ public class Pays implements java.io.Serializable {
 
 	public void setPaysd(double paysd) {
 		this.paysd = paysd;
+	}
+
+	public String getPaytime() {
+		return paytime;
+	}
+
+	public void setPaytime(String paytime) {
+		this.paytime = paytime;
 	}
 
 	public Dep getDep() {

@@ -141,7 +141,7 @@ public class ReceiueAction extends ActionSupport{
 		Dep dep = new Dep();
 		dep.setMid(receiue.getEid());
 		receiue.setDep(dep);
-		receiue.setRestore("借");
+		receiue.setRestore("正在申请");
 		work = workService.queryById(work.getWid());
 		int w = work.getWamount();
 		int re = Integer.valueOf(receiue.getUcount());
@@ -171,7 +171,7 @@ public class ReceiueAction extends ActionSupport{
 		return SUCCESS;
 	}
 	public String count1(){
-		 int count =  Integer.valueOf(ServletActionContext.getRequest().getParameter("ucount1"));//�ϴ��û���ȡ����Ʒ����
+		 int count =  Integer.valueOf(ServletActionContext.getRequest().getParameter("ucount1"));
 		 if(count > 0){
 			HttpServletRequest req = ServletActionContext.getRequest();
 			HttpSession session  = req.getSession();

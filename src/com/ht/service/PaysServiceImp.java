@@ -61,4 +61,14 @@ public class PaysServiceImp implements PaysService {
 		paysdao.addexpend(e);
 	}
 
+	@Override
+	public Pager<Pays> DateQuery(Pager<Pays> pager, String kssj, String jssj) {
+		return paysdao.DateQuery(pager,kssj,jssj);
+	}
+
+	@Override
+	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm) {
+		return paysdao.NameQuery(pager,ygxm);
+	}
+
 }

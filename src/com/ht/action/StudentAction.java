@@ -145,8 +145,8 @@ public class StudentAction extends ActionSupport {
 	}
 	
 	public String query(){
-		studentService.query(student);
-		return SUCCESS;
+		student = studentService.query(student);
+		return "xs";
 	}
 	
 	public String queryAll(){

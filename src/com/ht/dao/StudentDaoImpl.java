@@ -49,7 +49,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Student query(Student t) {
 		session = sessionFactory.openSession();
-		session.get(Student.class, t.getIntenid());
+		t = (Student)session.get(Student.class, t.getIntenid());
 		session.close();
 		return t;
 	}

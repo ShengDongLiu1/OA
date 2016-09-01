@@ -79,7 +79,7 @@ public class MsgAction extends ActionSupport{
 	public String delete(){
 		System.out.println(msg);
 		msgService.delete(msg);
-		result = ControllerResult.getSuccessRequest("É¾³ı³É¹¦£¡");
+		result = ControllerResult.getSuccessRequest("åˆ é™¤æˆåŠŸ");
 		return SUCCESS;
 	}
 	

@@ -53,7 +53,8 @@
             $("#editForm").form("clear");
         }
         function doEdit() {
-            if ($("#editWin").form("validate")) {
+        	toValidate("editForm");
+        	if (validateForm("editForm")){
                 $.post("jobs/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                         function (data) {
                             if (data.result.result == 'success') {

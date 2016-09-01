@@ -96,7 +96,8 @@
     }
     function doEdit() {
         var row = $("#list").datagrid("getSelected");
-        if ($("#editWin").form("validate")) {
+        toValidate("editForm");
+        if (validateForm("editForm")) {
             $.post("dep/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                     function (data) {
                         if (data.result.result == 'success') {
@@ -155,7 +156,8 @@
         $("#addWin").window("close");
     }
     function doAdd() {
-        if ($("#addWin").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
+    	toValidate("addForm");
+        if (validateForm("addForm")) { // 验证整个表单里的所有validatabox是否通过验证
             $.post("dep/add", $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                     function (data) {
                         if (data.result.result == 'success') {
@@ -246,7 +248,7 @@
         <table style="margin: auto">
             <tr>
                 <td>员工姓名:</td>
-                <td><input class="easyui-textbox" id="ename" name="dep.ename" data-options="required:true"/></td>
+                <td><input class="easyui-textbox" id="ename" name="dep.ename" data-options="required:true,validType:'length[1,10]',novalidate:true"/></td>
             </tr>
             <tr>
                 <td>员工性别:</td>
@@ -270,11 +272,11 @@
             </tr>
             <tr>
                 <td>身份证号:</td>
-                <td><input class="easyui-textbox" id="ecertid" name="dep.ecertid" data-options="required:true"/></td>
+                <td><input class="easyui-textbox" id="ecertid" name="dep.ecertid" data-options="required:true,validType:'length[16,18]',novalidate:true"/></td>
             </tr>
             <tr>
                 <td>员工籍贯:</td>
-                <td><input class="easyui-textbox" id="ecity" name="dep.ecity" data-options="required:true"/></td>
+                <td><input class="easyui-textbox" id="ecity" name="dep.ecity" data-options="required:true,validType:'length[2,10]',novalidate:true"/></td>
             </tr>
             <tr>
                 <td>民族:</td>

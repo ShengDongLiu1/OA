@@ -78,7 +78,6 @@
                 <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1 ||  sessionScope.user.statuss.getZid() eq 2 || sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/course/all" class="site-navi-tab">课程</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/dis/all" class="site-navi-tab">研讨会</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/courseplan/all" class="site-navi-tab">课程进度</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
                 </c:when>

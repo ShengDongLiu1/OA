@@ -66,8 +66,8 @@
                 </tr>
                 <tr>
                     <td>物品名称:</td>
-                    <td><input class="easyui-textbox" name="apply.goodsname"
-                               data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="apply.goodsname" id="wpmc"
+                               data-options="required:true,validType:'length[2,10]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>物品类型:</td>
@@ -76,23 +76,18 @@
                 </tr>
                 <tr>
                     <td>物品数量:</td>
-                    <td><input class="easyui-textbox" name="apply.gcounts"
-                               data-options="required:true"/></td>
-                </tr>
-                <tr>
-                    <td>单位:</td>
-                    <td><input class="easyui-textbox" name="apply.gunit"
-                               data-options="required:true"/></td>
+                    <td><input class="easyui-numberbox" name="apply.gcounts"
+                               data-options="required:true,validType:'length[1,6]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>物品单价:</td>
                     <td><input class="easyui-textbox" name="apply.gprice"
-                               data-options="required:true"/></td>
+                               data-options="required:true,validType:'length[1,10]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>物品用途:</td>
                     <td><input class="easyui-textbox" name="apply.gpurpose"
-                               data-options="required:true"/></td>
+                              data-options="required:true,validType:'length[1,10]',novalidate:true"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false"
@@ -215,7 +210,8 @@
     }
     // 添加(提交後臺)
     function add() {
-        if ($("#ff").form("validate")) {
+    	toValidate("ff");
+        if (validateForm("ff")){
             $.get('apply/add', $("#ff").serialize(), "JSON");
             $("#ff").form("clear");
             $("#addWindow").window("close");
@@ -274,7 +270,8 @@
     }
     // 编辑提交
     function edit() {
-        if ($("#editForm").form("validate")) {
+    	 toValidate("editForm");
+         if (validateForm("editForm")) {
             $.post('apply/update', $("#editForm").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
@@ -311,7 +308,7 @@
     function expurgate() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $.messager.confirm("提示", "确认要删除这个产品吗？", function (r) {
+            $.messager.confirm("提示", "确认要删除这个记录吗?", function (r) {
                 if (r) {
                     $.post("apply/delete", {'apply.aid': row.aid, 'apply.astatus': row.astatus}, function (data) {
                         if (data.result.result == "success") {
@@ -323,7 +320,7 @@
                 }
             });
         } else {
-            $.messager.alert('提示', '请选中需要删除的产品', 'info');
+            $.messager.alert('提示', '请选中需要删除的记录', 'info');
         }
         $("#list").datagrid("reload");
     }

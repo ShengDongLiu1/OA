@@ -22,11 +22,6 @@
             <table class="input_big">
                 <caption>修改账号密码</caption>
                 <tr>
-                    <td>原密码：</td>
-                    <td><input type="password" name="password" class="easyui-validatebox easyui-textbox"
-                               data-options="required:true,validType:'length[6,20]',novalidate:true"/></td>
-                </tr>
-                <tr>
                     <td>新密码:</td>
                     <td><input type="password" name="newPwd" class="easyui-validatebox easyui-textbox"
                                data-options="required:true,validType:'length[6,20]',novalidate:true"/></td>
@@ -59,7 +54,6 @@
                             $.messager.alert("提示", data.result.msg, "info");
                             $("#updateForm").form("clear");
                             $('#editWindow').dialog('close');
-                            location.href = "<%=path%>/index.jsp";
                         } else {
                             $("#errMsg").html(data.result.msg);
                         }

@@ -177,7 +177,8 @@
             return;
         }
 
-        if ($("#addForm").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
+        toValidate("addForm");
+        if (validateForm("addForm")){ // 验证整个表单里的所有validatabox是否通过验证
             $.post(
                     "<%=path%>/fankui/update",
                     $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式

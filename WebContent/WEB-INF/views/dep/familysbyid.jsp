@@ -88,7 +88,8 @@
 
     function doEdit() {
         var row = $("#list").datagrid("getSelected");
-        if ($("#editForm").form("validate")) {
+        toValidate("editForm");
+        if (validateForm("editForm")){
             $.post("family/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                     function (data) {
                         if (data.result.result == 'success') {
@@ -145,7 +146,8 @@
     }
 
     function doAdd() {
-        if ($("#addForm").form("validate")) {
+    	toValidate("addForm");
+    	if (validateForm("addForm")) {
             $.post("family/add", $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                     function (data) {
                         if (data.result.result == 'success') {

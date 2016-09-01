@@ -38,8 +38,7 @@
 <div id="tb" style="padding: 2px;">
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="addOpen();" data-options="iconCls:'icon-add'">添加</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
-       data-options="iconCls:'icon-remove'">删除</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'">删除</a>
 </div>
 <!-- 添加窗口 -->
 <div style="margin:20px 0;"></div>
@@ -49,26 +48,31 @@
         <form id="ff" method="post">
             <table cellpadding="5">
                 <tr>
-                    <td>员工编号:</td>
-                    <td><input class="easyui-textbox" id="eid" data-options="required:true"/></td>
+                    <td>员工姓名:</td>
+                    <td><input class="easyui-numberbox" id="eid" data-options="required:true,validType:'length[1,5]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>值班时间:</td>
-                    <td><input class="easyui-textbox" id="ddatetime" data-options="required:false"/></td>
+                    <td>
+                    	<input class="easyui-datetimebox" id="ddatetime" style="width: 150px;" 
+                    		   data-options="required:true,novalidate:true">
+                    </td>
                 </tr>
                 <tr>
                     <td>值班范围:</td>
-                    <td><input class="easyui-textbox" id="drange" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" id="drange" data-options="required:true,validType:'length[1,10]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>情况记录:</td>
-                    <td><input class="easyui-textbox" id="ddesc" data-options="required:true"/></td>
+                    <td>
+                    <input class="easyui-textbox" id="ddesc" data-options="multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
+                    </td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="add();"
                    style="width:80px">添加</a>
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
+                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#addWindow').dialog('close')"
                    style="width:80px">取消</a>
             </div>
         </form>
@@ -82,44 +86,44 @@
         <form id="editForm">
             <table>
                 <tr>
-                    <td>值班管理编号</td>
+                    <td>管理编号：</td>
                     <td>
-                        <input class="textbox" name="did" id="ddid" readonly/>
+                        <input class="textbox" name="did" style="height:25px;width:150px;" id="ddid" readonly/>
                     </td>
                 </tr>
                 <tr>
-                    <td>员工编号</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="eid" id="dutyeid" data-options="required:true"/>
+                    <td><br/>员工姓名：</td>
+                    <td><br/>
+                        <input class="easyui-validatebox textbox" style="height:25px;width:150px;" name="eid" id="dutyeid" data-options="required:true,validType:'length[1,10]',novalidate:true"/>
                         <!-- 由dataoptions指定验证的规则 -->
                     </td>
                 </tr>
                 <tr>
-                    <td>值班时间</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="ddatetime" id="dutyddatetime"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
+                    <td><br/>值班时间：</td>
+                    <td><br/>
+                        <input class="easyui-datetimebox" style="height:25px;width:150px;" name="ddatetime" id="dutyddatetime"
+                               data-options="required:true,novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
                     </td>
                 </tr>
                 <tr>
-                    <td>值班范围</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="drange" id="dutydrange"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
+                    <td><br/>值班范围：</td>
+                    <td><br/>
+                        <input class="easyui-validatebox textbox" style="height:25px;width:150px;" name="drange" id="dutydrange"
+                               data-options="required:true,validType:'length[1,10]',novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
                     </td>
                 </tr>
                 <tr>
-                    <td>情况记录</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="ddesc" id="dutyddesc"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
+                    <td><br/>情况记录：</td>
+                    <td><br/>
+                        <input class="easyui-textbox" style="width:150px;height:100px" name="ddesc" id="dutyddesc"
+                               data-options="multiline:true,required:true,novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
                     </td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="edit();"
                    style="width:80px">保存</a>
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
+                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#editWindow').dialog('close')"
                    style="width:80px">取消</a>
             </div>
         </form>
@@ -150,7 +154,8 @@
     }
     // 添加(提交後臺)
     function add() {
-        if ($("#ff").form("validate")) {
+    	toValidate("ff");
+    	if (validateForm("ff")) {
             var eid = $("#eid").val();
             var ddatetime = $("#ddatetime").val();
             var drange = $("#drange").val();
@@ -188,7 +193,8 @@
     }
     // 编辑提交
     function edit() {
-        if ($("#editForm").form("validate")) {
+    	toValidate("editForm");
+    	if (validateForm("editForm")) {
             var did = $("#ddid").val();
             var eid = $("#dutyeid").val();
             var ddatetime = $("#dutyddatetime").val();

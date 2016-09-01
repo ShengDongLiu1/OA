@@ -33,23 +33,23 @@
 				<th data-options="field:'intenid',checkbox:true,width:100">编号</th>
 				<th data-options="field:'intenname',width:100">名称</th>
 				<th data-options="field:'intensch',width:100">就读学校</th>
-				<th data-options="field:'intensex',width:100">性别</th>
+				<th data-options="field:'intensex',width:50">性别</th>
 				<th data-options="field:'intenbir',width:100">出生年月</th>
-				<th data-options="field:'intenmz',width:100">民族</th>
+				<th data-options="field:'intenmz',width:50">民族</th>
 				<th data-options="field:'intenjg',width:100">籍贯</th>
 				<th data-options="field:'intentel',width:100">学生号码</th>
 				<th data-options="field:'intenfat',width:100">家长姓名</th>
 				<th data-options="field:'intenfatel',width:100">学生家长号码</th>
 				<th data-options="field:'intenaddr',width:100">家庭住址</th>
-				<th data-options="field:'intenpeo',width:100">就读疑问</th>
+				<th data-options="field:'intenpeo',width:140">就读疑问</th>
 			</tr>
 		</thead>
 	</table>
 	<!-- 菜单 -->
 	<div id="tb" style="padding: 2px;">
 		<a href="javascript:(0);" class="easyui-linkbutton"
-			onclick="addClas();" data-options="iconCls:'icon-add'">添加</a>
-		<a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addOpen();">添加</a>
+			onclick="addClas();" data-options="iconCls:'icon-add'">添加到预定学生</a>
+		<a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addOpen();">添加意向学生</a>
 	</div>
 
 	<div id="addWindow" class="easyui-window" title="添加"

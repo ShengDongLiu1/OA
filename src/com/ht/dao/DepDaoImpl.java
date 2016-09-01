@@ -61,7 +61,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Pager<Dep> queryAll(Pager<Dep> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Dep order by intenid desc");
+		Query query = session.createQuery("from Dep order by eid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -76,7 +76,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Pager<Dep> queryAlln(Pager<Dep> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Dep order by intenid desc");
+		Query query = session.createQuery("from Dep t order by eid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

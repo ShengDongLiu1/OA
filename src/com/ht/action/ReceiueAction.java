@@ -138,14 +138,11 @@ public class ReceiueAction extends ActionSupport{
 		Work work = new Work();
 		work.setWid(receiue.getUwork());
 		receiue.setWork(work);
-		Dep dep = new Dep();
-		dep.setMid(receiue.getEid());
-		receiue.setDep(dep);
-		receiue.setRestore("正在申请");
+		receiue.setRestore("借");
 		work = workService.queryById(work.getWid());
 		int w = work.getWamount();
 		int re = Integer.valueOf(receiue.getUcount());
-		if(w>re){
+		if(w>=re){
 			Dep dep2 = new Dep();
 			dep2.setEid(receiue.getEid());
 			receiue.setDep(dep2);
@@ -156,8 +153,6 @@ public class ReceiueAction extends ActionSupport{
 			workService.update(work);
 			if(r!=null){
 				result = ControllerResult.getSuccessRequest("添加成功 ");
-			}else{
-				result = ControllerResult.getFailResult("添加失败");
 			}
 		}else{
 			result = ControllerResult.getFailResult("没有那么多数量了");
@@ -209,8 +204,6 @@ public class ReceiueAction extends ActionSupport{
 		Receiue r = receiueService.update(receiue);
 		if(r!=null){
 			result = ControllerResult.getSuccessRequest("修改成功");
-		}else{
-			result = ControllerResult.getFailResult("修改失败");
 		}
 		return SUCCESS;
 	}
@@ -225,6 +218,7 @@ public class ReceiueAction extends ActionSupport{
 			Work w = r.getWork();
 			Dep dep = r.getDep();
 			if(w != null && dep != null){
+				System.out.println("ooooooooo");
 				r.setUwork(w.getWid());
 				r.setEid(dep.getEid());
 			}

@@ -57,7 +57,8 @@
     function edit() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $("#sid").textbox("setValue", row.sid);
+          	document.getElementById("sid").value = row.sid;
+        	document.getElementById("semester").value = row.semester;
             $("#updatestuid").combobox({
                 url: '<%=path%>/stutotal/tjls',
                 method: 'get',
@@ -68,10 +69,7 @@
             $("#updatestuid").combobox("setValue", row.student.intenname);
             $("#updatestuid").combobox('select', row.student.intenid);
             $("#ssay").textbox('setValue', row.ssay);
-            $('#semester').combobox({
-                panelHeight: 'auto',
-                value: row.semester,
-            });
+            
             $("#editWin").window("open");
         } else {
             $.messager.alert('提示', '请选中需要修改的总结', 'info');// messager消息控件
@@ -89,7 +87,7 @@
                                 $("#list").datagrid("reload");
                             });
                         } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+                        	$.messager.alert("提示", data.result.msg, "info");
                         }
                     }, "json");
         }
@@ -160,6 +158,10 @@
                     }, 'json')
         }
     }
+    
+    $(function() {
+		$('#semester').combobox('disable');
+	});
 </script>
 </head>
 <body>
@@ -198,6 +200,8 @@
      data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 350px; height: 300px; padding: 5px;">
     <form id="editForm" enctype="multipart/form-data">
+  		  <input id="sid" name="stutotal.sid" type="hidden"/>
+  		  <input id="semester" name="stutotal.semester" type="hidden" />
         <table>
             <tr>
                 <td>选择学生:</td>
@@ -210,28 +214,11 @@
                 <td><br/><input class="easyui-textbox" id="ssay" style="width: 200px; height: 100px;" name="stutotal.ssay"
                                 data-options="multiline:true,validType:'length[10,50]'"></td>
             </tr>
-            <tr height="35px;">
-                <td>第几学期：</td>
-                <td><select class="easyui-combobox" name="stutotal.semester" id="semester" style="width:150px;">
-                    <option value="第一学期">第一学期</option>
-                    <option value="第二学期">第二学期</option>
-                    <option value="第三学期">第三学期</option>
-                    <option value="第四学期">第四学期</option>
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input id="sid"
-                           class="easyui-validatebox easyui-textbox"
-                           name="stutotal.sid" type="hidden"/>
-                </td>
-            </tr>
         </table>
         <div data-options="region:'south',border:false" style="text-align:right;padding:10px 40px 0px;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="doEdit();"
                style="width:80px; height: 20px;">保存</a>
-            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
+            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#editWin').dialog('close')"
                style="width:80px; height: 20px;">取消</a>
         </div>
     </form>
@@ -269,7 +256,7 @@
         <div data-options="region:'south',border:false" style="text-align:right;padding:10px 40px 0px;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doAdd();"
                style="width:80px;height:20px;">添加</a>
-            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick=""
+            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#addWin').dialog('close')"
                style="width:80px;height:20px;">取消</a>
         </div>
     </form>

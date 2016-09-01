@@ -61,33 +61,28 @@
 		var row = $("#list").datagrid("getSelected");
 		if (row) {
 			if(row.restore=="借"){
+				document.getElementById("uid").value = row.uid;
 				$("#rece").combobox({
 					url:"<%=path%>/receiue/tjls",
 					method:'get',
 				    valueField:'id',
 				    textField:'name',
 				    panelHeight:'auto',
-				    onLoadSuccess: function () { //数据加载完毕事件
-			            var data = $('#rece').combobox('getData');
-			            if (data.length > 0) {
-			                $("#rece").combobox('select', data[0].id);
-			            }
-			        }
 				});
-			 	$("#uid").textbox("setValue", row.uid);
+				
+			    $("#rece").combobox("setValue", row.dep.ename);
+	            $("#rece").combobox('select', row.dep.eid);
 				$("#workname").combobox({
 					url:"<%=path%>/receiue/tjls2",
 					method:'get',
 				    valueField:'id',
 				    textField:'name',
 				    panelHeight:'auto',
-				    onLoadSuccess: function () { //数据加载完毕事件
-			            var data = $('#workname').combobox('getData');
-			            if (data.length > 0) {
-			                $("#workname").combobox('select', data[0].id);
-			            }
-			        }
+				
 				});
+				  $("#workname").combobox("setValue", row.work.wname);
+		           $("#workname").combobox('select', row.work.wid);
+				
 				$('#ugname').combobox({
 				    value:row.ugname,
 				    listHeight: 10
@@ -114,7 +109,8 @@
 	//修改方法
 	function doEdit() {
 		var row = $("#list").datagrid("getSelected");
-		if ($("#editForm").form("validate")) {
+		toValidate("editForm");
+    	if (validateForm("editForm")){
 			if(row){
 				var ucount1 = row.ucount;
 				$.get('count1',{'ucount1':ucount1},"json"); 
@@ -167,13 +163,12 @@
 		}
 	}
 	
-	//删除方法
 	function updateCount() {
 		var row = $("#list").datagrid("getSelected");
 		if (row) {
 			if(row.restore=="借"){
 			$.post("receiue/guihuan", {
-				'receiue.uid' : row.uid,'receiue.wid':row.wid
+				'receiue.uid' : row.uid,'receiue.uwork':row.work.wid
 			}, function(data) {
 				if (data.result.result == "success") {
 					$.messager.alert("提示", data.result.msg, "info",
@@ -227,26 +222,13 @@
 	            }
 	        }
 		});
-		
-		$("#addwork").combobox({
-			url:"<%=path%>/receiue/tjls2",
-			method:'get',
-		    valueField:'id',
-		    textField:'name',
-		    panelHeight:'auto',
-		    onLoadSuccess: function () { //数据加载完毕事件
-	            var data = $('#addwork').combobox('getData');
-	            if (data.length > 0) {
-	                $("#addwork").combobox('select', data[0].id);
-	            }
-	        }
-		});
 	}
 	function addPro1(){
 		$("#addWin").window("close");
 	}
 	function doAdd() {
-		if ($("#addForm").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
+		toValidate("addForm");
+    	if (validateForm("addForm")){// 验证整个表单里的所有validatabox是否通过验证
 			$.post("receiue/add", $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
 			function(data) {
 				if (data.result.result == 'success') {
@@ -303,8 +285,9 @@
 
 	<div id="editWin" class="easyui-window" title="修改申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
-		style="width: 350px; height: 360px; padding: 5px;">
+		style="width: 350px; height: 350px; padding: 5px;">
 		<form id="editForm" enctype="multipart/form-data">
+			<input type="hidden" id="uid" name="receiue.uid"/>
 			<table>
 				<tr>
 		  			<td>选择员工:</td>
@@ -328,7 +311,7 @@
 				<tr>
 	                <td><br/>用途:</td>
 	                <td><br/><input class="easyui-textbox" id="upurpose" style="width: 150px;height: 55px;" name="receiue.upurpose"
-                         data-options="required:true,validType:'length[3,50]',novalidate:true,multiline:true"        data-options=""></td>
+                         data-options="required:true,validType:'length[3,50]',novalidate:true,multiline:true" ></td>
           		 </tr>
 				<tr>
 					<td>借用时间</td>
@@ -346,13 +329,7 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<input id="uid"
-						class="easyui-validatebox easyui-textbox"
-						name="receiue.uid" type="hidden" />
-					</td>
-				</tr>
+		
 				
 				
 			</table>
@@ -365,7 +342,7 @@
 
 	<div id="addWin" class="easyui-window" title="添加申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
-		style="width: 350px; height: 360px; padding: 5px;">
+		style="width: 350px; height: 350px; padding: 5px;">
 		<form id="addForm" enctype="multipart/form-data">
 			<table>
 			<tr>

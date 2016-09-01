@@ -86,6 +86,7 @@ public class GetjobAction extends ActionSupport {
 
 	public String delete() {
 		getjobService.delete(getjob);
+		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
 	}
 

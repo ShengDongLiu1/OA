@@ -42,24 +42,24 @@
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td height="561" style="background:url(<%=path %>/T_image/lbg.gif)">
+                    <td height="561" style="background:url(<%=path %>/images/T_image/lbg.gif)">
                         <table width="940" border="0" align="center" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td height="238" style="background:url(<%=path %>/T_image/login01.gif)">&nbsp;</td>
+                                <td height="238" style="background:url(<%=path %>/images/T_image/login01.gif)">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td height="190">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td width="208" height="190"
-                                                style="background:url(<%=path %>/T_image/login02.jpg)">&nbsp;</td>
-                                            <td width="518" style="background:url(<%=path %>/T_image/login03.jpg)">
+                                                style="background:url(<%=path %>/images/T_image/login02.jpg)">&nbsp;</td>
+                                            <td width="518" style="background:url(<%=path %>/images/T_image/login03.jpg)">
                                                 <form id="sf" action="<%=path %>/user/query" method="post">
                                                     <table width="320" border="0" align="center" cellpadding="0"
                                                            cellspacing="0">
                                                         <tr>
                                                             <td width="40" height="50"><img
-                                                                    src="<%=path %>/T_image/user.gif" width="30"
+                                                                    src="<%=path %>/images/T_image/user.gif" width="30"
                                                                     height="30"></td>
                                                             <td width="38" height="50">用户</td>
                                                             <td width="242" height="50"><input type="text"
@@ -69,7 +69,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td height="50"><img src="<%=path %>/T_image/password.gif"
+                                                            <td height="50"><img src="<%=path %>/images/T_image/password.gif"
                                                                                  width="28" height="32"></td>
                                                             <td height="50">密码</td>
                                                             <td height="50"><input type="password" name="user.pwd" id="password"
@@ -77,7 +77,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td height="50"><img src="<%=path %>/T_image/login06.gif"
+                                                            <td height="50"><img src="<%=path %>/images/T_image/login06.gif"
                                                                                  width="28" height="32"></td>
                                                             <td height="50">验证码</td>
                                                             <td height="50"><input type="text" name="checkCode" id="code"
@@ -100,20 +100,20 @@
                                                             <td height="40">&nbsp;</td>
                                                             <td height="60">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <input type="button" id="submit" value="登陆系统"
-                                                                       style="background-image:url('<%=path %>/T_image/login.gif');border:0px;">
+                                                                       style="background-image:url('<%=path %>/images/T_image/login.gif');border:0px;">
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </form>
                                             </td>
-                                            <td width="214" style="background:url(<%=path %>/T_image/login04.jpg)">
+                                            <td width="214" style="background:url(<%=path %>/images/T_image/login04.jpg)">
                                                 &nbsp;</td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                             <tr>
-                                <td height="133" style="background:url(<%=path %>/T_image/login05.jpg)">&nbsp;</td>
+                                <td height="133" style="background:url(<%=path %>/images/T_image/login05.jpg)">&nbsp;</td>
                             </tr>
                         </table>
                     </td>

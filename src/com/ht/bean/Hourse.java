@@ -16,9 +16,10 @@ public class Hourse implements java.io.Serializable {
 	
 	private Integer hourid;
 	private String hourname;
-	private String hourkz;
-	private String houryz;
-	private String hourhkz;
+	private Integer hourkz;
+	private Integer houryz;
+	private Integer hourhkz;
+	private String hourxb;
 
 	private Set<Student> students;
 
@@ -58,28 +59,36 @@ public class Hourse implements java.io.Serializable {
 		this.students = students;
 	}
 
-	public String getHourkz() {
+	public Integer getHourkz() {
 		return hourkz;
 	}
 
-	public void setHourkz(String hourkz) {
+	public void setHourkz(Integer hourkz) {
 		this.hourkz = hourkz;
 	}
 
-	public String getHouryz() {
+	public Integer getHouryz() {
 		return houryz;
 	}
 
-	public void setHouryz(String houryz) {
+	public void setHouryz(Integer houryz) {
 		this.houryz = houryz;
 	}
 
-	public String getHourhkz() {
+	public Integer getHourhkz() {
 		return hourhkz;
 	}
 
-	public void setHourhkz(String hourhkz) {
+	public void setHourhkz(Integer hourhkz) {
 		this.hourhkz = hourhkz;
+	}
+
+	public String getHourxb() {
+		return hourxb;
+	}
+
+	public void setHourxb(String hourxb) {
+		this.hourxb = hourxb;
 	}
 
 	 

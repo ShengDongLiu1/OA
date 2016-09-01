@@ -121,9 +121,6 @@ public class StudentAction extends ActionSupport {
 			dstr += 0;
 		}
 		studentyx.setIntenbir(year+"-"+mstr+month+"-"+dstr+day);
-		Status status = new Status();
-		status.setZid(8);
-		studentyx.setStatus(status);
 		studentyx = studentService.addyx(studentyx);
 		return "yx";
 	}

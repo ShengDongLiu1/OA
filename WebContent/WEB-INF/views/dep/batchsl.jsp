@@ -50,6 +50,7 @@
 <script type="text/javascript">
 
     function adds() {
+    	alert("das")
         var money = $(".money");
         var mname = $('#mname').combobox('getValue');
         if (trim(mname)) {

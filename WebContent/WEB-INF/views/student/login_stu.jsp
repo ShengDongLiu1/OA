@@ -79,14 +79,14 @@
         }
     </script>
     <title>学生意向报名</title>
-    <script src="<%=path %>/scriptaculous/lib/prototype.js" type="text/javascript"></script>
-    <script src="<%=path %>/scriptaculous/src/effects.js" type="text/javascript"></script>
+    <script src="<%=path %>/js/scriptaculous/lib/prototype.js" type="text/javascript"></script>
+    <script src="<%=path %>/js/scriptaculous/src/effects.js" type="text/javascript"></script>
     <script type="text/javascript" src="<%=path %>/login_stu_css/validation.js"></script>
     <script type="text/javascript">
     </script>
     <link title="style" rel="stylesheet" href="<%=path %>/login_stu_css/style.css" type="text/css"/>
-    <link title="style2" rel="alternate stylesheet" href="<%=path %>/login_stu_css/style2.css" type="text/css"/>
-    <link title="style3" rel="alternate stylesheet" href="<%=path %>/login_stu_css/style3.css" type="text/css"/>
+    <link title="style2" rel="alternate stylesheet" href="<%=path %>/css/login_stu_css/style2.css" type="text/css"/>
+    <link title="style3" rel="alternate stylesheet" href="<%=path %>/css/login_stu_css/style3.css" type="text/css"/>
 </head>
 <body onload="init()">
 

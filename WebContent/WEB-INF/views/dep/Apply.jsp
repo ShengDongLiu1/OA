@@ -57,7 +57,7 @@
 			  	<table>
 			  		<tr>
 						<td>员工姓名:</td>
-						<td><input class="easyui-combobox" id="eid" name="apply.dep.eid" name="apply.eid" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
+						<td><input class="easyui-combobox" id="eid" name="apply.dep.eid" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
 					</tr>
 					<tr>
 						<td>物品名称:</td>
@@ -65,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>物品类型:</td>
-						<td><input class="easyui-combobox" id="wid" name="apply.worktype.swid" name="apply.wid" data-options="required:true" /></td>
+						<td><input class="easyui-combobox" id="wid" name="apply.worktype.swid" data-options="required:true" /></td>
 					</tr>
 					<tr>
 						<td>物品数量:</td>

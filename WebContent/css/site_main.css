@@ -131,6 +131,11 @@ a:hover {
     height:100px;
 }
 
+.combo-panel {
+	  height:200px;
+	  overflow: auto;
+}
+
 #verImg {
     max-width: 480px;
     max-height:280px;

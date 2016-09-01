@@ -23,10 +23,7 @@ public class Studentyx implements java.io.Serializable {
 	private String intenpeo;
 	private String intenmz;
 	private String intenjg;
-	private int stustatus;
 	
-	private Status status;
-
 	public Integer getIntenid() {
 		return intenid;
 	}
@@ -137,22 +134,6 @@ public class Studentyx implements java.io.Serializable {
 
 	public void setIntenjg(String intenjg) {
 		this.intenjg = intenjg;
-	}
-
-	public int getStustatus() {
-		return stustatus;
-	}
-
-	public void setStustatus(int stustatus) {
-		this.stustatus = stustatus;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 }

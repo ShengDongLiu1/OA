@@ -1,10 +1,12 @@
 package com.ht.action;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.ht.bean.Studentyx;
+import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.StudentService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,7 +24,11 @@ public class StudentyxAction extends ActionSupport {
 	private List<Studentyx> rows;
 	private long total;
 	private int page;
+	private ControllerResult result;
 
+	public ControllerResult getResult() {
+		return result;
+	}
 
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
@@ -48,7 +54,16 @@ public class StudentyxAction extends ActionSupport {
 		this.page = page;
 	}
 
-
+	public String add() {
+		studentyx = studentService.addyx(studentyx);
+		if(studentyx == null){
+			result = ControllerResult.getFailResult("添加失败");
+		}else{
+			result = ControllerResult.getSuccessRequest("添加成功");
+		}
+		return SUCCESS;
+	}
+	
 	public String queryAllyx(){
 		Pager<Studentyx> pageryx = new Pager<>();
 		pageryx.setPageNo(page);

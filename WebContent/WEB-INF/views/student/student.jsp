@@ -4,13 +4,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>测试</title>
-    <link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>
-    <link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
-    <script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>
+    <title>学生管理</title>
+	<link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>
 </head>
 <body>
 <!-- 表格 -->
@@ -45,7 +46,7 @@
 </table>
 <!-- 菜单 -->
 <div id="tb" style="padding: 2px;">
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="addClas();" data-options="iconCls:'icon-add'">添加</a>
+    <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add'"  onclick="addClas();">添加</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>

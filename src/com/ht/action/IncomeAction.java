@@ -1,6 +1,7 @@
 package com.ht.action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -140,7 +141,6 @@ public class IncomeAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("classid");
 		List<Student> students = new ArrayList<Student>();
-		System.out.println(id);
 		students = incomeService.batchQlery(student,id);
 		ServletActionContext.getRequest().setAttribute("students", students);
 		return "PL";
@@ -158,6 +158,7 @@ public class IncomeAction extends ActionSupport{
 				income.setMname(mname);	
 				income.setMoncount(money[i]);
 				income.setMonpro("收取学费");
+				income.setMdate(Calendar.getInstance().getTime());
 				incomes.add(income);
 			}
 			incomeService.batchSave(incomes);

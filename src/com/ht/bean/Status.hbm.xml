@@ -24,10 +24,5 @@
         	<key column="stustatus"></key>
         	<one-to-many class="com.ht.bean.Student"/>
         </set>
-        <!-- 一个状态多个学生 -->
-        <set name="studentsyx" lazy="false" cascade="none">
-        	<key column="stustatus"></key>
-        	<one-to-many class="com.ht.bean.Studentyx"/>
-        </set>
     </class>
 </hibernate-mapping>

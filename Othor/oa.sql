@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-09-01 09:36:11
+Date: 2016-09-01 14:19:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,12 +35,13 @@ CREATE TABLE `apply` (
   KEY `wid` (`wid`),
   CONSTRAINT `apply_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `apply_ibfk_2` FOREIGN KEY (`wid`) REFERENCES `worktype` (`swid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of apply
 -- ----------------------------
-INSERT INTO `apply` VALUES ('5', '1', '2', '篮球', '99', '999.00', '1000.00', '999', '2016-08-30 20:35:38', '已购买');
+INSERT INTO `apply` VALUES ('5', '1', '2', '篮球', '99', '999.00', '0.00', '上体育课使用', '2016-08-30 20:35:38', '已购买');
+INSERT INTO `apply` VALUES ('6', '2', '3', '电板', '10', '200.00', '0.00', '更换学生电脑电板', '2016-09-01 10:50:04', '已购买');
 
 -- ----------------------------
 -- Table structure for classes
@@ -67,7 +68,7 @@ CREATE TABLE `classes` (
 -- ----------------------------
 -- Records of classes
 -- ----------------------------
-INSERT INTO `classes` VALUES ('34', '15春', '1', '2', '2', '2', '2', '2');
+INSERT INTO `classes` VALUES ('34', '15春', '1', '2', '2', '2', '2', '空');
 
 -- ----------------------------
 -- Table structure for computer
@@ -86,7 +87,6 @@ CREATE TABLE `computer` (
 -- ----------------------------
 -- Records of computer
 -- ----------------------------
-INSERT INTO `computer` VALUES ('7', '1', '1', '3');
 
 -- ----------------------------
 -- Table structure for course
@@ -150,12 +150,11 @@ CREATE TABLE `dep` (
   KEY `estatus` (`estatus`),
   CONSTRAINT `dep_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `dep_ibfk_2` FOREIGN KEY (`estatus`) REFERENCES `dstatus` (`dsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dep
 -- ----------------------------
-INSERT INTO `dep` VALUES ('1', '未分配', '男', '1', '2016-08-29 11:15:14', '1', '1', '1', '1', '1', '1', '2016-08-29 11:15:26', '1');
 INSERT INTO `dep` VALUES ('2', '武平1', '男', '2', '2016-08-31 14:59:02', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:02', '5');
 INSERT INTO `dep` VALUES ('3', '武平2', '男', '2', '2016-08-31 14:58:57', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:58:57', '5');
 INSERT INTO `dep` VALUES ('4', '武平3', '男', '2', '2016-08-31 14:59:05', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:05', '5');
@@ -177,6 +176,8 @@ INSERT INTO `dep` VALUES ('19', '武平18', '男', '2', '2016-08-31 14:59:34', '
 INSERT INTO `dep` VALUES ('20', '武平19', '男', '2', '2016-08-31 14:59:37', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:37', '5');
 INSERT INTO `dep` VALUES ('21', '武平20', '男', '2', '2016-08-31 14:59:39', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:39', '5');
 INSERT INTO `dep` VALUES ('22', '武平21', '男', '2', '2016-08-31 14:59:40', '11', '1111111', '1', '1', '1', '1', '2016-08-31 14:59:40', '5');
+INSERT INTO `dep` VALUES ('23', '问我', '男', '6', '2016-09-01 00:00:00', '12345678901', '1234567891234568', '江西赣州', '汉族', '专科', '拜拜', '2016-09-01 10:44:14', '3');
+INSERT INTO `dep` VALUES ('24', '', '男', '1', '2016-09-01 00:00:00', '', '', '', '汉族', '本科', '', '2016-09-01 10:47:09', '1');
 
 -- ----------------------------
 -- Table structure for department
@@ -187,13 +188,14 @@ CREATE TABLE `department` (
   `dname` varchar(255) DEFAULT NULL,
   `dcreatetime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of department
 -- ----------------------------
 INSERT INTO `department` VALUES ('1', '未分配', '2016-08-26 10:34:35');
-INSERT INTO `department` VALUES ('2', '行政部·', '2016-08-30 14:27:15');
+INSERT INTO `department` VALUES ('2', '行政部', '2016-08-30 14:27:15');
+INSERT INTO `department` VALUES ('6', '教务部', '2016-09-01 10:43:05');
 
 -- ----------------------------
 -- Table structure for dstatus
@@ -247,7 +249,7 @@ CREATE TABLE `expend` (
   `ptime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `payname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`payid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of expend
@@ -260,6 +262,7 @@ INSERT INTO `expend` VALUES ('5', '发放工资', '2521.00', null, null);
 INSERT INTO `expend` VALUES ('6', '发放工资', '7300.00', null, null);
 INSERT INTO `expend` VALUES ('7', '购买物品', '98901.00', null, null);
 INSERT INTO `expend` VALUES ('8', '发放工资', '0.00', null, null);
+INSERT INTO `expend` VALUES ('9', '购买物品', '2000.00', null, null);
 
 -- ----------------------------
 -- Table structure for fankui
@@ -280,7 +283,6 @@ CREATE TABLE `fankui` (
 -- ----------------------------
 -- Records of fankui
 -- ----------------------------
-INSERT INTO `fankui` VALUES ('3', '1', '1', '1', '1', '2016-08-31 19:44:00');
 
 -- ----------------------------
 -- Table structure for getjob
@@ -299,8 +301,6 @@ CREATE TABLE `getjob` (
 -- ----------------------------
 -- Records of getjob
 -- ----------------------------
-INSERT INTO `getjob` VALUES ('2', '后天', '5', '经理');
-INSERT INTO `getjob` VALUES ('3', '1', '3', '1');
 
 -- ----------------------------
 -- Table structure for grade
@@ -319,7 +319,6 @@ CREATE TABLE `grade` (
 -- ----------------------------
 -- Records of grade
 -- ----------------------------
-INSERT INTO `grade` VALUES ('36', '3', '11.00', 'C++');
 
 -- ----------------------------
 -- Table structure for hourse
@@ -331,17 +330,21 @@ CREATE TABLE `hourse` (
   `hourkz` int(11) DEFAULT NULL,
   `houryz` int(11) DEFAULT NULL,
   `hourhkz` int(11) DEFAULT NULL,
+  `hourxb` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`hourid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hourse
 -- ----------------------------
-INSERT INTO `hourse` VALUES ('1', '未分配', null, null, null);
-INSERT INTO `hourse` VALUES ('2', '二栋1', null, null, null);
-INSERT INTO `hourse` VALUES ('3', '小红楼', null, null, null);
-INSERT INTO `hourse` VALUES ('4', '土砖楼', null, null, null);
-INSERT INTO `hourse` VALUES ('5', '123', null, null, null);
+INSERT INTO `hourse` VALUES ('1', '二栋', '500', '400', '100', '男生宿舍');
+INSERT INTO `hourse` VALUES ('2', '小红楼', '204', '200', '4', '男生宿舍');
+INSERT INTO `hourse` VALUES ('3', '六栋', '480', '450', '30', '男生宿舍');
+INSERT INTO `hourse` VALUES ('4', '七栋', '800', '600', '200', '女生宿舍');
+INSERT INTO `hourse` VALUES ('5', '一栋', '500', '400', '100', '女生宿舍');
+INSERT INTO `hourse` VALUES ('6', '三栋', '480', '450', '30', '男生宿舍');
+INSERT INTO `hourse` VALUES ('7', '四栋', '480', '350', '130', '女生宿舍');
+INSERT INTO `hourse` VALUES ('8', '五栋', '480', '400', '80', '男生宿舍');
 
 -- ----------------------------
 -- Table structure for income
@@ -385,7 +388,6 @@ CREATE TABLE `items` (
 -- ----------------------------
 -- Records of items
 -- ----------------------------
-INSERT INTO `items` VALUES ('5', '1', '3', '2', '2016-08-31 19:45:35', '1');
 
 -- ----------------------------
 -- Table structure for jobs
@@ -406,7 +408,8 @@ CREATE TABLE `jobs` (
 -- ----------------------------
 -- Records of jobs
 -- ----------------------------
-INSERT INTO `jobs` VALUES ('1', '1', '2016-08-31 19:46:04', '2016-08-31 19:46:07', '1', '1', '1');
+INSERT INTO `jobs` VALUES ('23', null, null, null, null, null, null);
+INSERT INTO `jobs` VALUES ('24', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for msg
@@ -483,7 +486,6 @@ CREATE TABLE `rawpun` (
 -- ----------------------------
 -- Records of rawpun
 -- ----------------------------
-INSERT INTO `rawpun` VALUES ('4', '3', '1', '1');
 
 -- ----------------------------
 -- Table structure for receiue
@@ -556,7 +558,6 @@ CREATE TABLE `says` (
 -- ----------------------------
 -- Records of says
 -- ----------------------------
-INSERT INTO `says` VALUES ('6', '3', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for status
@@ -572,12 +573,12 @@ CREATE TABLE `status` (
 -- Records of status
 -- ----------------------------
 INSERT INTO `status` VALUES ('1', '任课老师');
-INSERT INTO `status` VALUES ('2', '班主任');
-INSERT INTO `status` VALUES ('3', '招生老师');
+INSERT INTO `status` VALUES ('2', '辅导老师');
+INSERT INTO `status` VALUES ('3', '班主任');
 INSERT INTO `status` VALUES ('4', '教务主任');
 INSERT INTO `status` VALUES ('5', '后勤主任');
-INSERT INTO `status` VALUES ('6', '助理');
-INSERT INTO `status` VALUES ('7', '辅导老师');
+INSERT INTO `status` VALUES ('6', '招生老师');
+INSERT INTO `status` VALUES ('7', '助理');
 INSERT INTO `status` VALUES ('8', '意向学生');
 INSERT INTO `status` VALUES ('9', '预订学生');
 INSERT INTO `status` VALUES ('10', '正式学生');
@@ -602,7 +603,7 @@ CREATE TABLE `student` (
   `intenpeo` varchar(255) DEFAULT NULL COMMENT '就读疑问',
   `intenmz` varchar(255) DEFAULT NULL COMMENT '民族',
   `intenjg` varchar(255) DEFAULT NULL COMMENT '籍贯',
-  `intenstatus` int(11) DEFAULT NULL COMMENT '状态',
+  `intenstatus` varchar(255) DEFAULT NULL COMMENT '状态',
   `classid` int(11) DEFAULT NULL,
   `hourid` int(11) DEFAULT NULL,
   `intendate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -614,32 +615,35 @@ CREATE TABLE `student` (
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`hourid`) REFERENCES `hourse` (`hourid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_ibfk_2` FOREIGN KEY (`classid`) REFERENCES `classes` (`classid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_ibfk_3` FOREIGN KEY (`stustatus`) REFERENCES `status` (`zid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '钟胜峰1', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:57', '1');
-INSERT INTO `student` VALUES ('2', '钟胜峰2', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:49:01', '1');
-INSERT INTO `student` VALUES ('3', '钟胜峰3', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:18', '1');
-INSERT INTO `student` VALUES ('4', '钟胜峰4', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:19', '1');
-INSERT INTO `student` VALUES ('5', '钟胜峰5', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:19', '1');
-INSERT INTO `student` VALUES ('6', '钟胜峰6', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:20', '1');
-INSERT INTO `student` VALUES ('7', '钟胜峰7', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:21', '1');
-INSERT INTO `student` VALUES ('8', '钟胜峰8', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:22', '1');
-INSERT INTO `student` VALUES ('9', '钟胜峰9', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:22', '1');
-INSERT INTO `student` VALUES ('10', '钟胜峰10', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:31', '1');
-INSERT INTO `student` VALUES ('11', '钟胜峰11', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:35', '1');
-INSERT INTO `student` VALUES ('12', '钟胜峰12', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:36', '1');
-INSERT INTO `student` VALUES ('13', '钟胜峰13', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:39', '1');
-INSERT INTO `student` VALUES ('14', '钟胜峰14', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 10:12:40', '1');
-INSERT INTO `student` VALUES ('15', '钟胜峰15', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:40', '1');
-INSERT INTO `student` VALUES ('16', '钟胜峰16', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:43', '1');
-INSERT INTO `student` VALUES ('17', '钟胜峰17', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:47', '1');
-INSERT INTO `student` VALUES ('18', '钟胜峰18', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:49', '1');
-INSERT INTO `student` VALUES ('19', '钟胜峰19', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:52', '1');
-INSERT INTO `student` VALUES ('20', '钟胜峰20', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:48:55', '1');
-INSERT INTO `student` VALUES ('21', '钟胜峰21', '二中', '男', '18', '2016-08-30', '钟楼盘', '1571689534', '15779756842', '地底', '无', '汉', '江西', null, '34', '1', '2016-08-31 19:49:03', '1');
+INSERT INTO `student` VALUES ('1', '钟胜峰1', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:51', '9');
+INSERT INTO `student` VALUES ('2', '钟胜峰2', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:52', '9');
+INSERT INTO `student` VALUES ('3', '钟胜峰3', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:53', '9');
+INSERT INTO `student` VALUES ('4', '钟胜峰4', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:54', '9');
+INSERT INTO `student` VALUES ('5', '钟胜峰5', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:54', '9');
+INSERT INTO `student` VALUES ('6', '钟胜峰6', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:55', '9');
+INSERT INTO `student` VALUES ('7', '钟胜峰7', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:55', '9');
+INSERT INTO `student` VALUES ('8', '钟胜峰8', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '退学', '34', '1', '2016-09-01 14:14:42', '9');
+INSERT INTO `student` VALUES ('9', '钟胜峰9', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:47', '9');
+INSERT INTO `student` VALUES ('10', '钟胜峰10', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '退学', '34', '1', '2016-09-01 14:14:37', '9');
+INSERT INTO `student` VALUES ('11', '钟胜峰11', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '休学', '34', '1', '2016-09-01 14:14:24', '9');
+INSERT INTO `student` VALUES ('12', '钟胜峰12', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '休学', '34', '1', '2016-09-01 14:14:20', '9');
+INSERT INTO `student` VALUES ('13', '钟胜峰13', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:14', '9');
+INSERT INTO `student` VALUES ('14', '钟胜峰14', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:13', '9');
+INSERT INTO `student` VALUES ('15', '钟胜峰15', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:12', '9');
+INSERT INTO `student` VALUES ('16', '钟胜峰16', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:12', '9');
+INSERT INTO `student` VALUES ('17', '钟胜峰17', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:11', '9');
+INSERT INTO `student` VALUES ('18', '钟胜峰18', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '毕业', '34', '1', '2016-09-01 14:14:10', '9');
+INSERT INTO `student` VALUES ('19', '钟胜峰19', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:14:02', '9');
+INSERT INTO `student` VALUES ('20', '钟胜峰20', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:59', '9');
+INSERT INTO `student` VALUES ('21', '钟胜峰21', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:58', '9');
+INSERT INTO `student` VALUES ('22', '钟胜峰22', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '在读', '34', '1', '2016-09-01 14:13:57', '9');
+INSERT INTO `student` VALUES ('23', '钟胜峰23', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '1', '34', '1', '2016-09-01 14:02:47', '9');
+INSERT INTO `student` VALUES ('24', '钟胜峰24', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉族', '江西赣州', '1', '34', '1', '2016-09-01 14:02:52', '9');
 
 -- ----------------------------
 -- Table structure for studentyx
@@ -659,16 +663,13 @@ CREATE TABLE `studentyx` (
   `intenpeo` varchar(255) DEFAULT NULL,
   `intenmz` varchar(255) DEFAULT NULL,
   `intenjg` varchar(255) DEFAULT NULL,
-  `stustatus` int(11) DEFAULT NULL,
-  PRIMARY KEY (`intenid`),
-  KEY `stustatus` (`stustatus`),
-  CONSTRAINT `studentyx_ibfk_3` FOREIGN KEY (`stustatus`) REFERENCES `status` (`zid`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`intenid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of studentyx
 -- ----------------------------
-INSERT INTO `studentyx` VALUES ('22', '张青', '人头', '男', '12', '1990-01-01', '张浩', '13435', '413414', '413141', '21414', '汉', '江西', '8');
+INSERT INTO `studentyx` VALUES ('1', '钟胜峰', '二中', '男', '18', '1998-1-1', '钟勇', '15779753877', '13876972586', '于都', '无', '汉', '江西赣州');
 
 -- ----------------------------
 -- Table structure for stutotal
@@ -687,7 +688,6 @@ CREATE TABLE `stutotal` (
 -- ----------------------------
 -- Records of stutotal
 -- ----------------------------
-INSERT INTO `stutotal` VALUES ('9', '3', 'sd', '第一学期');
 
 -- ----------------------------
 -- Table structure for user
@@ -709,8 +709,6 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '13876619779', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '1', '1');
-INSERT INTO `user` VALUES ('2', '15779753872', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '1', '1');
 INSERT INTO `user` VALUES ('3', '123456', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '11', '2');
 INSERT INTO `user` VALUES ('11', '110120119', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '11', '2');
 
@@ -747,11 +745,12 @@ CREATE TABLE `workcheck` (
   PRIMARY KEY (`wid`),
   KEY `eid` (`eid`),
   CONSTRAINT `workcheck_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `dep` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of workcheck
 -- ----------------------------
+INSERT INTO `workcheck` VALUES ('60', '2', '2016-09-01 11:25:17', '签到');
 
 -- ----------------------------
 -- Table structure for worktype

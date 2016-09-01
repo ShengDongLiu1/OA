@@ -119,7 +119,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Pager<Student> queryAll(Pager<Student> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Student");
+		Query query = session.createQuery("from Student order by intenid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -133,7 +133,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Pager<Studentyx> queryAllyx(Pager<Studentyx> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Studentyx");
+		Query query = session.createQuery("from Studentyx order by intenid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

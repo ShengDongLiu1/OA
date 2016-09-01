@@ -22,6 +22,9 @@
         <property name="hourhkz" type="java.lang.Integer">
             <column name="hourhkz" />
         </property>
+        <property name="hourxb" type="java.lang.String">
+            <column name="hourxb" />
+        </property>
         
         <set name="students" lazy="false">
         	<key column="hourid"></key>

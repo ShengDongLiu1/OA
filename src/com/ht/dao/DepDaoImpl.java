@@ -61,7 +61,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Pager<Dep> queryAll(Pager<Dep> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Dep where eid != 1");
+		Query query = session.createQuery("from Dep order by intenid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -76,7 +76,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Pager<Dep> queryAlln(Pager<Dep> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Dep where eid != 1 and mid = 1");
+		Query query = session.createQuery("from Dep order by intenid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -90,7 +90,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Object count() {
 		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Dep t where eid != 1");
+		Query q = session.createQuery("select count(t) from Dep t");
 		Object obj = q.uniqueResult();
 		return obj;
 	}
@@ -98,7 +98,7 @@ public class DepDaoImpl implements DepDao{
 	@Override
 	public Object countn() {
 		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Dep t where eid != 1 and mid = 1");
+		Query q = session.createQuery("select count(t) from Dep t ");
 		Object obj = q.uniqueResult();
 		return obj;
 	}

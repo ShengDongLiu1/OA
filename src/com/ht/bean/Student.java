@@ -27,7 +27,7 @@ public class Student implements java.io.Serializable {
 	private String intenfatel;
 	private String intenaddr;
 	private String intenpeo;
-	private Integer intenstatus;
+	private String intenstatus;
 	private Integer classid;
 	private Integer hourid;
 	private Date intendate;
@@ -51,7 +51,7 @@ public class Student implements java.io.Serializable {
 	public Student(String intenname, String intensch, String intensex,
 			Integer intenage, String intenbir,
 			String intenfat, String intentel, String intenfatel,
-			String intenaddr, String intenpeo, Integer intenstatus,
+			String intenaddr, String intenpeo, String intenstatus,
 			Integer classid, Integer hourid, Date intendate) {
 		this.intenname = intenname;
 		this.intensch = intensch;
@@ -159,11 +159,11 @@ public class Student implements java.io.Serializable {
 		this.intenpeo = intenpeo;
 	}
 
-	public Integer getIntenstatus() {
+	public String getIntenstatus() {
 		return this.intenstatus;
 	}
 
-	public void setIntenstatus(Integer intenstatus) {
+	public void setIntenstatus(String intenstatus) {
 		this.intenstatus = intenstatus;
 	}
 

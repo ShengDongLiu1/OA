@@ -49,6 +49,9 @@
         <property name="intenjg" type="java.lang.String">
             <column name="intenjg" length="0" />
         </property>
+        <property name="intenstatus" type="java.lang.String">
+            <column name="intenstatus"/>
+        </property>
         
         <!-- 多个学生一个班级 -->
         <many-to-one name="classes" class="com.ht.bean.Classes" lazy="false">

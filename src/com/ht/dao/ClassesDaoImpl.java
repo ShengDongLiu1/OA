@@ -142,7 +142,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public List<Classes> queryClasses(){
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Classes where classid != 1");
+		Query query = session.createQuery("from Classes ");
 		@SuppressWarnings("unchecked")
 		List<Classes> d  = query.list();
 		session.close();
@@ -153,7 +153,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public Pager<Classes> queryAllstu(Pager<Classes> pager,String lx) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Classes where classlx = '"+lx+"' and classid != 1");
+		Query query = session.createQuery("from Classes where classlx = '"+lx+"'");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -167,7 +167,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public Object countlx(String lx) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("select count(ct) from Classes ct where classlx = '"+lx+"' and classid != 1");
+		Query query = session.createQuery("select count(ct) from Classes ct where classlx = '"+lx+"'");
 		Object obj = query.uniqueResult();
 		return obj;
 	}

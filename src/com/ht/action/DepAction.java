@@ -211,13 +211,6 @@ public class DepAction extends ActionSupport{
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		pager = depService.queryAll(pager);
-		for(Dep d : pager.getRows()){
-			Department depar = d.getDepartments();
-			if(depar != null){
-				d.setMid(depar.getDid());
-				System.out.println(depar+"------"+d.getMid());
-			}
-		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

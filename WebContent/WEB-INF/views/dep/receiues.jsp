@@ -227,6 +227,20 @@
 	            }
 	        }
 		});
+		
+		$("#addwork").combobox({
+			url:"<%=path%>/receiue/tjls2",
+			method:'get',
+		    valueField:'id',
+		    textField:'name',
+		    panelHeight:'auto',
+		    onLoadSuccess: function () { //数据加载完毕事件
+	            var data = $('#addwork').combobox('getData');
+	            if (data.length > 0) {
+	                $("#addwork").combobox('select', data[0].id);
+	            }
+	        }
+		});
 	}
 	function addPro1(){
 		$("#addWin").window("close");
@@ -299,12 +313,6 @@
 		  			</td>
 		  		</tr>
 				<tr>
-		  			<td>选择物品类型:</td>
-		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="worktype" name="receiue.worktype" /><br/><br/>
-		  			</td>
-		  		</tr>
-				<tr>
 		  			<td>选择物品:</td>
 		  			<td><br>
 		  			<input class="easyui-combobox" data-options="required:true" id="workname" name="receiue.uwork" /><br/><br/>
@@ -364,12 +372,6 @@
 		  		<td>选择员工:</td>
 		  			<td><br>
 		  			<input class="easyui-combobox" data-options="required:true" id="addrece" name="receiue.eid" /><br/><br/>
-		  			</td>
-		  		</tr>
-				<tr>
-		  			<td>选择物品类型:</td>
-		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="addtype" name="receiue.worktype" /><br/><br/>
 		  			</td>
 		  		</tr>
 				<tr>

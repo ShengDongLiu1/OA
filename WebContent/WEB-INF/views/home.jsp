@@ -16,7 +16,7 @@
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" class="north" style="height:72px">
 
-    <img class="main_logo" style="width:270px;height:70px" src="<%=path %>/T_image/logo.gif"/>
+    <img class="main_logo" style="width:270px;height:70px" src="<%=path %>/images/T_image/logo.gif"/>
 
     <div class="north wel_msg">
         欢迎您:&nbsp;&nbsp;<b>${sessionScope.user.dep.getEname()    }</b>&nbsp;&nbsp;

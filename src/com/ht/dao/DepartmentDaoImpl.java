@@ -66,7 +66,7 @@ public class DepartmentDaoImpl implements DepartmentDao{
 	@Override
 	public Pager<Department> queryAll(Pager<Department> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Department where did != 1");
+		Query query = session.createQuery("from Department");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

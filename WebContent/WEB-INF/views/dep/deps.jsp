@@ -310,8 +310,7 @@
             <tr>
                 <td><br/>民族:</td>
                 <td><br/>
-                    <select class="easyui-combobox" id="eanton" style="width: 150px;" name="dep.eanton"
-                            data-options="required:true">
+                    <select class="easyui-combobox" id="eanton" style="width: 150px;" name="dep.eanton" data-options="required:true">
                         <option value="汉族">汉族</option>
                         <option value="蒙古族">蒙古族</option>
                         <option value="彝族">彝族</option>

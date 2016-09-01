@@ -18,7 +18,6 @@ public class Status implements java.io.Serializable {
 	private String status;
     private Set<User> user;
     private Set<Student> students;
-    private Set<Studentyx> studentsyx;
 
 
 	// Constructors
@@ -66,15 +65,6 @@ public class Status implements java.io.Serializable {
 
 	public void setStudents(Set<Student> students) {
 		this.students = students;
-	}
-
-	@JSON(serialize=false)
-	public Set<Studentyx> getStudentsyx() {
-		return studentsyx;
-	}
-
-	public void setStudentsyx(Set<Studentyx> studentsyx) {
-		this.studentsyx = studentsyx;
 	}
 
 }

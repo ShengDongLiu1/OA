@@ -60,7 +60,7 @@ public class PaysDaoImp implements PaysDao{
 	@Override
 	public List<Dep> queryDep() {
 		session=sessionFactory.openSession();
-		Query query = session.createQuery("from Dep where eid != 1");
+		Query query = session.createQuery("from Dep");
 		@SuppressWarnings("unchecked")
 		List<Dep> deps = query.list();
 		session.close();

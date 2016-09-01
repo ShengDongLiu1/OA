@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>学生管理</title>
+    <title>学生记录管理</title>
 	<link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>
 	<link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">
@@ -33,11 +33,11 @@
         <th data-options="field:'intenbir',width:100">出生年月</th>
         <th data-options="field:'intenmz',width:100">民族</th>
         <th data-options="field:'intenjg',width:100">籍贯</th>
-        <th data-options="field:'intentel',width:100">学生号码</th>
+        <th data-options="field:'intentel',width:100">学生记录号码</th>
         <th data-options="field:'intenfat',width:100">家长姓名</th>
-        <th data-options="field:'intenfatel',width:100">学生家长号码</th>
+        <th data-options="field:'intenfatel',width:100">学生记录家长号码</th>
         <th data-options="field:'intenaddr',width:100">家庭住址</th>
-        <th data-options="field:'intenstatus',width:100">学生状态</th>
+        <th data-options="field:'intenstatus',width:100">学生记录状态</th>
         <th data-options="field:'classes',width:100" formatter="forClasses">所在班级</th>
         <th data-options="field:'hourse',width:100" formatter="forHourse">所在宿舍</th>
         <th data-options="field:'intendate',width:100">入学时间</th>
@@ -58,34 +58,97 @@
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post">
             <table>
-                <tr>
-                    <td>学生名称:</td>
-                    <td><input class="easyui-textbox" name="student.intenname" data-options="required:true"/></td>
-                </tr>
-                <tr>
+             <tr>
+                <td>学生记录名称:</td>
+                <td><input class="easyui-textbox" name="student.intenname" style="width: 150px;"
+                           data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
+            </tr>
+               	<tr>
                     <td>就读学校:</td>
-                    <td><input class="easyui-textbox" name="student.intensch" data-options="required:true"/></td>
-                </tr>
-                <tr>
-                    <td>学生性别:</td>
-                    <td>
-                        <label>男</label>
-                        <input type="radio" id="intensex" name="student.intensex" value="男" checked="checked"/>
-                        <label>女</label>
-                        <input type="radio" id="intensex" name="student.intensex" value="女"/>
+                    <td><input class="easyui-textbox"  name="student.intensch" data-options="required:true,validType:'length[4,10]',novalidate:true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生年龄:</td>
-                    <td><input class="easyui-textbox" name="student.intenage" data-options="required:true"/></td>
+                    <td>学生记录性别:</td>
+                    <td>
+                        <label>男</label>
+                        <input type="radio"  name="student.intensex" value="男" checked="checked"/>
+                        <label>女</label>
+                        <input type="radio"  name="student.intensex" value="女"/>
+                    </td>
                 </tr>
+           		<tr>
+	                <td>学生记录年龄:</td>
+	                <td><input class="easyui-textbox" style="width: 150px;" name="student.intenage"
+                                data-options="required:true,validType:'length[1,3]',novalidate:true"
+                                style="width:200px"></td>
+           		 </tr>
                 <tr>
-                    <td>民族：</td>
-                    <td><input class="easyui-textbox" name="student.intenmz" data-options="required:true"/></td>
-                </tr>
+                <td>民族:</td>
+                <td>
+                    <select class="easyui-combobox"  style="width: 150px;" name="student.intenmz" data-options="required:true">
+                        <option value="汉族">汉族</option>
+                        <option value="蒙古族">蒙古族</option>
+                        <option value="彝族">彝族</option>
+                        <option value="侗族">侗族</option>
+                        <option value="哈萨克族">哈萨克族</option>
+                        <option value="畲族">畲族</option>
+                        <option value="纳西族">纳西族</option>
+                        <option value="仫佬族">仫佬族</option>
+                        <option value="仡佬族">仡佬族</option>
+                        <option value="怒族">怒族</option>
+                        <option value="保安族">保安族</option>
+                        <option value="鄂伦春族">鄂伦春族</option>
+                        <option value="回族">回族</option>
+                        <option value="壮族">壮族</option>
+                        <option value="瑶族">瑶族</option>
+                        <option value="傣族">傣族</option>
+                        <option value="高山族">高山族</option>
+                        <option value="景颇族">景颇族</option>
+                        <option value="羌族">羌族</option>
+                        <option value="锡伯族">锡伯族</option>
+                        <option value="乌孜别克族">乌孜别克族</option>
+                        <option value="裕固族">裕固族</option>
+                        <option value="赫哲族">赫哲族</option>
+                        <option value="藏族">藏族</option>
+                        <option value="布依族">布依族</option>
+                        <option value="白族">白族</option>
+                        <option value="黎族">黎族</option>
+                        <option value="拉祜族">拉祜族</option>
+                        <option value="柯尔克孜族">柯尔克孜族</option>
+                        <option value="布朗族">布朗族</option>
+                        <option value="阿昌族">阿昌族</option>
+                        <option value="俄罗斯族">俄罗斯族</option>
+                        <option value="京族">京族</option>
+                        <option value="门巴族">门巴族</option>
+                        <option value="维吾尔族">维吾尔族</option>
+                        <option value="朝鲜族">朝鲜族</option>
+                        <option value="土家族">土家族</option>
+                        <option value="傈僳族">傈僳族</option>
+                        <option value="水族">水族</option>
+                        <option value="土族">土族</option>
+                        <option value="撒拉族">撒拉族</option>
+                        <option value="普米族">普米族</option>
+                        <option value="鄂温克族">鄂温克族</option>
+                        <option value="塔塔尔族">塔塔尔族</option>
+                        <option value="珞巴族">珞巴族</option>
+                        <option value="苗族">苗族</option>
+                        <option value="满族">满族</option>
+                        <option value="哈尼族">哈尼族</option>
+                        <option value="佤族">佤族</option>
+                        <option value="东乡族">东乡族</option>
+                        <option value="达斡尔族">达斡尔族</option>
+                        <option value="毛南族">毛南族</option>
+                        <option value="塔吉克族">塔吉克族</option>
+                        <option value="德昂族">德昂族</option>
+                        <option value="独龙族">独龙族</option>
+                        <option value="基诺族">基诺族</option>
+                    </select>
+                </td>
+            </tr>
                 <tr>
                     <td>籍贯:</td>
-                    <td><input class="easyui-textbox" name="student.intenjg" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="student.intenjg" data-options="required:true,validType:'length[2,10]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>出生年月:</td>
@@ -94,19 +157,19 @@
                 </tr>
                 <tr>
                     <td>家长姓名:</td>
-                    <td><input class="easyui-textbox" name="student.intenfat" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="student.intenfat" data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
                 </tr>
                 <tr>
-                    <td>学生号码:</td>
-                    <td><input class="easyui-textbox" name="student.intentel" data-options="required:true"/></td>
+                    <td>学生记录号码:</td>
+                    <td><input class="easyui-textbox" name="student.intentel" data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
                 <tr>
-                    <td>学生家长号码:</td>
-                    <td><input class="easyui-textbox" name="student.intenfatel" data-options="required:true"/></td>
+                    <td>学生记录家长号码:</td>
+                    <td><input class="easyui-textbox" name="student.intenfatel" data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>家庭住址:</td>
-                    <td><input class="easyui-textbox" name="student.intenaddr" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="student.intenaddr" data-options="required:true,validType:'length[2,10]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>就读疑问:</td>
@@ -138,24 +201,21 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
+  			<input  id="id" name="student.intenid" type="hidden"/>
             <table>
                 <tr>
-                    <td>学生编号:</td>
-                    <td><input class="easyui-textbox" id="id" name="student.intenid"
-                               data-options="required:true,readonly:true"/></td>
-                </tr>
-                <tr>
-                    <td>学生名称:</td>
-                    <td><input class="easyui-textbox" id="name" name="student.intenname" data-options="required:true"/>
-                    </td>
-                </tr>
+	                <td>学生记录名称:</td>
+	                <td><input class="easyui-textbox" id="ename" name="student.intenname" style="width: 150px;"
+	                           data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
+           		 </tr>
                 <tr>
                     <td>就读学校:</td>
-                    <td><input class="easyui-textbox" id="sch" name="student.intensch" data-options="required:true"/>
+                    <td><input class="easyui-textbox" id="sch" name="student.intensch" data-options="required:true,validType:'length[4,10]',novalidate:true"/>
                     </td>
                 </tr>
+                
                 <tr>
-                    <td>学生性别:</td>
+                    <td>学生记录性别:</td>
                     <td>
                         <label>男</label>
                         <input type="radio" id="sex" name="student.intensex" value="男" checked="checked"/>
@@ -164,14 +224,74 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>学生年龄:</td>
-                    <td><input class="easyui-textbox" id="age" name="student.intenage" data-options="required:true"/>
-                    </td>
-                </tr>
+	                <td>学生记录年龄:</td>
+	                <td><input class="easyui-textbox" id="age" style="width: 150px;" name="student.intenage"
+                                data-options="required:true,validType:'length[1,3]',novalidate:true"
+                                style="width:200px"></td>
+           		 </tr>
                 <tr>
-                    <td>民族：</td>
-                    <td><input class="easyui-textbox" id="mz" name="student.intenmz" data-options="required:true"/></td>
-                </tr>
+                <td>民族:</td>
+                <td><br/>
+                    <select class="easyui-combobox" id="mz" style="width: 150px;" name="student.intenmz" data-options="required:true">
+                        <option value="汉族">汉族</option>
+                        <option value="蒙古族">蒙古族</option>
+                        <option value="彝族">彝族</option>
+                        <option value="侗族">侗族</option>
+                        <option value="哈萨克族">哈萨克族</option>
+                        <option value="畲族">畲族</option>
+                        <option value="纳西族">纳西族</option>
+                        <option value="仫佬族">仫佬族</option>
+                        <option value="仡佬族">仡佬族</option>
+                        <option value="怒族">怒族</option>
+                        <option value="保安族">保安族</option>
+                        <option value="鄂伦春族">鄂伦春族</option>
+                        <option value="回族">回族</option>
+                        <option value="壮族">壮族</option>
+                        <option value="瑶族">瑶族</option>
+                        <option value="傣族">傣族</option>
+                        <option value="高山族">高山族</option>
+                        <option value="景颇族">景颇族</option>
+                        <option value="羌族">羌族</option>
+                        <option value="锡伯族">锡伯族</option>
+                        <option value="乌孜别克族">乌孜别克族</option>
+                        <option value="裕固族">裕固族</option>
+                        <option value="赫哲族">赫哲族</option>
+                        <option value="藏族">藏族</option>
+                        <option value="布依族">布依族</option>
+                        <option value="白族">白族</option>
+                        <option value="黎族">黎族</option>
+                        <option value="拉祜族">拉祜族</option>
+                        <option value="柯尔克孜族">柯尔克孜族</option>
+                        <option value="布朗族">布朗族</option>
+                        <option value="阿昌族">阿昌族</option>
+                        <option value="俄罗斯族">俄罗斯族</option>
+                        <option value="京族">京族</option>
+                        <option value="门巴族">门巴族</option>
+                        <option value="维吾尔族">维吾尔族</option>
+                        <option value="朝鲜族">朝鲜族</option>
+                        <option value="土家族">土家族</option>
+                        <option value="傈僳族">傈僳族</option>
+                        <option value="水族">水族</option>
+                        <option value="土族">土族</option>
+                        <option value="撒拉族">撒拉族</option>
+                        <option value="普米族">普米族</option>
+                        <option value="鄂温克族">鄂温克族</option>
+                        <option value="塔塔尔族">塔塔尔族</option>
+                        <option value="珞巴族">珞巴族</option>
+                        <option value="苗族">苗族</option>
+                        <option value="满族">满族</option>
+                        <option value="哈尼族">哈尼族</option>
+                        <option value="佤族">佤族</option>
+                        <option value="东乡族">东乡族</option>
+                        <option value="达斡尔族">达斡尔族</option>
+                        <option value="毛南族">毛南族</option>
+                        <option value="塔吉克族">塔吉克族</option>
+                        <option value="德昂族">德昂族</option>
+                        <option value="独龙族">独龙族</option>
+                        <option value="基诺族">基诺族</option>
+                    </select>
+                </td>
+            </tr>
                 <tr>
                     <td>籍贯:</td>
                     <td><input class="easyui-textbox" id="jg" name="student.intenjg" data-options="required:true"/></td>
@@ -183,22 +303,22 @@
                 </tr>
                 <tr>
                     <td>家长姓名:</td>
-                    <td><input class="easyui-textbox" id="fat" name="student.intenfat" data-options="required:true"/>
+                    <td><input class="easyui-textbox" id="fat" name="student.intenfat" data-options="required:true,validType:'length[2,6]',novalidate:true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生号码:</td>
-                    <td><input class="easyui-textbox" id="tel" name="student.intentel" data-options="required:true"/>
+                    <td>学生记录号码:</td>
+                    <td><input class="easyui-textbox" id="tel" name="student.intentel" data-options="required:true,validType:'length[11,11]',novalidate:true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生家长号码:</td>
+                    <td>学生记录家长号码:</td>
                     <td><input class="easyui-textbox" id="fatel" name="student.intenfatel"
-                               data-options="required:true"/></td>
+                               data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>家庭住址:</td>
-                    <td><input class="easyui-textbox" id="addr" name="student.intenaddr" data-options="required:true"/>
+                    <td><input class="easyui-textbox" id="addr" name="student.intenaddr" data-options="required:true,validType:'length[2,10]',novalidate:true"/>
                     </td>
                 </tr>
                 <tr>
@@ -207,16 +327,16 @@
                     </td>
                 </tr>
                 <!-- <tr>
-                    <td>学生状态:</td>
+                    <td>学生记录状态:</td>
                     <td><input class="easyui-textbox" id="status" name="student.intenstatus" /></td>
                 </tr> -->
                 <tr>
-                    <td>学生班级:</td>
+                    <td>学生记录班级:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="clas" name="student.classid"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生宿舍:</td>
+                    <td>学生记录宿舍:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="hous" name="student.hourid"/>
                     </td>
                 </tr>
@@ -292,7 +412,8 @@
     }
     // 添加(提交後臺)
     function add() {
-        if ($("#ff").form("validate")) {
+    	toValidate("ff");
+    	if (validateForm("ff")){
             $.get('stu/add', $("#ff").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
@@ -312,8 +433,8 @@
     function editOpen() {
         var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
         if (row) {
-            $("#id").textbox("setValue", row.intenid);
-            $("#name").textbox("setValue", row.intenname);
+        	document.getElementById("id").value = row.intenid;
+            $("#ename").textbox("setValue", row.intenname);
             $("#sch").textbox("setValue", row.intensch);
             $("#age").textbox("setValue", row.intenage);
             $("#mz").textbox("setValue", row.intenmz);
@@ -349,7 +470,8 @@
     }
     // 编辑提交
     function edit() {
-        if ($("#editForm").form("validate")) {
+    	toValidate("editForm");
+    	if (validateForm("editForm")){
             $.get('stu/update', $("#editForm").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
@@ -368,7 +490,7 @@
     function expurgate() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $.messager.confirm("提示", "确认要删除这个产品吗？", function (r) {
+            $.messager.confirm("提示", "确认要删除这个学生记录吗？", function (r) {
                 if (r) {
                     $.post("stu/delete", {'student.intenid': row.intenid}, function (data) {
                         if (data.result.result == "success") {
@@ -381,7 +503,7 @@
                 }
             });
         } else {
-            $.messager.alert('提示', '请选中需要删除的产品', 'info');
+            $.messager.alert('提示', '请选中需要删除的学生记录', 'info');
         }
         $("#list").datagrid('reload');
     }

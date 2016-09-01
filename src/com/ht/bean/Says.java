@@ -16,6 +16,8 @@ public class Says implements java.io.Serializable {
 	private String sayscon;
 	private String sayspro;
 	private String sysback;
+	private Dep deps;
+	private Student students;
 
 	// Constructors
 
@@ -34,9 +36,25 @@ public class Says implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+		
 	public Integer getSayid() {
 		return this.sayid;
+	}
+
+	public Student getStudents() {
+		return students;
+	}
+
+	public void setStudents(Student students) {
+		this.students = students;
+	}
+
+	public Dep getDeps() {
+		return deps;
+	}
+
+	public void setDeps(Dep deps) {
+		this.deps = deps;
 	}
 
 	public void setSayid(Integer sayid) {

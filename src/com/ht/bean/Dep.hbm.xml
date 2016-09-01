@@ -110,5 +110,12 @@
             <one-to-many class="com.ht.bean.Duty" />
         </set>
         
+        <set name="says" cascade="all" inverse="true" lazy="true">
+        	<key>
+        		<column name="sayempid"></column>
+        	</key>
+        	<one-to-many class="com.ht.bean.Says"/>
+        </set>
+        
     </class>
 </hibernate-mapping>

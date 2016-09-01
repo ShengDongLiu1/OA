@@ -43,6 +43,7 @@ public class Student implements java.io.Serializable {
 	private Status status;
 	private Classes classes;
 	private Hourse hourse;
+	private Set<Says> says;
 	/** default constructor */
 	public Student() {
 	}
@@ -70,6 +71,14 @@ public class Student implements java.io.Serializable {
 	}
 
 	// Property accessors
+
+	public Set<Says> getSays() {
+		return says;
+	}
+
+	public void setSays(Set<Says> says) {
+		this.says = says;
+	}
 
 	public Integer getIntenid() {
 		return this.intenid;

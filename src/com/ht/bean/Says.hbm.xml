@@ -10,16 +10,6 @@
             <column name="sayid" />
             <generator class="identity" />
         </id>
-        <property name="sayface" type="java.lang.Integer">
-            <column name="sayface">
-                <comment>谈心对象</comment>
-            </column>
-        </property>
-        <property name="sayempid" type="java.lang.Integer">
-            <column name="sayempid">
-                <comment>策划人</comment>
-            </column>
-        </property>
         <property name="sayscon" type="java.lang.String">
             <column name="sayscon" length="100">
                 <comment>谈心内容</comment>
@@ -35,5 +25,7 @@
                 <comment>学生反馈</comment>
             </column>
         </property>
+        <many-to-one name="students" column="sayface" lazy="false"></many-to-one>
+        <many-to-one name="deps" column="sayempid" lazy="false"></many-to-one>
     </class>
 </hibernate-mapping>

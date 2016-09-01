@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ht.bean.Dep;
 import com.ht.bean.Says;
 import com.ht.common.Pager;
 
@@ -80,6 +81,15 @@ public class SaysDaoImpl implements SaysDao{
 		Query query=session.createQuery("select count(t) from Says t");
 		Object obj=query.uniqueResult();
 		return obj;
+	}
+	
+	@Override
+	public List<Dep> querydepname(){
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("from Dep where estatus =1 or  estatus = 2 or  estatus =3");
+		@SuppressWarnings("unchecked")
+		List<Dep> list = query.list();
+		return list;
 	}
 
 }

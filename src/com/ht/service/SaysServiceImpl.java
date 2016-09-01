@@ -1,5 +1,8 @@
 package com.ht.service;
 
+import java.util.List;
+
+import com.ht.bean.Dep;
 import com.ht.bean.Says;
 import com.ht.common.Pager;
 import com.ht.dao.SaysDao;
@@ -9,6 +12,10 @@ public class SaysServiceImpl implements SaysService{
 	
 	public void setSaysDao(SaysDao saysDao) {
 		this.saysDao = saysDao;
+	}
+
+	public SaysDao getSaysDao() {
+		return saysDao;
 	}
 
 	@Override
@@ -39,6 +46,11 @@ public class SaysServiceImpl implements SaysService{
 	@Override
 	public Object count() {
 		return null;
+	}
+
+	@Override
+	public List<Dep> querydepname() {
+		return saysDao.querydepname();
 	}
 
 }

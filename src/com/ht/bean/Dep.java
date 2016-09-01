@@ -40,6 +40,7 @@ public class Dep implements java.io.Serializable {
 	private Jobs jobs;
 	private Department departments;
 	private Dstatus dstatuss;
+	private Set<Says> says;
 
 	public Dep(String ename, String esex, Integer mid, String ebirth,
 			String ecertid, String ecity, String eanton, String edu,
@@ -60,6 +61,14 @@ public class Dep implements java.io.Serializable {
 
 	public Dep() {
 		
+	}
+	
+	public Set<Says> getSays() {
+		return says;
+	}
+
+	public void setSays(Set<Says> says) {
+		this.says = says;
 	}
 
 	public Integer getEid() {

@@ -1,10 +1,21 @@
 package com.ht.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.alibaba.fastjson.JSON;
+import com.ht.bean.Classes;
+import com.ht.bean.Dep;
 import com.ht.bean.Duty;
+import com.ht.bean.Hourse;
+import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.DutyService;
@@ -22,10 +33,39 @@ public class DutyAction extends ActionSupport {
 	private Pager<Duty> pager;
 	private Duty duty;
 	private List<Duty> rows;
+	private List<Hourse> hourses;
+	private List<Dep> deps;
+	private List<Classes> classess;
 
 	private long total;
 	
 	private int page;
+	
+
+
+	public List<Classes> getClassess() {
+		return classess;
+	}
+
+	public void setClassess(List<Classes> classess) {
+		this.classess = classess;
+	}
+
+	public List<Hourse> getHourses() {
+		return hourses;
+	}
+
+	public void setHourses(List<Hourse> hourses) {
+		this.hourses = hourses;
+	}
+
+	public List<Dep> getDeps() {
+		return deps;
+	}
+
+	public void setDeps(List<Dep> deps) {
+		this.deps = deps;
+	}
 
 	public void setDutyService(DutyService dutyService) {
 		this.dutyService = dutyService;
@@ -55,13 +95,66 @@ public class DutyAction extends ActionSupport {
 		return result;
 	}
 
-	public String add(){
-		duty = dutyService.add(duty);
-		if(duty == null){
-			result = ControllerResult.getFailResult("添加失败");
-		}else{
-			result = ControllerResult.getSuccessRequest("添加成功");
+	
+	public String tjls() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		deps = dutyService.queryDepname();
+		List<Combox> list  = new ArrayList<>();
+		for (Dep dep : deps) {
+			int eid = dep.getEid();
+			String ename = dep.getEname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(eid));
+			combox.setName(ename);
+			list.add(combox);
 		}
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "all";
+	}
+	
+	
+	public String tjls2() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		classess = dutyService.queryClasses();
+		List<Combox> list  = new ArrayList<>();
+		for (Classes classes : classess) {
+			int cid = classes.getClassid();
+			String cname = classes.getClassname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(cid));
+			combox.setName(cname);
+			list.add(combox);
+		}
+		hourses = dutyService.queryHourse();
+		for (Hourse hourse : hourses) {
+			int hid = hourse.getHourid();
+			String hname = hourse.getHourname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(hid));
+			combox.setName(hname);
+			list.add(combox);
+		}
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "all";
+	}
+	public String add(){
+		Dep dep = new Dep();
+		dep.setEid(duty.getEid());
+		duty.setDep(dep);
+		duty = dutyService.add(duty);
+		result = ControllerResult.getSuccessRequest("添加成功");
 		return SUCCESS;
 	}
 	
@@ -71,12 +164,11 @@ public class DutyAction extends ActionSupport {
 	}
 	
 	public String update(){
+		Dep dep = new Dep();
+		dep.setEid(duty.getEid());
+		duty.setDep(dep);
 		duty = dutyService.update(duty);
-		if(duty == null){
-			result = ControllerResult.getFailResult("修改失败");
-		}else{
-			result = ControllerResult.getSuccessRequest("修改成功");
-		}
+		result = ControllerResult.getSuccessRequest("修改成功");
 		return SUCCESS;
 	}
 	

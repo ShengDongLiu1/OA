@@ -13,6 +13,9 @@
         <property name="ddatetime" type="java.util.Date">
             <column name="ddatetime"/>
         </property>
+        <property name="dstatus" type="java.lang.String">
+            <column name="dstatus" />
+        </property>
         <property name="drange" type="java.lang.String">
             <column name="drange" />
         </property>

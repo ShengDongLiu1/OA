@@ -1,8 +1,17 @@
 package com.ht.service;
 
+import java.util.List;
+
+import com.ht.bean.Classes;
+import com.ht.bean.Dep;
 import com.ht.bean.Duty;
+import com.ht.bean.Hourse;
 import com.ht.dao.BaseDao;
 
 public interface DutyService extends BaseDao<Duty, Integer> {
-
+	public List<Dep> queryDepname();
+	
+	public List<Hourse> queryHourse();
+	
+	public List<Classes> queryClasses();
 }

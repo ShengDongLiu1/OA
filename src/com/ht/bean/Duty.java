@@ -15,6 +15,7 @@ public class Duty implements java.io.Serializable {
 	private Integer did;
 	private Integer eid;
 	private Date ddatetime;
+	private String dstatus;
 	private String drange;
 	private String ddesc;
 	
@@ -27,9 +28,10 @@ public class Duty implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Duty(Integer eid, Date ddatetime, String drange, String ddesc) {
+	public Duty(Integer eid, Date ddatetime,String dstatus, String drange, String ddesc) {
 		this.eid = eid;
 		this.ddatetime = ddatetime;
+		this.dstatus = dstatus;
 		this.drange = drange;
 		this.ddesc = ddesc;
 	}
@@ -82,6 +84,14 @@ public class Duty implements java.io.Serializable {
 
 	public void setDep(Dep dep) {
 		this.dep = dep;
+	}
+
+	public String getDstatus() {
+		return dstatus;
+	}
+
+	public void setDstatus(String dstatus) {
+		this.dstatus = dstatus;
 	}
 
 }

@@ -1,6 +1,11 @@
 package com.ht.service;
 
+import java.util.List;
+
+import com.ht.bean.Classes;
+import com.ht.bean.Dep;
 import com.ht.bean.Duty;
+import com.ht.bean.Hourse;
 import com.ht.common.Pager;
 import com.ht.dao.DutyDao;
 
@@ -39,6 +44,21 @@ public class DutyServiceImpl implements DutyService {
 	@Override
 	public Object count() {
 		return null;
+	}
+
+	@Override
+	public List<Dep> queryDepname() {
+		return dutyDao.queryDepname();
+	}
+
+	@Override
+	public List<Hourse> queryHourse() {
+		return dutyDao.queryHourse();
+	}
+
+	@Override
+	public List<Classes> queryClasses() {
+		return dutyDao.queryClasses();
 	}
 
 }

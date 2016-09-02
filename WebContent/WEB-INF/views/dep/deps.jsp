@@ -181,7 +181,7 @@
                             $.messager.alert("提示", data.result.msg, "info", function () {
                                 $("#addWin").window("close");
                                 $("#list").datagrid("reload");
-                                $("#").form("clear");
+                                $("#addForm").form("clear");
                             });
                         } else {
                             $.messger.alert("提示", data.msg, "info");
@@ -548,5 +548,7 @@
         </div>
     </form>
 </div>
+
+
 </body>
 </html>

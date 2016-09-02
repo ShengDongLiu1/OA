@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>值班情况</title>
+    <title>巡查情况</title>
     <link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>
     <link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
     <link rel="stylesheet" type="text/css" href="/Automation/js/jquery-easyui/themes/icon.css">
@@ -12,6 +12,150 @@
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>
+	
+<script type="text/javascript">
+    $(function () {
+        setPagination("list");
+    });
+    
+    function depname(value){
+    	return value.ename;
+    }
+    // 显示数据
+    function setPagination(tableId) {
+        var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
+        $(p).pagination({
+            pageList: [5, 10, 15, 20],
+            beforePageText: "第",
+            afterPageText: "页    共{pages}页",
+            displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
+            onBeforeRefresh: function () {
+                $(this).pagination("loading");
+                $(this).pagination("loaded");
+            }
+        });
+    }
+    // 打开添加窗口
+    function addOpen() {
+        $("#addWindow").window("open");
+        $("#adddep").combobox({
+            url: "<%=path%>/duty/tjls",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#adddep').combobox('getData');
+                if (data.length > 0) {
+                    $("#adddep").combobox('select', data[0].id);
+                }
+            }
+        });
+        
+        $("#addddrange1").combobox({
+            url: "<%=path%>/duty/tjls2",
+            method: 'get',
+            valueField: 'name',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#addddrange1').combobox('getData');
+                if (data.length > 0) {
+                    $("#addddrange1").combobox('select', data[0].name);
+                }
+            }
+        });
+    }
+    // 添加(提交後臺)
+    function add() {
+    	toValidate("ff");
+    	if (validateForm("ff")) {
+            $.post('duty/add',$("#ff").serialize(),
+            		 function (data) {
+                if (data.result.result == 'success') {
+                    $.messager.alert("提示", data.result.msg, "info", function () {
+                        $("#addWindow").window("close");
+                        $("#list").datagrid("reload");
+                        $("#ff").form("clear");
+                    });
+                } else {
+                    $.messger.alert("提示", data.msg, "info");
+                }
+            }, 'json');
+        }
+    }
+
+    // 打开编辑窗口
+    function editOpen() {
+        var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
+        if (row) {
+            $("#editWindow").window("open");
+            document.getElementById("did").value = row.did;
+            $("#updatedep").combobox({
+                url: "<%=path%>/duty/tjls",
+                method: 'get',
+                valueField: 'id',
+                textField: 'name',
+                panelHeight: 'auto',
+            });
+            $("#updatedep").combobox("setValue", row.dep.ename);
+            $("#updatedep").combobox('select', row.dep.eid);
+            
+            $("#updatedrange").combobox({
+                url: "<%=path%>/duty/tjls2",
+                method: 'get',
+                valueField: 'name',
+                textField: 'name',
+                panelHeight: 'auto',
+            });
+            $("#updatedrange").combobox("setValue", row.drange);
+            $("#updatedrange").combobox('select', row.drange);
+            $("#ddatetime").textbox("setValue", row.ddatetime);
+            $("#ddesc").textbox('setValue', row.ddesc);
+            
+        } else {
+            $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
+        }
+    }
+    // 编辑提交
+    function edit() {
+    	toValidate("editForm");
+    	if (validateForm("editForm")) {
+    		$.post("duty/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
+                    function (data) {
+                        if (data.result.result == 'success') {
+                            $.messager.alert("提示", data.result.msg, "info", function () {
+                                $("#editWindow").window("close");
+                                $("#list").datagrid("reload");
+                            });
+                        } else {
+                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+                        }
+                    }, "json");
+        }
+    }
+    //删除
+    function expurgate() {
+        var row = $("#list").datagrid("getSelected");
+        if (row) {
+            $.messager.confirm("提示", "确认要删除这个巡查记录吗？", function (r) {
+                if (r) {
+                    $.post("duty/delete", {'duty.did': row.did}, function (data) {
+                        if (data.result.result == "success") {
+                            $.messager.alert("提示", data.result.msg, "info",
+                                    function () {
+                                        $("#list").datagrid("reload");
+                                    });
+                        }
+                    }, "JSON");
+                }
+            });
+        } else {
+            $.messager.alert('提示', '请选中需要删除的巡查记录', 'info');
+        }
+        $("#list").datagrid('reload');
+    }
+</script>
 </head>
 <body>
 <!-- 表格 -->
@@ -28,9 +172,10 @@
     <thead>
     <tr>
         <th data-options="field:'did',checkbox:true,width:100" align="center">值班管理编号</th>
-        <th data-options="field:'eid',width:100" align="center">员工编号</th>
-        <th data-options="field:'ddatetime',width:100" align="center">值班时间</th>
-        <th data-options="field:'drange',width:100" align="center">值班范围</th>
+        <th data-options="field:'dep',width:100" align="center" formatter="depname">班主任姓名</th>
+        <th data-options="field:'ddatetime',width:100" align="center">巡查时间</th>
+         <th data-options="field:'dstatus',width:100" align="center">巡查类型</th>
+     	<th data-options="field:'drange',width:100" align="center">巡查范围</th>
         <th data-options="field:'ddesc',width:100" align="center">情况记录</th>
     </tr>
     </thead>
@@ -48,25 +193,38 @@
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post">
             <table cellpadding="5">
-                <tr>
-                    <td>员工姓名:</td>
-                    <td><input class="easyui-numberbox" id="eid" data-options="required:true,validType:'length[1,5]',novalidate:true"/></td>
-                </tr>
+             	<tr>
+		  			<td>选择员工:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="adddep" name="duty.eid" /><br/><br/>
+		  			</td>
+		  		</tr>
                 <tr>
                     <td>值班时间:</td>
                     <td>
-                    	<input class="easyui-datetimebox" id="ddatetime" style="width: 150px;" 
+                    	<input class="easyui-datetimebox" name="duty.ddatetime" style="width: 150px;" 
                     		   data-options="required:true,novalidate:true">
                     </td>
                 </tr>
-                <tr>
-                    <td>值班范围:</td>
-                    <td><input class="easyui-textbox" id="drange" data-options="required:true,validType:'length[1,10]',novalidate:true"/></td>
+                 <tr>
+                    <td>巡查类型:</td>
+               		<td>
+               			<select class="easyui-combobox" style="width: 150px;"  name="duty.dstatus" data-options="required:true">
+	                        <option value="宿舍巡查">宿舍巡查</option>
+	                        <option value="班级巡查">班级巡查</option>
+                        </select>
+                    </td>
                 </tr>
+            	<tr>
+		  			<td>巡查对象:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="addddrange1" name="duty.drange" /><br/><br/>
+		  			</td>
+		  		</tr>
                 <tr>
                     <td>情况记录:</td>
                     <td>
-                    <input class="easyui-textbox" id="ddesc" data-options="multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
+                   	 <input class="easyui-textbox" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
                     </td>
                 </tr>
             </table>
@@ -85,39 +243,40 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
+        	<input type="hidden" id="did" name="duty.did" />
             <table>
                 <tr>
-                    <td>管理编号：</td>
+		  			<td>选择员工:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="updatedep" name="duty.eid" /><br/><br/>
+		  			</td>
+		  		</tr>
+                <tr>
+                    <td>巡查时间:</td>
                     <td>
-                        <input class="textbox" name="did" style="height:25px;width:150px;" id="ddid" readonly/>
+                    	<input class="easyui-datetimebox" id="ddatetime" name="duty.ddatetime" style="width: 150px;" 
+                    		   data-options="required:true,novalidate:true">
                     </td>
                 </tr>
                 <tr>
-                    <td><br/>员工姓名：</td>
-                    <td><br/>
-                        <input class="easyui-validatebox textbox" style="height:25px;width:150px;" name="eid" id="dutyeid" data-options="required:true,validType:'length[1,10]',novalidate:true"/>
-                        <!-- 由dataoptions指定验证的规则 -->
+               		 <td>巡查类型:</td>
+               		<td>
+               			<select class="easyui-combobox" style="width: 150px;" id="dstatus" name="duty.dstatus" data-options="required:true">
+	                        <option value="宿舍巡查">宿舍巡查</option>
+	                        <option value="班级巡查">班级巡查</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
-                    <td><br/>值班时间：</td>
-                    <td><br/>
-                        <input class="easyui-datetimebox" style="height:25px;width:150px;" name="ddatetime" id="dutyddatetime"
-                               data-options="required:true,novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
-                    </td>
-                </tr>
+		  			<td>巡查对象:</td>
+		  			<td><br>
+		  			<input class="easyui-combobox" data-options="required:true" id="updatedrange" name="duty.drange" /><br/><br/>
+		  			</td>
+		  		</tr>
                 <tr>
-                    <td><br/>值班范围：</td>
-                    <td><br/>
-                        <input class="easyui-validatebox textbox" style="height:25px;width:150px;" name="drange" id="dutydrange"
-                               data-options="required:true,validType:'length[1,10]',novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
-                    </td>
-                </tr>
-                <tr>
-                    <td><br/>情况记录：</td>
-                    <td><br/>
-                        <input class="easyui-textbox" style="width:150px;height:100px" name="ddesc" id="dutyddesc"
-                               data-options="multiline:true,required:true,novalidate:true"/><!-- 由dataoptions指定验证的规则 -->
+                    <td>情况记录:</td>
+                    <td>
+                    <input class="easyui-textbox" id="ddesc" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
                     </td>
                 </tr>
             </table>
@@ -131,118 +290,5 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        setPagination("list");
-    });
-    // 显示数据
-    function setPagination(tableId) {
-        var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
-        $(p).pagination({
-            pageList: [5, 10, 15, 20],
-            beforePageText: "第",
-            afterPageText: "页    共{pages}页",
-            displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
-            onBeforeRefresh: function () {
-                $(this).pagination("loading");
-                $(this).pagination("loaded");
-            }
-        });
-    }
-    // 打开添加窗口
-    function addOpen() {
-        $("#addWindow").window("open");
-    }
-    // 添加(提交後臺)
-    function add() {
-    	toValidate("ff");
-    	if (validateForm("ff")) {
-            var eid = $("#eid").val();
-            var ddatetime = $("#ddatetime").val();
-            var drange = $("#drange").val();
-            var ddesc = $("#ddesc").val();
-            $.get('duty/add', {
-                        'duty.eid': eid,
-                        'duty.ddatetime': ddatetime,
-                        'duty.drange': drange,
-                        'duty.ddesc': ddesc
-                    },
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#addWindow").window("close");
-                                $("#list").datagrid("reload");
-                                $("#ff").form("clear");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.msg, "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
-    }
-
-    // 打开编辑窗口
-    function editOpen() {
-        var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
-        if (row) {
-            $("#editForm").form("load", row);
-            $("#editWindow").window("open");
-        } else {
-            $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
-        }
-    }
-    // 编辑提交
-    function edit() {
-    	toValidate("editForm");
-    	if (validateForm("editForm")) {
-            var did = $("#ddid").val();
-            var eid = $("#dutyeid").val();
-            var ddatetime = $("#dutyddatetime").val();
-            var drange = $("#dutydrange").val();
-            var ddesc = $("#dutyddesc").val();
-            //alert(did+"  "+eid +" "+ddatetime+" "+drange+" "+ddesc);
-            $.get('duty/update', {
-                        'duty.did': did,
-                        'duty.eid': eid,
-                        'duty.ddatetime': ddatetime,
-                        'duty.drange': drange,
-                        'duty.ddesc': ddesc
-                    },
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#editWindow").window("close");
-                                $("#list").datagrid("reload");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
-    }
-    //删除
-    function expurgate() {
-        var row = $("#list").datagrid("getSelected");
-        if (row) {
-            $.messager.confirm("提示", "确认要删除这个产品吗？", function (r) {
-                if (r) {
-                    $.post("duty/delete", {'duty.did': row.did}, function (data) {
-                        if (data.result.result == "success") {
-                            $.messager.alert("提示", data.result.msg, "info",
-                                    function () {
-                                        $("#list").datagrid("reload");
-                                    });
-                        }
-                    }, "JSON");
-                }
-            });
-        } else {
-            $.messager.alert('提示', '请选中需要删除的产品', 'info');
-        }
-        $("#list").datagrid('reload');
-    }
-</script>
 </body>
 </html>

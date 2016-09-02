@@ -7,7 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ht.bean.Classes;
+import com.ht.bean.Dep;
 import com.ht.bean.Duty;
+import com.ht.bean.Hourse;
 import com.ht.common.Pager;
 
 public class DutyDaoImpl implements DutyDao {
@@ -81,6 +84,33 @@ public class DutyDaoImpl implements DutyDao {
 		Query query = session.createQuery("select count(t) from Duty t");
 		Object obj = query.uniqueResult();
 		return obj;
+	}
+	
+	@Override
+	public List<Dep> queryDepname(){
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("from Dep where estatus =3");
+		@SuppressWarnings("unchecked")
+		List<Dep> list = query.list();
+		return list;
+	}
+	
+	@Override
+	public List<Hourse> queryHourse(){
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("from Hourse");
+		@SuppressWarnings("unchecked")
+		List<Hourse> list = query.list();
+		return list;
+	}
+	
+	@Override
+	public List<Classes> queryClasses(){
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("from Classes");
+		@SuppressWarnings("unchecked")
+		List<Classes> list = query.list();
+		return list;
 	}
 
 }

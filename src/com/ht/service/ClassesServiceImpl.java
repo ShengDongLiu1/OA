@@ -71,4 +71,9 @@ public class ClassesServiceImpl implements ClassesService {
 	public Pager<Classes> queryAllstu(Pager<Classes> pager, String lx) {
 		return classesDao.queryAllstu(pager, lx);
 	}
+
+	@Override
+	public Classes updateLx(Classes t) {
+		return classesDao.updateLx(t);
+	}
 }

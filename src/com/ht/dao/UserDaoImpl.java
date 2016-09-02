@@ -104,7 +104,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<Msg> queryAllMsg() {
 		 session = sessionFactory.openSession();
-        Query query = session.createQuery("from Msg where msgjz>:jz");
+        Query query = session.createQuery("from Msg where msgjz>:jz order by msgks desc");
         query.setTimestamp("jz", new java.util.Date());
         @SuppressWarnings("unchecked")
         List<Msg> list = query.list();

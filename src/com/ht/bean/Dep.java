@@ -62,14 +62,6 @@ public class Dep implements java.io.Serializable {
 	public Dep() {
 		
 	}
-	
-	public Set<Says> getSays() {
-		return says;
-	}
-
-	public void setSays(Set<Says> says) {
-		this.says = says;
-	}
 
 	public Integer getEid() {
 		return eid;
@@ -272,6 +264,15 @@ public class Dep implements java.io.Serializable {
 
 	public void setDutys(Set<Duty> dutys) {
 		this.dutys = dutys;
+	}
+
+	@JSON(serialize=false)
+	public Set<Says> getSays() {
+		return says;
+	}
+
+	public void setSays(Set<Says> says) {
+		this.says = says;
 	}
 
 	public Jobs getJobs() {

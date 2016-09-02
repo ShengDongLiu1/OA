@@ -46,6 +46,17 @@ public class ClassesDaoImpl implements ClassesDao {
 	public Classes update(Classes t) {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
+			session.update(t);
+		transaction.commit();
+		session.close();
+		return t;
+	}
+	
+
+	@Override
+	public Classes updateLx(Classes t) {
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
 		Object obj = session.get(Classes.class, t.getClassid());
 		if(obj != null){
 			Classes c = (Classes)obj;

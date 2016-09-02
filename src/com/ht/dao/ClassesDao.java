@@ -22,4 +22,6 @@ public interface ClassesDao extends BaseDao<Classes, Integer> {
 	public Pager<Classes> queryAllstu(Pager<Classes> pager,String lx);
 	
 	public Object countlx(String lx);
+	
+	public Classes updateLx(Classes t);
 }

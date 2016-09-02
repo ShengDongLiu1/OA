@@ -49,7 +49,6 @@ public class FankuiDaoImpl implements FankuiDao{
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(d);
 		transaction.commit();
-		session.close();
 		return d;
 	}
 

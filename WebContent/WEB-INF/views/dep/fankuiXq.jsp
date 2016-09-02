@@ -82,13 +82,13 @@
             </div>
         </header>
         <div style="padding:10px;margin-left: 50px;margin-top: 50px;">
-            <s:hidden name="fankui.TBackid"></s:hidden>
+            <s:hidden name="fankui.tbackid"></s:hidden>
             <s:hidden name="fankui.dep.eid"></s:hidden>
             <s:hidden name="fankui.title"></s:hidden>
             <s:hidden name="fankui.pro"></s:hidden>
             <s:hidden name="fankui.time"></s:hidden>
             <h3>反馈编号:</h3>
-            <div class="textS"><s:property value="fankui.TBackid"/></div>
+            <div class="textS"><s:property value="fankui.tbackid"/></div>
             <br/><br/>
             <h3>反馈标题:</h3>
             <div class="textS"><s:property value="fankui.title"/></div>
@@ -97,10 +97,10 @@
             <div class="textS"><s:property value="fankui.pro"/></div>
             <br/><br/>
             <h3>反馈答案:</h3>
-            <div class="textS"><s:property value="fankui.key"/></div>
+            <div class="textS"><s:property value="fankui.ans"/></div>
             <br/><br/>
             <h3>反馈时间:</h3>
-            <div class="textS"><s:property value="fankui.time"/></div>
+            <div class="textS"><s:date name="fankui.time" format="yyyy-MM-dd HH:mm:ss"/></div>
         </div>
         <div style="margin-right: 100px; float:right;">
             <a href="javascript:;" onclick="addPro();" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
@@ -111,7 +111,7 @@
 <div id="addWin" class="easyui-window" title="反馈回复" data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 400px; height: 300px; padding: 5px;">
     <form id="addForm">
-        <input type="hidden" id="TBackid" name="fankui.TBackid"/>
+        <input type="hidden" id="tbackid" name="fankui.tbackid"/>
         <input type="hidden" id="title" name="fankui.title"/>
         <input type="hidden" id="pro" name="fankui.pro"/>
         <input type="hidden" id="eid" name="fankui.dep.eid"/>
@@ -119,7 +119,7 @@
         <div style="margin-bottom: 20px;margin-left: 40px;margin-top: 10px;">
             <div>回复问题:</div>
             <br/>
-            <textarea id="wordtext" name="fankui.key" style="width:300px;height:120px;"></textarea>
+            <textarea id="wordtext" name="fankui.ans" style="width:300px;height:120px;"></textarea>
             <div id="wordage"></div>
         </div>
         <div style="margin-left: 170px;float: left;">
@@ -135,12 +135,12 @@
 <script type="text/javascript">
     //打开回复反馈
     function addPro() {
-        var fid = document.getElementsByName("fankui.TBackid")[0].value;
+        var fid = document.getElementsByName("fankui.tbackid")[0].value;
         var title = document.getElementsByName("fankui.title")[0].value;
         var pro = document.getElementsByName("fankui.pro")[0].value;
         var eid = document.getElementsByName("fankui.dep.eid")[0].value;
         var time = document.getElementsByName("fankui.time")[0].value;
-        document.getElementById("TBackid").value = fid;
+        document.getElementById("tbackid").value = fid;
         document.getElementById("title").value = title;
         document.getElementById("pro").value = pro;
         document.getElementById("eid").value = eid;
@@ -168,7 +168,7 @@
     }
 
     function doAdd() {
-        var wordtext = document.getElementsByName("fankui.key")[0].value;
+        var wordtext = document.getElementsByName("fankui.ans")[0].value;
         if (trim(wordtext) == "") {
             alert("您输入的回复不能为空，请重新输入！")
             return;
@@ -177,8 +177,7 @@
             return;
         }
 
-        toValidate("addForm");
-        if (validateForm("addForm")){ // 验证整个表单里的所有validatabox是否通过验证
+        if ($("#addForm").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
             $.post(
                     "<%=path%>/fankui/update",
                     $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式

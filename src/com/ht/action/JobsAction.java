@@ -1,5 +1,6 @@
 package com.ht.action;
 
+
 import com.ht.bean.Jobs;
 import com.ht.common.ControllerResult;
 import com.ht.service.JobsService;
@@ -13,7 +14,7 @@ public class JobsAction extends ActionSupport {
 	private ControllerResult result;
 	private JobsService jobsService;
 	private Jobs jobs;
-
+	
 	public void setJobsService(JobsService jobsService) {
 		this.jobsService = jobsService;
 	}

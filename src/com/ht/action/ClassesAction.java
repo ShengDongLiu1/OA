@@ -82,10 +82,16 @@ public class ClassesAction extends ActionSupport{
 		classes = classesService.add(classes);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		session.setAttribute("cid", classes.getClassid());
+		if(classes == null){
+			result = ControllerResult.getFailResult("添加失败 ");
+		}else{
+			result = ControllerResult.getSuccessRequest("添加成功");
+		}
 		return SUCCESS;
 	}
 	
 	public String update(){
+		System.out.println("classes:"+classes.toString());
 		classes = classesService.update(classes);
 		if(classes == null){
 			result = ControllerResult.getFailResult("修改失败 ");

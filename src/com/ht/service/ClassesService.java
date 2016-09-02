@@ -19,4 +19,6 @@ public interface ClassesService extends BaseDao<Classes, Integer> {
 	public List<Dep> queryDeprk();
 	
 	public Pager<Classes> queryAllstu(Pager<Classes> pager,String lx);
+	
+	public Classes updateLx(Classes t);
 }

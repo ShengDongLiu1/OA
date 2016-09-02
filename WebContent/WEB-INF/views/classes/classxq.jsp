@@ -45,7 +45,7 @@
             if (row) {
                 window.location.href = "<%=path%>/stu/query?student.intenid=" + row.intenid;
             } else {
-                $.messager.alert('提示', '请选中需要查看的班级!', 'info');// messager消息控件
+                $.messager.alert('提示', '请选中需要查看的学生!', 'info');// messager消息控件
             }
         }
     </script>

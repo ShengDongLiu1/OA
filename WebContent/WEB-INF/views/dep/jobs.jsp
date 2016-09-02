@@ -36,8 +36,8 @@
             var jedu = document.getElementsByName("jobs.jedu")[0].value;
             var jpeople = document.getElementsByName("jobs.jpeople")[0].value;
             var jtel = document.getElementsByName("jobs.jtel")[0].value;
-            var kssj = document.getElementsByName("jobs.jend")[0].value;
-            var jssj = document.getElementsByName("jobs.jcompany")[0].value;
+            var kssj = document.getElementsByName("jobs.ks")[0].value;
+            var jssj = document.getElementsByName("jobs.js")[0].value;
             document.getElementById("gsid").value = jeid;
             $("#gsmc").textbox("setValue", jcompany);
             $("#gszw").textbox('setValue', jedu);
@@ -53,8 +53,7 @@
             $("#editForm").form("clear");
         }
         function doEdit() {
-        	toValidate("editForm");
-        	if (validateForm("editForm")){
+            if ($("#editWin").form("validate")) {
                 $.post("jobs/update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                         function (data) {
                             if (data.result.result == 'success') {
@@ -89,9 +88,9 @@
             <s:hidden name="jobs.dep.eid"></s:hidden>
             <s:hidden name="jobs.jstart"></s:hidden>
             <s:hidden name="jobs.jedu"></s:hidden>
-            <s:hidden name="jobs.jend"></s:hidden>
-            <s:hidden name="jobs.jcompany"></s:hidden>
             <s:hidden name="jobs.jpeople"></s:hidden>
+            <s:hidden name="jobs.ks"></s:hidden>
+            <s:hidden name="jobs.js"></s:hidden>
             <s:hidden name="jobs.jtel"></s:hidden>
             <div class="zl"><h3>员工姓名:</h3></div>
             <div class="textS"><s:property value="jobs.dep.ename"/></div>
@@ -103,10 +102,12 @@
             <div class="textS"><s:property value="jobs.jedu"/></div>
             <br/><br/>
             <div class="zl"><h3>开始时间:</h3></div>
-            <div class="textS"><s:property value="jobs.jend"/></div>
+            <div class="textS"><s:property value="jobs.ks"/>
+            </div>
             <br/><br/>
             <div class="zl"><h3>结束时间:</h3></div>
-            <div class="textS"><s:property value="jobs.jcompany"/></div>
+            <div class="textS"><s:property value="jobs.js"/>
+            </div>
             <br/><br/>
             <div class="zl"><h3>证明人:</h3></div>
             <div class="textS"><s:property value="jobs.jpeople"/></div>
@@ -114,9 +115,7 @@
             <div class="zl"><h3>证明人电话:</h3></div>
             <div class="textS"><s:property value="jobs.jtel"/></div>
             <br/><br/>
-            <div style="float: right;margin-right: 50px;"><a href="javascript:;" class="easyui-linkbutton"
-                                                             data-options="iconCls:'icon-edit'"
-                                                             onclick="edit();">修改信息</a></div>
+            <div style="float: right;margin-right: 50px;"><a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="edit();">修改信息</a></div>
         </div>
     </div>
 </div>
@@ -151,8 +150,7 @@
         <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
             <div>证明人:</div>
             <br/>
-            <input class="easyui-textbox" id="zmr" data-options="required:true" name="jobs.jpeople"
-                   style="width:300px;height:25px">
+            <input class="easyui-textbox" id="zmr" data-options="required:true" name="jobs.jpeople" style="width:300px;height:25px">
         </div>
         <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
             <div>证明人电话:</div>

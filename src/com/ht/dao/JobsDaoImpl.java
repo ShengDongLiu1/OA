@@ -35,6 +35,10 @@ public class JobsDaoImpl implements JobsDao{
 	public Jobs query(Jobs d) {
 		session = sessionFactory.openSession();
 		Jobs jobs = (Jobs) session.get(Jobs.class, d.getEid());
+		if(jobs.getJedu() != null){
+			jobs.setKs(jobs.getJend().toString());
+			jobs.setJs(jobs.getJcompany().toString());
+		}
 		session.close();
 		return jobs;
 	}

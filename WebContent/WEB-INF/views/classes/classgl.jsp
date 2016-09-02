@@ -253,42 +253,30 @@
                     method: 'get',
                     valueField: 'id',
                     textField: 'name',
-                    panelHeight: 'auto',
-                    onLoadSuccess: function () { //数据加载完毕事件
-                        var data = $('#xgrkls').combobox('getData');
-                        if (data.length > 0) {
-                            $("#xgrkls").combobox('select', data[0].id);
-                        }
-                    }
+                    panelHeight: 'auto'
                 });
+                $("#xgrkls").combobox("setValue", row.empteach.ename);
+                $("#xgrkls").combobox('select', row.empteach.eid);
 
                 $("#xgfdls").combobox({
                     url: "<%=path%>/classes/tjfdls",
                     method: 'get',
                     valueField: 'id',
                     textField: 'name',
-                    panelHeight: 'auto',
-                    onLoadSuccess: function () { //数据加载完毕事件
-                        var data = $('#xgfdls').combobox('getData');
-                        if (data.length > 0) {
-                            $("#xgfdls").combobox('select', data[0].id);
-                        }
-                    }
+                    panelHeight: 'auto'
                 });
+                $("#xgfdls").combobox("setValue", row.empteachs.ename);
+                $("#xgfdls").combobox('select', row.empteachs.eid);
 
                 $("#xgbzr").combobox({
                     url: "<%=path%>/classes/tjls",
                     method: 'get',
                     valueField: 'id',
                     textField: 'name',
-                    panelHeight: 'auto',
-                    onLoadSuccess: function () { //数据加载完毕事件
-                        var data = $('#xgbzr').combobox('getData');
-                        if (data.length > 0) {
-                            $("#xgbzr").combobox('select', data[0].id);
-                        }
-                    }
+                    panelHeight: 'auto'
                 });
+                $("#xgbzr").combobox("setValue", row.empteaches.ename);
+                $("#xgbzr").combobox('select', row.empteaches.eid);
                 $("#editWin").window("open");
             } else {
                 $.messager.alert('提示', '请选中需要修改的班级', 'info');// messager消息控件
@@ -303,8 +291,7 @@
         function doEdit() {
             var row = $("#list").datagrid("getSelected");
             if ($("#editForm").form("validate")) {
-                $.post("classes/update",
-                        $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
+                $.post("update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                         function (data) {
                             if (data.result.result == 'success') {
                                 $.messager.alert("提示", data.result.msg, "info", function () {

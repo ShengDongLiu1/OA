@@ -19,6 +19,8 @@ public class Jobs implements Serializable {
 	private String jedu;
 	private Date jend;
 	private Date jcompany;
+	private String ks;
+	private String js;
 	private String jpeople;
 	private String jtel;
 
@@ -39,6 +41,22 @@ public class Jobs implements Serializable {
 		this.jpeople = jpeople;
 		this.jtel = jtel;
 		this.dep = dep;
+	}
+
+	public String getKs() {
+		return ks;
+	}
+
+	public void setKs(String ks) {
+		this.ks = ks;
+	}
+
+	public String getJs() {
+		return js;
+	}
+
+	public void setJs(String js) {
+		this.js = js;
 	}
 
 	public Integer getJid() {

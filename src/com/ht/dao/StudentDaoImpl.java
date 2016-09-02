@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 import com.ht.bean.Classes;
 import com.ht.bean.Hourse;
+import com.ht.bean.Status;
 import com.ht.bean.Student;
 import com.ht.bean.Studentyx;
 import com.ht.common.Pager;
@@ -74,13 +75,13 @@ public class StudentDaoImpl implements StudentDao {
 			stu.setIntenmz(t.getIntenmz());
 			stu.setIntenjg(t.getIntenjg());
 			stu.setIntenstatus(t.getIntenstatus());
-			stu.setClassid(t.getClassid());
-			stu.setHourid(t.getHourid());
 			Classes c = new Classes();
 			c.setClassid(t.getClassid());
 			Hourse h = new Hourse();
 			h.setHourid(t.getHourid());
-			stu.setStatus(stu.getStatus());
+			Status s = new Status();
+			s.setZid(9);
+			stu.setStatus(s);
 			stu.setClasses(c);
 			stu.setHourse(h);
 			session.update(stu);

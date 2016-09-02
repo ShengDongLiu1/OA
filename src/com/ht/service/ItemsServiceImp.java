@@ -4,6 +4,7 @@ import java.util.List;
 import com.ht.bean.Classes;
 import com.ht.bean.Dep;
 import com.ht.bean.Items;
+import com.ht.bean.Student;
 import com.ht.common.Pager;
 import com.ht.dao.ItemsDao;
 
@@ -73,6 +74,11 @@ public class ItemsServiceImp implements ItemsService {
 	@Override
 	public List<Classes> queryClasses() {
 		return itemsDao.queryClasses();
+	}
+
+	@Override
+	public List<Student> student() {
+		return itemsDao.student();
 	}
 
 

@@ -4,6 +4,7 @@ import java.util.List;
 import com.ht.bean.Classes;
 import com.ht.bean.Dep;
 import com.ht.bean.Items;
+import com.ht.bean.Student;
 import com.ht.common.Pager;
 
 public interface ItemsDao extends BaseDao<Items,Integer>{
@@ -13,6 +14,7 @@ public interface ItemsDao extends BaseDao<Items,Integer>{
 	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end);
 	
 	public List<Dep> queryDep();
+	public List<Student> student();
 	public List<Classes> queryClasses();
 	public int maxvalue();
 }

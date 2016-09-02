@@ -76,11 +76,11 @@
 					</tr>
 			  		<tr>
 			  			<td>学生ID:</td>
-			  			<td><input class="easyui-textbox" id="sstuid" name="items.sstuid" data-options="required:true,validType:'checkFloat',novalidate:true" /></input></td>
+			  			<td><input class="easyui-combobox" id="sstuid" name="items.student.intenid" data-options="required:true" /></input></td>
 			  		</tr>
 			  		<tr>
 			  			<td>答辩时间:</td>
-			  			<td><input class="easyui-datetimebox" id="sdate" name="items.sdate" data-options="required:true" /></input></td>
+			  			<td><input class="easyui-datebox" id="sdate" name="items.sdate" data-options="required:true" /></input></td>
 			  		</tr>
 			  		<tr>
 			  			<td>答辩成绩:</td>
@@ -110,13 +110,13 @@
 				<tr>
 					<td >学生ID:</td>
 					<td >
-						<input class="easyui-textbox" id="si" name="items.student.intenid"  data-options="required:true,validType:'length[1,items.count]',novalidate:true" />
+						<input class="easyui-combobox" id="si" name="items.student.intenid"  data-options="required:true,validType:'length[1,items.count]',novalidate:true" />
 					</td>
 				</tr>
 				<tr>
 					<td >答辩时间:</td>
 					<td >
-						<input class="easyui-datetimebox" name="items.sdate" id="sd" data-options="required:true" /><!-- 由dataoptions指定验证的规则 -->
+						<input class="easyui-datebox" name="items.sdate" id="sd" data-options="required:true" /><!-- 由dataoptions指定验证的规则 -->
 					</td>
 				</tr>
 				<tr>
@@ -211,6 +211,20 @@
 		}
 		// 打开添加窗口
 		function addOpen() {
+			$("#sstuid").combobox({
+				url:"<%=path%>/items/stud",
+				method:'get',
+			    valueField:'id',
+			    textField:'name',
+			    panelHeight:'auto',
+			    onLoadSuccess: function () { //数据加载完毕事件
+	                var data = $('#sstuid').combobox('getData');
+	                if (data.length > 0) {
+	                    $("#sstuid").combobox('select', data[0].id);
+	                }
+	            }
+			}); 
+			
 			$("#addWindow").window("open");
 		}
 		
@@ -241,7 +255,15 @@
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
 				document.getElementById("id").value=row.xid;
-				$("#si").textbox("setValue", row.student.intenid);
+				$("#si").combobox({
+					url:"<%=path%>/items/stud",
+					method:'get',
+				    valueField:'id',
+				    textField:'name',
+				    panelHeight:'auto',
+				});
+				$("#si").combobox('setValue',row.student.intenname);
+				$("#si").combobox('select',row.student.intenid);
 				$("#sn").textbox("setValue", row.sname);
 				$("#sd").textbox("setValue", row.sdate);
 				$("#sc").textbox("setValue", row.score);

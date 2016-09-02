@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import com.ht.bean.Classes;
 import com.ht.bean.Dep;
 import com.ht.bean.Items;
+import com.ht.bean.Student;
 import com.ht.common.Pager;
 
 public class ItemsDaoImp implements ItemsDao{
@@ -138,6 +139,7 @@ public class ItemsDaoImp implements ItemsDao{
 		session = sessionFactory.openSession();
 		Query q = session.createQuery("select max(intenid) from Student t");
 		int obj = (int) q.uniqueResult();
+		System.out.println("obj,xid:"+obj);
 		return obj;
 	}
 
@@ -148,6 +150,16 @@ public class ItemsDaoImp implements ItemsDao{
 		@SuppressWarnings("unchecked")
 		List<Classes> list=q.list();
 //		session.close();
+		return list;
+	}
+
+	@Override
+	public List<Student> student() {
+		session=sessionFactory.openSession();
+		Query q = session.createQuery("from Student");
+		@SuppressWarnings("unchecked")
+		List<Student> list=q.list();
+		session.close();
 		return list;
 	}
 }

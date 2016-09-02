@@ -53,10 +53,9 @@
     function edit() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $("#did").textbox("setValue", row.did);
+        	document.getElementById("did").value =  row.did;
             $("#dname").textbox('setValue', row.dname);
-            $("#dstatus").textbox("setValue", row.dstatus);
-            $("#dcreatetime").textbox("setValue", row.dcreatetime);
+            document.getElementById("dcreatetime").value =  row.dcreatetime;
             $("#editWin").window("open");
         } else {
             $.messager.alert('提示', '请选中需要修改的部门', 'info');// messager消息控件
@@ -153,7 +152,7 @@
     <tr>
         <th data-options="field:'did',checkbox:true" width="100" align="center">部门编号</th>
         <th data-options="field:'dname'" width="100" align="center">部门名称</th>
-        <th data-options="field:'dcreatetime'" width="150" align="center">创建时间</th>
+        <th data-options="field:'dcreatetime'" width="100" align="center">创建时间</th>
     </tr>
     </thead>
 </table>
@@ -172,24 +171,14 @@
      data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 270px; height: 270px; padding: 5px;">
     <form id="editForm" enctype="multipart/form-data">
+    	<input type="hidden" id="did" name="department.did">
+   		<input id="dcreatetime" name="department.dcreatetime" id="dcreatetime" type="hidden"/>
         <table>
-            <tr height="35px;">
-                <td>部门编号：</td>
-                <td>&nbsp;<input id="did" class="easyui-textbox"
-                                 name="department.did" readonly/>
-                </td>
-            </tr>
             <tr height="35px;">
                 <td>部门名称：</td>
                 <td>&nbsp;<input id="dname"
-                                 class="easyui-validatebox easyui-textbox" name="department.dname"
-                                 data-options="required:true, validate:true"/> <!-- novalidate:true 不出现提示 -->
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;<input id="dcreatetime"
-                                 class="easyui-validatebox easyui-textbox"
-                                 name="department.dcreatetime" data-options="required:true" type="hidden"/>
+                                 class="easyui-textbox" name="department.dname"
+                                 data-options="validType:'length[3,10]',required:true, validate:true"/> <!-- novalidate:true 不出现提示 -->
                 </td>
             </tr>
         </table>
@@ -211,9 +200,8 @@
             <tr>
             <tr height="35px;">
                 <td>部门名称：</td>
-                <td>&nbsp;<input id="dname"
-                                 class="easyui-validatebox easyui-textbox" name="department.dname"
-                                 data-options="required:true, validate:true"/> <!-- novalidate:true 不出现提示 -->
+                <td>&nbsp;<input id="dname" class="easyui-textbox" name="department.dname"
+                      data-options="validType:'length[3,10]',required:true"/> <!-- novalidate:true 不出现提示 -->
                 </td>
             </tr>
         </table>

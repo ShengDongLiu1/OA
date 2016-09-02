@@ -31,11 +31,12 @@
 		<thead>
 			<tr>
 				<th data-options="field:'aid',checkbox:true,width:100">申购编号</th>
-				<th data-options="field:'dep',width:100" formatter="forDepName">员工编号</th>
+				<th data-options="field:'dep',width:100" formatter="forDepName">员工姓名</th>
 				<th data-options="field:'gname',width:100">物品名称</th>
 				<th data-options="field:'worktype',width:100" formatter="forWorktypeName">物品类型</th>
 				<th data-options="field:'gcounts',width:100">物品数量</th>
 				<th data-options="field:'gprice',width:100">物品单价</th>
+				<th data-options="field:'gtotle',width:100">物品总价</th>
 				<th data-options="field:'gpurpose',width:100">物品用途</th>
 				<th data-options="field:'adatetime',width:100">申请时间</th>
 				<th data-options="field:'astatus',width:100">状态</th>
@@ -48,6 +49,13 @@
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'" >编辑</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'" >删除</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="updateSP();" data-options="iconCls:'icon-add'">通过审批</a>	
+		<input class="easyui-textbox" id="name" size="10px" />
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按员工姓名查询</a>
+		<input class="easyui-textbox" id="lname" size="10px" />
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByWorktypeName();" data-options="iconCls:'icon-search'">按物品类型查询</a>
+		<input class="easyui-textbox" id="status" size="10px" />
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByStatus();" data-options="iconCls:'icon-search'">按状态查询</a>
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="QueryAll();" data-options="iconCls:'icon-search'">查询所有</a>
 	</div>
 	<!-- 添加窗口 -->
 	<div style="margin:20px 0;"></div>
@@ -73,8 +81,8 @@
 							data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 					</tr>
 					<tr>
-						<td>物品单价:</td>
-						<td><input class="easyui-textbox" name="apply.gprice"
+						<td>物品总价:</td>
+						<td><input class="easyui-textbox" name="apply.gtotle"
 							data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 					</tr>
 					<tr>
@@ -236,7 +244,7 @@
 				$("#gn").textbox("setValue", row.gname);
 				$("#gs").textbox("setValue", row.gcounts);
 				$("#gp").textbox("setValue", row.gprice);
-				$("#gl").textbox("setValue", row.gtotle);
+				$("#gt").textbox("setValue", row.gtotle);
 				$("#gpe").textbox("setValue", row.gpurpose);
 				$("#dt").textbox("setValue", row.adatetime);
 				$("#editWindow").window("open");
@@ -297,6 +305,33 @@
 		// 关闭窗口
 		function Winclose(c) {
 			$("#" + c).window("close");
+		}
+		//绑定查询按钮的的点击事件
+		function queryByDepName() {
+            //按条件进行查询数据，首先我们得到数据的值
+            name=$('#name').val()
+            $('#list').datagrid('load',{  
+            	name:name
+            });
+		}
+		function queryByWorktypeName(){
+            lname=$('#lname').val()
+            $('#list').datagrid('load',{  
+            	lname:lname
+            }); 
+		}
+		function queryByStatus(){
+			status=$('#status').val()
+            $('#list').datagrid('load',{  
+            	status:status
+            }); 
+		}
+		function QueryAll(){
+		  	$('#list').datagrid('load', {   
+		  		name:'',
+		  		lname:'',
+		  		status:''
+			});
 		}
 	</script>
 </body>

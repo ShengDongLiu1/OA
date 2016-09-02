@@ -3,6 +3,7 @@ package com.ht.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -87,13 +88,13 @@ public class ApplyAction extends ActionSupport {
 	
 	public String add() {
 		apply.setAdatetime(new Timestamp(new Date().getTime()));
-		apply.setGtotle((long) 1000);
-		apply.setAstatus("未购买");
+		apply.setGtotle(apply.getGprice()*apply.getGcounts());
+		apply.setAstatus("未购买,未审批");
 		apply = applyService.add(apply);
 		if(apply == null){
-			result = ControllerResult.getFailResult("修改失败");
+			result = ControllerResult.getFailResult("添加失败");
 		}else{
-			result = ControllerResult.getSuccessRequest("修改成功");
+			result = ControllerResult.getSuccessRequest("添加成功");
 		}
 		return SUCCESS;
 	}
@@ -104,9 +105,10 @@ public class ApplyAction extends ActionSupport {
 	}
 	
 	public String update(){
+		apply.setGtotle(apply.getGprice()*apply.getGcounts());
 		apply = applyService.update(apply);
 		if(apply == null){
-			result = ControllerResult.getSuccessRequest("修改失败");
+			result = ControllerResult.getFailResult("修改失败");
 		}else{
 			result = ControllerResult.getSuccessRequest("修改成功");
 		}
@@ -114,8 +116,8 @@ public class ApplyAction extends ActionSupport {
 	}
 	
 	public String delete(){
-		if(apply.getAstatus().equals("已购买")){
-			result = ControllerResult.getSuccessRequest("已经购买了该物品，无法删除！");
+		if(apply.getAstatus().equals("已审批")){
+			result = ControllerResult.getSuccessRequest("已经审批了该物品，无法删除！");
 			return SUCCESS;
 		}else{
 			applyService.delete(apply);
@@ -124,12 +126,28 @@ public class ApplyAction extends ActionSupport {
 		}
 	}
 	
-	public String queryAll() {
+	public String queryAll() throws ParseException {
+		HttpServletRequest req=ServletActionContext.getRequest();
+		String name = req.getParameter("name");
+		String lname = req.getParameter("lname");
+		String status = req.getParameter("status");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = applyService.queryAll(pager);
+		if(name == null || name.equals("")){
+			if(lname == null || lname.equals("")){
+				if(status == null || status.equals("")){
+					pager = applyService.queryAll(pager);
+				}else{
+					pager = applyService.queryByAstatus(pager, status);
+				}
+			}else{
+				pager = applyService.queryByWorktypeName(pager, lname);
+			}
+		}else{
+			pager = applyService.queryByDepName(pager,name);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
@@ -183,7 +201,7 @@ public class ApplyAction extends ActionSupport {
 	}
 	
 	public String updateSP(){
-		if(apply.getAstatus().equals("已购买")){
+		if(apply.getAstatus().equals("已审批")){
 			result = ControllerResult.getSuccessRequest("已通过审批，不需要再次审批！");
 			return SUCCESS;
 		}
@@ -193,6 +211,11 @@ public class ApplyAction extends ActionSupport {
 		e.setPaypro("购买物品");
 		e.setPaycount(apply.getGcounts() * apply.getGprice());
 		paysService.addexpend(e);
+		return SUCCESS;
+	}
+	
+	public String queryByDepName() {
+		
 		return SUCCESS;
 	}
 }

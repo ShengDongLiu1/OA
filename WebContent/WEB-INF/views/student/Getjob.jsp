@@ -31,7 +31,7 @@
     <tr>
         <th data-options="field:'jobid',checkbox:true,width:100">就业编号</th>
         <th data-options="field:'jobname',width:100">公司名称</th>
-        <th data-options="field:'student',width:100" formatter="forStudentName">学生编码</th>
+        <th data-options="field:'student',width:100" formatter="forStudentName">学生姓名</th>
         <th data-options="field:'jobdesc',width:100">职位描述</th>
     </tr>
     </thead>

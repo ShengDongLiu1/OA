@@ -285,7 +285,7 @@
 
 	<div id="editWin" class="easyui-window" title="修改申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
-		style="width: 350px; height: 350px; padding: 5px;">
+		style="width: 350px; height: 400px; padding: 5px;">
 		<form id="editForm" enctype="multipart/form-data">
 			<input type="hidden" id="uid" name="receiue.uid"/>
 			<table>

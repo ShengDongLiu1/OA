@@ -56,7 +56,7 @@ public class ApplyDaoImpl implements ApplyDao{
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Apply a = (Apply)session.get(Apply.class, t.getAid());
-		a.setAstatus("已购买");
+		a.setAstatus("已审批");
 		session.update(a);
 		session.getTransaction().commit();
 		session.close();
@@ -110,5 +110,79 @@ public class ApplyDaoImpl implements ApplyDao{
 		session.close();
 		return worktype;
 	}
-
+	
+	@Override
+	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name) {
+		System.out.println(0);
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply where dep.ename=:name");
+		query.setString("name", name);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Apply> apply = query.list();
+		pager.setRows(apply);
+		pager.setTotal((long) DepNamecount(name));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object DepNamecount(String name) {
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("select count(t) from Apply t where dep.ename=:name");
+		query.setString("name", name);
+		Object obj=query.uniqueResult();
+		return obj;
+	}
+	
+	@Override
+	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname) {
+		System.out.println(0);
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply where worktype.swname=:lname");
+		query.setString("lname", lname);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Apply> apply = query.list();
+		pager.setRows(apply);
+		pager.setTotal((long) DepNamecount(lname));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object WorktypeNamecount(String lname) {
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("select count(t) from Apply t where worktype.swname=:lname");
+		query.setString("lname", lname);
+		Object obj=query.uniqueResult();
+		return obj;
+	}
+	
+	@Override
+	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status) {
+		System.out.println(0);
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply where astatus=?");
+		query.setString(0, status);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Apply> apply = query.list();
+		pager.setRows(apply);
+		pager.setTotal((long) DepNamecount(status));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object Astatuscount(String status) {
+		session=sessionFactory.openSession();
+		Query query=session.createQuery("select count(t) from Apply t where astatus=?");
+		query.setString(0, status);
+		Object obj=query.uniqueResult();
+		return obj;
+	}	
 }

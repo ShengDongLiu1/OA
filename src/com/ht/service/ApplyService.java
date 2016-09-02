@@ -5,6 +5,7 @@ import java.util.List;
 import com.ht.bean.Apply;
 import com.ht.bean.Dep;
 import com.ht.bean.Worktype;
+import com.ht.common.Pager;
 import com.ht.dao.BaseDao;
 
 public interface ApplyService extends BaseDao<Apply, Integer> {
@@ -14,4 +15,10 @@ public interface ApplyService extends BaseDao<Apply, Integer> {
 	public List<Worktype> queryWorktype();
 	
 	public Apply updateSP(Apply t);
+	
+	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name);
+	
+	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname);
+	
+	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status);
 }

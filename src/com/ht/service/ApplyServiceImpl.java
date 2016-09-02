@@ -61,4 +61,19 @@ public class ApplyServiceImpl implements ApplyService {
 		return applyDao.updateSP(t);
 	}
 
+	@Override
+	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name) {
+		return applyDao.queryByDepName(pager,name);
+	}
+
+	@Override
+	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname) {
+		return applyDao.queryByWorktypeName(pager, lname);
+	}
+
+	@Override
+	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status) {
+		return applyDao.queryByAstatus(pager, status);
+	}
+
 }

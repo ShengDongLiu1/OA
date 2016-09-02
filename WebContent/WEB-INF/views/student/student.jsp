@@ -30,6 +30,7 @@
         <th data-options="field:'intenname',width:100" align="center">名称</th>
         <th data-options="field:'intensch',width:100" align="center">就读学校</th>
         <th data-options="field:'intensex',width:100" align="center">性别</th>
+        <th data-options="field:'intenage',width:50" align="center">年龄</th>
         <th data-options="field:'intenbir',width:100" align="center">出生年月</th>
         <th data-options="field:'intenmz',width:100" align="center">民族</th>
         <th data-options="field:'intenjg',width:100" align="center">籍贯</th>
@@ -178,12 +179,12 @@
                 <tr>
                     <td>选择班级:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="addclass"
-                               name="student.classid"/></td>
+                               name="student.classes.classid"/></td>
                 </tr>
                 <tr>
                     <td>选择宿舍:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="addhoure"
-                               name="student.hourid"/></td>
+                               name="student.hourse.hourid"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -332,12 +333,12 @@
                 </tr> -->
                 <tr>
                     <td>学生记录班级:</td>
-                    <td><input class="easyui-combobox" data-options="required:true" id="clas" name="student.classid"/>
+                    <td><input class="easyui-combobox" data-options="required:true" id="clas" name="student.classes.classid"/>
                     </td>
                 </tr>
                 <tr>
                     <td>学生记录宿舍:</td>
-                    <td><input class="easyui-combobox" data-options="required:true" id="hous" name="student.hourid"/>
+                    <td><input class="easyui-combobox" data-options="required:true" id="hous" name="student.hourse.hourid"/>
                     </td>
                 </tr>
             </table>

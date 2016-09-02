@@ -15,6 +15,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Classes;
+import com.ht.bean.Department;
+import com.ht.bean.Dstatus;
 import com.ht.bean.Hourse;
 import com.ht.bean.Status;
 import com.ht.bean.Student;
@@ -104,6 +106,7 @@ public class StudentAction extends ActionSupport {
 
 	public String add() {
 		student.setIntendate(Calendar.getInstance().getTime());
+		student.setIntenstatus("在读");	
 		student = studentService.add(student);
 		if (student == null) {
 			result = ControllerResult.getFailResult("添加失败");
@@ -228,29 +231,26 @@ public class StudentAction extends ActionSupport {
 
 	public String deleteyx() {
 		studentService.deleteyx(studentyx);
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		int id = Integer.valueOf(session.getAttribute("cid").toString());
-		Student s = new Student();
-		s.setIntenname(studentyx.getIntenname());
-		s.setIntensch(studentyx.getIntensch());
-		s.setIntensex(studentyx.getIntensex());
-		s.setIntenage(studentyx.getIntenage());
-		s.setIntenbir(studentyx.getIntenbir());
-		s.setIntenfat(studentyx.getIntenfat());
-		s.setIntentel(studentyx.getIntentel());
-		s.setIntenfatel(studentyx.getIntenfatel());
-		s.setIntenaddr(studentyx.getIntenaddr());
-		s.setIntenpeo(studentyx.getIntenpeo());
-		s.setIntenmz(studentyx.getIntenmz());
-		s.setIntenjg(studentyx.getIntenjg());
-		Status status = new Status();
-		status.setZid(9);
-		Classes c = new Classes();
-		c.setClassid(id);
-		s.setStustatus(9);
-
-		studentService.add(s);
-		result = ControllerResult.getSuccessRequest("添加成功");
+		student.setIntenname(studentyx.getIntenname());
+		student.setIntensch(studentyx.getIntensch());
+		student.setIntensex(studentyx.getIntensex());
+		student.setIntenage(studentyx.getIntenage());
+		student.setIntenbir(studentyx.getIntenbir());
+		student.setIntenfat(studentyx.getIntenfat());
+		student.setIntentel(studentyx.getIntentel());
+		student.setIntenfatel(studentyx.getIntenfatel());
+		student.setIntenaddr(studentyx.getIntenaddr());
+		student.setIntenpeo(studentyx.getIntenpeo());
+		student.setIntenmz(studentyx.getIntenmz());
+		student.setIntenjg(studentyx.getIntenjg());
+		student.setIntendate(Calendar.getInstance().getTime());
+		student.setIntenstatus("在读");	
+		student = studentService.add(student);
+		if (student == null) {
+			result = ControllerResult.getFailResult("修改失败");
+		} else {
+			result = ControllerResult.getSuccessRequest("修改成功");
+		}
 		return SUCCESS;
 	}
 
@@ -267,6 +267,18 @@ public class StudentAction extends ActionSupport {
 			}
 		}
 		rows = stus;
+		return SUCCESS;
+	}
+	
+
+	public String addStu() {
+		student = studentService.addStu(student);
+		if(student == null){
+			result = ControllerResult.getFailResult("添加失败");
+		}else{
+			result = ControllerResult.getSuccessRequest("添加成功");
+		}
+		
 		return SUCCESS;
 	}
 }

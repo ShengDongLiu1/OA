@@ -175,6 +175,7 @@ public class DepAction extends ActionSupport{
 		}
 		return SUCCESS;
 	}
+	
 	public String addn() {
 		Department depar = new Department();
 		depar.setDid(dep.getMid());
@@ -241,7 +242,6 @@ public class DepAction extends ActionSupport{
 			Department depar = d.getDepartments();
 			if(depar != null){
 				d.setMid(depar.getDid());
-				System.out.println(depar+"------"+d.getMid());
 			}
 		}
 		rows = pager.getRows();

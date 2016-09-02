@@ -86,4 +86,9 @@ public class StudentServiceImpl implements StudentService {
 		studentDao.CloseSession();
 	}
 
+	@Override
+	public Student addStu(Student t) {
+		return studentDao.addStu(t);
+	}
+
 }

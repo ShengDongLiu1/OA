@@ -170,7 +170,6 @@
         $("#addWin").window("close");
     }
     function doAdd() {
-    	toValidate("addForm");
         if (validateForm("addForm")) { // 验证整个表单里的所有validatabox是否通过验证
             $.post("dep/addn", $("#addForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                     function (data) {
@@ -254,7 +253,6 @@
 </div>
 
 
-<!-- 添加产品框  -->
 <div id="addWin" class="easyui-window" title="添加员工"
      data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 300px; height: 300px; padding: 5px;">

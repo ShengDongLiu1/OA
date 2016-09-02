@@ -24,4 +24,6 @@ public interface StudentService extends BaseDao<Student, Integer> {
 	public List<Classes> queryClass(Integer eid);
 	
 	public void CloseSession();
+	
+	public Student addStu(Student t);
 }

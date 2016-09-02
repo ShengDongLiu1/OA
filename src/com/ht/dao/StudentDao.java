@@ -17,4 +17,5 @@ public interface StudentDao extends BaseDao<Student, Integer> {
 	public List<Student> queryAllS(Integer classid);
 	public List<Classes> queryClass(Integer eid);
 	public void CloseSession();
+	public Student addStu(Student t);
 }

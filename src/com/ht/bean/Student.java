@@ -40,11 +40,11 @@ public class Student implements java.io.Serializable {
 	private Set<Computer> computer;
 	private Set<Getjob> getjob;
 	private Set<Stutotal> stutotal;
+	private Set<Says> says;
+	private Set<Rawpun> raws;
 	private Status status;
 	private Classes classes;
 	private Hourse hourse;
-	private Set<Says> says;
-	private Set<Rawpun> raws;
 	/** default constructor */
 	public Student() {
 	}
@@ -75,14 +75,6 @@ public class Student implements java.io.Serializable {
 	
 	public Set<Says> getSays() {
 		return says;
-	}
-
-	public Set<Rawpun> getRaws() {
-		return raws;
-	}
-
-	public void setRaws(Set<Rawpun> raws) {
-		this.raws = raws;
 	}
 
 	public void setSays(Set<Says> says) {
@@ -300,6 +292,15 @@ public class Student implements java.io.Serializable {
 
 	public void setStutotal(Set<Stutotal> stutotal) {
 		this.stutotal = stutotal;
+	}
+
+	@JSON(serialize=false)
+	public Set<Rawpun> getRaws() {
+		return raws;
+	}
+
+	public void setRaws(Set<Rawpun> raws) {
+		this.raws = raws;
 	}
 
 }

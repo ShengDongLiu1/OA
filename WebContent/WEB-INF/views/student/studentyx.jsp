@@ -34,6 +34,7 @@
 				<th data-options="field:'intenname',width:100" align="center">名称</th>
 				<th data-options="field:'intensch',width:100" align="center">就读学校</th>
 				<th data-options="field:'intensex',width:50" align="center">性别</th>
+       			<th data-options="field:'intenage',width:50" align="center">年龄</th>
 				<th data-options="field:'intenbir',width:100" align="center">出生年月</th>
 				<th data-options="field:'intenmz',width:50" align="center">民族</th>
 				<th data-options="field:'intenjg',width:100" align="center">籍贯</th>
@@ -48,8 +49,51 @@
 	<!-- 菜单 -->
 	<div id="tb" style="padding: 2px;">
 		<a href="javascript:(0);" class="easyui-linkbutton"
-			onclick="addClas();" data-options="iconCls:'icon-add'">添加到预定学生</a>
+			onclick="addStu();" data-options="iconCls:'icon-add'">添加预定学生</a>
 		<a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addOpen();">添加意向学生</a>
+	</div>
+
+
+	<div id="addWin" class="easyui-window" title="添加预向学生"
+	     data-options="iconCls:'icon-edit', closable:true, closed:true"
+	     style="width: 300px; height: 300px; padding: 5px;">
+	    <form id="stu" enctype="multipart/form-data">
+	    	<input type="hidden" name="studentyx.intenid" id="sid" />
+			<input type="hidden" name="studentyx.intenname" id="name"/>
+			<input type="hidden" name="studentyx.intensch" id="sch"/>
+			<input type="hidden" name="studentyx.intensex" id="sex"/>
+			<input type="hidden" name="studentyx.intenage" id="age"/>
+			<input type="hidden" name="studentyx.intenjg" id="jg"/>
+			<input type="hidden" name="studentyx.intenmz" id="mz"/>
+			<input type="hidden" name="studentyx.intenbir" id="bir"/>
+			<input type="hidden" name="studentyx.intenfat" id="fat"/>
+			<input type="hidden" name="studentyx.intentel" id="tel"/>
+			<input type="hidden" name="studentyx.intenfatel" id="fatel"/>
+			<input type="hidden" name="studentyx.intenaddr" id="addr"/>
+			<input type="hidden" name="studentyx.intenpeo" id="peo"/>
+	    	<input type="hidden" name="student.status.zid" id="zid" />
+	        <table>
+	            <tr>
+	                <td>选择班级:</td>
+	                <td><br/>
+	                    <input class="easyui-combobox" data-options="required:true" id="cid" name="student.classes.classid"/><br/><br/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>选择宿舍:</td>
+	                <td><br>
+	                    <input class="easyui-combobox" data-options="required:true" id="hid"
+	                           name="student.hourse.hourid"/><br/><br/>
+	                </td>
+	            </tr>
+	        </table>
+	        <div data-options="region:'south',border:false" style="text-align:right;padding:30px 30px 0;">
+	            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="addS();"
+	               style="width:80px;height:20px;">添加</a>
+	            <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#addWin').dialog('close')"
+	               style="width:80px;height:20px;">取消</a>
+	        </div>
+	    </form>
 	</div>
 
 	<div id="addWindow" class="easyui-window" title="添加"
@@ -155,22 +199,22 @@
 					<tr>
 						<td>家长姓名:</td>
 						<td><input class="easyui-textbox" name="studentyx.intenfat"
-							data-options="required:true" /></td>
+							data-options="required:true,validType:'length[2,6]',novalidate:true" /></td>
 					</tr>
 					<tr>
 						<td>学生号码:</td>
 						<td><input class="easyui-textbox" name="studentyx.intentel"
-							data-options="required:true" /></td>
+							data-options="required:true,validType:'length[11,11]',novalidate:true" /></td>
 					</tr>
 					<tr>
 						<td>学生家长号码:</td>
 						<td><input class="easyui-textbox" name="studentyx.intenfatel"
-							data-options="required:true" /></td>
+							data-options="required:true,validType:'length[11,11]',novalidate:true" /></td>
 					</tr>
 					<tr>
 						<td>家庭住址:</td>
 						<td><input class="easyui-textbox" name="studentyx.intenaddr"
-							data-options="required:true" /></td>
+							data-options="required:true,validType:'length[2,10]',novalidate:true" /></td>
 					</tr>
 					<tr>
 						<td>就读疑问:</td>
@@ -207,6 +251,74 @@
 					$(this).pagination("loaded");
 				}
 			});
+		}
+		
+		// 打开添加窗口
+		function addStu() {
+	        var row = $("#list").datagrid("getSelected");
+	        if(row){
+	            $("#addWin").window("open");
+	            $("#cid").combobox({
+	                url: "<%=path%>/stu/classes",
+	                method: 'get',
+	                valueField: 'id',
+	                textField: 'name',
+	                panelHeight: 'auto',
+	                onLoadSuccess: function () { //数据加载完毕事件
+	                    var data = $('#cid').combobox('getData');
+	                    if (data.length > 0) {
+	                        $("#cid").combobox('select', data[0].id);
+	                    }
+	                }
+	            });
+	            $("#hid").combobox({
+	                url: "<%=path%>/stu/hourse",
+	                method: 'get',
+	                valueField: 'id',
+	                textField: 'name',
+	                panelHeight: 'auto',
+	                onLoadSuccess: function () { //数据加载完毕事件
+	                    var data = $('#hid').combobox('getData');
+	                    if (data.length > 0) {
+	                        $("#hid").combobox('select', data[0].id);
+	                    }
+	                }
+	            });
+	            document.getElementById("zid").value = 9;
+	            document.getElementById("sid").value = row.intenid;
+	            document.getElementById("name").value = row.intenname;
+	            document.getElementById("sch").value = row.intensch;
+	            document.getElementById("sex").value = row.intensex;
+	            document.getElementById("age").value = row.intenage;
+	            document.getElementById("jg").value = row.intenjg;
+	            document.getElementById("mz").value = row.intenmz;
+	            document.getElementById("bir").value = row.intenbir;
+	            document.getElementById("fat").value = row.intenfat;
+	            document.getElementById("tel").value = row.intentel;
+	            document.getElementById("fatel").value = row.intenfatel;
+	            document.getElementById("addr").value = row.intenaddr;
+	            document.getElementById("peo").value = row.intenpeo;
+		    } else {
+			        $.messager.alert('提示', '请选中学生', 'info');// messager消息控件
+		    }
+		}
+		// 添加(提交後臺)
+		function addS() {
+			if ($("#stu").form("validate")) {
+				$.get('stu/deleteyx', $("#stu").serialize(), function(data) {
+					if (data.result.result == 'success') {
+						$.messager.alert("提示", data.result.msg, "info",
+								function() {
+									$("#addWin").window("close");
+									$("#list").datagrid("reload");
+									$("#stu").form("clear");
+								});
+					} else {
+						$.messger.alert("提示", data.msg, "info");
+					}
+				}, "JSON");
+			}
+			$("#list").datagrid('reload');
 		}
 		// 打开添加窗口
 		function addOpen() {

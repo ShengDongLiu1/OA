@@ -115,6 +115,7 @@ public class StudentDaoImpl implements StudentDao {
 			session.delete(w);
 		}
 		transaction.commit();
+		
 		session.close();
 	}
 
@@ -211,4 +212,20 @@ public class StudentDaoImpl implements StudentDao {
 		return list;
 	}
 	
+	@Override
+	public Student addStu(Student t){
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Object obj = session.get(Student.class, t.getIntenid());
+		if (obj != null) {
+			Student stu = (Student) obj;
+			stu.setClasses(t.getClasses());
+			stu.setHourid(t.getHourid());
+			stu.setStatus(t.getStatus());
+			session.update(stu);
+		}
+		transaction.commit();
+		session.close();
+		return t;
+	}
 }

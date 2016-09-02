@@ -63,7 +63,6 @@ public class DepartmentAction extends ActionSupport {
 	}
 	
 	public String update(){
-		System.out.println(department);
 		Department d = departmentService.update(department);
 		if(d == null){
 			result = ControllerResult.getFailResult("修改失败");
@@ -74,9 +73,7 @@ public class DepartmentAction extends ActionSupport {
 	}
 	
 	public String delete(){
-		System.out.println(department.getDid()+"1111");
 		List<Dep> dep = departmentService.depcount(department.getDid());
-		System.out.println(dep+"11111111111");
 		if(dep.size()<1){
 			departmentService.delete(department);
 			result = ControllerResult.getSuccessRequest("删除成功");

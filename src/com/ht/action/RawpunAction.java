@@ -54,7 +54,6 @@ public class RawpunAction extends ActionSupport{
 	}
 	
 	public String add(){
-		System.out.println(rawpun.getJtitle()+" "+rawpun.getJstuid()+" "+rawpun.getJcontent());
 		Student stu = new Student();
 		stu.setIntenid(rawpun.getJstuid());
 		rawpun.setStudents(stu);

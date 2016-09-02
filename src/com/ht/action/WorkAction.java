@@ -120,8 +120,6 @@ public class WorkAction extends ActionSupport {
 		worktype = workService.queryWorktype();
 		List<Combox> list = new ArrayList<>();
 		for (Worktype worktype : worktype) {
-			System.out.println(worktype.getSwid());
-			System.out.println(worktype.getSwname());
 			int swid = worktype.getSwid();
 			String swname = worktype.getSwname();
 			Combox combox = new Combox();

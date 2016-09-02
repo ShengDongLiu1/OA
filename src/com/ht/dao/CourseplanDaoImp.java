@@ -64,7 +64,6 @@ public class CourseplanDaoImp implements CourseplanDao{
 		session=sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(t);
-		System.out.println("is ok");
 		transaction.commit();
 		return t;
 	}

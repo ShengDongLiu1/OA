@@ -6,30 +6,30 @@ public interface BaseDao<T,PK> {
 	
 	/**
 	 * @param t
-	 * @return 添加
+	 * @return 娣诲姞
 	 */
 	public T add(T t);
 	
 	/**
 	 * @param t
-	 * @return 单个查询
+	 * @return 鏌ヨ
 	 */
 	public T query(T t);
 	
 	/**
 	 * @param t
-	 * @return 更新
+	 * @return 淇敼
 	 */
 	public T update(T t);
 	
 	/**
-	 * @param 删除
+	 * @param 鍒犻櫎
 	 */
 	public void delete(T t);
 	
 	/**
 	 * @param t
-	 * @return 分页查询
+	 * @return 鍒嗛〉鏌ヨ
 	 */
 	public Pager<T> queryAll(Pager<T> pager);
 	

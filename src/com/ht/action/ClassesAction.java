@@ -91,7 +91,6 @@ public class ClassesAction extends ActionSupport{
 	}
 	
 	public String update(){
-		System.out.println("classes:"+classes.toString());
 		classes = classesService.update(classes);
 		if(classes == null){
 			result = ControllerResult.getFailResult("修改失败 ");

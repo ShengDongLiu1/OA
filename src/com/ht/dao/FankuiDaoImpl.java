@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import com.ht.bean.Fankui;
 import com.ht.common.Pager;
 
-public class FankuiDaoImpl implements FankuiDao{
+public class FankuiDaoImpl implements FankuiDao {
 
 	private SessionFactory sessionFactory;
 	private static Session session;
@@ -38,7 +38,7 @@ public class FankuiDaoImpl implements FankuiDao{
 	@Override
 	public Fankui query(Fankui d) {
 		session = sessionFactory.openSession();
-		d=(Fankui) session.get(Fankui.class, d.getTbackid());
+		d = (Fankui) session.get(Fankui.class, d.getTbackid());
 		session.close();
 		return d;
 	}
@@ -66,10 +66,10 @@ public class FankuiDaoImpl implements FankuiDao{
 		return pager;
 	}
 
-	public static void closeSession(){
+	public static void closeSession() {
 		session.close();
 	}
-	
+
 	@Override
 	public Object count() {
 		session = sessionFactory.openSession();

@@ -52,8 +52,6 @@ public class ExpendAction extends ActionSupport{
 	}
 
 	public String update() {
-		System.out.println("update");
-		System.out.println(expend.toString());
 		expendService.update(expend);
 		return SUCCESS;
 	}
@@ -69,7 +67,6 @@ public class ExpendAction extends ActionSupport{
 	}
 
 	public String queryAll() {
-		System.out.println("query all");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));

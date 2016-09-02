@@ -12,7 +12,7 @@ import com.ht.bean.Dep;
 import com.ht.bean.Dstatus;
 import com.ht.common.Pager;
 
-public class DepDaoImpl implements DepDao{
+public class DepDaoImpl implements DepDao {
 	private SessionFactory sessionFactory;
 	private Session session;
 
@@ -36,7 +36,6 @@ public class DepDaoImpl implements DepDao{
 		return d;
 	}
 
-
 	@Override
 	public Dep update(Dep d) {
 		session = sessionFactory.openSession();
@@ -48,7 +47,7 @@ public class DepDaoImpl implements DepDao{
 		session.close();
 		return d;
 	}
-	
+
 	@Override
 	public Dep query(Dep d) {
 		session = sessionFactory.openSession();
@@ -56,8 +55,7 @@ public class DepDaoImpl implements DepDao{
 		session.close();
 		return d;
 	}
-	
-	
+
 	@Override
 	public Pager<Dep> queryAll(Pager<Dep> pager) {
 		session = sessionFactory.openSession();
@@ -71,7 +69,6 @@ public class DepDaoImpl implements DepDao{
 		session.close();
 		return pager;
 	}
-	
 
 	@Override
 	public Pager<Dep> queryAlln(Pager<Dep> pager) {
@@ -111,10 +108,9 @@ public class DepDaoImpl implements DepDao{
 		transaction.commit();
 		session.close();
 	}
-	
-	
+
 	@Override
-	public Pager<Dep> queryByName(Pager<Dep> pager,String name) {
+	public Pager<Dep> queryByName(Pager<Dep> pager, String name) {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Dep d where d.ename=?");
 		query.setString(0, name);
@@ -126,14 +122,13 @@ public class DepDaoImpl implements DepDao{
 		session.close();
 		return pager;
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dstatus> queryDstatus() {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Dstatus");
-		List<Dstatus> dstatus= query.list();
+		List<Dstatus> dstatus = query.list();
 		session.close();
 		return dstatus;
 	}
@@ -148,7 +143,7 @@ public class DepDaoImpl implements DepDao{
 		dep.setDepartments(d.getDepartments());
 		dep.setDstatuss(d.getDstatuss());
 		session.update(dep);
-		
+
 		transaction.commit();
 		session.close();
 		return d;

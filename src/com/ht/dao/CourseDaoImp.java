@@ -71,7 +71,6 @@ public class CourseDaoImp implements CourseDao{
 	public void delete(Course t) {
 		session=sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		System.out.println("course delete");
 		session.delete(t);
 		transaction.commit();
 		session.close();

@@ -91,7 +91,6 @@ public class GetjobAction extends ActionSupport {
 	}
 
 	public String query() {
-		System.out.println("query  getjob");
 		getjobService.query(getjob);
 		return SUCCESS;
 	}

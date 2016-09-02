@@ -140,7 +140,6 @@ public class StutotalAction extends ActionSupport{
 		pager = stutotalService.queryAll(pager);
 		for(Stutotal stuto : pager.getRows()){
 			Student stu = stuto.getStudent();
-			System.out.println();
 			if(stu != null){
 				stuto.setStuid(stu.getIntenid());
 			}

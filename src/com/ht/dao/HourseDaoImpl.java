@@ -25,7 +25,6 @@ public class HourseDaoImpl implements HourseDao{
 	public Hourse add(Hourse t) {
 		session=sessionFactory.openSession();
 		Transaction transaction=session.beginTransaction();
-		System.out.println(t.getHourname());
 		session.saveOrUpdate(t);
 		transaction.commit();
 		session.close();

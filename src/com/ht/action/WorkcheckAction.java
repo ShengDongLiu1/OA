@@ -70,12 +70,10 @@ public class WorkcheckAction extends ActionSupport {
 		long begintime=Long.valueOf(td.format(date)+"0"+80300);
 		long endtime=Long.valueOf(td.format(date)+"1"+90000);
 		if(today>=begintime && today<=endtime){
-			System.out.println("if");
 			HttpSession session = ServletActionContext.getRequest().getSession();
 			User user=(User) session.getAttribute("user");
 			Dep d=new Dep();
 			d.setEid(user.getDep().getEid());
-			System.out.println("workcheck："+workcheck);
 			workcheck.setDep(d);
 			workcheck.setWdate(date);
 			workcheck.setEid(user.getDep().getEid());

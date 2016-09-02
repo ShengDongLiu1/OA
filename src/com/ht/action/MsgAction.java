@@ -55,7 +55,6 @@ public class MsgAction extends ActionSupport{
 	}
 
 	public String add(){
-		System.out.println(msg.getMsgks());
 		msg = msgService.add(msg);
 		if(msg == null){
 			result = ControllerResult.getFailResult("添加失败");
@@ -77,7 +76,6 @@ public class MsgAction extends ActionSupport{
 	}
 	
 	public String delete(){
-		System.out.println(msg);
 		msgService.delete(msg);
 		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;

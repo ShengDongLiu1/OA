@@ -12,11 +12,11 @@ public class ExpendDaoImp implements ExpendDao {
 
 	private SessionFactory sessionFactory;
 	private Session session;
-	
-	public SessionFactory getSessionFactory(){
+
+	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -34,7 +34,7 @@ public class ExpendDaoImp implements ExpendDao {
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Expend add(Expend t) {
 		session = sessionFactory.openSession();

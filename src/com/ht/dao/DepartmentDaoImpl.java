@@ -12,7 +12,7 @@ import com.ht.bean.Dep;
 import com.ht.bean.Department;
 import com.ht.common.Pager;
 
-public class DepartmentDaoImpl implements DepartmentDao{
+public class DepartmentDaoImpl implements DepartmentDao {
 
 	private SessionFactory sessionFactory;
 	private Session session;
@@ -35,16 +35,17 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		session.close();
 		return d;
 	}
+
 	@Override
-	public List<Department> queryDepar(){
+	public List<Department> queryDepar() {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Department");
 		@SuppressWarnings("unchecked")
-		List<Department> d  = query.list();
+		List<Department> d = query.list();
 		session.close();
 		return d;
 	}
-	
+
 	@Override
 	public Department query(Department d) {
 		session = sessionFactory.openSession();
@@ -58,7 +59,7 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(d);
-		transaction.commit();	
+		transaction.commit();
 		session.close();
 		return d;
 	}
@@ -93,12 +94,13 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		transaction.commit();
 		session.close();
 	}
-	
+
 	@Override
-	public List<Dep> depcount(int did){
+	public List<Dep> depcount(int did) {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		Query q = session.createSQLQuery("select eid from Dep where mid in(select did from Department where department.did=?)");
+		Query q = session
+				.createSQLQuery("select eid from Dep where mid in(select did from Department where department.did=?)");
 		q.setInteger(0, did);
 		@SuppressWarnings("unchecked")
 		List<Dep> deps = q.list();
@@ -106,5 +108,5 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		session.close();
 		return deps;
 	}
-	
+
 }

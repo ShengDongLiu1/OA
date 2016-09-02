@@ -20,10 +20,10 @@ import com.ht.service.DepServiceImpl;
 import com.ht.service.IncomeService;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class IncomeAction extends ActionSupport{
-	
+public class IncomeAction extends ActionSupport {
+
 	private static final long serialVersionUID = 8409835796742185658L;
-	
+
 	private IncomeService incomeService;
 	private Pager<Income> pager;
 	private Income income;
@@ -35,7 +35,6 @@ public class IncomeAction extends ActionSupport{
 	private int page;
 	private int[] stuid;
 	private double[] money;
-
 
 	public double[] getMoney() {
 		return money;
@@ -56,7 +55,7 @@ public class IncomeAction extends ActionSupport{
 	public ControllerResult getResult() {
 		return result;
 	}
-	
+
 	public String getMname() {
 		return mname;
 	}
@@ -76,7 +75,7 @@ public class IncomeAction extends ActionSupport{
 	public void setIncome(Income income) {
 		this.income = income;
 	}
-	
+
 	public void setPager(Pager<Income> pager) {
 		this.pager = pager;
 	}
@@ -95,7 +94,7 @@ public class IncomeAction extends ActionSupport{
 
 	public String add() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user = (User)session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		Dep dep = new Dep();
 		dep.setEid(user.getEid());
 		DepService ser = new DepServiceImpl();
@@ -106,7 +105,6 @@ public class IncomeAction extends ActionSupport{
 	}
 
 	public String update() {
-		System.out.println();
 		incomeService.update(income);
 		return SUCCESS;
 	}
@@ -135,13 +133,12 @@ public class IncomeAction extends ActionSupport{
 	public String all() {
 		return "all";
 	}
-	
 
 	public String batch() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("classid");
 		List<Student> students = new ArrayList<Student>();
-		students = incomeService.batchQlery(student,id);
+		students = incomeService.batchQlery(student, id);
 		ServletActionContext.getRequest().setAttribute("students", students);
 		return "PL";
 	}
@@ -155,7 +152,7 @@ public class IncomeAction extends ActionSupport{
 				income = new Income();
 				Student student = new Student();
 				student.setIntenid(stuid[i]);
-				income.setMname(mname);	
+				income.setMname(mname);
 				income.setMoncount(money[i]);
 				income.setMonpro("收取学费");
 				income.setMdate(Calendar.getInstance().getTime());
@@ -163,11 +160,11 @@ public class IncomeAction extends ActionSupport{
 			}
 			incomeService.batchSave(incomes);
 			result = ControllerResult.getSuccessRequest("成功");
-			
+
 		}
 		return SUCCESS;
 	}
-	
+
 	public String money() {
 		return "money";
 	}

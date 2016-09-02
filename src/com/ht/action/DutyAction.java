@@ -87,7 +87,6 @@ public class DutyAction extends ActionSupport {
 	}
 	
 	public String queryAll(){
-		System.out.println("查找所有");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));

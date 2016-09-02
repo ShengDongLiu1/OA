@@ -12,7 +12,7 @@ import com.ht.bean.Dep;
 import com.ht.bean.Worktype;
 import com.ht.common.Pager;
 
-public class ApplyDaoImpl implements ApplyDao{
+public class ApplyDaoImpl implements ApplyDao {
 	private SessionFactory sessionFactory;
 	private Session session;
 
@@ -23,9 +23,10 @@ public class ApplyDaoImpl implements ApplyDao{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
 	@Override
 	public Apply add(Apply t) {
-		session=sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		session.save(t);
 		session.close();
 		return t;
@@ -33,8 +34,8 @@ public class ApplyDaoImpl implements ApplyDao{
 
 	@Override
 	public Apply query(Apply t) {
-		session=sessionFactory.openSession();
-		Transaction transaction=session.beginTransaction();
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
 		session.get(Apply.class, t.getAid());
 		transaction.commit();
 		session.close();
@@ -55,7 +56,7 @@ public class ApplyDaoImpl implements ApplyDao{
 	public Apply updateSP(Apply t) {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		Apply a = (Apply)session.get(Apply.class, t.getAid());
+		Apply a = (Apply) session.get(Apply.class, t.getAid());
 		a.setAstatus("已审批");
 		session.update(a);
 		session.getTransaction().commit();
@@ -74,12 +75,12 @@ public class ApplyDaoImpl implements ApplyDao{
 
 	@Override
 	public Pager<Apply> queryAll(Pager<Apply> pager) {
-		session=sessionFactory.openSession();
-		Query query=session.createQuery("from Apply");
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
-		List<Apply> list=query.list();
+		List<Apply> list = query.list();
 		pager.setRows(list);
 		pager.setTotal((long) count());
 		session.close();
@@ -88,12 +89,12 @@ public class ApplyDaoImpl implements ApplyDao{
 
 	@Override
 	public Object count() {
-		session=sessionFactory.openSession();
-		Query query=session.createQuery("select count(t) from Apply t");
-		Object obj=query.uniqueResult();
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t");
+		Object obj = query.uniqueResult();
 		return obj;
 	}
-	
+
 	public List<Dep> queryDep() {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Dep where eid != 1");
@@ -101,19 +102,18 @@ public class ApplyDaoImpl implements ApplyDao{
 		List<Dep> dep = query.list();
 		return dep;
 	}
-	
+
 	public List<Worktype> queryWorktype() {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Worktype");
 		@SuppressWarnings("unchecked")
-		List<Worktype> worktype= query.list();
+		List<Worktype> worktype = query.list();
 		session.close();
 		return worktype;
 	}
-	
+
 	@Override
 	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name) {
-		System.out.println(0);
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Apply where dep.ename=:name");
 		query.setString("name", name);
@@ -126,19 +126,18 @@ public class ApplyDaoImpl implements ApplyDao{
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Object DepNamecount(String name) {
-		session=sessionFactory.openSession();
-		Query query=session.createQuery("select count(t) from Apply t where dep.ename=:name");
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t where dep.ename=:name");
 		query.setString("name", name);
-		Object obj=query.uniqueResult();
+		Object obj = query.uniqueResult();
 		return obj;
 	}
-	
+
 	@Override
 	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname) {
-		System.out.println(0);
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Apply where worktype.swname=:lname");
 		query.setString("lname", lname);
@@ -151,19 +150,18 @@ public class ApplyDaoImpl implements ApplyDao{
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Object WorktypeNamecount(String lname) {
-		session=sessionFactory.openSession();
-		Query query=session.createQuery("select count(t) from Apply t where worktype.swname=:lname");
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t where worktype.swname=:lname");
 		query.setString("lname", lname);
-		Object obj=query.uniqueResult();
+		Object obj = query.uniqueResult();
 		return obj;
 	}
-	
+
 	@Override
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status) {
-		System.out.println(0);
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Apply where astatus=?");
 		query.setString(0, status);
@@ -176,13 +174,13 @@ public class ApplyDaoImpl implements ApplyDao{
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Object Astatuscount(String status) {
-		session=sessionFactory.openSession();
-		Query query=session.createQuery("select count(t) from Apply t where astatus=?");
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t where astatus=?");
 		query.setString(0, status);
-		Object obj=query.uniqueResult();
+		Object obj = query.uniqueResult();
 		return obj;
-	}	
+	}
 }

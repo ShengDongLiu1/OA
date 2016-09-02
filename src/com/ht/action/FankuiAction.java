@@ -67,7 +67,6 @@ public class FankuiAction extends ActionSupport {
 		}else{
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
-		System.out.println(f.getPro());
 		return SUCCESS;
 	}
 	

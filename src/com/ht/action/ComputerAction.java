@@ -76,12 +76,9 @@ public class ComputerAction extends ActionSupport {
 	
 	public String update(){
 		Computer c = computerService.update(computer);
-		System.out.println(c);
 		if(c == null){
-			System.out.println("22222222222222222222222");
 			result = ControllerResult.getFailResult("ä¿®æ”¹å¤±è´¥");
 		}else{
-			System.out.println("1111111111111111111111111");
 			result = ControllerResult.getSuccessRequest("ä¿®æ”¹æˆåŠŸ");
 		}
 		return SUCCESS;
@@ -116,7 +113,7 @@ public class ComputerAction extends ActionSupport {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
 		PrintWriter out=resp.getWriter();
-		student = computerService.queryStudent(); //²éÑ¯ËùÓĞÀàĞÍ
+		student = computerService.queryStudent(); //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		List<Combox> list = new ArrayList<>();
 		for (Student student : student) {
 			int intenid = student.getIntenid();

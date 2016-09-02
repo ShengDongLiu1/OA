@@ -182,7 +182,6 @@ public class SaysAction extends ActionSupport {
 		pager = saysService.queryAll(pager);
 		rows = pager.getRows();
 		total = pager.getTotal();
-		System.out.println(pager.getRows().get(0).getSayspro()+"------");
 		return SUCCESS;
 	}
 	

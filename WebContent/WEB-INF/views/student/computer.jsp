@@ -27,10 +27,10 @@
 		fit:true">
 		<thead>
 			<tr>
-				<th data-options="field:'comid',checkbox:true,width:100">电脑编号</th>
-				<th data-options="field:'coma',width:100">电脑部件</th>
-				<th data-options="field:'comb',width:100">电脑整体</th>
-				<th data-options="field:'student',width:100" formatter="forStudentName">学生姓名</th>
+				<th data-options="field:'comid',checkbox:true,width:100" align="center">电脑编号</th>
+				<th data-options="field:'coma',width:100" align="center">电脑部件</th>
+				<th data-options="field:'comb',width:100" align="center">电脑整体</th>
+				<th data-options="field:'student',width:100" formatter="forStudentName" align="center">学生姓名</th>
 			</tr>
 		</thead>
 	</table>

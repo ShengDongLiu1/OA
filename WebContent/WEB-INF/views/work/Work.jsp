@@ -30,10 +30,10 @@
 		fit:true">
 		<thead>
 			<tr>
-				<th data-options="field:'wid',checkbox:true,width:100">编号</th>
-				<th data-options="field:'worktype',width:100" formatter="forTypeName">类型</th>
-				<th data-options="field:'wname',width:100">名称</th>
-				<th data-options="field:'wamount',width:100">数量</th>
+				<th data-options="field:'wid',checkbox:true,width:100" align="center">编号</th>
+				<th data-options="field:'worktype',width:100" formatter="forTypeName" align="center">类型</th>
+				<th data-options="field:'wname',width:100" align="center">名称</th>
+				<th data-options="field:'wamount',width:100" align="center">数量</th>
 			</tr>
 		</thead>
 	</table>

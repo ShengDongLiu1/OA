@@ -30,16 +30,16 @@
 		fit:true">
 		<thead>
 			<tr>
-				<th data-options="field:'aid',checkbox:true,width:100">申购编号</th>
-				<th data-options="field:'dep',width:100" formatter="forDepName">员工姓名</th>
-				<th data-options="field:'gname',width:100">物品名称</th>
-				<th data-options="field:'worktype',width:100" formatter="forWorktypeName">物品类型</th>
-				<th data-options="field:'gcounts',width:100">物品数量</th>
-				<th data-options="field:'gprice',width:100">物品单价</th>
-				<th data-options="field:'gtotle',width:100">物品总价</th>
-				<th data-options="field:'gpurpose',width:100">物品用途</th>
-				<th data-options="field:'adatetime',width:100">申请时间</th>
-				<th data-options="field:'astatus',width:100">状态</th>
+				<th data-options="field:'aid',checkbox:true,width:100" align="center">申购编号</th>
+				<th data-options="field:'dep',width:100" formatter="forDepName" align="center">员工姓名</th>
+				<th data-options="field:'gname',width:100" align="center">物品名称</th>
+				<th data-options="field:'worktype',width:100" formatter="forWorktypeName" align="center">物品类型</th>
+				<th data-options="field:'gcounts',width:100" align="center">物品数量</th>
+				<th data-options="field:'gprice',width:100" align="center">物品单价</th>
+				<th data-options="field:'gtotle',width:100" align="center">物品总价</th>
+				<th data-options="field:'gpurpose',width:100" align="center">物品用途</th>
+				<th data-options="field:'adatetime',width:100" align="center">申请时间</th>
+				<th data-options="field:'astatus',width:100" align="center">状态</th>
 			</tr>
 		</thead>
 	</table>

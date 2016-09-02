@@ -30,8 +30,8 @@
 		fit:true">
 		<thead>
 			<tr>
-				<th data-options="field:'swid',checkbox:true,width:100">编号</th>
-				<th data-options="field:'swname',width:100">类型</th>
+				<th data-options="field:'swid',checkbox:true,width:100" align="center">编号</th>
+				<th data-options="field:'swname',width:100" align="center">类型</th>
 			</tr>
 		</thead>
 	</table>

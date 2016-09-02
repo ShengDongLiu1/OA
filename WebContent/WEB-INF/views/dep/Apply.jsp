@@ -82,7 +82,7 @@
 					</tr>
 					<tr>
 						<td>物品单价:</td>
-						<td><input class="easyui-numberbox" name="apply.gtotle"
+						<td><input class="easyui-numberbox" name="apply.gprice"
 							data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 					</tr>
 					<tr>

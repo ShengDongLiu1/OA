@@ -216,19 +216,19 @@
 	                </td>
 	            </tr>
             
-        	   <tr>
+  	  			 <tr>
 	                <td>谈心内容:</td>
 	                <td><input class="easyui-textbox" id="ssayscon" style="width: 200px; height: 100px;" name="says.sayscon"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
 	                <td>谈心问题:</td>
 	                <td><input class="easyui-textbox" id="ssayspro" style="width: 200px; height: 100px;" name="says.sayspro"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
                   <tr>
 	                <td>学生反馈:</td>
 	                <td><input class="easyui-textbox" id="ssysback" style="width: 200px; height: 100px;" name="says.sysback"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -261,19 +261,19 @@
 	                </td>
 	            </tr>
               
-                <tr>
+          		<tr>
                 <td>谈心内容:</td>
                 <td><input class="easyui-textbox" id="ssayscon2" style="width: 200px; height: 100px;" name="says.sayscon"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
 	                <td>谈心问题:</td>
 	                <td><input class="easyui-textbox" id="ssayspro2" style="width: 200px; height: 100px;" name="says.sayspro"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
                   <tr>
 	                <td>学生反馈:</td>
 	                <td><input class="easyui-textbox" id="ssysback2" style="width: 200px; height: 100px;" name="says.sysback"
-                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                                data-options="required:true,multiline:true,validType:'length[10,50]'"></td>
                 <tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">

@@ -18,6 +18,25 @@
 </head>
 
 <script type="text/javascript">
+
+	function onSelect(d) {
+    	var issd = this.id == 'ucreattime2', sd = issd ? d : new Date($('#ucreattime2').datebox('getValue')), ed = issd ? new Date($('#uendtime2').datebox('getValue')) : d;
+        if (ed < sd) {
+        	$('#uendtime2').textbox('setValue', '');
+        	$.messager.alert('提示', '结束日期小于开始日期', 'info');
+            //只要选择了日期，不管是开始或者结束都对比一下，如果结束小于开始，则清空结束日期的值并弹出日历选择框
+          
+        }
+    }
+	function onSelect2(d) {
+    	var issd = this.id == 'ucreattime', sd = issd ? d : new Date($('#ucreattime').datebox('getValue')), ed = issd ? new Date($('#uendtime').datebox('getValue')) : d;
+        if (ed < sd) {
+        	$('#uendtime').textbox('setValue', '');
+        	$.messager.alert('提示', '结束日期小于开始日期', 'info');
+            //只要选择了日期，不管是开始或者结束都对比一下，如果结束小于开始，则清空结束日期的值并弹出日历选择框
+          
+        }
+    }
 	function depdname(value){
 		return value.ename;
 	}
@@ -315,16 +334,16 @@
                          data-options="required:true,validType:'length[3,50]',novalidate:true,multiline:true" ></td>
           		 </tr>
 				<tr>
-					<td>借用时间</td>
-					<td><input class="easyui-datebox" value="10/11/2012" id="ucreattime" name="receiue.ucreattime" style="width:200px"></td>
+					<td>借用时间：</td>
+					<td><input class="easyui-datebox" value="10/11/2012" data-options="onSelect:onSelect2,required:true" id="ucreattime" name="receiue.ucreattime" style="width:200px"></td>
 				</tr>
 				<tr>
-					<td>归还时间</td>
-					<td><input class="easyui-datebox" value="10/11/2012" id="uendtime" name="receiue.uendtime" style="width:200px"></td>
+					<td>归还时间：</td>
+					<td><input class="easyui-datebox" value="10/11/2012" data-options="onSelect:onSelect2,required:true" id="uendtime" name="receiue.uendtime" style="width:200px"></td>
 				</tr>
 				<tr height="35px;">
 					<td>借还状态：</td>
-					<td>&nbsp;<select class="easyui-combobox" name="receiue.restore" id="restore" style="width:150px;">
+					<td>&nbsp;<select class="easyui-combobox" name="receiue.restore" id="restore" style="width:150px;" readonly>
 							<option value="借">正在借用</option>
 							<option value="还">已经归还</option>
 						</select>
@@ -371,11 +390,11 @@
           		 </tr>
 				<tr>
 					<td>借用时间：</td>
-					<td><input class="easyui-datebox" value="10/11/2012" id="ucreattime" name="receiue.ucreattime" style="width:200px"></td>
+					<td><input class="easyui-datebox" value="10/11/2012" data-options="onSelect:onSelect,required:true" id="ucreattime2" name="receiue.ucreattime" style="width:200px"></td>
 				</tr>
 				<tr>
 					<td>归还时间：</td>
-					<td><input class="easyui-datebox" value="10/11/2012" id="uendtime" name="receiue.uendtime" style="width:200px"></td>
+					<td><input class="easyui-datebox" value="10/11/2012" data-options="onSelect:onSelect,required:true" id="uendtime2" name="receiue.uendtime" style="width:200px"></td>
 				</tr>
 			</table>
 			<div data-options="region:'south',border:false" style="text-align:right;padding:10px 40px 0px;">

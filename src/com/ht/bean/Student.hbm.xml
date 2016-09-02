@@ -98,5 +98,11 @@
         	</key>
         	<one-to-many class="com.ht.bean.Says"/>
         </set>
+        <set name="raws" lazy="false" cascade="all">
+        	<key>
+        		<column name="jstuid"></column>
+        	</key>
+        	<one-to-many class="com.ht.bean.Rawpun"/>
+         </set>
     </class>
 </hibernate-mapping>

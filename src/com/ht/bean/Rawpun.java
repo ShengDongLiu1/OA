@@ -14,6 +14,8 @@ public class Rawpun implements java.io.Serializable {
 	private Integer jstuid;
 	private String jtitle;
 	private String jcontent;
+	private Student students;
+	
 
 	// Constructors
 
@@ -27,11 +29,20 @@ public class Rawpun implements java.io.Serializable {
 		this.jtitle = jtitle;
 		this.jcontent = jcontent;
 	}
-
+	
 	// Property accessors
+
 
 	public Integer getJid() {
 		return this.jid;
+	}
+
+	public Student getStudents() {
+		return students;
+	}
+
+	public void setStudents(Student students) {
+		this.students = students;
 	}
 
 	public void setJid(Integer jid) {

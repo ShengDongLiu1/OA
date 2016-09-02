@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.struts2.ServletActionContext;
 
 import com.ht.bean.Rawpun;
+import com.ht.bean.Student;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.RawpunService;
+import com.ht.service.SaysService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 
@@ -53,12 +55,12 @@ public class RawpunAction extends ActionSupport{
 	}
 	
 	public String add(){
+		System.out.println(rawpun.getJtitle()+" "+rawpun.getJstuid()+" "+rawpun.getJcontent());
+		Student stu = new Student();
+		stu.setIntenid(rawpun.getJstuid());
+		rawpun.setStudents(stu);
 		rawpun = rawpunService.add(rawpun);
-		if(rawpun == null){
-			result = ControllerResult.getFailResult("添加失败");
-		}else{
-			result = ControllerResult.getSuccessRequest("添加成功");
-		}
+		result = ControllerResult.getSuccessRequest("添加成功");
 		return SUCCESS;
 	}
 	
@@ -68,12 +70,11 @@ public class RawpunAction extends ActionSupport{
 	}
 	
 	public String update(){
+		Student stu = new Student();
+		stu.setIntenid(rawpun.getJstuid());
+		rawpun.setStudents(stu);
 		rawpun = rawpunService.update(rawpun);
-		if(rawpun == null){
-			result = ControllerResult.getFailResult("修改失败");
-		}else{
-			result = ControllerResult.getSuccessRequest("修改成功");
-		}
+		result = ControllerResult.getSuccessRequest("修改成功");
 		return SUCCESS;
 	}
 	
@@ -89,6 +90,12 @@ public class RawpunAction extends ActionSupport{
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		pager = rawpunService.queryAll(pager);
+		for(Rawpun raw : pager.getRows()){
+			Student stu = raw.getStudents();
+			if(stu!=null){
+				raw.setJstuid(stu.getIntenid());
+			}
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

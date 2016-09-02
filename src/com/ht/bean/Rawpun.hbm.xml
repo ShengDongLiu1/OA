@@ -10,9 +10,6 @@
             <column name="jid" />
             <generator class="identity" />
         </id>
-        <property name="jstuid" type="java.lang.Integer">
-            <column name="jstuid" />
-        </property>
         <property name="jtitle" type="java.lang.String">
             <column name="jtitle">
                 <comment>奖惩对象</comment>
@@ -23,5 +20,6 @@
                 <comment>奖惩内容</comment>
             </column>
         </property>
+        <many-to-one name="students"  class="com.ht.bean.Student" column="jstuid" cascade="none" lazy="false"></many-to-one>
     </class>
 </hibernate-mapping>

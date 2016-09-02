@@ -12,6 +12,129 @@
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>
+
+	<script type="text/javascript">
+    $(function () {
+        setPagination("list");
+    });
+    
+   function studentname(value){
+	   return value.intenname;
+   }
+    // 显示数据
+    function setPagination(tableId) {
+        var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
+        $(p).pagination({
+            pageList: [5, 10, 15, 20],
+            beforePageText: "第",
+            afterPageText: "页    共{pages}页",
+            displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
+            onBeforeRefresh: function () {
+                $(this).pagination("loading");
+                $(this).pagination("loaded");
+            }
+        });
+    }
+    // 打开添加窗口
+    function addOpen() {
+        $("#addWindow").window("open");
+        $("#addrawpun").combobox({
+            url: "<%=path%>/says/tjls",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#addrawpun').combobox('getData');
+                if (data.length > 0) {
+                    $("#addrawpun").combobox('select', data[0].id);
+                }
+            }
+        });
+    }
+    // 添加(提交後臺)
+    function add() {
+    	toValidate("ff");
+    	if (validateForm("ff")){// 验证整个表单里的所有validatabox是否通过验证
+            $.post("rawpun/add", $("#ff").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
+                    function (data) {
+                        if (data.result.result == 'success') {
+                            $.messager.alert("提示", data.result.msg, "info", function () {
+                                $("#addWindow").window("close");
+                                $("#list").datagrid("reload");
+                                $("#ff").form("clear");
+                            });
+                        } else {
+                        	 $.messager.alert("提示", data.result.msg, "info");
+                        }
+                    }, 'json')
+        }
+    }
+
+    // 打开编辑窗口
+    function editOpen() {
+        var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
+        if (row) {
+            $("#editWindow").window("open");
+           	document.getElementById("rjid").value = row.jid;
+            $("#updaterawpun").combobox({
+                url: "<%=path%>/says/tjls",
+                method: 'get',
+                valueField: 'id',
+                textField: 'name',
+                panelHeight: 'auto',
+            });
+            $("#updaterawpun").combobox("setValue", row.students.intenname);
+            $("#updaterawpun").combobox('select', row.students.intenid);
+            $("#rjtitle").textbox("setValue", row.jtitle);
+            $("#rjcontent").textbox("setValue", row.jcontent);
+
+        } else {
+            $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
+        }
+    }
+    function edit() {
+   	 var row = $("#list").datagrid("getSelected");
+   		toValidate("editForm");
+       	if (validateForm("editForm")){
+            $.post("rawpun/update", $("#editForm").serialize(),
+                   function (data) {
+                       if (data.result.result == 'success') {
+                           $.messager.alert("提示", data.result.msg, "info", function () {
+                               $("#editWindow").window("close");
+                               $("#list").datagrid("reload");
+                           });
+                       } else {
+                           $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+                       }
+                   }, "JSON");
+       }
+   }
+    //删除
+    function expurgate() {
+        var row = $("#list").datagrid("getSelected");
+        if (row) {
+            $.messager.confirm("提示", "确认要删除这个奖惩记录吗？", function (r) {
+                if (r) {
+                    $.post("rawpun/delete", {'rawpun.jid': row.jid}, function (data) {
+                        if (data.result.result == "success") {
+                            $.messager.alert("提示", data.result.msg, "info",
+                                    function () {
+                                        $("#list").datagrid("reload");
+                                    });
+                        }
+                    }, "JSON");
+                }
+            });
+        } else {
+            $.messager.alert('提示', '请选中需要删除的奖惩记录', 'info');
+        }
+    }
+    // 关闭窗口
+    function Winclose(c) {
+        $("#" + c).window("close");
+    }
+</script>
 </head>
 <body>
 <!-- 表格 -->
@@ -27,7 +150,7 @@
     <thead>
     <tr>
         <th data-options="field:'jid',width:100">ID</th>
-        <th data-options="field:'jstuid',width:100">奖惩对象</th>
+        <th data-options="field:'students',width:100" formatter="studentname">奖惩对象</th>
         <th data-options="field:'jtitle',width:100">奖惩标题</th>
         <th data-options="field:'jcontent',width:100">奖惩内容</th>
     </tr>
@@ -48,17 +171,20 @@
         <form id="ff" method="post">
             <table>
                 <tr>
-                    <td>奖惩对象:</td>
-                    <td><input class="easyui-textbox" name="rawpun.jstuid" data-options="required:true"/></td>
-                </tr>
+	                <td>奖惩对象:</td>
+	                <td><br>
+	                    <input class="easyui-combobox" data-options="required:true" id="addrawpun" name="rawpun.jstuid"/><br/><br/>
+	                </td>
+	            </tr>
                 <tr>
                     <td>奖惩标题:</td>
-                    <td><input class="easyui-textbox" name="rawpun.jtitle" data-options="required:true"/></td>
+                    <td><br><input class="easyui-textbox" name="rawpun.jtitle" data-options="required:true,validType:'length[2,10]'"/><br/><br/></td>
                 </tr>
                 <tr>
-                    <td>奖惩内容:</td>
-                    <td><input class="easyui-textbox" name="rawpun.jcontent" data-options="required:true"/></td>
-                </tr>
+	                <td>奖惩内容:</td>
+	                <td><input class="easyui-textbox"  style="width: 200px; height: 100px;" name="rawpun.jcontent"
+                                data-options="multiline:true,validType:'length[10,50]'"></td>
+                <tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="add();"
@@ -75,34 +201,26 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
+        	<input type="hidden" id="rjid" name="rawpun.jid">
             <table>
+               <tr>
+	                <td>奖惩对象:</td>
+	                <td><br>
+	                    <input class="easyui-combobox" data-options="required:true" id="updaterawpun" name="rawpun.jstuid"/><br/><br/>
+	                </td>
+	            </tr>
                 <tr>
-                    <td>ID</td>
+                    <td>奖惩标题:</td>
                     <td>
-                        <input class="textbox" name="jid" id="rjid" readonly/>
+                        <br/><input class="easyui-textbox" name="rawpun.jtitle" id="rjtitle"
+                               data-options="required:true,validType:'length[2,10]'"/><br/><br/>
                     </td>
                 </tr>
+                 <tr>
+	                <td>奖惩内容:</td>
+	                <td><input class="easyui-textbox" id="rjcontent" style="width: 200px; height: 100px;" name="rawpun.jcontent"
+                                data-options="multiline:true,validType:'length[10,50]'"></td>
                 <tr>
-                    <td>奖惩对象</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="jstuid" id="rjstuid"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
-                    </td>
-                </tr>
-                <tr>
-                    <td>奖惩标题</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="jtitle" id="rjtitle"
-                               data-options="required:true"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>奖惩内容</td>
-                    <td>
-                        <input class="easyui-validatebox textbox" name="jcontent" id="rjcontent"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
-                    </td>
-                </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="edit();"
@@ -114,109 +232,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        setPagination("list");
-    });
-    // 显示数据
-    function setPagination(tableId) {
-        var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
-        $(p).pagination({
-            pageList: [5, 10, 15, 20],
-            beforePageText: "第",
-            afterPageText: "页    共{pages}页",
-            displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
-            onBeforeRefresh: function () {
-                $(this).pagination("loading");
-                $(this).pagination("loaded");
-            }
-        });
-    }
-    // 打开添加窗口
-    function addOpen() {
-        $("#addWindow").window("open");
-    }
-    // 添加(提交後臺)
-    function add() {
-        if ($("#ff").form("validate")) {
-            $.post('rawpun/add', $("#ff").serialize(),
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#addWindow").window("close");
-                                $("#list").datagrid("reload");
-                                $("#ff").form("clear");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.msg, "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
-    }
 
-    // 打开编辑窗口
-    function editOpen() {
-        var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
-        if (row) {
-            $("#editForm").form("load", row);
-            $("#editWindow").window("open");
-        } else {
-            $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
-        }
-    }
-    // 编辑提交
-    function edit() {
-        if ($("#editForm").form("validate")) {
-            var jid = $("#rjid").val();
-            var jstuid = $("#rjstuid").val();
-            var jtitle = $("#rjtitle").val();
-            var jcontent = $("#rjcontent").val();
-
-            //alert(did+"  "+eid +" "+ddatetime+" "+drange+" "+ddesc);
-            $.get('rawpun/update', {
-                        'rawpun.jid': jid,
-                        'rawpun.jstuid': jstuid,
-                        'rawpun.jtitle': jtitle,
-                        'rawpun.jcontent': jcontent
-                    },
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#editWindow").window("close");
-                                $("#list").datagrid("reload");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
-    }
-    //删除
-    function expurgate() {
-        var row = $("#list").datagrid("getSelected");
-        if (row) {
-            $.messager.confirm("提示", "确认要删除这个产品吗？", function (r) {
-                if (r) {
-                    $.post("rawpun/delete", {'rawpun.jid': row.jid}, function (data) {
-                        if (data.result.result == "success") {
-                            $.messager.alert("提示", data.result.msg, "info",
-                                    function () {
-                                        $("#list").datagrid("reload");
-                                    });
-                        }
-                    }, "JSON");
-                }
-            });
-        } else {
-            $.messager.alert('提示', '请选中需要删除的产品', 'info');
-        }
-    }
-    // 关闭窗口
-    function Winclose(c) {
-        $("#" + c).window("close");
-    }
-</script>
 </body>
 </html>

@@ -44,6 +44,7 @@ public class Student implements java.io.Serializable {
 	private Classes classes;
 	private Hourse hourse;
 	private Set<Says> says;
+	private Set<Rawpun> raws;
 	/** default constructor */
 	public Student() {
 	}
@@ -71,9 +72,17 @@ public class Student implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	
 	public Set<Says> getSays() {
 		return says;
+	}
+
+	public Set<Rawpun> getRaws() {
+		return raws;
+	}
+
+	public void setRaws(Set<Rawpun> raws) {
+		this.raws = raws;
 	}
 
 	public void setSays(Set<Says> says) {

@@ -25,7 +25,7 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10，fit:true">
+		pageSize:10,fit:true">
     <thead>
     <tr>
         <th data-options="field:'paysid',checkbox:true,width:100" align="center">工资编码</th>

@@ -261,6 +261,7 @@ public class StudentAction extends ActionSupport {
 		cs = studentService.queryClass(user.getDep().getEid());
 		List<Student> stus = new ArrayList<Student>();
 		for (Classes c : cs) {
+			System.out.println(c.getClassid());
 			students = studentService.queryAllS(c.getClassid());
 			for (Student stu : students) {
 				stus.add(stu);

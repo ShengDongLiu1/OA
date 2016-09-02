@@ -43,18 +43,6 @@
     }
 
     $(function () {
-
-        var row = $("#list").datagrid({
-            onRowContextMenu: function (e, rowindex, rowData) { //datagrid中的每一行都绑定右键菜单
-                e.preventDefault();
-                $("#mm").menu("show", {
-                    left: e.pageX,
-                    top: e.pageY
-
-                });
-            }
-
-        });
         setPagination("list");
 
     });
@@ -144,34 +132,38 @@
     //打开添加部门窗口
     function addPro() {
         var row = $("#list").datagrid("getSelected");
-        $("#addWin").window("open");
-        $("#adddepar").combobox({
-            url: "<%=path%>/dep/tjls",
-            method: 'get',
-            valueField: 'id',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#adddepar').combobox('getData');
-                if (data.length > 0) {
-                    $("#adddepar").combobox('select', data[0].id);
+        if(row){
+            $("#addWin").window("open");
+            $("#adddepar").combobox({
+                url: "<%=path%>/dep/tjls",
+                method: 'get',
+                valueField: 'id',
+                textField: 'name',
+                panelHeight: 'auto',
+                onLoadSuccess: function () { //数据加载完毕事件
+                    var data = $('#adddepar').combobox('getData');
+                    if (data.length > 0) {
+                        $("#adddepar").combobox('select', data[0].id);
+                    }
                 }
-            }
-        });
-        $("#addestatus").combobox({
-            url: "<%=path%>/dep/tjls2",
-            method: 'get',
-            valueField: 'id',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#addestatus').combobox('getData');
-                if (data.length > 0) {
-                    $("#addestatus").combobox('select', data[0].id);
+            });
+            $("#addestatus").combobox({
+                url: "<%=path%>/dep/tjls2",
+                method: 'get',
+                valueField: 'id',
+                textField: 'name',
+                panelHeight: 'auto',
+                onLoadSuccess: function () { //数据加载完毕事件
+                    var data = $('#addestatus').combobox('getData');
+                    if (data.length > 0) {
+                        $("#addestatus").combobox('select', data[0].id);
+                    }
                 }
-            }
-        });
-        $("#eid").textbox("setValue", row.eid)
+            });
+            document.getElementById("eid").value = row.eid;
+	    } else {
+		        $.messager.alert('提示', '请选中需要招收的员工', 'info');// messager消息控件
+	    }
     }
 
     function closes() {
@@ -240,7 +232,7 @@
         <th data-options="field:'eanton',width:100" align="center">民族</th>
         <th data-options="field:'edu',width:100" align="center">学历</th>
         <th data-options="field:'eaddr',width:100" align="center">家庭住址</th>
-        <th data-options="field:'etry',width:100" align="center">开始使用日期</th>
+        <th data-options="field:'etry',width:100" align="center">招聘时间</th>
         <th data-options="field:'ecreate',width:100" align="center">创建时间</th>
     </tr>
 
@@ -267,13 +259,8 @@
      data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 300px; height: 300px; padding: 5px;">
     <form id="addForm" enctype="multipart/form-data">
+    	<input type="hidden" name="dep.eid" id="eid" />
         <table>
-            <tr>
-                <td>员工编号:</td>
-                <td><br/>
-                    <input class="easyui-textbox" data-options="required:true" id="eid" name="dep.eid"/><br/><br/>
-                </td>
-            </tr>
             <tr>
                 <td>部门:</td>
                 <td><br/>

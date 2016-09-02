@@ -130,7 +130,6 @@
                 <c:when test="${sessionScope.user.statuss.getZid() eq 6 || sessionScope.user.statuss.getZid() eq 11}">
                     <p><a href="javascript:void(0);" src="<%=path %>/department/all" class="site-navi-tab">部门</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/dep/all" class="site-navi-tab">员工</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/dep/alln" class="site-navi-tab">招收员工</a></p>
                 </c:when>
                 <c:otherwise>
                     <span>权限不足!</span>

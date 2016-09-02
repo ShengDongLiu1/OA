@@ -229,14 +229,14 @@
         <th data-options="field:'ename',width:100"  align="center">员工姓名</th>
         <th data-options="field:'esex',width:100" align="center">员工性别</th>
         <th data-options="field:'departments',width:100" formatter="depardname" align="center">部门名称</th>
-        <th data-options="field:'ebirth',width:100" align="center">员工生日</th>
+        <th data-options="field:'ebirth',width:150" align="center">员工生日</th>
         <th data-options="field:'enumber',width:100" align="center">员工号码</th>
-        <th data-options="field:'ecertid',width:100" align="center"> 身份证号</th>
+        <th data-options="field:'ecertid',width:130" align="center"> 身份证号</th>
         <th data-options="field:'ecity',width:100" align="center">员工籍贯</th>
         <th data-options="field:'eanton',width:100" align="center">民族</th>
         <th data-options="field:'edu',width:100" align="center">学历</th>
         <th data-options="field:'eaddr',width:100" align="center">家庭住址</th>
-        <th data-options="field:'etry',width:100" align="center">开始使用日期</th>
+        <th data-options="field:'etry',width:150" align="center">招聘时间</th>
         <th data-options="field:'dstatuss',width:100" formatter="statuname" align="center">员工状态</th>
     </tr>
 

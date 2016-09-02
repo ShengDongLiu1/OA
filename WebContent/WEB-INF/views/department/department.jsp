@@ -153,7 +153,7 @@
     <tr>
         <th data-options="field:'did',checkbox:true" width="100" align="center">部门编号</th>
         <th data-options="field:'dname'" width="100" align="center">部门名称</th>
-        <th data-options="field:'dcreatetime'" width="100" align="center">创建时间</th>
+        <th data-options="field:'dcreatetime'" width="150" align="center">创建时间</th>
     </tr>
     </thead>
 </table>

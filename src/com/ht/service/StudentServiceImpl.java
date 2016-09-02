@@ -81,4 +81,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.queryClass(eid);
 	}
 
+	@Override
+	public void CloseSession() {
+		studentDao.CloseSession();
+	}
+
 }

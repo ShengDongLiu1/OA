@@ -193,8 +193,11 @@ public class StudentDaoImpl implements StudentDao {
 		query.setInteger("classid", classid);
 		@SuppressWarnings("unchecked")
 		List<Student> list = query.list();
-		session.close();
 		return list;
+	}
+	@Override
+	public void CloseSession(){
+		session.close();
 	}
 
 	@Override
@@ -205,7 +208,6 @@ public class StudentDaoImpl implements StudentDao {
 		query.setInteger("eid", eid);
 		@SuppressWarnings("unchecked")
 		List<Classes> list = query.list();
-		session.close();
 		return list;
 	}
 	

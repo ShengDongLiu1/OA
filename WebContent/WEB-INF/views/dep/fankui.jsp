@@ -149,7 +149,7 @@
         function addLook() {
             var row = $("#list").datagrid("getSelected");
             if (row) {
-                window.location.href = "<%=path%>/fankui/query?fankui.TBackid=" + row.TBackid;
+                window.location.href = "<%=path%>/fankui/query?fankui.Tbackid=" + row.tbackid;
             } else {
                 $.messager.alert('提示', '请选中需要查看的反馈!', 'info');// messager消息控件
             }
@@ -175,10 +175,10 @@
 			pageSize:10">
     <thead>
     <tr>
-        <th align="center" data-options="field:'TBackid',checkbox:true">编号</th>
+        <th align="center" data-options="field:'tbackid',checkbox:true">编号</th>
         <th align="center" data-options="field:'dep'" width="100" formatter="formatterDepName">反馈人</th>
         <th align="center" data-options="field:'title'" width="500">反馈标题</th>
-        <th align="center" data-options="field:'key'" width="100">是否回复</th>
+        <th align="center" data-options="field:'ans'" width="100">是否回复</th>
         <th align="center" data-options="field:'time'" width="200">反馈时间</th>
     </tr>
     </thead>

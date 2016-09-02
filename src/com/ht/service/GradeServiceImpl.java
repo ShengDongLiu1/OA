@@ -2,7 +2,6 @@ package com.ht.service;
 
 import java.util.List;
 
-import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
 import com.ht.common.Pager;
@@ -55,10 +54,5 @@ public class GradeServiceImpl implements GradeService {
     public List<Student> batchQlery(Student student) {
         return gradeDao.batchQlery(student);
     }
-
-	@Override
-	public List<Classes> classesQlery(int classid) {
-		return gradeDao.classesQlery(classid);
-	}
 
 }

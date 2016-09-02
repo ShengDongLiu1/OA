@@ -8,6 +8,7 @@ import org.apache.struts2.ServletActionContext;
 import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
+import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.GradeService;
@@ -22,7 +23,8 @@ public class GradeAction extends ActionSupport {
 	private Grade grade;
 	private List<Grade> rows;
 	private long total;
-
+	private String intenid;
+	private String intenname;
 	private int page;
 	private String subject;
 	private Student student;
@@ -32,6 +34,7 @@ public class GradeAction extends ActionSupport {
 	private float[] score;
 	private String[] sconame;
 	private Classes classes;
+	private List<Student> students;
 
 	public void setGradeService(GradeService gradeService) {
 		this.gradeService = gradeService;
@@ -105,6 +108,32 @@ public class GradeAction extends ActionSupport {
 		return result;
 	}
 
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+	public String getIntenid() {
+		return intenid;
+	}
+
+	public void setIntenid(String intenid) {
+		this.intenid = intenid;
+	}
+
+	public String getIntenname() {
+		return intenname;
+	}
+
+	public void setIntenname(String intenname) {
+		this.intenname = intenname;
+	}
+
+	///////////////////////////////
+
 	public String add() {
 		grade = gradeService.add(grade);
 		if (grade != null) {
@@ -148,11 +177,22 @@ public class GradeAction extends ActionSupport {
 	}
 
 	public String batch() {
-		List<Student> students = new ArrayList<Student>();
-		student = new Student();
-		student.setClassid(1);
 		students = gradeService.batchQlery(student);
 		ServletActionContext.getRequest().setAttribute("students", students);
+		return "PL";
+	}
+
+	public String plSelect() {
+		List<Combox> list = new ArrayList<>();
+		String[] intenidStrArray = intenid.split(",");
+		String[] intennameStrArray = intenname.split(",");
+		for (int i = 0; i < intenidStrArray.length; i++) {
+			Combox combox = new Combox();
+			combox.setId(intenidStrArray[i]);
+			combox.setName(intennameStrArray[i]);
+			list.add(combox);
+		}
+		ServletActionContext.getRequest().setAttribute("students", list);
 		return "PL";
 	}
 

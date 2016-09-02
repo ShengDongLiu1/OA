@@ -33,17 +33,12 @@
     </thead>
 </table>
 <div id="tb" style="padding: 2px;">
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#AddWin').dialog('open')"
-       data-options="iconCls:'icon-add'">添加</a>
-    <a href="<%=path %>/student/batch" class="easyui-linkbutton" onclick="" data-options="iconCls:'icon-add'">批量添加</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#AddWin').dialog('open')" data-options="iconCls:'icon-add'">添加</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectMulti').dialog('open')" data-options="iconCls:'icon-add'">添加多个</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editWin();" data-options="iconCls:'icon-edit'">编辑</a>
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
-       data-options="iconCls:'icon-remove'">删除</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'">删除</a>
 </div>
-
-
-<!-- ----------------------------- 添加  ------------------------------------ -->
-
+<!-------------------------------- 选择单个学生成绩 -------------------------------->
 <div id="AddWin" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="添加学生成绩">
     <table id="addlist" class="easyui-datagrid" toolbar="#addss" data-options="
 			url:'<%=path %>/stu/queryAll', 
@@ -53,7 +48,7 @@
 			autoRowHeight: true,
 			pagination:true,
 			border:false,
-			pageSize:10"
+			pageSize:20"
            style="width:275px;height:240px;padding:10px"
     >
         <thead>
@@ -68,7 +63,27 @@
 <div id="addss" style="padding: 2px;">
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="addWin();" data-options="iconCls:'icon-add'">确认选择</a>
 </div>
-
+<!-------------------------------- 选择多个学生 -------------------------------->
+<div id="selectMulti" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="选择多个学生">
+	<table id="dg" class="easyui-datagrid" toolbar="#ass" data-options="
+			url:'<%=path %>/stu/queryAllStu', 
+			method:'get', 
+			border:false"
+           style="width:250px;height:240px;padding:10px"
+    >
+        <thead>
+        <tr>
+            <th data-options="field:'student.intenid',checkbox:true,width:100">编号</th>
+            <th data-options="field:'intenname',width:100">姓名</th>
+            <th data-options="field:'intensex',width:100">性别</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="ass" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="addPl();" data-options="iconCls:'icon-ok'">确认选择</a>
+</div>
+<!-------------------------------- 单个学生成绩添加 -------------------------------->
 <div style="margin:20px 0;"></div>
 <div id="addWindow" class="easyui-window" title="保存" data-options="closed:true,iconCls:'icon-save'"
      style="padding:10px;">
@@ -110,7 +125,7 @@
         </form>
     </div>
 </div>
-<!----- 修改 ------------------------------------------------------------>
+<!-------------------------------- 修改学生成绩 -------------------------------->
 <div style="margin:20px 0;"></div>
 <div id="editWindow" class="easyui-window" title="编辑" data-options="closed:true,iconCls:'icon-edit'"
      style="padding:10px;">
@@ -148,33 +163,26 @@
     </div>
 </div>
 
-<!-- ---------------------------------------- 批量  ------------------------------------------- -->
-<div id="adds" class="easyui-window" title="请输入科目名称" data-options="closed:true,iconCls:'icon-edit'">
-    <div style="padding:20px 10px 20px 10px">
-        <form id="addsform">
-            <table>
-                <tr>
-                    <td><span style="width:100%;height:32px">科目名称</span></td>
-                    <td>
-                        <input id="subject" class="easyui-textbox" style="width:100%;height:32px">
-                    </td>
-                </tr>
-            </table>
-            <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'"
-                   onclick="subject();" style="width:80px">确定</a>
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-                   onclick="$('#adds').dialog('close')" style="width:80px">取消</a>
-            </div>
-        </form>
-    </div>
-</div>
-
-
+<!--/////////////////////////////////////////////////////////////////////////////////-->
 <script type="text/javascript">
     $(function () {
         setPagination("list");
     });
+    
+    function addPl() {
+        var intenid = [];
+        var intenname = [];
+        var rows = $("#dg").datagrid("getSelections");
+        if (rows == null || rows == "") {
+            $.messager.alert('提示', '请至少选中一个需要添加学生成绩的学生!', 'info');// messager消息控件
+        } else {
+            for (var i = 0; i < rows.length; i++) {
+            	intenid[i] = rows[i].intenid;
+            	intenname[i] = rows[i].intenname;
+            }
+            window.location.href = "<%=path%>/student/plSelect?intenid=" + intenid + "&intenname=" + intenname;
+        }
+    }
 
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager");
@@ -189,7 +197,7 @@
             }
         });
     }
-
+    
     function subject() {
         var subject = $("#subject").val();
         $.post('student/batch', {'subject': subject}, "JSON");

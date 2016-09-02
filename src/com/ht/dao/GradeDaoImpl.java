@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
 import com.ht.common.Pager;
@@ -66,7 +65,7 @@ public class GradeDaoImpl implements GradeDao {
 	@Override
 	public Pager<Grade> queryAll(Pager<Grade> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Grade");
+		Query query = session.createQuery("from Grade order by score desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -88,14 +87,11 @@ public class GradeDaoImpl implements GradeDao {
 	@Override
 	public void batchSave(List<Grade> grades) {
 		session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
 		try {
 			for (Grade grade : grades) {
 				session.save(grade);
 			}
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 		} finally {
 			session.close();
 		}
@@ -112,15 +108,6 @@ public class GradeDaoImpl implements GradeDao {
 		return list;
 	}
 
-	@Override
-	public List<Classes> classesQlery(int classid) {
-		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Classes where classid = ?");
-		query.setInteger(0, classid);
-		@SuppressWarnings("unchecked")
-		List<Classes> list = query.list();
-		session.close();
-		return list;
-	}
+	
 
 }

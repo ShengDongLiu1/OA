@@ -158,6 +158,7 @@
         <action name="*" class="com.ht.action.CourseAction" method="{1}" >
         	<result name="success" type="json"></result>
         	<result name="all">/WEB-INF/views/student/course.jsp</result>
+        	<result name="combox"/>
         </action>
     </package>
 

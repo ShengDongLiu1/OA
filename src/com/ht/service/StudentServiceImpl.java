@@ -1,5 +1,8 @@
 package com.ht.service;
 
+import java.util.List;
+
+import com.ht.bean.Classes;
 import com.ht.bean.Student;
 import com.ht.bean.Studentyx;
 import com.ht.common.Pager;
@@ -8,7 +11,7 @@ import com.ht.dao.StudentDao;
 public class StudentServiceImpl implements StudentService {
 
 	private StudentDao studentDao;
-	
+
 	public void setStudentDao(StudentDao studentDao) {
 		this.studentDao = studentDao;
 	}
@@ -66,6 +69,16 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public void deleteyx(Studentyx t) {
 		studentDao.deleteyx(t);
+	}
+
+	@Override
+	public List<Student> queryAllS(Integer classid) {
+		return studentDao.queryAllS(classid);
+	}
+
+	@Override
+	public List<Classes> queryClass(Integer eid) {
+		return studentDao.queryClass(eid);
 	}
 
 }

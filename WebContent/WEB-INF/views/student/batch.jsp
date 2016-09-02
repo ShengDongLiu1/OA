@@ -13,22 +13,26 @@
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="<%=path %>/js/site_easyui.js"></script>
+    <
 </head>
 <body>
 <div>
-    <div style="height: 50px;"></div>
+    <div>
+        <div style="float: left;margin-top: 20px;margin-left: 30px;">
+        	<a href="<%=path %>/student/all" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true,iconCls:'icon-back'">返回成绩管理</a>
+        </div>
+        <div style="float: left;"><h2 style="margin-left: 180px;">添加学生成绩</h2></div>
+        <p style="clear:both;"></p>
+    </div>
+    <hr/>
     <form id="addsForm">
         <c:forEach items="${students }" var="stu">
             <div style="margin-bottom:20px; padding-left: 200px; ">
-                <input name="stuid" value="${stu.getIntenid()}" type="hidden">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="font-size: 13px;">姓名：</span><input class="easyui-validatebox easyui-textbox"
-                                                                disabled="disabled" value="${stu.getIntenname() }"
-                                                                style="font-size:15px; width:100px;height:32px">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="font-size: 13px;">分数：</span><input class="easyui-textbox" name="score"
-                                                                data-options="required:true,validType:'length[1,10]',novalidate:true"
-                                                                style="font-size:15px; width:100px;height:32px">
+                <input name="stuid" value="${stu.getId()}" type="hidden">
+                <span style="font-size: 11px;">姓名：</span>
+                <input class="easyui-validatebox easyui-textbox" disabled="disabled" value="${stu.getName() }" style="font-size:11px; width:100px;height:32px">
+                <span style="font-size: 11px;">分数：</span>
+                <input class="easyui-numberbox" name="score" data-options="required:true,easyui-numberbox,novalidate:true" style="font-size:11px; width:100px;height:32px">
             </div>
         </c:forEach>
         <br/>
@@ -43,9 +47,6 @@
     </form>
 </div>
 <br/>
-<div style="padding-left: 70%;"><a href="<%=path %>/student/all" data-options="iconCls:'icon-back'"
-                                   class="easyui-linkbutton">返回成绩管理</a></div>
-
 <!-- //////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript">
@@ -68,14 +69,17 @@
         var score = $(".score");
         var subject = $('#subject').combobox('getValue');
         if (trim(subject)) {
-            $.post('batchSave', $("#addsForm").serialize(), function (data) {
-                if (data.result.result == "success") {
-                    $.messager.alert("提示", data.result.msg, "info");
-                    $("#addsForm").form("clear");
-                } else {
-                    $.messager.alert("提示", data.result.msg, "info");
-                }
-            }, "JSON");
+        	toValidate("addsForm");
+        	if (validateForm("addsForm")){
+	            $.post('batchSave', $("#addsForm").serialize(), function (data) {
+	                if (data.result.result == "success") {
+	                    $.messager.alert("提示", data.result.msg, "info");
+	                    //$("#addsForm").form("clear");
+	                } else {
+	                    $.messager.alert("提示", data.result.msg, "info");
+	                }
+	            }, "JSON");
+        	}
         } else {
             $.messager.alert("提示", "请输入科目名称!", "info");
             return false;

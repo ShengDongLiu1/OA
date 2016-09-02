@@ -19,6 +19,7 @@ import com.ht.bean.Hourse;
 import com.ht.bean.Status;
 import com.ht.bean.Student;
 import com.ht.bean.Studentyx;
+import com.ht.bean.User;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
@@ -26,10 +27,10 @@ import com.ht.service.ClassesService;
 import com.ht.service.HourseService;
 import com.ht.service.StudentService;
 import com.opensymphony.xwork2.ActionSupport;
+
 /**
  * 
- * @author LiuShengDong
- * 学生管理
+ * @author LiuShengDong 学生管理
  */
 public class StudentAction extends ActionSupport {
 
@@ -47,6 +48,7 @@ public class StudentAction extends ActionSupport {
 	private HourseService hourseService;
 	private List<Classes> classes;
 	private List<Hourse> hourse;
+	private List<Student> students;
 
 	public void setClassesService(ClassesService classesService) {
 		this.classesService = classesService;
@@ -59,11 +61,11 @@ public class StudentAction extends ActionSupport {
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
 	}
-	
+
 	public ControllerResult getResult() {
 		return result;
 	}
-	
+
 	public Student getStudent() {
 		return student;
 	}
@@ -79,11 +81,11 @@ public class StudentAction extends ActionSupport {
 	public void setStudentyx(Studentyx studentyx) {
 		this.studentyx = studentyx;
 	}
-	
+
 	public long getTotal() {
 		return total;
 	}
-	
+
 	public List<Student> getRows() {
 		return rows;
 	}
@@ -92,12 +94,20 @@ public class StudentAction extends ActionSupport {
 		this.page = page;
 	}
 
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
 	public String add() {
 		student.setIntendate(Calendar.getInstance().getTime());
 		student = studentService.add(student);
-		if(student == null){
+		if (student == null) {
 			result = ControllerResult.getFailResult("添加失败");
-		}else{
+		} else {
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
 		return SUCCESS;
@@ -105,48 +115,48 @@ public class StudentAction extends ActionSupport {
 
 	/**
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public String yxadd() throws ParseException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String year = request.getParameter("year");
-		int month= Integer.valueOf(request.getParameter("month"));
+		int month = Integer.valueOf(request.getParameter("month"));
 		int day = Integer.valueOf(request.getParameter("day"));
 		String mstr = "";
 		String dstr = "";
-		if(month <= 9){
+		if (month <= 9) {
 			mstr += 0;
 		}
-		if(day <= 9){
+		if (day <= 9) {
 			dstr += 0;
 		}
-		studentyx.setIntenbir(year+"-"+mstr+month+"-"+dstr+day);
+		studentyx.setIntenbir(year + "-" + mstr + month + "-" + dstr + day);
 		studentyx = studentService.addyx(studentyx);
 		return "yx";
 	}
-	
-	public String update(){
+
+	public String update() {
 		student = studentService.update(student);
-		if(student == null){
+		if (student == null) {
 			result = ControllerResult.getFailResult("修改失败");
-		}else{
+		} else {
 			result = ControllerResult.getSuccessRequest("修改成功");
 		}
 		return SUCCESS;
 	}
-	
-	public String delete(){
+
+	public String delete() {
 		studentService.delete(student);
 		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
 	}
-	
-	public String query(){
+
+	public String query() {
 		student = studentService.query(student);
 		return "xs";
 	}
-	
-	public String queryAll(){
+
+	public String queryAll() {
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
@@ -157,12 +167,12 @@ public class StudentAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String queryAllstu(){
+	public String queryAllstu() {
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = studentService.queryAllstu(pager,student.getClasses().getClassid());
+		pager = studentService.queryAllstu(pager, student.getClasses().getClassid());
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
@@ -172,15 +182,15 @@ public class StudentAction extends ActionSupport {
 		return "all";
 	}
 
-	public String classes() throws IOException{
+	public String classes() throws IOException {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
-		PrintWriter out=resp.getWriter();
+		PrintWriter out = resp.getWriter();
 		classes = classesService.queryClasses();
-		List<Combox> list  = new ArrayList<>();
+		List<Combox> list = new ArrayList<>();
 		for (Classes cl : classes) {
 			int did = cl.getClassid();
 			String dname = cl.getClassname();
@@ -194,16 +204,15 @@ public class StudentAction extends ActionSupport {
 		return "all";
 	}
 
-
-	public String hourse() throws IOException{
+	public String hourse() throws IOException {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
-		PrintWriter out=resp.getWriter();
+		PrintWriter out = resp.getWriter();
 		hourse = hourseService.queryHourse();
-		List<Combox> list  = new ArrayList<>();
+		List<Combox> list = new ArrayList<>();
 		for (Hourse ho : hourse) {
 			int did = ho.getHourid();
 			String dname = ho.getHourname();
@@ -216,8 +225,8 @@ public class StudentAction extends ActionSupport {
 		out.close();
 		return "all";
 	}
-	
-	public String deleteyx(){
+
+	public String deleteyx() {
 		studentService.deleteyx(studentyx);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		int id = Integer.valueOf(session.getAttribute("cid").toString());
@@ -239,9 +248,25 @@ public class StudentAction extends ActionSupport {
 		Classes c = new Classes();
 		c.setClassid(id);
 		s.setStustatus(9);
-		
+
 		studentService.add(s);
 		result = ControllerResult.getSuccessRequest("添加成功");
+		return SUCCESS;
+	}
+
+	public String queryAllStu() {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		User user = (User) session.getAttribute("user");
+		List<Classes> cs = new ArrayList<>();
+		cs = studentService.queryClass(user.getDep().getEid());
+		List<Student> stus = new ArrayList<Student>();
+		for (Classes c : cs) {
+			students = studentService.queryAllS(c.getClassid());
+			for (Student stu : students) {
+				stus.add(stu);
+			}
+		}
+		rows = stus;
 		return SUCCESS;
 	}
 }

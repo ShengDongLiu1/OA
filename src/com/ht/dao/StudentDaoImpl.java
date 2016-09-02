@@ -50,7 +50,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Student query(Student t) {
 		session = sessionFactory.openSession();
-		t = (Student)session.get(Student.class, t.getIntenid());
+		t = (Student) session.get(Student.class, t.getIntenid());
 		session.close();
 		return t;
 	}
@@ -60,7 +60,7 @@ public class StudentDaoImpl implements StudentDao {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		Object obj = session.get(Student.class, t.getIntenid());
-		if(obj != null){
+		if (obj != null) {
 			Student stu = (Student) obj;
 			stu.setIntenname(t.getIntenname());
 			stu.setIntensch(t.getIntensch());
@@ -96,7 +96,7 @@ public class StudentDaoImpl implements StudentDao {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		Object obj = session.get(Student.class, t.getIntenid());
-		if(obj != null){
+		if (obj != null) {
 			Student w = (Student) obj;
 			w.setIntenid(t.getIntenid());
 			session.delete(w);
@@ -110,13 +110,14 @@ public class StudentDaoImpl implements StudentDao {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		Object obj = session.get(Studentyx.class, t.getIntenid());
-		if(obj != null){
+		if (obj != null) {
 			Studentyx w = (Studentyx) obj;
 			session.delete(w);
 		}
 		transaction.commit();
 		session.close();
 	}
+
 	@Override
 	public Pager<Student> queryAll(Pager<Student> pager) {
 		session = sessionFactory.openSession();
@@ -160,7 +161,7 @@ public class StudentDaoImpl implements StudentDao {
 		Object obj = q.uniqueResult();
 		return obj;
 	}
-	
+
 	@Override
 	public Pager<Student> queryAllstu(Pager<Student> pager, Integer classid) {
 		session = sessionFactory.openSession();
@@ -175,7 +176,7 @@ public class StudentDaoImpl implements StudentDao {
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Object bjcount(Integer classid) {
 		session = sessionFactory.openSession();
@@ -185,6 +186,27 @@ public class StudentDaoImpl implements StudentDao {
 		return obj;
 	}
 
+	@Override
+	public List<Student> queryAllS(Integer classid) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Student t where t.classes.classid=:classid");
+		query.setInteger("classid", classid);
+		@SuppressWarnings("unchecked")
+		List<Student> list = query.list();
+		session.close();
+		return list;
+	}
 
-
+	@Override
+	public List<Classes> queryClass(Integer eid) {
+		session = sessionFactory.openSession();
+		String hql = "from Classes c where c.empteach =:eid";
+		Query query = session.createQuery(hql);
+		query.setInteger("eid", eid);
+		@SuppressWarnings("unchecked")
+		List<Classes> list = query.list();
+		session.close();
+		return list;
+	}
+	
 }

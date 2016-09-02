@@ -16,6 +16,8 @@ import com.ht.bean.Dep;
 import com.ht.bean.Department;
 import com.ht.bean.Dstatus;
 import com.ht.bean.Jobs;
+import com.ht.bean.Status;
+import com.ht.bean.User;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
@@ -162,6 +164,14 @@ public class DepAction extends ActionSupport{
 			result = ControllerResult.getFailResult("添加失败");
 		}else{
 			result = ControllerResult.getSuccessRequest("添加成功");
+			Status s = new Status();
+			s.setZid(dep.getDstatuss().getDsid());
+			User user = new User();
+			user.setStatuss(s);
+			user.setDep(dep);
+			user.setUname(dep.getEnumber());
+			user.setPwd("JdVa0oOqQAr0ZMdtcTwHrQ==");
+			depService.addUser(user);
 		}
 		return SUCCESS;
 	}

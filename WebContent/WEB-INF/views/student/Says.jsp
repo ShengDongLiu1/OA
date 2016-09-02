@@ -183,9 +183,9 @@
         <th data-options="field:'sayid',checkbox:true" width="100" align="center">谈心编号</th>
         <th data-options="field:'students'" width="100" formatter="studentname" align="center">谈心对象</th>
         <th data-options="field:'deps'" width="100" formatter="depnames" align="center">策划人</th>
-        <th data-options="field:'sayscon'" width="100" align="center">谈心内容</th>
-      	 <th data-options="field:'sayspro',width:100" align="center">谈心问题</th>
-        <th data-options="field:'sysback',width:100" align="center">学生反馈</th>
+      	 <th data-options="field:'sayspro',width:250" align="center">谈心问题</th>
+        <th data-options="field:'sayscon'" width="250" align="center">谈心内容</th>
+        <th data-options="field:'sysback',width:250" align="center">学生反馈</th>
     </tr>
     </thead>
 </table>

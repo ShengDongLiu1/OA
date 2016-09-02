@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import com.ht.bean.Dep;
 import com.ht.bean.Dstatus;
+import com.ht.bean.User;
 import com.ht.common.Pager;
 
 public class DepDaoImpl implements DepDao {
@@ -147,5 +148,14 @@ public class DepDaoImpl implements DepDao {
 		transaction.commit();
 		session.close();
 		return d;
+	}
+
+	@Override
+	public void addUser(User user){
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(user);
+		transaction.commit();
+		session.close();
 	}
 }

@@ -178,9 +178,9 @@
     <thead>
     <tr>
         <th data-options="field:'sid',checkbox:true" width="100" align="center">学生总结编号</th>
-        <th data-options="field:'student'" width="100" formatter="studentname" align="center">学生姓名</th>
-        <th data-options="field:'ssay'" width="100" align="center">学生评语</th>
         <th data-options="field:'semester'" width="100" align="center">第几学期</th>
+        <th data-options="field:'student'" width="100" formatter="studentname" align="center">学生姓名</th>
+        <th data-options="field:'ssay'" width="300" align="center">学生评语</th>
     </tr>
     </thead>
 </table>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ht.bean.Dep;
 import com.ht.bean.Dstatus;
+import com.ht.bean.User;
 import com.ht.common.Pager;
 import com.ht.dao.DepDao;
 
@@ -63,6 +64,11 @@ public class DepServiceImpl implements DepService{
 	@Override
 	public Dep addn(Dep d) {
 		return depDao.addn(d);
+	}
+
+	@Override
+	public void addUser(User user) {
+		depDao.addUser(user);
 	}
 
 }

@@ -83,7 +83,6 @@
                 </c:when>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/dis/all" class="site-navi-tab">研讨会</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
                 </c:when>
                 <c:otherwise>

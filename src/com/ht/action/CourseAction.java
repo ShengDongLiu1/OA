@@ -107,7 +107,6 @@ public class CourseAction extends ActionSupport {
 	 * @throws IOException
 	 */
 	public String queryCourse() throws IOException {
-		System.out.println("------------------");
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");

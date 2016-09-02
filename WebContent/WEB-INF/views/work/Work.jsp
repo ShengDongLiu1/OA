@@ -214,6 +214,8 @@
 									function() {
 										$("#list").datagrid("reload");
 									});
+							}else{
+								$.messager.alert("提示", data.result.msg, "info");
 							}
 						},"JSON");
 					}

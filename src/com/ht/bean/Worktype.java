@@ -69,4 +69,12 @@ public class Worktype implements java.io.Serializable {
 		this.receiue = receiue;
 	}
 
+	@Override
+	public String toString() {
+		return "Worktype [swid=" + swid + ", swname=" + swname + ", works=" + works + ", applys=" + applys
+				+ ", receiue=" + receiue + "]";
+	}
+
+	
+	
 }

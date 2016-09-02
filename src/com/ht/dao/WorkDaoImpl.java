@@ -45,10 +45,12 @@ public class WorkDaoImpl implements WorkDao {
 
 	@Override
 	public Work query(Work t) {
+		System.out.println("wid:"+t.getWid());
 		session = sessionFactory.openSession();
-		t = (Work)session.get(Work.class, t.getWid());
+		Work wk=new Work();
+		System.out.println("work.dao:"+wk);
 		session.close();
-		return t;
+		return wk;
 	}
 
 	@Override
@@ -65,11 +67,29 @@ public class WorkDaoImpl implements WorkDao {
 	public void delete(Work t) {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.delete(t);
+		Work w = (Work) session.get(Work.class, t.getWid());
+		if(w.getWamount() <= 0){
+			session.delete(t);	
+		}
 		transaction.commit();
 		session.close();
 	}
 
+	@Override
+	public String deleteW(Work t) {
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Work w = (Work) session.get(Work.class, t.getWid());
+		String str = null;
+		if(w.getWamount() <= 0){
+			session.delete(w);	
+		}else{
+			str = "NotNull";
+		}
+		transaction.commit();
+		session.close();
+		return str;
+	}
 
 	@Override
 	public Object count() {

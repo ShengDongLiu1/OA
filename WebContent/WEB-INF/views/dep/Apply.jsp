@@ -271,7 +271,7 @@
 		}
 		function updateSP(){
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
-				$.post('apply/updateSP',{'apply.aid':row.aid,'apply.astatus':row.astatus,"apply.gprice":row.gprice,"apply.gcounts":row.gcounts},
+				$.post('apply/updateSP',{'apply.aid':row.aid,'apply.astatus':row.astatus,"apply.gprice":row.gprice,"apply.gcounts":row.gcounts,"apply.worktype.swid":row.worktype.swid,"apply.gname":row.gname},
 					function(data) {
 					if (data.result.result == 'success') {
 						$.messager.alert("提示", data.result.msg, "info", function() {

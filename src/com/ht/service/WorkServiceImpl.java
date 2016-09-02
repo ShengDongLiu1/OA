@@ -59,4 +59,9 @@ public class WorkServiceImpl implements WorkService {
 		return workDao.queryById(wid);
 	}
 
+	@Override
+	public String deleteW(Work t) {
+		return workDao.deleteW(t);
+	}
+
 }

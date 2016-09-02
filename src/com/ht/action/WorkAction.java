@@ -79,8 +79,12 @@ public class WorkAction extends ActionSupport {
 	}
 
 	public String delete() {
-		workService.delete(work);
-		result = ControllerResult.getSuccessRequest("删除成功");
+		String s = workService.deleteW(work);
+		if(s == null){
+			result = ControllerResult.getSuccessRequest("记录删除成功");
+		}else{
+			result = ControllerResult.getFailResult("还有该物品，无法删除");
+		}
 		return SUCCESS;
 	}
 

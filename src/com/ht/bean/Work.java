@@ -70,4 +70,12 @@ public class Work implements java.io.Serializable {
 		this.wamount = wamount;
 	}
 
+	@Override
+	public String toString() {
+		return "Work [wid=" + wid + ", wtypeid=" + wtypeid + ", wname=" + wname + ", wamount=" + wamount + ", worktype="
+				+ worktype + "]";
+	}
+	
+	
+
 }

@@ -17,12 +17,14 @@ import com.alibaba.fastjson.JSON;
 import com.ht.bean.Apply;
 import com.ht.bean.Dep;
 import com.ht.bean.Expend;
+import com.ht.bean.Work;
 import com.ht.bean.Worktype;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.ApplyService;
 import com.ht.service.PaysService;
+import com.ht.service.WorkService;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ApplyAction extends ActionSupport {
@@ -31,6 +33,7 @@ public class ApplyAction extends ActionSupport {
 
 	private ApplyService applyService;
 	private PaysService paysService;
+	private WorkService workService;
 	private ControllerResult result;
 	private Pager<Apply> pager;
 	private Apply apply;
@@ -78,6 +81,10 @@ public class ApplyAction extends ActionSupport {
 		return result;
 	}
 
+	public void setWorkService(WorkService workService) {
+		this.workService = workService;
+	}
+
 	public void setPager(Pager<Apply> pager) {
 		this.pager = pager;
 	}
@@ -89,7 +96,7 @@ public class ApplyAction extends ActionSupport {
 	public String add() {
 		apply.setAdatetime(new Timestamp(new Date().getTime()));
 		apply.setGtotle(apply.getGprice()*apply.getGcounts());
-		apply.setAstatus("未购买,未审批");
+		apply.setAstatus("未购买");
 		apply = applyService.add(apply);
 		if(apply == null){
 			result = ControllerResult.getFailResult("添加失败");
@@ -207,6 +214,13 @@ public class ApplyAction extends ActionSupport {
 		}
 		apply = applyService.updateSP(apply);
 		result = ControllerResult.getSuccessRequest("通过审批");
+		
+		Work work = new Work();
+		work.setWorktype(apply.getWorktype());
+		work.setWname(apply.getGname());
+		work.setWamount(apply.getGcounts());
+		workService.add(work);
+		
 		Expend e = new Expend();
 		e.setPaypro("购买物品");
 		e.setPaycount(apply.getGcounts() * apply.getGprice());

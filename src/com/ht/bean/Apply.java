@@ -21,7 +21,19 @@ public class Apply implements java.io.Serializable {
 	private String gpurpose;
 	private Date adatetime;
 	private String astatus;
+	private int wid;
 	
+	
+	public int getWid() {
+		return wid;
+	}
+
+
+	public void setWid(int wid) {
+		this.wid = wid;
+	}
+
+
 	private Dep dep;
 	private Worktype worktype;
 
@@ -150,5 +162,13 @@ public class Apply implements java.io.Serializable {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Apply [aid=" + aid + ", gname=" + gname + ", gcounts=" + gcounts + ", gunit=" + gunit + ", gprice="
+				+ gprice + ", gtotle=" + gtotle + ", gpurpose=" + gpurpose + ", adatetime=" + adatetime + ", astatus="
+				+ astatus + ", dep=" + dep + ", worktype=" + worktype + "]";
+	}
+
+	
 
 }

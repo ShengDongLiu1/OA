@@ -13,4 +13,6 @@ public interface WorkService extends BaseDao<Work, Integer> {
 	public List<Worktype> queryWorktype();
 	
 	public Work queryById(int wid);
+	
+	public String deleteW(Work t);
 }

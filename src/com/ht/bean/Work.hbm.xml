@@ -19,6 +19,6 @@
             </column>
         </property>
         
-        <many-to-one name="worktype" class="com.ht.bean.Worktype"   lazy="false" column="wtypeid" cascade="delete" ></many-to-one>
+        <many-to-one name="worktype" class="com.ht.bean.Worktype"   lazy="false" column="wtypeid" cascade="none" ></many-to-one>
     </class>
 </hibernate-mapping>

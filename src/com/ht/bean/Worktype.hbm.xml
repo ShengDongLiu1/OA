@@ -21,7 +21,7 @@
         </set>
 		
 		<!-- 一个办公用品类型多个物品申购 -->
-        <set name="applys"  lazy="false" inverse="false" >
+        <set name="applys"  lazy="false" cascade="none" inverse="false" >
         	<key column="wid"></key>
         	<one-to-many class="com.ht.bean.Apply"/>
         </set>

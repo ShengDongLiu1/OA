@@ -276,10 +276,10 @@
         $.post('student/update', {'grade.scoid': scoid, 'grade.score': score, 'grade.sconame': sconame},
                 function (data) {
                     if (data.result.result == "success") {
-                        $.messager.alert("提示", data.result.msg, "info");
-                        $("#list").datagrid('reload');
-                        $("#editWindow").dialog('close');
-                        $("#list").datagrid('reload');
+                        $.messager.alert("提示", data.result.msg, "info", function(){
+                            $("#editWindow").window('close');
+                            $("#list").datagrid('reload');
+                        });
                     } else {
                         $.messager.alert("提示", data.result.msg, "info");
                     }

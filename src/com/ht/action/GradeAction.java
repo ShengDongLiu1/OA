@@ -147,9 +147,9 @@ public class GradeAction extends ActionSupport {
 	public String update() {
 		gradeService.update(grade);
 		if (grade == null) {
-			result = ControllerResult.getSuccessRequest("修改失败");
+			result = ControllerResult.getFailResult("修改失败");
 		} else {
-			result = ControllerResult.getFailResult("修改成功");
+			result = ControllerResult.getSuccessRequest("修改成功");
 		}
 		return SUCCESS;
 	}

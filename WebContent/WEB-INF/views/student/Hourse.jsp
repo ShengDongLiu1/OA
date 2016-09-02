@@ -23,11 +23,11 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'hourid',checkbox:true,width:100">宿舍编号</th>
-        <th data-options="field:'hourname',width:100">宿舍名称</th>
+        <th data-options="field:'hourid',checkbox:true,width:100" align="center">宿舍编号</th>
+        <th data-options="field:'hourname',width:100" align="center">宿舍名称</th>
     </tr>
     </thead>
 </table>

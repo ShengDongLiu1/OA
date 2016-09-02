@@ -22,13 +22,13 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:20">
+		pageSize:20,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'scoid',checkbox:true,width:100">编号</th>
-        <th data-options="field:'students',width:100" formatter="studentname">姓名</th>
-        <th data-options="field:'sconame',width:100">课程</th>
-        <th data-options="field:'score',width:100">分数</th>
+        <th data-options="field:'scoid',checkbox:true,width:100" align="center">编号</th>
+        <th data-options="field:'students',width:100" formatter="studentname" align="center">姓名</th>
+        <th data-options="field:'sconame',width:100" align="center">课程</th>
+        <th data-options="field:'score',width:100" align="center">分数</th>
     </tr>
     </thead>
 </table>

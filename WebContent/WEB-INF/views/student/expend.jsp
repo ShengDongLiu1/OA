@@ -23,12 +23,12 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'payid',checkbox:true,width:100">支出编号</th>
-        <th data-options="field:'paycount',width:100">支出金额</th>
-        <th data-options="field:'paypro',width:100">支出原因</th>
+        <th data-options="field:'payid',checkbox:true,width:100" align="center">支出编号</th>
+        <th data-options="field:'paycount',width:100" align="center">支出金额</th>
+        <th data-options="field:'paypro',width:100" align="center">支出原因</th>
     </tr>
     </thead>
 </table>

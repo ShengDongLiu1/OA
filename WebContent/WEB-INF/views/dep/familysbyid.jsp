@@ -175,15 +175,15 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'fid',checkbox:true" width="100">编号</th>
-        <th data-options="field:'dep'" width="100" formatter="depnames">员工姓名</th>
-        <th data-options="field:'fname'" width="100">家庭联系人姓名</th>
-        <th data-options="field:'fjob'" width="100">家庭联系人职位</th>
-        <th data-options="field:'frelation'" width="100">与本人关系</th>
-        <th data-options="field:'ftel'" width="100">联系电话</th>
+        <th data-options="field:'fid',checkbox:true" width="100" align="center">编号</th>
+        <th data-options="field:'dep'" width="100" formatter="depnames" align="center">员工姓名</th>
+        <th data-options="field:'fname'" width="100" align="center">家庭联系人姓名</th>
+        <th data-options="field:'fjob'" width="100" align="center">家庭联系人职位</th>
+        <th data-options="field:'frelation'" width="100" align="center">与本人关系</th>
+        <th data-options="field:'ftel'" width="100" align="center">联系电话</th>
     </tr>
     </thead>
 </table>

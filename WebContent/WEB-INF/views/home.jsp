@@ -201,7 +201,7 @@
     }
 
 </script>
-<div data-options="region:'south',border:false">
+<div data-options="region:'south',border:false" align="center">
     宏图软件办公OA系统V1.0&nbsp;&nbsp;技术支持:15春班OA项目4组
 </div>
 

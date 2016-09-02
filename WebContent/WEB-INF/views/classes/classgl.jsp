@@ -334,15 +334,15 @@
 				autoRowHeight: true,
 				pagination:true,
 				border:false,
-				pageSize:10">
+				pageSize:10,fit:true">
             <thead>
             <tr>
-                <th data-options="field:'classid',checkbox:true" width="100">班级编号</th>
-                <th align="center" data-options="field:'classname'" width="150">班级名称</th>
-                <th align="center" data-options="field:'empteaches'" width="100" formatter="formatterChesName">班主任</th>
-                <th align="center" data-options="field:'classcount'" width="100">班级人数</th>
-                <th align="center" data-options="field:'classaddr'" width="400">班级地址</th>
-                <th align="center" data-options="field:'classlx'" width="100">班级类型</th>
+                <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
+                <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
+                <th align="center" data-options="field:'empteaches'" width="100" formatter="formatterChesName" align="center">班主任</th>
+                <th align="center" data-options="field:'classcount'" width="100" align="center">班级人数</th>
+                <th align="center" data-options="field:'classaddr'" width="400" align="center">班级地址</th>
+                <th align="center" data-options="field:'classlx'" width="100" align="center">班级类型</th>
             </tr>
             </thead>
         </table>

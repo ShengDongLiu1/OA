@@ -146,13 +146,13 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'jid',width:100">ID</th>
-        <th data-options="field:'students',width:100" formatter="studentname">奖惩对象</th>
-        <th data-options="field:'jtitle',width:100">奖惩标题</th>
-        <th data-options="field:'jcontent',width:100">奖惩内容</th>
+        <th data-options="field:'jid',width:100" align="center">ID</th>
+        <th data-options="field:'students',width:100" formatter="studentname" align="center"> 奖惩对象</th>
+        <th data-options="field:'jtitle',width:100" align="center"> 奖惩标题</th>
+        <th data-options="field:'jcontent',width:100" align="center">奖惩内容</th>
     </tr>
     </thead>
 </table>

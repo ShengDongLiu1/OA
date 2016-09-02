@@ -196,22 +196,23 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
+		fit:true
 		">
     <thead>
     <tr>
-        <th data-options="field:'eid',checkbox:true">员工编号</th>
-        <th data-options="field:'ename',width:100">员工姓名</th>
-        <th data-options="field:'esex',width:100">员工性别</th>
-        <th data-options="field:'departments',width:100" formatter="depardname">部门名称</th>
-        <th data-options="field:'ebirth',width:100">员工生日</th>
-        <th data-options="field:'ecertid',width:100">身份证号</th>
-        <th data-options="field:'ecity',width:100">员工籍贯</th>
-        <th data-options="field:'eanton',width:100">民族</th>
-        <th data-options="field:'edu',width:100">学历</th>
-        <th data-options="field:'eaddr',width:100">家庭住址</th>
-        <th data-options="field:'etry',width:100">开始使用日期</th>
-        <th data-options="field:'ecreate',width:100">创建时间</th>
-        <th data-options="field:'estatus',width:100">员工状态</th>
+        <th data-options="field:'eid',checkbox:true" align="center">员工编号</th>
+        <th data-options="field:'ename',width:100" align="center">员工姓名</th>
+        <th data-options="field:'esex',width:100" align="center">员工性别</th>
+        <th data-options="field:'departments',width:100" formatter="depardname" align="center">部门名称</th>
+        <th data-options="field:'ebirth',width:100" align="center">员工生日</th>
+        <th data-options="field:'ecertid',width:100" align="center">身份证号</th>
+        <th data-options="field:'ecity',width:100" align="center">员工籍贯</th>
+        <th data-options="field:'eanton',width:100" align="center">民族</th>
+        <th data-options="field:'edu',width:100" align="center">学历</th>
+        <th data-options="field:'eaddr',width:100" align="center">家庭住址</th>
+        <th data-options="field:'etry',width:100" align="center">开始使用日期</th>
+        <th data-options="field:'ecreate',width:100" align="center">创建时间</th>
+        <th data-options="field:'estatus',width:100" align="center">员工状态</th>
     </tr>
 
     </thead>

@@ -27,13 +27,13 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:t:true">
     <thead>
     <tr>
-        <th data-options="field:'sbackid',checkbox:true,width:100">意见编码</th>
-        <th data-options="field:'student',width:100" formatter="forStudentName">学生编码</th>
-        <th data-options="field:'sbacktitle',width:100">意见标题</th>
-        <th data-options="field:'sbackcon',width:100">意见内容</th>
+        <th data-options="field:'sbackid',checkbox:true,width:100" align="center">意见编码</th>
+        <th data-options="field:'student',width:100" formatter="forStudentName" align="center">学生编码</th>
+        <th data-options="field:'sbacktitle',width:100" align="center">意见标题</th>
+        <th data-options="field:'sbackcon',width:100" align="center">意见内容</th>
     </tr>
     </thead>
 </table>

@@ -23,13 +23,14 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,
+		fit:true">
     <thead>
     <tr>
-        <th data-options="field:'wid',width:100">编号</th>
-        <th data-options="field:'dep',width:100" formatter="forDepName">员工</th>
-        <th data-options="field:'wdate',width:100">时间</th>
-        <th data-options="field:'status',width:100">签到</th>
+        <th data-options="field:'wid',width:100" align="center">编号</th>
+        <th data-options="field:'dep',width:100" formatter="forDepName" align="center">员工</th>
+        <th data-options="field:'wdate',width:100" align="center">时间</th>
+        <th data-options="field:'status',width:100" align="center">签到</th>
     </tr>
     </thead>
 </table>

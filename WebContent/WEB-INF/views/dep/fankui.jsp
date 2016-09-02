@@ -172,14 +172,16 @@
 			autoRowHeight: true,
 			pagination:true,
 			border:false,
-			pageSize:10">
+			pageSize:10,
+			fit:true
+			">
     <thead>
     <tr>
-        <th align="center" data-options="field:'tbackid',checkbox:true">编号</th>
-        <th align="center" data-options="field:'dep'" width="100" formatter="formatterDepName">反馈人</th>
-        <th align="center" data-options="field:'title'" width="500">反馈标题</th>
-        <th align="center" data-options="field:'ans'" width="100">是否回复</th>
-        <th align="center" data-options="field:'time'" width="200">反馈时间</th>
+        <th align="center" data-options="field:'tbackid',checkbox:true" align="center">编号</th>
+        <th align="center" data-options="field:'dep'" width="100" formatter="formatterDepName" align="center">反馈人</th>
+        <th align="center" data-options="field:'title'" width="500" align="center">反馈标题</th>
+        <th align="center" data-options="field:'ans'" width="100" align="center">是否回复</th>
+        <th align="center" data-options="field:'time'" width="200" align="center">反馈时间</th>
     </tr>
     </thead>
 </table>

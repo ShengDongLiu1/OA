@@ -48,13 +48,14 @@
 				autoRowHeight: true,
 				pagination:true,
 				border:false,
-				pageSize:10">
+				pageSize:10,
+				fit:true">
             <thead>
             <tr>
-                <th data-options="field:'msgid',checkbox:true" width="150">编号</th>
-                <th align="center" data-options="field:'msgcon'" width="300">公告内容</th>
-                <th align="center" data-options="field:'msgks'" width="150">发布时间</th>
-                <th align="center" data-options="field:'msgjz'" width="150">截止时间</th>
+                <th data-options="field:'msgid',checkbox:true" width="150" align="center">编号</th>
+                <th align="center" data-options="field:'msgcon'" width="300" align="center">公告内容</th>
+                <th align="center" data-options="field:'msgks'" width="150" align="center">发布时间</th>
+                <th align="center" data-options="field:'msgjz'" width="150" align="center">截止时间</th>
             </tr>
             </thead>
         </table>

@@ -256,17 +256,18 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,
+		fit:true">
 		<thead>
 			<tr>
-				<th data-options="field:'uid',checkbox:true" width="100">员工申领记录编号</th>
-				<th data-options="field:'dep'" width="100" formatter="depdname">员工姓名</th>
-				<th data-options="field:'work'" width="100" formatter="workname1">申领物品名称</th>
-				<th data-options="field:'ucount'" width="100">申领物品数量</th>
-				<th data-options="field:'upurpose'" width="100">用途</th>
-				<th data-options="field:'ucreattime'" width="100">创建时间</th>
-				<th data-options="field:'uendtime'" width="100">结束时间</th>
-				<th data-options="field:'restore'" width="100">借还状态</th>
+				<th data-options="field:'uid',checkbox:true" width="100" align="center">员工申领记录编号</th>
+				<th data-options="field:'dep'" width="100" formatter="depdname" align="center">员工姓名</th>
+				<th data-options="field:'work'" width="100" formatter="workname1" align="center">申领物品名称</th>
+				<th data-options="field:'ucount'" width="100" align="center">申领物品数量</th>
+				<th data-options="field:'upurpose'" width="100" align="center">用途</th>
+				<th data-options="field:'ucreattime'" width="100" align="center">创建时间</th>
+				<th data-options="field:'uendtime'" width="100" align="center">结束时间</th>
+				<th data-options="field:'restore'" width="100" align="center">借还状态</th>
 			</tr>
 		</thead>
 	</table>

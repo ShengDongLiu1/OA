@@ -23,23 +23,23 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'intenid',checkbox:true,width:100">编号</th>
-        <th data-options="field:'intenname',width:100">名称</th>
-        <th data-options="field:'intensch',width:100">就读学校</th>
-        <th data-options="field:'intensex',width:100">性别</th>
-        <th data-options="field:'intenbir',width:100">出生年月</th>
-        <th data-options="field:'intenmz',width:100">民族</th>
-        <th data-options="field:'intenjg',width:100">籍贯</th>
-        <th data-options="field:'intentel',width:100">学生记录号码</th>
-        <th data-options="field:'intenfat',width:100">家长姓名</th>
-        <th data-options="field:'intenfatel',width:100">学生记录家长号码</th>
-        <th data-options="field:'intenaddr',width:100">家庭住址</th>
-        <th data-options="field:'intenstatus',width:100">学生记录状态</th>
-        <th data-options="field:'classes',width:100" formatter="forClasses">所在班级</th>
-        <th data-options="field:'hourse',width:100" formatter="forHourse">所在宿舍</th>
+        <th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
+        <th data-options="field:'intenname',width:100" align="center">名称</th>
+        <th data-options="field:'intensch',width:100" align="center">就读学校</th>
+        <th data-options="field:'intensex',width:100" align="center">性别</th>
+        <th data-options="field:'intenbir',width:100" align="center">出生年月</th>
+        <th data-options="field:'intenmz',width:100" align="center">民族</th>
+        <th data-options="field:'intenjg',width:100" align="center">籍贯</th>
+        <th data-options="field:'intentel',width:100" align="center">学生记录号码</th>
+        <th data-options="field:'intenfat',width:100" align="center">家长姓名</th>
+        <th data-options="field:'intenfatel',width:100" align="center">学生记录家长号码</th>
+        <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
+        <th data-options="field:'intenstatus',width:100" align="center">学生记录状态</th>
+        <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
+        <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>
         <th data-options="field:'intendate',width:100">入学时间</th>
     </tr>
     </thead>

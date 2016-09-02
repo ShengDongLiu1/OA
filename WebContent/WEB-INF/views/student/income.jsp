@@ -23,13 +23,13 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'monid',checkbox:true,width:100">收入编号</th>
-        <th data-options="field:'mname',width:100">收入人物</th>
-        <th data-options="field:'moncount',width:100">收入金额</th>
-        <th data-options="field:'monpro',width:100">收入原因</th>
+        <th data-options="field:'monid',checkbox:true,width:100" align="center">收入编号</th>
+        <th data-options="field:'mname',width:100" align="center">收入人物</th>
+        <th data-options="field:'moncount',width:100" align="center">收入金额</th>
+        <th data-options="field:'monpro',width:100" align="center">收入原因</th>
     </tr>
     </thead>
 </table>

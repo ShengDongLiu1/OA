@@ -23,14 +23,15 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:10,
+		fit:true">
     <thead>
     <tr>
-        <th data-options="field:'did',checkbox:true,width:100">值班管理编号</th>
-        <th data-options="field:'eid',width:100">员工编号</th>
-        <th data-options="field:'ddatetime',width:100">值班时间</th>
-        <th data-options="field:'drange',width:100">值班范围</th>
-        <th data-options="field:'ddesc',width:100">情况记录</th>
+        <th data-options="field:'did',checkbox:true,width:100" align="center">值班管理编号</th>
+        <th data-options="field:'eid',width:100" align="center">员工编号</th>
+        <th data-options="field:'ddatetime',width:100" align="center">值班时间</th>
+        <th data-options="field:'drange',width:100" align="center">值班范围</th>
+        <th data-options="field:'ddesc',width:100" align="center">情况记录</th>
     </tr>
     </thead>
 </table>

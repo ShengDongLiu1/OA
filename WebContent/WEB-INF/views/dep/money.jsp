@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="easyui-navpanel">
-    <div style="margin:20px 0 10px 0;"></div>
+    <div style="margin:20px 0 10px 0;" style="padding: 2px;height:auto;margin-top: 5px;"></div>
     <table id="list" class="easyui-datagrid" data-options=" 
 			toolbar:'#tb',
 			url:'<%=path %>/classes/queryAllyk',  	
@@ -99,13 +99,12 @@
 				pagination:true,
 				border:false,
 				pageSize:10,
-				fit:true">
+				">
         <thead>
         <tr>
             <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
             <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
             <th align="center" data-options="field:'empteaches'" width="100" formatter="formatterChesName" align="center">班主任</th>
-            <th align="center" data-options="field:'classcount'" width="100" align="center">班级人数</th>
             <th align="center" data-options="field:'classaddr'" width="400" align="center">班级地址</th>
             <th align="center" data-options="field:'classlx'" width="100" align="center">班级类型</th>
         </tr>

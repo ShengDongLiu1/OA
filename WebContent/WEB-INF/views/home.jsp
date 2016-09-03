@@ -57,16 +57,13 @@
                     <p><a href="javascript:void(0);" src="<%=path %>/work/all" class="site-navi-tab">办公用品</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/#" class="site-navi-tab">学生意见</a></p>
                 </c:when>
-                <c:otherwise>
-                    <p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品申购</a></p>
-                </c:otherwise>
             </c:choose>
         </div>
         <div title="招生管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 3 || sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/yx-allyx" class="site-navi-tab">意向学生</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/classes/addfb" class="site-navi-tab">分班管理</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">正式学生</a></p>
                 </c:when>
                 <c:otherwise>
                     <span>权限不足!</span>
@@ -75,7 +72,7 @@
         </div>
         <div title="教务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1 ||  sessionScope.user.statuss.getZid() eq 2 || sessionScope.user.statuss.getZid() eq 6}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1 ||  sessionScope.user.statuss.getZid() eq 2 || sessionScope.user.statuss.getZid() eq 6 || sessionScope.user.statuss.getZid() eq 3}">
                     <p><a href="javascript:void(0);" src="<%=path %>/course/all" class="site-navi-tab">课程</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/courseplan/all" class="site-navi-tab">课程进度</a></p>

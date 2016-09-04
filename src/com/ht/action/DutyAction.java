@@ -118,6 +118,27 @@ public class DutyAction extends ActionSupport {
 		return "all";
 	}
 	
+
+	public String tjls3() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		List<Combox> list  = new ArrayList<>();
+		Combox combox = new Combox();
+		combox.setId("班级巡查");
+		combox.setName("班级巡查");
+		Combox combox2 = new Combox();
+		combox2.setId("宿舍巡查");
+		combox2.setName("宿舍巡查");
+		list.add(combox);
+		list.add(combox2);
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "all";
+	}
 	
 	public String tjls2() throws IOException{
 		HttpServletRequest req = ServletActionContext.getRequest();
@@ -126,24 +147,28 @@ public class DutyAction extends ActionSupport {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
 		PrintWriter out=resp.getWriter();
-		classess = dutyService.queryClasses();
 		List<Combox> list  = new ArrayList<>();
-		for (Classes classes : classess) {
-			int cid = classes.getClassid();
-			String cname = classes.getClassname();
-			Combox combox = new Combox();
-			combox.setId(String.valueOf(cid));
-			combox.setName(cname);
-			list.add(combox);
-		}
-		hourses = dutyService.queryHourse();
-		for (Hourse hourse : hourses) {
-			int hid = hourse.getHourid();
-			String hname = hourse.getHourname();
-			Combox combox = new Combox();
-			combox.setId(String.valueOf(hid));
-			combox.setName(hname);
-			list.add(combox);
+		String lx = req.getParameter("lx");
+		if(lx.equals("班级巡查")){
+			classess = dutyService.queryClasses();
+			for (Classes classes : classess) {
+				int cid = classes.getClassid();
+				String cname = classes.getClassname();
+				Combox combox = new Combox();
+				combox.setId(String.valueOf(cid));
+				combox.setName(cname);
+				list.add(combox);
+			}
+		}else{
+			hourses = dutyService.queryHourse();
+			for (Hourse hourse : hourses) {
+				int hid = hourse.getHourid();
+				String hname = hourse.getHourname();
+				Combox combox = new Combox();
+				combox.setId(String.valueOf(hid));
+				combox.setName(hname);
+				list.add(combox);
+			}
 		}
 		out.write(JSON.toJSONString(list));
 		out.close();

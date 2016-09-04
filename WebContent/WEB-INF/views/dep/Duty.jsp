@@ -52,19 +52,39 @@
             }
         });
         
-        $("#addddrange1").combobox({
-            url: "<%=path%>/duty/tjls2",
-            method: 'get',
-            valueField: 'name',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#addddrange1').combobox('getData');
-                if (data.length > 0) {
-                    $("#addddrange1").combobox('select', data[0].name);
-                }
-            }
-        });
+       
+	$('#dstatuses').combobox({
+		url : 'tjls3',
+			editable : false, //不可编辑状态  
+			cache : false,
+			panelHeight : '150',
+			valueField : 'name',
+			textField : 'name',
+
+			onHidePanel : function() {
+				$("#addddrange1").combobox("setValue", '');//清空课程  
+				var id = $('#dstatuses').combobox('getValue');
+
+				$.ajax({
+					type : "POST",
+					url : 'tjls2?lx='+id,
+					cache : false,
+					dataType : "json",
+					success : function(data) {
+						$("#addddrange1").combobox("loadData", data);
+						}
+					});
+			}
+		});
+		$('#addddrange1').combobox({   
+	        //url:'itemManage!categorytbl',   
+	        editable:false, //不可编辑状态  
+	        cache: false,  
+	        panelHeight: '150',//自动高度适合  
+	        valueField:'name',     
+	        textField:'name'  
+	       });  
+
     }
     // 添加(提交後臺)
     function add() {
@@ -155,6 +175,8 @@
         }
         $("#list").datagrid('reload');
     }
+    
+    
 </script>
 </head>
 <body>
@@ -192,7 +214,7 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post">
-            <table cellpadding="5">
+            <table>
              	<tr>
 		  			<td>选择员工:</td>
 		  			<td><br>
@@ -209,16 +231,13 @@
                  <tr>
                     <td>巡查类型:</td>
                		<td>
-               			<select class="easyui-combobox" style="width: 150px;"  name="duty.dstatus" data-options="required:true">
-	                        <option value="宿舍巡查">宿舍巡查</option>
-	                        <option value="班级巡查">班级巡查</option>
-                        </select>
+               			<input class="easyui-combobox" data-options="required:true,novalidate:true" id="dstatuses" name="duty.dstatus" /><br/><br/>
                     </td>
                 </tr>
             	<tr>
 		  			<td>巡查对象:</td>
 		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="addddrange1" name="duty.drange" /><br/><br/>
+		  			<input class="easyui-combobox" data-options="required:true,novalidate:true" id="addddrange1" name="duty.drange" /><br/><br/>
 		  			</td>
 		  		</tr>
                 <tr>

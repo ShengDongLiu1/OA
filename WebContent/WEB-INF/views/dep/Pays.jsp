@@ -68,33 +68,33 @@
                 <tr>
                     <td>员工姓名</td>
                     <td>
-                        <input class="easyui-combobox" data-options="required:true" name="pays.dep.eid"
+                        <input class="easyui-combobox" data-options="required:true,novalidate:true" name="pays.dep.eid"
                                id="add_pempid"/>
                     </td>
                 </tr>
                 <tr>
                     <td>奖励金额:</td>
-                    <td><input class="easyui-textbox" name="pays.paysa" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysa" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>惩罚金额:</td>
-                    <td><input class="easyui-textbox" name="pays.paysb" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysb" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>基本工资:</td>
-                    <td><input class="easyui-textbox" name="pays.payssta" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.payssta" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>补贴工资:</td>
-                    <td><input class="easyui-textbox" name="pays.paysc" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysc" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>发放时间:</td>
-                    <td><input class="easyui-datetimebox" name="pays.paytime" data-options="required:true"/></td>
+                    <td><input class="easyui-datetimebox" name="pays.paytime" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>奖罚原因和备注:</td>
-                    <td><input class="easyui-textbox" name="pays.payspro" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.payspro" data-options="required:true,novalidate:true"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">

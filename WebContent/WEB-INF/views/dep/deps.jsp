@@ -282,7 +282,7 @@
             <tr>
                 <td>选择部门:</td>
                 <td><br/>
-                    <input class="easyui-combobox" data-options="required:true" style="width:150px;" id="depar1"
+                    <input class="easyui-combobox" data-options="required:true,novalidate:true" style="width:150px;" id="depar1"
                            name="dep.mid"/><br/><br/>
                 </td>
             </tr>
@@ -310,7 +310,7 @@
             <tr>
                 <td><br/>民族:</td>
                 <td><br/>
-                    <select class="easyui-combobox" id="eanton" style="width: 150px;" name="dep.eanton" data-options="required:true">
+                    <select class="easyui-combobox" id="eanton" style="width: 150px;" name="dep.eanton" data-options="required:true,novalidate:true">
                         <option value="汉族">汉族</option>
                         <option value="蒙古族">蒙古族</option>
                         <option value="彝族">彝族</option>
@@ -374,7 +374,7 @@
                 <td><br/>学历:</td>
                 <td><br/>
                     <select class="easyui-combobox" id="edu" style="width: 150px;" name="dep.edu"
-                            data-options="required:true">
+                            data-options="required:true,novalidate:true">
                         <option value="本科">本科</option>
                         <option value="硕士">硕士</option>
                         <option value="专科">专科</option>
@@ -385,12 +385,12 @@
             <tr>
                 <td><br/>家庭住址:</td>
                 <td><br/><input class="easyui-textbox" id="eaddr" style="width: 150px;height: 55px;" name="dep.eaddr"
-                                data-options="multiline:true"></td>
+                                data-options="multiline:true,required:true,novalidate:true"></td>
             </tr>
             <tr>
                 <td>选择状态:</td>
                 <td><br>
-                    <input class="easyui-combobox" data-options="required:true" style="width: 150px;" id="updateestatus"
+                    <input class="easyui-combobox" data-options="required:true,novalidate:true" style="width: 150px;" id="updateestatus"
                            name="dep.dstatuss.dsid"><br/><br/>
                 </td>
             </tr>

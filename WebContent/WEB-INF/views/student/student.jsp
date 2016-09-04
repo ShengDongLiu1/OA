@@ -60,12 +60,12 @@
         <form id="ff" method="post">
             <table>
              <tr>
-                <td>学生记录名称:</td>
+                <td>学生姓名:</td>
                 <td><input class="easyui-textbox" name="student.intenname" style="width: 150px;"
                            data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
             </tr>
                	<tr>
-                    <td>就读学校:</td>
+                    <td>毕业学校:</td>
                     <td><input class="easyui-textbox"  name="student.intensch" data-options="required:true,validType:'length[4,10]',novalidate:true"/>
                     </td>
                 </tr>
@@ -87,7 +87,7 @@
                 <tr>
                 <td>民族:</td>
                 <td>
-                    <select class="easyui-combobox"  style="width: 150px;" name="student.intenmz" data-options="required:true">
+                    <select class="easyui-combobox"  style="width: 150px;" name="student.intenmz" data-options="required:true,novalidate:true">
                         <option value="汉族">汉族</option>
                         <option value="蒙古族">蒙古族</option>
                         <option value="彝族">彝族</option>
@@ -153,8 +153,8 @@
                 </tr>
                 <tr>
                     <td>出生年月:</td>
-                    <td><input class="easyui-datebox" value="1/1/1990" id="intenbir" name="student.intenbir"
-                               data-options="required:true"/></td>
+                    <td><input class="easyui-datebox" value="1990-01-01" id="intenbir" name="student.intenbir"
+                               data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>家长姓名:</td>
@@ -174,16 +174,17 @@
                 </tr>
                 <tr>
                     <td>就读疑问:</td>
-                    <td><input class="easyui-textbox" name="student.intenpeo" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" name="student.intenpeo" style="width: 200px; height: 100px;"
+                                 data-options="multiline:true,required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>选择班级:</td>
-                    <td><input class="easyui-combobox" data-options="required:true" id="addclass"
+                    <td><input class="easyui-combobox" data-options="required:true,novalidate:true" id="addclass"
                                name="student.classes.classid"/></td>
                 </tr>
                 <tr>
                     <td>选择宿舍:</td>
-                    <td><input class="easyui-combobox" data-options="required:true" id="addhoure"
+                    <td><input class="easyui-combobox" data-options="required:true,novalidate:true" id="addhoure"
                                name="student.hourse.hourid"/></td>
                 </tr>
             </table>

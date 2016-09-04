@@ -85,14 +85,4 @@ public class CourseDaoImp implements CourseDao{
 		return obj;
 	}
 
-	@Override
-	public List<Course> queryCourse() {
-		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Course");
-		@SuppressWarnings("unchecked")
-		List<Course> courses = query.list();
-		session.close();
-		return courses;
-	}
-
 }

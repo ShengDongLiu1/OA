@@ -2,18 +2,17 @@ package com.ht.service;
 
 import com.ht.common.Pager;
 
-import java.util.List;
-
 import com.ht.bean.Course;
 import com.ht.dao.CourseDao;
 
-public class CourseServiceImp implements CourseService{
-	
+public class CourseServiceImp implements CourseService {
+
 	private CourseDao coursedao;
 
 	public void setCoursedao(CourseDao coursedao) {
 		this.coursedao = coursedao;
 	}
+
 	@Override
 	public Course add(Course t) {
 		return coursedao.add(t);
@@ -43,10 +42,5 @@ public class CourseServiceImp implements CourseService{
 	public Object count() {
 		return coursedao.count();
 	}
-	@Override
-	public List<Course> queryCourse() {
-		return coursedao.queryCourse();
-	}
-	
-	
+
 }

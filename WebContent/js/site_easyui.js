@@ -253,7 +253,6 @@ $(function() {
 	});
 })
 
-function toValidate(formId) {
 	$('#' + formId + ' .validatebox-text').validatebox('enableValidation')
 			.validatebox('validate');
 }

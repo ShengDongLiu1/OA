@@ -23,22 +23,18 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,fit:true">
+		pageSize:20,fit:true">
     <thead>
     <tr>
         <th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
         <th data-options="field:'intenname',width:100" align="center">名称</th>
-        <th data-options="field:'intensch',width:100" align="center">就读学校</th>
-        <th data-options="field:'intensex',width:100" align="center">性别</th>
+        <th data-options="field:'intensch',width:100" align="center">毕业学校</th>
+        <th data-options="field:'intensex',width:50" align="center">性别</th>
         <th data-options="field:'intenage',width:50" align="center">年龄</th>
-        <th data-options="field:'intenbir',width:100" align="center">出生年月</th>
-        <th data-options="field:'intenmz',width:100" align="center">民族</th>
-        <th data-options="field:'intenjg',width:100" align="center">籍贯</th>
-        <th data-options="field:'intentel',width:100" align="center">学生记录号码</th>
+        <th data-options="field:'intentel',width:100" align="center">学生号码</th>
         <th data-options="field:'intenfat',width:100" align="center">家长姓名</th>
-        <th data-options="field:'intenfatel',width:100" align="center">学生记录家长号码</th>
+        <th data-options="field:'intenfatel',width:100" align="center">学生家长号码</th>
         <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
-        <th data-options="field:'intenstatus',width:100" align="center">学生记录状态</th>
         <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
         <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>
         <th data-options="field:'intendate',width:100">入学时间</th>
@@ -70,7 +66,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>学生记录性别:</td>
+                    <td>学生性别:</td>
                     <td>
                         <label>男</label>
                         <input type="radio"  name="student.intensex" value="男" checked="checked"/>
@@ -78,12 +74,6 @@
                         <input type="radio"  name="student.intensex" value="女"/>
                     </td>
                 </tr>
-           		<tr>
-	                <td>学生记录年龄:</td>
-	                <td><input class="easyui-textbox" style="width: 150px;" name="student.intenage"
-                                data-options="required:true,validType:'length[1,3]',novalidate:true"
-                                style="width:200px"></td>
-           		 </tr>
                 <tr>
                 <td>民族:</td>
                 <td>
@@ -206,7 +196,7 @@
   			<input  id="id" name="student.intenid" type="hidden"/>
             <table>
                 <tr>
-	                <td>学生记录名称:</td>
+	                <td>学生名称:</td>
 	                <td><input class="easyui-textbox" id="ename" name="student.intenname" style="width: 150px;"
 	                           data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
            		 </tr>
@@ -217,7 +207,7 @@
                 </tr>
                 
                 <tr>
-                    <td>学生记录性别:</td>
+                    <td>学生性别:</td>
                     <td>
                         <label>男</label>
                         <input type="radio" id="sex" name="student.intensex" value="男" checked="checked"/>
@@ -226,7 +216,7 @@
                     </td>
                 </tr>
                 <tr>
-	                <td>学生记录年龄:</td>
+	                <td>学生年龄:</td>
 	                <td><input class="easyui-textbox" id="age" style="width: 150px;" name="student.intenage"
                                 data-options="required:true,validType:'length[1,3]',novalidate:true"
                                 style="width:200px"></td>
@@ -309,12 +299,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>学生记录号码:</td>
+                    <td>学生号码:</td>
                     <td><input class="easyui-textbox" id="tel" name="student.intentel" data-options="required:true,validType:'length[11,11]',novalidate:true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生记录家长号码:</td>
+                    <td>学生家长号码:</td>
                     <td><input class="easyui-textbox" id="fatel" name="student.intenfatel"
                                data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
@@ -333,12 +323,12 @@
                     <td><input class="easyui-textbox" id="status" name="student.intenstatus" /></td>
                 </tr> -->
                 <tr>
-                    <td>学生记录班级:</td>
+                    <td>学生班级:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="clas" name="student.classes.classid"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>学生记录宿舍:</td>
+                    <td>学生宿舍:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="hous" name="student.hourse.hourid"/>
                     </td>
                 </tr>
@@ -398,7 +388,7 @@
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
         $(p).pagination({
-            pageList: [5, 10, 15, 20],
+            pageList: [20, 30, 40],
             beforePageText: "第",
             afterPageText: "页    共{pages}页",
             displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",

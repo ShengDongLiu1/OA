@@ -232,17 +232,23 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Pager<Student> queryClasses(Pager<Student> pager, int id){
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Student where classid=?");
-		query.setInteger(0, id);
+		Query query = session.createQuery("from Student where classid="+id);
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<Student> list = query.list();
 		pager.setRows(list);
+		pager.setTotal((long)countClass(id));
 		session.close();
 		return pager;
 	}
 	
+	public Object countClass(int id){
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Student t where classid="+id);
+		Object obj = q.uniqueResult();
+		return obj;
+	}
 	
 	@Override
 	public Pager<Student> queryName(Pager<Student> pager,String name){
@@ -254,7 +260,16 @@ public class StudentDaoImpl implements StudentDao {
 		@SuppressWarnings("unchecked")
 		List<Student> list = query.list();
 		pager.setRows(list);
+		pager.setTotal((long)countName(name));
 		session.close();
 		return pager;
+	}
+
+	public Object countName(String name){
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Student t where intenname  like :name");
+		q.setString("name", "%"+name+"%");
+		Object obj = q.uniqueResult();
+		return obj;
 	}
 }

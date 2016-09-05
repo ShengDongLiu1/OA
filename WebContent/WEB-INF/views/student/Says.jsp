@@ -358,7 +358,7 @@
     </div>
 </div>
 
-	<div id="studentwin1" class="easyui-window" title="选择员工"
+	<div id="studentwin1" class="easyui-window" title="选择学生"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
 		style="width: 800px; height: 500px; padding: 5px;">
 		<form id="xuanForm1" enctype="multipart/form-data">
@@ -378,9 +378,9 @@
 						<th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
 				        <th data-options="field:'intenname',width:100" align="center">名称</th>
 				        <th data-options="field:'intensch',width:100" align="center">就读学校</th>
-				        <th data-options="field:'intensex',width:100" align="center">性别</th>
+				        <th data-options="field:'intensex',width:50" align="center">性别</th>
 				        <th data-options="field:'intenage',width:50" align="center">年龄</th>
-				        <th data-options="field:'intentel',width:100" align="center">学生记录号码</th>
+				        <th data-options="field:'intentel',width:100" align="center">学生号码</th>
 				        <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
 				        <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
 				        <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>

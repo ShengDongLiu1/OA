@@ -1,5 +1,8 @@
 package com.ht.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
@@ -54,6 +57,12 @@ public class StudentyxAction extends ActionSupport {
 	}
 
 	public String add() {
+        Calendar a=Calendar.getInstance();
+        int year = a.get(Calendar.YEAR);//得到年
+        
+		String[] str=studentyx.getIntenbir().split("-");
+		int ye = Integer.valueOf(str[0]);
+		studentyx.setIntenage(year - ye);
 		studentyx = studentService.addyx(studentyx);
 		if(studentyx == null){
 			result = ControllerResult.getFailResult("添加失败");

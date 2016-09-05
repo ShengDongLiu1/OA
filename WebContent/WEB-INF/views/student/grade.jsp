@@ -33,62 +33,77 @@
     </thead>
 </table>
 <div id="tb" style="padding: 2px;">
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#AddWin').dialog('open')" data-options="iconCls:'icon-add'">添加</a>
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectMulti').dialog('open')" data-options="iconCls:'icon-add'">添加多个</a>
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="editWin();" data-options="iconCls:'icon-edit'">编辑</a>
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'">删除</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectClassWindow').dialog('open')"
+       data-options="iconCls:'icon-add'">添加</a>
+       <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectMultipleClassWindow').dialog('open')"
+       data-options="iconCls:'icon-add'">多个多个学生成绩</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="editScores();"
+       data-options="iconCls:'icon-edit'">编辑</a>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="deleteGrade();"
+       data-options="iconCls:'icon-remove'">删除</a>
+       <input id="selectClass" class="easyui-combobox"  data-options="required:true,validType:'length[1,10]',novalidate:true" />
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="accordingClassName()"
+       data-options="iconCls:'icon-search'">选择班级</a>
+    <input class="easyui-textbox" id="studentName" size="10px"/>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="accordingStudentName();"
+       data-options="iconCls:'icon-search'">按学生姓名查询</a>
+	<input class="easyui-textbox" id="courseName" size="10px"/>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="accordingCourseName();"
+       data-options="iconCls:'icon-search'">按考试科目查询</a>
 </div>
-<!-------------------------------- 选择单个学生成绩 -------------------------------->
-<div id="AddWin" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="添加学生成绩">
-    <table id="addlist" class="easyui-datagrid" toolbar="#addss" data-options="
-			url:'<%=path %>/stu/queryAll', 
+<!-- 选择班级 -->
+<div id="selectClassWindow" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="请选择班级"
+     style="width:430px;height:250px;">
+    <table id="selectClassTable" class="easyui-datagrid" toolbar="#selectClassToolbar" data-options="
+			url:'<%=path %>/classes/queryAll', 
 			method:'get', 
 			rownumbers:true,
 			singleSelect:true,
 			autoRowHeight: true,
 			pagination:true,
 			border:false,
-			pageSize:20"
-           style="width:275px;height:240px;padding:10px"
+			pageSize:10,
+			fit:true"
     >
         <thead>
         <tr>
-            <th data-options="field:'intenid',checkbox:true,width:100">编号</th>
-            <th data-options="field:'intenname',width:100">姓名</th>
-            <th data-options="field:'intensex',width:100">性别</th>
+            <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
+            <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
         </tr>
         </thead>
     </table>
 </div>
-<div id="addss" style="padding: 2px;">
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="addWin();" data-options="iconCls:'icon-add'">确认选择</a>
+<div id="selectClassToolbar" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="confirmClass();"
+        data-options="iconCls:'icon-ok'">确认选择</a>
 </div>
-<!-------------------------------- 选择多个学生 -------------------------------->
-<div id="selectMulti" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="选择多个学生">
-	<table id="dg" class="easyui-datagrid" toolbar="#ass" data-options="
-			url:'<%=path %>/stu/queryAllStu', 
-			method:'get', 
+<!-- 选择学生 -->
+<div id="selectStudentWindow" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="请选择学生"
+     style="width:430px;height:250px;">
+    <table id="selectStudentTable" class="easyui-datagrid" toolbar="#selectStudentToolbar" data-options="
+			url:'<%=path %>/stu/queryClassStudent', 
+			method:'get',
+			singleSelect:true,
 			border:false"
-           style="width:250px;height:240px;padding:10px"
     >
         <thead>
         <tr>
-            <th data-options="field:'student.intenid',checkbox:true,width:100">编号</th>
-            <th data-options="field:'intenname',width:100">姓名</th>
-            <th data-options="field:'intensex',width:100">性别</th>
+            <th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
+            <th data-options="field:'intenname',width:100" align="center">姓名</th>
+            <th data-options="field:'intensex',width:100" align="center">性别</th>
+            <th data-options="field:'intenage',width:50" align="center">年龄</th>
         </tr>
         </thead>
     </table>
 </div>
-<div id="ass" style="padding: 2px;">
-    <a href="javascript:(0);" class="easyui-linkbutton" onclick="addPl();" data-options="iconCls:'icon-ok'">确认选择</a>
+<div id="selectStudentToolbar" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="confirmStudent();" data-options="iconCls:'icon-ok'">确认选择</a>
 </div>
-<!-------------------------------- 单个学生成绩添加 -------------------------------->
-<div style="margin:20px 0;"></div>
-<div id="addWindow" class="easyui-window" title="保存" data-options="closed:true,iconCls:'icon-save'"
+<!-- 添加成绩 -->
+<div id="addGradeWindow" class="easyui-window" title="保存" data-options="closed:true,iconCls:'icon-save'"
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
-        <form id="addfrom">
+        <form id="addGradeForm">
             <table>
                 <tr>
                     <td><span style="width:100%;height:32px">编&nbsp;号&nbsp;</span></td>
@@ -105,7 +120,7 @@
                 <tr>
                     <td><span style="width:100%;height:32px">科&nbsp;目&nbsp;</span></td>
                     <td>
-                        <input id="xiala" class="easyui-combobox" style="width:100%;height:32px"
+                        <input id="selectCourse" class="easyui-combobox" style="width:100%;height:32px"
                                data-options="required:true,validType:'length[1,10]',novalidate:true" name="sconame"/>
                     </td>
                 </tr>
@@ -117,20 +132,20 @@
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="add();"
+                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'"
+                   onclick="addScores();"
                    style="width:80px">保存</a>
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-                   onclick="$('#addWindow').dialog('close')" style="width:80px">取消</a>
+                   onclick="$('#addGradeWindow').dialog('close')" style="width:80px">取消</a>
             </div>
         </form>
     </div>
 </div>
-<!-------------------------------- 修改学生成绩 -------------------------------->
-<div style="margin:20px 0;"></div>
-<div id="editWindow" class="easyui-window" title="编辑" data-options="closed:true,iconCls:'icon-edit'"
+<!-- 修改成绩 -->
+<div id="editGradeWindow" class="easyui-window" title="编辑" data-options="closed:true,iconCls:'icon-edit'"
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
-        <form id="editfrom">
+        <form id="editGradeForm">
             <table>
                 <tr>
                     <td><span style="width:100%;height:32px">姓&nbsp;名&nbsp;</span></td>
@@ -154,35 +169,68 @@
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Edit();"
+                <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'"
+                   onclick="affirmEditScores();"
                    style="width:80px">保存</a>
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-                   onclick="$('#editWindow').dialog('close')" style="width:80px">取消</a>
+                   onclick="$('#editGradeWindow').dialog('close')" style="width:80px">取消</a>
             </div>
         </form>
     </div>
 </div>
 
-<!--/////////////////////////////////////////////////////////////////////////////////-->
+<!-- 选择班级(选择多个学生) -->
+<div id="selectMultipleClassWindow" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="请选择班级(添加多个学生)"
+     style="width:430px;height:250px;">
+    <table id="selectMultipleClassTable" class="easyui-datagrid" toolbar="#selectMultipleClassToolbar" data-options="
+			url:'<%=path %>/classes/queryAll', 
+			method:'get', 
+			rownumbers:true,
+			singleSelect:true,
+			autoRowHeight: true,
+			pagination:true,
+			border:false,
+			pageSize:10,
+			fit:true"
+    >
+        <thead>
+        <tr>
+            <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
+            <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="selectMultipleClassToolbar" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="selectMultipleClass();"
+        data-options="iconCls:'icon-ok'">确认选择</a>
+</div>
+
+<!-- 选择学生(选择多个学生) -->
+<div id="selectMultipleStudentWindow" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="请选择学生(选择多个学生)"
+     style="width:430px;height:250px;">
+    <table id="selectMultipleStudentTable" class="easyui-datagrid" toolbar="#selectMultipleStudentToolbar" data-options="
+			url:'<%=path %>/stu/queryClassStudent', 
+			method:'get',
+			border:false"
+    >
+        <thead>
+        <tr>
+            <th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
+            <th data-options="field:'intenname',width:100" align="center">姓名</th>
+            <th data-options="field:'intensex',width:100" align="center">性别</th>
+            <th data-options="field:'intenage',width:50" align="center">年龄</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="selectMultipleStudentToolbar" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="confirmMultipleStudent();" data-options="iconCls:'icon-ok'">确认选择</a>
+</div>
 <script type="text/javascript">
     $(function () {
         setPagination("list");
     });
-    
-    function addPl() {
-        var intenid = [];
-        var intenname = [];
-        var rows = $("#dg").datagrid("getSelections");
-        if (rows == null || rows == "") {
-            $.messager.alert('提示', '请至少选中一个需要添加学生成绩的学生!', 'info');// messager消息控件
-        } else {
-            for (var i = 0; i < rows.length; i++) {
-            	intenid[i] = rows[i].intenid;
-            	intenname[i] = rows[i].intenname;
-            }
-            window.location.href = "<%=path%>/student/plSelect?intenid=" + intenid + "&intenname=" + intenname;
-        }
-    }
 
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager");
@@ -196,60 +244,113 @@
                 $(this).pagination("loaded");
             }
         });
-    }
-    
-    function subject() {
-        var subject = $("#subject").val();
-        $.post('student/batch', {'subject': subject}, "JSON");
-        $('#adds').dialog('close');
+        
+        $("#selectClass").combobox({
+            url: "<%=path%>/student/queryClasses",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#selectClass').combobox('getData');
+                if (data.length > 0) {
+                    $("#selectClass").combobox('select', data[0].id);
+                }
+            }
+        });
     }
 
-    function addWin() {
-        var row = $("#addlist").datagrid('getSelected');
+    //选择班级
+    function confirmClass() {
+        var row = $("#selectClassTable").datagrid("getSelected");
         if (row) {
-            $("#addfrom").form("load", row);
-            $('#AddWin').dialog('close');
-            $('#addWindow').dialog('open');
+            $("#selectStudentTable").datagrid("load", "<%=path %>/stu/queryClassStudent?classid=" + row.classid);
+            $('#selectClassWindow').dialog('close');
+            $('#selectStudentWindow').dialog('open');
+        } else {
+            $.messager.alert('提示', '请选中需要添加成绩班级', 'info');
         }
-        $("#xiala").combobox({
+    }
+    
+  //选择班级(多个学生)
+    function selectMultipleClass() {
+        var row = $("#selectMultipleClassTable").datagrid("getSelected");
+        if (row) {
+            $("#selectMultipleStudentTable").datagrid("load", "<%=path %>/stu/queryClassStudent?classid=" + row.classid);
+            $('#selectClassWindow').dialog('close');
+            $('#selectMultipleStudentWindow').dialog('open');
+        } else {
+            $.messager.alert('提示', '请选中需要添加成绩班级', 'info');
+        }
+    }
+
+    //选择学生
+    function confirmStudent() {
+        var row = $("#selectStudentTable").datagrid('getSelected');
+        if (row) {
+            $('#selectStudentWindow').dialog('close');
+            $("#addGradeForm").form("load", row);
+            $('#addGradeWindow').dialog('open');
+        }
+        $("#selectCourse").combobox({
             url: "<%=path%>/course/queryCourse",
             method: 'get',
             valueField: 'name',
             textField: 'name',
             panelHeight: 'auto',
             onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#xiala').combobox('getData');
+                var data = $('#selectCourse').combobox('getData');
                 if (data.length > 0) {
-                    $("#xiala").combobox('select', data[0].name);
+                    $("#selectCourse").combobox('select', data[0].name);
                 }
             }
         });
     }
+    
+  //选择学生(选择多个学生)
+    function confirmMultipleStudent() {
+    	var intenid = [];
+        var intenname = [];
+        var rows = $("#selectMultipleStudentTable").datagrid("getSelections");
+        if (rows == null || rows == "") {
+            $.messager.alert('提示', '请至少选中一个需要添加学生成绩的学生!', 'info');// messager消息控件
+        } else {
+            for (var i = 0; i < rows.length; i++) {
+            	intenid[i] = rows[i].intenid;
+            	intenname[i] = rows[i].intenname;
+            }
+            window.location.href = "<%=path%>/student/plSelect?intenid=" + intenid + "&intenname=" + intenname;
+        }
+    }
 
-    function add() {
+    //添加成绩
+    function addScores() {
         var stuid = $("#stuid").val();
         var score = $("#score").val();
-        var sconame = $('#xiala').combobox('getValue');
-        $.get('student/add', {'grade.students.intenid': stuid, 'grade.score': score, 'grade.sconame': sconame},
+        var sconame = $('#selectCourse').combobox('getValue');
+        $.get('<%=path%>/student/add', {
+                    'grade.students.intenid': stuid,
+                    'grade.score': score,
+                    'grade.sconame': sconame
+                },
                 function (data) {
                     $.messager.alert("提示", data.result.msg, "info");
                     $("#list").datagrid('reload');
                 }, "JSON");
         $("#list").datagrid('reload');
-        $('#addWindow').dialog('close');
-        $("#addfrom").form("clear");
+        $('#addGradeWindow').dialog('close');
+        $("#addGradeForm").form("clear");
         $("#list").datagrid('reload');
     }
 
-
-    function editWin() {
+    //修改成绩加载数据
+    function editScores() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            /* $("#editfrom").form("load", row); */
             $("#aa").textbox("setValue", row.students.intenname);
             $("#ec").textbox('setValue', row.score);
             document.getElementById("ssid").value = row.scoid;
-            $("#editWindow").dialog('open');
+            $("#editGradeWindow").dialog('open');
             $("#en").combobox({
                 url: "<%=path%>/course/queryCourse",
                 method: 'get',
@@ -266,18 +367,18 @@
         } else {
             $.messager.alert('提示', '请选中需要编辑的成绩', 'info');
         }
-        $("#list").datagrid('reload');
     }
 
-    function Edit() {
+    //修改成绩
+    function affirmEditScores() {
         var scoid = $("#ssid").val();
         var score = $("#ec").val();
         var sconame = $('#en').combobox('getValue');
         $.post('student/update', {'grade.scoid': scoid, 'grade.score': score, 'grade.sconame': sconame},
                 function (data) {
                     if (data.result.result == "success") {
-                        $.messager.alert("提示", data.result.msg, "info", function(){
-                            $("#editWindow").window('close');
+                        $.messager.alert("提示", data.result.msg, "info", function () {
+                            $("#editGradeWindow").window('close');
                             $("#list").datagrid('reload');
                         });
                     } else {
@@ -286,7 +387,8 @@
                 }, "JSON");
     }
 
-    function expurgate() {
+    //删除成绩
+    function deleteGrade() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
             $.post('student/delete', {'grade.scoid': row.scoid},
@@ -301,26 +403,48 @@
         } else {
             $.messager.alert('提示', '请选中需要删除的列', 'info');
         }
-        $("#list").datagrid('reload');
-    }
-
-    function batchAdd() {
-        var ids = [];
-        var rows = $('#batchList').datagrid('getSelections');
-        if (rows) {
-            for (var i = 0; i < rows.length; i++) {
-                ids.push(rows[i].intenid + rows[i].intenname);
-            }
-            $('#batchAdd').dialog('close');
-            $('#addsWindow').dialog('open');
-        } else {
-            $.messager.alert('提示', '请选中需要添加的列', 'info');
-        }
     }
 
     function studentname(value) {
         return value.intenname;
     }
+    
+  //按班级查询
+    function accordingClassName() {
+        var selectClass = $("#selectClass").combobox('getValue');
+        if(selectClass == ""){
+        	$.messager.alert('提示', '请选择要查询的班级', 'info');
+        	return false;
+        }
+        $('#list').datagrid('load',{
+        	selectClass:selectClass
+        });
+    }
+    
+    //按学生姓名查询
+    function accordingStudentName() {
+        var studentName = $("#studentName").val();
+        if(studentName == ""){
+        	$.messager.alert('提示', '请输入要查询的姓名', 'info');
+        	return false;
+        }
+        $('#list').datagrid('load',{
+            studentName:studentName
+        });
+    }
+    
+    //按考试科目查询
+    function accordingCourseName() {
+    	var courseName = $("#courseName").val();
+    	if(courseName == ""){
+        	$.messager.alert('提示', '请输入要查询的科目', 'info');
+        	return false;
+        }
+        $('#list').datagrid('load',{
+        	courseName:courseName
+        });
+	}
+    
 </script>
 </body>
 </html>

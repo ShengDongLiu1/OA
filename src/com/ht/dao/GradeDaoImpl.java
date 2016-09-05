@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
 import com.ht.common.Pager;
@@ -44,7 +45,7 @@ public class GradeDaoImpl implements GradeDao {
 	public Grade update(Grade t) {
 		session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		String hql = "update Grade g set g.score = :score where g.scoid = :scoid";
+		String hql = "update Grade g set g.score = :score where g.scoid =:scoid";
 		Query query = session.createQuery(hql);
 		query.setDouble("score", t.getScore());
 		query.setInteger("scoid", t.getScoid());
@@ -108,6 +109,56 @@ public class GradeDaoImpl implements GradeDao {
 		return list;
 	}
 
-	
+	@Override
+	public Pager<Grade> queryByName(Pager<Grade> pager,String name) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Grade where stuid in (select intenid from Student stu where stu.intenname like '%"+name+"%' )");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Grade> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
 
+	@Override
+	public Pager<Grade> queryByCourse(Pager<Grade> pager, String courseName) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Grade g where g.sconame like '%"+courseName+"%'");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Grade> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+
+	@Override
+	public List<Classes> queryClasses() {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Classes");
+		@SuppressWarnings("unchecked")
+		List<Classes> classes = query.list();
+		session.close();
+		return classes;
+	}
+
+	@Override
+	public Pager<Grade> queryByClass(Pager<Grade> pager, int classID) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Grade where stuid in (select intenid from Student stu where stu.classes.classid =:classid ) order by score desc");
+		query.setInteger("classid", classID);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Grade> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
 }

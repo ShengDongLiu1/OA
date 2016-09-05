@@ -1,10 +1,16 @@
 package com.ht.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
 
+import com.alibaba.fastjson.JSON;
 import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
@@ -166,11 +172,29 @@ public class GradeAction extends ActionSupport {
 	}
 
 	public String queryAll() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String studentName = request.getParameter("studentName");
+		String courseName = request.getParameter("courseName");
+		String className = request.getParameter("selectClass");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = gradeService.queryAll(pager);
+		if (studentName == null || studentName.equals("")) {
+			if (courseName == null || courseName.equals("")) {
+				if(className == null || className.equals("")){
+					pager = gradeService.queryAll(pager);
+				} else {
+					int classID = Integer.parseInt(className);
+					System.out.println("按班级查询..." + "        班级ID：" + classID);
+					pager = gradeService.queryByClass(pager, classID);
+				}
+			} else {
+				pager = gradeService.queryByCourse(pager, courseName);
+			}
+		} else {
+				pager = gradeService.queryByName(pager, studentName);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
@@ -213,6 +237,29 @@ public class GradeAction extends ActionSupport {
 			gradeService.batchSave(grades);
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
+		return SUCCESS;
+	}
+	
+	public String queryClasses() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out = resp.getWriter();
+		List<Combox> list = new ArrayList<Combox>();
+		List<Classes> classes = new ArrayList<Classes>();
+		classes = gradeService.queryClasses();
+		for(Classes classes2 : classes){
+			int id = classes2.getClassid();
+			String name = classes2.getClassname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(id));
+			combox.setName(name);
+			list.add(combox);
+		}
+		out.write(JSON.toJSONString(list));
+		out.close();
 		return SUCCESS;
 	}
 

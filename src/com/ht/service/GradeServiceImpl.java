@@ -2,6 +2,7 @@ package com.ht.service;
 
 import java.util.List;
 
+import com.ht.bean.Classes;
 import com.ht.bean.Grade;
 import com.ht.bean.Student;
 import com.ht.common.Pager;
@@ -54,5 +55,25 @@ public class GradeServiceImpl implements GradeService {
     public List<Student> batchQlery(Student student) {
         return gradeDao.batchQlery(student);
     }
+
+	@Override
+	public Pager<Grade> queryByName(Pager<Grade> pager,String name) {
+		return gradeDao.queryByName(pager, name);
+	}
+
+	@Override
+	public Pager<Grade> queryByCourse(Pager<Grade> pager, String courseName) {
+		return gradeDao.queryByCourse(pager, courseName);
+	}
+
+	@Override
+	public List<Classes> queryClasses() {
+		return gradeDao.queryClasses();
+	}
+
+	@Override
+	public Pager<Grade> queryByClass(Pager<Grade> pager, int classID) {
+		return gradeDao.queryByClass(pager, classID);
+	}
 
 }

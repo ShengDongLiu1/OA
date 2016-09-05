@@ -15,10 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Classes;
-import com.ht.bean.Department;
-import com.ht.bean.Dstatus;
 import com.ht.bean.Hourse;
-import com.ht.bean.Status;
 import com.ht.bean.Student;
 import com.ht.bean.Studentyx;
 import com.ht.bean.User;
@@ -51,6 +48,7 @@ public class StudentAction extends ActionSupport {
 	private List<Classes> classes;
 	private List<Hourse> hourse;
 	private List<Student> students;
+	private int classid;
 
 	public void setClassesService(ClassesService classesService) {
 		this.classesService = classesService;
@@ -104,9 +102,17 @@ public class StudentAction extends ActionSupport {
 		this.students = students;
 	}
 
+	public int getClassid() {
+		return classid;
+	}
+
+	public void setClassid(int classid) {
+		this.classid = classid;
+	}
+
 	public String add() {
 		student.setIntendate(Calendar.getInstance().getTime());
-		student.setIntenstatus("在读");	
+		student.setIntenstatus("在读");
 		student = studentService.add(student);
 		if (student == null) {
 			result = ControllerResult.getFailResult("添加失败");
@@ -244,7 +250,7 @@ public class StudentAction extends ActionSupport {
 		student.setIntenmz(studentyx.getIntenmz());
 		student.setIntenjg(studentyx.getIntenjg());
 		student.setIntendate(Calendar.getInstance().getTime());
-		student.setIntenstatus("在读");	
+		student.setIntenstatus("在读");
 		student = studentService.add(student);
 		if (student == null) {
 			result = ControllerResult.getFailResult("修改失败");
@@ -269,16 +275,22 @@ public class StudentAction extends ActionSupport {
 		rows = stus;
 		return SUCCESS;
 	}
-	
+
+	public String queryClassStudent() {
+		List<Student> stus = new ArrayList<Student>();
+		stus = studentService.queryAllS(classid);
+		rows =stus;
+		return SUCCESS;
+	}
 
 	public String addStu() {
 		student = studentService.addStu(student);
-		if(student == null){
+		if (student == null) {
 			result = ControllerResult.getFailResult("添加失败");
-		}else{
+		} else {
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
-		
+
 		return SUCCESS;
 	}
 }

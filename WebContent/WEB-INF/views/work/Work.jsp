@@ -33,7 +33,8 @@
 				<th data-options="field:'wid',checkbox:true,width:100" align="center">编号</th>
 				<th data-options="field:'worktype',width:100" formatter="forTypeName" align="center">类型</th>
 				<th data-options="field:'wname',width:100" align="center">名称</th>
-				<th data-options="field:'wamount',width:100" align="center">数量</th>
+				<th data-options="field:'wcount',width:100" align="center">可用数量</th>
+				<th data-options="field:'wamount',width:100" align="center">总数量</th>
 			</tr>
 		</thead>
 	</table>
@@ -59,6 +60,10 @@
 			  		<tr>
 			  			<td>名称:</td>
 			  			<td><input class="easyui-textbox" id="wname" name="work.wname" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
+			  		</tr>
+			  		<tr>
+			  			<td>数量:</td>
+			  			<td><input class="easyui-textbox" id="wcount" name="work.wcount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>数量:</td>
@@ -88,6 +93,12 @@
 				<tr>
 					<td>名称</td>
 					<td><input class="easyui-textbox" id="wn" name="work.wname" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td>
+						<input class="easyui-textbox" name="work.wcount" id="wc" data-options="required:true,validType:'length[1,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
+					</td>
 				</tr>
 				<tr>
 					<td>数量</td>
@@ -179,6 +190,7 @@
 		            }
 				});
 				$("#wn").textbox("setValue", row.wname);
+				$("#wc").textbox("setValue", row.wcount);
 				$("#wa").textbox("setValue", row.wamount);
 				$("#editWindow").window("open");
 			} else {

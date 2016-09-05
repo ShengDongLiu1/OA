@@ -51,4 +51,14 @@ public class GetjobServiceImpl implements GetjobService {
 		return getjobDao.queryStudent();
 	}
 
+	@Override
+	public Pager<Getjob> queryByTime(Pager<Getjob> pager, String time) {
+		return getjobDao.queryByTime(pager, time);
+	}
+
+	@Override
+	public Object DepTimecount(String time) {
+		return getjobDao.DepTimecount(time);
+	}
+
 }

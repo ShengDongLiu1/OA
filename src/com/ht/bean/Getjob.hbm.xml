@@ -15,6 +15,16 @@
                 <comment>公司名称</comment>
             </column>
         </property>
+        <property name="jobtime" type="java.util.Date">
+            <column name="jobtime">
+                <comment>入职时间</comment>
+            </column>
+        </property>
+        <property name="jobmoney" type="java.lang.Double">
+            <column name="jobmoney">
+                <comment>就业薪资</comment>
+            </column>
+        </property>
         <property name="jobdesc" type="java.lang.String">
             <column name="jobdesc">
                 <comment>职位描述</comment>

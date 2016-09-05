@@ -42,7 +42,7 @@ public class ApplyAction extends ActionSupport {
 	private Dep dep;
 	private List<Dep> deps;
 	private List<Worktype> worktype;
-	
+
 	public Dep getDep() {
 		return dep;
 	}
@@ -92,81 +92,86 @@ public class ApplyAction extends ActionSupport {
 	public void setPage(int page) {
 		this.page = page;
 	}
-	
+
 	public String add() {
 		apply.setAdatetime(new Timestamp(new Date().getTime()));
-		apply.setGtotle(apply.getGprice()*apply.getGcounts());
+		apply.setGtotle(apply.getGprice() * apply.getGcounts());
 		apply.setAstatus("未购买");
 		apply = applyService.add(apply);
-		if(apply == null){
+		if (apply == null) {
 			result = ControllerResult.getFailResult("添加失败");
-		}else{
+		} else {
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
 		return SUCCESS;
 	}
-	
-	public String query(){
+
+	public String query() {
 		applyService.query(apply);
 		return "page";
 	}
-	
-	public String update(){
-		apply.setGtotle(apply.getGprice()*apply.getGcounts());
+
+	public String update() {
+		apply.setGtotle(apply.getGprice() * apply.getGcounts());
 		apply = applyService.update(apply);
-		if(apply == null){
+		if (apply == null) {
 			result = ControllerResult.getFailResult("修改失败");
-		}else{
+		} else {
 			result = ControllerResult.getSuccessRequest("修改成功");
 		}
 		return SUCCESS;
 	}
-	
-	public String delete(){
-		if(apply.getAstatus().equals("已审批")){
+
+	public String delete() {
+		if (apply.getAstatus().equals("已审批")) {
 			result = ControllerResult.getSuccessRequest("已经审批了该物品，无法删除！");
 			return SUCCESS;
-		}else{
+		} else {
 			applyService.delete(apply);
 			result = ControllerResult.getFailResult("删除成功");
 			return SUCCESS;
 		}
 	}
-	
+
 	public String queryAll() throws ParseException {
-		HttpServletRequest req=ServletActionContext.getRequest();
+		HttpServletRequest req = ServletActionContext.getRequest();
 		String name = req.getParameter("name");
 		String lname = req.getParameter("lname");
+		String time = req.getParameter("time");
 		String status = req.getParameter("status");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		if(name == null || name.equals("")){
-			if(lname == null || lname.equals("")){
-				if(status == null || status.equals("")){
-					pager = applyService.queryAll(pager);
+		if (name == null || name.equals("")) {
+			if (lname == null || lname.equals("")) {
+				if(time == null){
+					if (status == null || status.equals("")) {
+						pager = applyService.queryAll(pager);
+					} else {
+						pager = applyService.queryByAstatus(pager, status);
+					}
 				}else{
-					pager = applyService.queryByAstatus(pager, status);
+					pager = applyService.queryByTime(pager, time);
 				}
-			}else{
+			} else {
 				pager = applyService.queryByWorktypeName(pager, lname);
 			}
-		}else{
-			pager = applyService.queryByDepName(pager,name);
+		} else {
+			pager = applyService.queryByDepName(pager, name);
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
 	}
-	
-	public String xzyg() throws IOException{
+
+	public String xzyg() throws IOException {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
-		PrintWriter out=resp.getWriter();
+		PrintWriter out = resp.getWriter();
 		deps = applyService.queryDep();
 		List<Combox> list = new ArrayList<>();
 		for (Dep dep : deps) {
@@ -182,13 +187,13 @@ public class ApplyAction extends ActionSupport {
 		return "xzyg";
 	}
 
-	public String xzlx() throws IOException{
+	public String xzlx() throws IOException {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
-		PrintWriter out=resp.getWriter();
+		PrintWriter out = resp.getWriter();
 		worktype = applyService.queryWorktype();
 		List<Combox> list = new ArrayList<>();
 		for (Worktype worktypes : worktype) {
@@ -203,33 +208,34 @@ public class ApplyAction extends ActionSupport {
 		out.close();
 		return "xzlx";
 	}
+
 	public String all() {
 		return "all";
 	}
-	
-	public String updateSP(){
-		if(apply.getAstatus().equals("已审批")){
+
+	public String updateSP() {
+		if (apply.getAstatus().equals("已审批")) {
 			result = ControllerResult.getSuccessRequest("已通过审批，不需要再次审批！");
 			return SUCCESS;
 		}
 		apply = applyService.updateSP(apply);
 		result = ControllerResult.getSuccessRequest("通过审批");
-		
+
 		Work work = new Work();
 		work.setWorktype(apply.getWorktype());
 		work.setWname(apply.getGname());
 		work.setWamount(apply.getGcounts());
 		workService.add(work);
-		
+
 		Expend e = new Expend();
 		e.setPaypro("购买物品");
 		e.setPaycount(apply.getGcounts() * apply.getGprice());
 		paysService.addexpend(e);
 		return SUCCESS;
 	}
-	
+
 	public String queryByDepName() {
-		
+
 		return SUCCESS;
 	}
 }

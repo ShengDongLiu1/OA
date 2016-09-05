@@ -32,6 +32,8 @@
         <th data-options="field:'jobid',checkbox:true,width:100" align="center">就业编号</th>
         <th data-options="field:'jobname',width:100" align="center">公司名称</th>
         <th data-options="field:'student',width:100" formatter="forStudentName" align="center">学生姓名</th>
+        <th data-options="field:'jobtime',width:100" align="center">就业时间</th>
+        <th data-options="field:'jobmoney',width:100" align="center">就业薪资</th>
         <th data-options="field:'jobdesc',width:100" align="center">职位描述</th>
     </tr>
     </thead>
@@ -44,6 +46,9 @@
         onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a> <a
         href="javascript:(0);" class="easyui-linkbutton"
         onclick="expurgate();" data-options="iconCls:'icon-remove'">删除</a>
+        <input class="easyui-datebox" id="time" size="10px" />
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByTime();" data-options="iconCls:'icon-search'">按时间查询</a>
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="QueryAll();" data-options="iconCls:'icon-search'">查询所有</a>
 </div>
 <!-- 添加窗口 -->
 <div style="margin: 20px 0;"></div>
@@ -54,13 +59,22 @@
             <table cellpadding="5">
                 <tr>
                     <td>公司名称:</td>
-               		<td><input class="easyui-textbox"  name="getjob.jobname" style="width: 150px;"
+               		<td><input class="easyui-textbox" name="getjob.jobname" style="width: 150px;"
                            data-options="required:true,validType:'length[2,20]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>选择学生:</td>
                     <td><input class="easyui-combobox" id="jobstu" name="getjob.student.intenid"
                                data-options="required:true"/></td>
+                </tr>
+                <tr>
+                    <td>就业时间:</td>
+                    <td><input class="easyui-datebox" name="getjob.jobtime" /></td>
+                </tr>
+                <tr>
+                    <td>就业薪资:</td>
+                    <td><input class="easyui-textbox" name="getjob.jobmoney"
+                           data-options="required:true,validType:'length[1,20]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>职位描述:</td>
@@ -100,9 +114,20 @@
                                data-options="required:true"/></td>
                 </tr>
                 <tr>
+                    <td>就业时间</td>
+					<td><input class="easyui-datebox" id="jt" name="getjob.jobtime" 
+   								data-options="required:true" /></td>      
+   		     	</tr>
+   		     	<tr>
+                    <td>就业薪资</td>
+					<td><input class="easyui-textbox" id="jm" name="getjob.jobmoney" 
+   								data-options="required:true,validType:'length[1,20]',novalidate:true, multiline:true"/></td>      
+   		     	</tr>
+                <tr>
                     <td>职位描述</td>
 					<td><input class="easyui-textbox" id="jd" name="getjob.jobdesc" 
    								data-options="required:true,validType:'length[5,20]',novalidate:true, multiline:true" style="width: 150px;height: 55px;" name="dep.eaddr"  /></td>      
+   		      	</tr>
    		      </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="edit();"
@@ -196,8 +221,9 @@
             });
             $("#js").combobox("setValue", row.student.intenname);
             $("#js").combobox('select', row.student.intenid);
+            $("#jt").textbox("setValue", row.jobtime);
+            $("#jm").textbox("setValue", row.jobmoney);
             $("#jd").textbox("setValue", row.jobdesc);
-
             $("#editWindow").window("open");
         } else {
             $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
@@ -244,7 +270,17 @@
 			$.messager.alert('提示', '请选中需要删除的申领记录！', 'info');// messager消息控件
 		}
 	}
-	
+    function queryByTime(){
+		var time = $('#time').datebox('getValue')
+        $('#list').datagrid('load',{  
+        	time:time
+        }); 
+	}
+    function QueryAll(){
+    	$('#list').datagrid('load',{  
+        	time:""
+        }); 
+    }
 </script>
 </body>
 </html>

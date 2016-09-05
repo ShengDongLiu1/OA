@@ -52,7 +52,9 @@
 		<input class="easyui-textbox" id="name" size="10px" />
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按员工姓名查询</a>
 		<input class="easyui-textbox" id="lname" size="10px" />
-		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByWorktypeName();" data-options="iconCls:'icon-search'">按物品类型查询</a>
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByWorktypeName();" data-options="iconCls:'icon-search'">按物品类型查询</a><br/>
+		<input class="easyui-datebox" id="time" size="10px" />
+		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByTime();" data-options="iconCls:'icon-search'">按时间查询</a>
 		<input class="easyui-textbox" id="status" size="10px" />
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByStatus();" data-options="iconCls:'icon-search'">按状态查询</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="QueryAll();" data-options="iconCls:'icon-search'">查询所有</a>
@@ -159,7 +161,7 @@
 		function setPagination(tableId) {
 			var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
 			$(p).pagination({
-				pageList:[5,10, 15,20],
+				pageList:[5,10,15,20],
 				beforePageText:"第",
 				afterPageText:"页    共{pages}页",
 				displayMsg:"当前显示{from} - {to} 条记录    共{total}条记录",
@@ -203,6 +205,7 @@
 		 function add(){
 			 toValidate("ff");
 		     if (validateForm("ff")){
+		    	 alert("add:"+add);
 				$.post('<%=path%>/apply/add',$("#ff").serialize(),
 					function(data) {
 					if (data.result.result == 'success') {
@@ -320,6 +323,12 @@
             	lname:lname
             }); 
 		}
+		function queryByTime(){
+			var time = $('#time').datebox('getValue')
+	        $('#list').datagrid('load',{  
+	        	time:time
+	        }); 
+		}
 		function queryByStatus(){
 			status=$('#status').val()
             $('#list').datagrid('load',{  
@@ -330,6 +339,7 @@
 		  	$('#list').datagrid('load', {   
 		  		name:'',
 		  		lname:'',
+		  		time:'',
 		  		status:''
 			});
 		}

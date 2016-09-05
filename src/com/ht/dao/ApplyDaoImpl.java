@@ -115,8 +115,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where dep.ename=:name");
-		query.setString("name", name);
+		Query query = session.createQuery("from Apply where dep.ename like '%"+name+"%'");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -130,8 +129,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Object DepNamecount(String name) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("select count(t) from Apply t where dep.ename=:name");
-		query.setString("name", name);
+		Query query = session.createQuery("select count(t) from Apply t where dep.ename like '%"+name+"%'");
 		Object obj = query.uniqueResult();
 		return obj;
 	}
@@ -139,8 +137,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where worktype.swname=:lname");
-		query.setString("lname", lname);
+		Query query = session.createQuery("from Apply where worktype.swname like '%"+lname+"%'");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -154,8 +151,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Object WorktypeNamecount(String lname) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("select count(t) from Apply t where worktype.swname=:lname");
-		query.setString("lname", lname);
+		Query query = session.createQuery("select count(t) from Apply t where worktype.swname like '%"+lname+"%'");
 		Object obj = query.uniqueResult();
 		return obj;
 	}
@@ -163,8 +159,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where astatus=?");
-		query.setString(0, status);
+		Query query = session.createQuery("from Apply where astatus like '%"+status+"%'");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -178,8 +173,29 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Object Astatuscount(String status) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("select count(t) from Apply t where astatus=?");
-		query.setString(0, status);
+		Query query = session.createQuery("select count(t) from Apply t where astatus like '%"+status+"%'");
+		Object obj = query.uniqueResult();
+		return obj;
+	}
+
+	@Override
+	public Pager<Apply> queryByTime(Pager<Apply> pager, String time) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply where adatetime like '%"+time+"%'");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Apply> apply = query.list();
+		pager.setRows(apply);
+		pager.setTotal((long) DepTimecount(time));
+		session.close();
+		return pager;
+	}
+
+	@Override
+	public Object DepTimecount(String time) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t where adatetime like '%"+time+"%'");
 		Object obj = query.uniqueResult();
 		return obj;
 	}

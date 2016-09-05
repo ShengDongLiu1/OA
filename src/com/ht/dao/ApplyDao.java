@@ -23,6 +23,10 @@ public interface ApplyDao extends BaseDao<Apply, Integer>{
 	
 	public Object WorktypeNamecount(String lname);
 	
+	public Pager<Apply> queryByTime(Pager<Apply> pager, String time);
+	
+	public Object DepTimecount(String time);
+	
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status);
 	
 	public Object Astatuscount(String status);

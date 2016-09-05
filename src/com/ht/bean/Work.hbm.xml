@@ -13,9 +13,14 @@
         <property name="wname" type="java.lang.String">
             <column name="wname" />
         </property>
+        <property name="wcount" type="java.lang.Integer">
+            <column name="wcount">
+                <comment>可用数量</comment>
+            </column>
+        </property>
         <property name="wamount" type="java.lang.Integer">
             <column name="wamount">
-                <comment>数量</comment>
+                <comment>总数量</comment>
             </column>
         </property>
         

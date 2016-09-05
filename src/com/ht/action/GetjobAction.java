@@ -96,11 +96,17 @@ public class GetjobAction extends ActionSupport {
 	}
 
 	public String queryAll() {
+		HttpServletRequest req = ServletActionContext.getRequest();
+		String time = req.getParameter("time");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = getjobService.queryAll(pager);
+		if(time == null){
+			pager = getjobService.queryAll(pager);
+		}else{
+			pager = getjobService.queryByTime(pager, time);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

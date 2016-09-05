@@ -87,4 +87,26 @@ public class GetjobDaoImpl implements GetjobDao {
 		return student;
 	}
 
+	@Override
+	public Pager<Getjob> queryByTime(Pager<Getjob> pager, String time) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Getjob where jobtime like '%"+time+"%'");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Getjob> apply = query.list();
+		pager.setRows(apply);
+		pager.setTotal((long) DepTimecount(time));
+		session.close();
+		return pager;
+	}
+
+	@Override
+	public Object DepTimecount(String time) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(g) from Getjob g where jobtime like '%"+time+"%'");
+		Object obj = query.uniqueResult();
+		return obj;
+	}
+
 }

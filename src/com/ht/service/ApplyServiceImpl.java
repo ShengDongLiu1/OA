@@ -76,4 +76,9 @@ public class ApplyServiceImpl implements ApplyService {
 		return applyDao.queryByAstatus(pager, status);
 	}
 
+	@Override
+	public Pager<Apply> queryByTime(Pager<Apply> pager, String time) {
+		return applyDao.queryByTime(pager, time);
+	}
+
 }

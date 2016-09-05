@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.ht.bean.Dep;
+import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
 import com.ht.common.Pager;
@@ -58,11 +59,22 @@ public class PaysDaoImp implements PaysDao{
 	}
 	
 	@Override
-	public List<Dep> queryDep() {
+	public List<Dep> queryDep(String did) {
 		session=sessionFactory.openSession();
-		Query query = session.createQuery("from Dep");
+		Query query = session.createQuery("from Dep where departments.did=:did");
+		query.setInteger("did", Integer.valueOf(did));
 		@SuppressWarnings("unchecked")
 		List<Dep> deps = query.list();
+		session.close();
+		return deps;
+	}
+	
+	@Override
+	public List<Department> queryBm() {
+		session=sessionFactory.openSession();
+		Query query = session.createQuery("from Department where did != 1");
+		@SuppressWarnings("unchecked")
+		List<Department> deps = query.list();
 		session.close();
 		return deps;
 	}
@@ -152,10 +164,44 @@ public class PaysDaoImp implements PaysDao{
 	}
 	
 	@Override
+	public Object DateCount(String kssj,String jssj) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Pays t where paytime between ? and ? order by paytime desc");
+		q.setString(0,kssj);
+		q.setString(1,jssj);
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+	
+	@Override
+	public Pager<Pays> bmQuery(Pager<Pays> pager, String ygxm) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Pays where dep.departments.did=:id order by paytime desc");
+		query.setInteger("id",Integer.valueOf(ygxm));
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Pays> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) bmCount(ygxm));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object bmCount(String ygxm) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Pays t where dep.departments.did=:id");
+		q.setInteger("id",Integer.valueOf(ygxm));
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+	
+	@Override
 	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Pays where dep.eid=:id");
-		query.setInteger("id",Integer.valueOf(ygxm));
+		Query query = session.createQuery("from Pays where dep.ename like:name order by paytime desc");
+		query.setString("name","%"+ygxm+"%");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -165,25 +211,13 @@ public class PaysDaoImp implements PaysDao{
 		session.close();
 		return pager;
 	}
-	
+
 	@Override
 	public Object NameCount(String ygxm) {
 		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Pays t where dep.eid=:id");
-		q.setInteger("id",Integer.valueOf(ygxm));
+		Query q = session.createQuery("select count(t) from Pays t where dep.ename like:name");
+		q.setString("name","%"+ygxm+"%");
 		Object obj = q.uniqueResult();
 		return obj;
 	}
-	
-	@Override
-	public Object DateCount(String kssj,String jssj) {
-		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Pays t where paytime between ? and ?");
-		q.setString(0,kssj);
-		q.setString(1,jssj);
-		Object obj = q.uniqueResult();
-		return obj;
-	}
-
-	
 }

@@ -96,7 +96,7 @@ public class ApplyAction extends ActionSupport {
 	public String add() {
 		apply.setAdatetime(new Timestamp(new Date().getTime()));
 		apply.setGtotle(apply.getGprice() * apply.getGcounts());
-		apply.setAstatus("未购买");
+		apply.setAstatus("未审批");
 		apply = applyService.add(apply);
 		if (apply == null) {
 			result = ControllerResult.getFailResult("添加失败");
@@ -123,14 +123,15 @@ public class ApplyAction extends ActionSupport {
 	}
 
 	public String delete() {
-		if (apply.getAstatus().equals("已审批")) {
+		if(apply.getAstatus().equals("已审批")){
 			result = ControllerResult.getSuccessRequest("已经审批了该物品，无法删除！");
-			return SUCCESS;
-		} else {
+		}else if(apply.getAstatus().equals("已购买")){
+			result = ControllerResult.getSuccessRequest("已经购买该物品，无法删除！");
+		}else{
 			applyService.delete(apply);
-			result = ControllerResult.getFailResult("删除成功");
-			return SUCCESS;
+			result = ControllerResult.getSuccessRequest("删除成功");
 		}
+		return SUCCESS;
 	}
 
 	public String queryAll() throws ParseException {

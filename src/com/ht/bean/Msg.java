@@ -1,5 +1,7 @@
 package com.ht.bean;
 
+import java.util.Date;
+
 /**
  * Msg entity. @author MyEclipse Persistence Tools
  */
@@ -12,17 +14,15 @@ public class Msg implements java.io.Serializable {
 	
 	private Integer msgid;
 	private String msgcon;
-	private String msgks;
-	private String msgjz;
+	private Date msgks;
 	
 	public Msg() {
 	}
 
-	public Msg(Integer msgid, String msgcon, String msgks, String msgjz) {
+	public Msg(Integer msgid, String msgcon, Date msgks) {
 		this.msgid = msgid;
 		this.msgcon = msgcon;
 		this.msgks = msgks;
-		this.msgjz = msgjz;
 	}
 
 	public Integer getMsgid() {
@@ -41,24 +41,16 @@ public class Msg implements java.io.Serializable {
 		this.msgcon = msgcon;
 	}
 
-	public String getMsgks() {
+	public Date getMsgks() {
 		return msgks;
 	}
 
-	public void setMsgks(String msgks) {
-		this.msgks = msgks;
-	}
-
-	public String getMsgjz() {
-		return msgjz;
-	}
-
-	public void setMsgjz(String msgjz) {
-		this.msgjz = msgjz;
+	public void setMsgks(Date date) {
+		this.msgks = date;
 	}
 
 	@Override
 	public String toString() {
-		return "Msg [msgid=" + msgid + ", msgcon=" + msgcon + ", msgks=" + msgks + ", msgjz=" + msgjz + "]";
+		return "Msg [msgid=" + msgid + ", msgcon=" + msgcon + ", msgks=" + msgks + "]";
 	}
 }

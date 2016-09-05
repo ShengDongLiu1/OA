@@ -1,9 +1,13 @@
 package com.ht.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.ht.bean.Msg;
 import com.ht.bean.User;
 import com.ht.common.ControllerResult;
 import com.ht.common.EncryptUtil;
@@ -90,6 +94,9 @@ public class UserAction extends ActionSupport {
 					session.setAttribute("user", users);
 					session.setAttribute("password", password);
 					session.setAttribute("email", user.getUname());
+					List<Msg> Msgs = new ArrayList<>();
+					Msgs = userService.queryAllMsg();
+					ServletActionContext.getRequest().setAttribute("Msgs", Msgs);
 					result = ControllerResult.getSuccessRequest("正在执行登录!");
 				}else{
 					result = ControllerResult.getFailResult("用户名或密码错误!");

@@ -48,14 +48,12 @@
 				autoRowHeight: true,
 				pagination:true,
 				border:false,
-				pageSize:10,
-				fit:true">
+				pageSize:10">
             <thead>
             <tr>
-                <th data-options="field:'msgid',checkbox:true" width="150" align="center">编号</th>
-                <th align="center" data-options="field:'msgcon'" width="300" align="center">公告内容</th>
-                <th align="center" data-options="field:'msgks'" width="150" align="center">发布时间</th>
-                <th align="center" data-options="field:'msgjz'" width="150" align="center">截止时间</th>
+                <th data-options="field:'msgid',checkbox:true" width="150">编号</th>
+                <th align="center" data-options="field:'msgcon'" width="500">公告内容</th>
+                <th align="center" data-options="field:'msgks'" width="150">发布时间</th>
             </tr>
             </thead>
         </table>
@@ -69,25 +67,13 @@
 
         <div id="addWin" class="easyui-window" title="添加公告"
              data-options="iconCls:'icon-edit', closable:true, closed:true"
-             style="width: 400px; height: 400px; padding: 5px;">
+             style="width: 400px; height: 230px; padding: 5px;">
             <form id="addForm" enctype="multipart/form-data">
                 <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
                     <div>公告内容:</div>
                     <br/>
                     <textarea id="wordtext" name="msg.msgcon" style="width:300px;height:50px;"></textarea>
                     <div id="wordage"></div>
-                </div>
-                <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
-                    <div>公告开始时间:</div>
-                    <br/>
-                    <input class="easyui-datetimebox" data-options="required:true" name="msg.msgks" id="msgks"
-                           style="width:300px;height:25px">
-                </div>
-                <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
-                    <div>公告有效期至:</div>
-                    <br/>
-                    <input class="easyui-datetimebox" data-options="required:true" name="msg.msgjz"
-                           style="width:300px;height:25px">
                 </div>
                 <div style="margin-left: 170px;float: left;">
                     <a href="javascript:;" onclick="closeAdd();" class="easyui-linkbutton"
@@ -102,7 +88,7 @@
 
         <div id="editWin" class="easyui-window" title="修改班级信息"
              data-options="iconCls:'icon-edit', closable:true, closed:true"
-             style="width: 400px; height: 450px; padding: 5px;">
+             style="width: 400px; height: 230px; padding: 5px;">
             <form id="editForm" enctype="multipart/form-data">
                 <input type="hidden" id="msgid" name="msg.msgid"/>
                 <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
@@ -111,18 +97,7 @@
                     <textarea id="xgwordtext" name="msg.msgcon" style="width:300px;height:50px;"></textarea>
                     <div id="xgwordage"></div>
                 </div>
-                <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
-                    <div>公告开始时间:</div>
-                    <br/>
-                    <input class="easyui-datetimebox" data-options="required:true" name="msg.msgks" id="xgmsgks"
-                           style="width:300px;height:25px">
-                </div>
-                <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
-                    <div>公告有效期至:</div>
-                    <br/>
-                    <input class="easyui-datetimebox" data-options="required:true" name="msg.msgjz" id="xgmsgjz"
-                           style="width:300px;height:25px">
-                </div>
+                <input type="hidden" id="msgks" name="msg.msgks"/>
                 <div style="margin-left: 170px;float: left;">
                     <a href="javascript:;" onclick="closeEdit();" class="easyui-linkbutton"
                        data-options="iconCls:'icon-remove'" style="height:32px;float: left;">取消修改</a>
@@ -171,7 +146,6 @@
             }
             $("#wordage").html(dpattern);
         });
-        $('#msgks').datetimebox('setValue', '9999');
         $("#addWin").window("open");
     }
 
@@ -219,9 +193,8 @@
         if (row) {
             document.getElementById("msgid").value = row.msgid;
             document.getElementById("xgwordtext").value = row.msgcon;
-            $('#xgmsgks').datetimebox('setValue', row.msgks);
-            $('#xgmsgjz').datetimebox('setValue', row.msgjz);
-
+            document.getElementById("msgks").value = row.msgks;
+            
             var dlimitNum = 300 - row.msgcon.length;
             var dpattern = '还可以输入' + dlimitNum + '字';
             $('#xgwordage').html(dpattern);

@@ -21,8 +21,6 @@ public class Duty implements java.io.Serializable {
 	
 	private Dep dep;
 
-	// Constructors
-
 	/** default constructor */
 	public Duty() {
 	}

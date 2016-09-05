@@ -6,7 +6,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>工资管理</title>
-    <link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
     <link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/metro/easyui.css">
     <link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="<%=path %>/js/jquery-easyui/themes/icon.css">
@@ -25,7 +24,7 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,fit:true">
+		pageSize:10">
     <thead>
     <tr>
         <th data-options="field:'paysid',checkbox:true,width:100" align="center">工资编码</th>
@@ -44,12 +43,15 @@
 <div id="tb" style="padding: 2px;height:auto;margin-top: 5px;">
 	<div style="margin-bottom:5px;">
 	    <a href="javascript:(0);" class="easyui-linkbutton" onclick="addOpen();" data-options="iconCls:'icon-add'">添加</a>
-	    <a href="javascript:(0);" class="easyui-linkbutton" onclick="choice();" data-options="iconCls:'icon-add'">批量添加</a>
+	    <a href="javascript:(0);" class="easyui-linkbutton" onclick="xzbm();" data-options="iconCls:'icon-add'">批量添加</a>
 		<a href="#" class="easyui-linkbutton" onclick="QueryAll();" data-options="iconCls:'icon-search'">查找所有</a>
 	</div>
 	<div style="margin-top: 2px;margin-left:10px;">
-		员工姓名:<input class="easyui-combobox" name="ygxm" id="ygxm" style="width:150px;margin-left:10px;">
-		<a href="#" class="easyui-linkbutton" onclick="NameQuery();" data-options="iconCls:'icon-search'">按员工姓名查找</a>
+		员工部门:<input class="easyui-combobox" name="ygbm" value="请选择部门" id="ygbm" style="width:100px;margin-left:10px;">
+		<a href="#" class="easyui-linkbutton" onclick="BmQuery();" data-options="iconCls:'icon-search'">按部门查找</a>
+		<!-- 员工姓名查找  -->
+		员工姓名:<input class="easyui-textbox" name="ygxm" id="ygxm" style="width:100px;margin-left:10px;">
+		<a href="#" class="easyui-linkbutton" onclick="NameQuery();" data-options="iconCls:'icon-search'">按姓名查找</a>
 	</div>
 	<div style="margin-top: 2px;margin-left:10px;">
 		开始时间:<input class="easyui-datetimebox" name="kssj" id="kssj" style="width:150px;margin-left:10px;">
@@ -65,36 +67,42 @@
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" enctype="multipart/form-data">
             <table>
+           		<tr>
+                    <td>员工部门</td>
+                    <td>
+                        <input class="easyui-combobox" data-options="required:true" id="add_bm" value="请选择部门"/>
+                    </td>
+                </tr>
                 <tr>
                     <td>员工姓名</td>
                     <td>
-                        <input class="easyui-combobox" data-options="required:true,novalidate:true" name="pays.dep.eid"
-                               id="add_pempid"/>
+                        <input class="easyui-combobox" data-options="required:true" name="pays.dep.eid"
+                             value="请先选择部门" id="add_pempid"/>
                     </td>
                 </tr>
                 <tr>
                     <td>奖励金额:</td>
-                    <td><input class="easyui-textbox" name="pays.paysa" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysa" data-options="required:true"/></td>
                 </tr>
                 <tr>
                     <td>惩罚金额:</td>
-                    <td><input class="easyui-textbox" name="pays.paysb" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysb" data-options="required:true"/></td>
                 </tr>
                 <tr>
                     <td>基本工资:</td>
-                    <td><input class="easyui-textbox" name="pays.payssta" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.payssta" data-options="required:true"/></td>
                 </tr>
                 <tr>
                     <td>补贴工资:</td>
-                    <td><input class="easyui-textbox" name="pays.paysc" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.paysc" data-options="required:true"/></td>
                 </tr>
                 <tr>
                     <td>发放时间:</td>
-                    <td><input class="easyui-datetimebox" name="pays.paytime" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-datetimebox" name="pays.paytime" data-options="required:true"/></td>
                 </tr>
                 <tr>
                     <td>奖罚原因和备注:</td>
-                    <td><input class="easyui-textbox" name="pays.payspro" data-options="required:true,novalidate:true"/></td>
+                    <td><input class="easyui-textbox" name="pays.payspro" data-options="required:true"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -108,44 +116,93 @@
 </div>
 
 <!-- 批量选择 -->
+<!-- 选择部门 -->
+<div id="selectMulti" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="请选择部门">
+		<table id="xzbm" class="easyui-datagrid" style="width:360px;" data-options="
+				toolbar:'#ass',
+				url:'<%=path %>/pays/xzBm', 
+				method:'get', 
+				rownumbers: true,
+				singleSelect: true,
+				autoRowHeight: true,
+				border:false"
+	    >
+        <thead>
+	        <tr>
+	            <th data-options="field:'id',checkbox:true,width:100">部门编号</th>
+	            <th data-options="field:'name',width:300" align="center">部门名称</th>
+	        </tr>
+        </thead>
+    </table>
+</div>
+<div id="ass" style="padding: 2px;">
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="choice();" data-options="iconCls:'icon-ok'">确认选择</a>
+</div>
 
-<div style="margin:20px 0;"></div>
-<div id="choiceWindow" class="easyui-window" title="批量选择员工" data-options="closed:true,iconCls:'icon-add'"
-     style="padding:10px;">
+<!-- 添加员工 -->
+<div id="choiceWindow" class="easyui-window" title="批量选择员工" data-options="closed:true,iconCls:'icon-add'">
     <form id="choice" enctype="multipart/form-data">
-        <table id="dg" class="easyui-datagrid" data-options="toolbar:'#pl',rownumbers:true"
-               style="width:300px;height:200px">
-            <thead></thead>
+        <table id="dg" class="easyui-datagrid" data-options="
+        		toolbar:'#pl',
+				rownumbers: true,
+				singleSelect: false,
+				autoRowHeight: true,
+				border:false"
+               style="width:360px;">
+            <thead>
+            	<tr>
+		            <th data-options="field:'id',checkbox:true,width:100">员工编号</th>
+		            <th data-options="field:'name',width:300" align="center">员工姓名</th>
+		        </tr>
+            </thead>
         </table>
     </form>
 </div>
-<div style="padding:10px;">
+<div style="padding:2px;">
     <a href="javascript:;" class="easyui-linkbutton" id="pl" data-options="iconCls:'icon-help'"
        onclick="addPl();">添加员工</a><br/><br/>
 </div>
 
 <script type="text/javascript">
     $(function () {
-    	$("#ygxm").combobox({
-            url: "pays/tjls",
-            method: 'get',
-            valueField: 'id',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#ygxm').combobox('getData');
-                if (data.length > 0) {
-                    $("#ygxm").combobox('select', data[0].id);
-                }
-            }
+    	 // 下拉框选择控件，下拉框的内容是动态查询数据库信息  
+        $('#ygbm').combobox({  
+                url:"pays/xzBm",   
+                editable:false, //不可编辑状态  
+                cache: false,
+                panelHeight: 'auto',  
+                valueField: 'id',
+                textField: 'name', 
         });
+
         setPagination("list");
     });
-
+   
+    function xzbm(){
+    	var top = $("#selectMulti").offset().top + 80;
+    	var left = $("#selectMulti").offset().left + 400;
+    	$('#selectMulti').dialog('open').window('resize',{top: top,left:left});
+    }
+    
+    function BmQuery(){
+    	var ygbm= $('#ygbm').combobox('getValue');
+    	if(ygbm=='请选择部门'){
+    		alert(ygbm)
+    	}else{
+    		$('#list').datagrid('load', {   
+    			bm:ygbm
+    		}); 
+    	}
+    }
+    
+    function trim(str) { //删除左右两端的空格
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+    
     function NameQuery(){
-    	var ygxm= $('#ygxm').combobox('getValue');
-    	if(ygxm==''){
-    		alert("请选择员工！")
+    	var ygxm = document.getElementsByName("ygxm")[0].value;
+    	if(trim(ygxm)==''){
+    		alert("请输入员工姓名！")
     	}else{
     		$('#list').datagrid('load', {   
     			xm:ygxm
@@ -169,10 +226,7 @@
     }
     
     function QueryAll(){
-    	$('#list').datagrid('load', {   
-			ks:'',
-			js:''
-		});
+    	window.location.href = "<%=path %>/pays/all";
     }
     
     function addPl() {
@@ -191,19 +245,26 @@
     }
 
     function choice() {
-        $('#dg').datagrid({
-            url: "<%=path %>/pays/tjls",
-            method: 'get',
-            rownumbers: true,
-            singleSelect: (this.value == 1),
-            autoRowHeight: true,
-            border: false,
-            columns: [[
-                {field: 'id', title: '员工编码', width: 100, align: 'center', checkbox: true},
-                {field: 'name', title: '员工姓名', width: 100, align: 'center'},
-            ]]
-        });
-        $("#choiceWindow").window("open");
+    	var row = $("#xzbm").datagrid("getSelected");
+        if (row) {
+        	$.ajax({ 
+                type: "POST",
+                url:'pays/tjls?did='+row.id,
+                cache: false,
+                dataType : "json",
+                success: function(data){  
+               		$("#dg").datagrid('loadData', data); 
+                }
+           	});
+        	$("#selectMulti").window("close");
+            $("#xzbm").datagrid("reload");
+            
+        	var top = $("#choiceWindow").offset().top + 80;
+        	var left = $("#choiceWindow").offset().left + 400;
+        	$('#choiceWindow').dialog('open').window('resize',{top: top,left:left});
+        } else {
+            $.messager.alert('提示', '请先选择部门', 'info');
+        }
     }
 
     // 显示数据
@@ -222,25 +283,44 @@
     }
     // 打开添加窗口
     function addOpen() {
-        $("#add_pempid").combobox({
-            url: "pays/tjls",
+    	 // 下拉框选择控件，下拉框的内容是动态查询数据库信息  
+        $('#add_bm').combobox({  
+                url:"pays/xzBm",   
+                editable:false, //不可编辑状态  
+                cache: false,
+                panelHeight: 'auto',  
+                valueField: 'id',
+                textField: 'name', 
+         		onHidePanel: function(){
+              		$("#add_pempid").combobox("setValue",'');//清空员工姓名
+              		var id = $('#add_bm').combobox('getValue');          
+		            $.ajax({ 
+		              type: "POST",
+		              url:'pays/tjls?did='+id,
+		              cache: false,  
+		              dataType : "json",  
+		              success: function(data){  
+		             	 $("#add_pempid").combobox("loadData",data);  
+		              }
+                  	});    
+               }
+        });
+
+    	 $("#add_pempid").combobox({
+            //url: "pays/tjls",
+            editable:false, //不可编辑状态  
+          	cache: false, 
             method: 'get',
             valueField: 'id',
             textField: 'name',
             panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#add_pempid').combobox('getData');
-                if (data.length > 0) {
-                    $("#add_pempid").combobox('select', data[0].id);
-                }
-            }
         });
         $("#addWindow").window("open");
     }
     // 關閉
     function editClose() {
-        $("#editWindow").window("close");
         $("#addWindow").window("close");
+        $("#ff").form("clear");
     }
     // 添加(提交後臺)
     function add() {
@@ -251,7 +331,7 @@
                             $.messager.alert("提示", data.result.msg, "info", function () {
                                 $("#addWindow").window("close");
                                 $("#list").datagrid("reload");
-                                $("#").form("clear");
+                                $("#ff").form("clear");
                             });
                         } else {
                             $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");

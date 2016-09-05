@@ -12,6 +12,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Dep;
+import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
 import com.ht.common.Combox;
@@ -186,23 +187,46 @@ public class PaysAction extends ActionSupport{
 		HttpServletRequest req = ServletActionContext.getRequest();
 		String kssj = req.getParameter("ks");
 		String jssj = req.getParameter("js");
+		String ygbm =req.getParameter("bm");
 		String ygxm =req.getParameter("xm");
 		pager = new Pager<>();
 		pager.setPageNo(page);
-		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
+		int pageSize = Integer.valueOf(req.getParameter("rows"));
 		pager.setPageSize(pageSize);
-		if(kssj == null || jssj == null || kssj.equals("") || jssj.equals("")){
-			if(ygxm == null){
-				pager = paysService.queryAll(pager);
-			}else{
-				pager = paysService.NameQuery(pager,ygxm);
-			}
-		}else{
+		if(kssj != null || jssj != null){
 			pager = paysService.DateQuery(pager,kssj,jssj);
+		}else if(ygbm != null){
+			pager = paysService.bmQuery(pager,ygbm);
+		}else if(ygxm != null){
+			pager = paysService.NameQuery(pager,ygxm);
+		}else{
+			pager = paysService.queryAll(pager);
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
+	}
+	
+	public String xzBm() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		List<Department> bm= paysService.queryBm();
+		List<Combox> list  = new ArrayList<>();
+		for (Department bms : bm) {
+			int did = bms.getDid();
+			String dname = bms.getDname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(did));
+			combox.setName(dname);
+			list.add(combox);
+		}
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "tjls";
 	}
 	
 	public String tjls() throws IOException{
@@ -212,7 +236,9 @@ public class PaysAction extends ActionSupport{
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/json");
 		PrintWriter out=resp.getWriter();
-		deps = paysService.queryDep();
+		String did = req.getParameter("did");
+		System.out.println("Action"+did);
+		deps = paysService.queryDep(did);
 		List<Combox> list  = new ArrayList<>();
 		for (Dep dep : deps) {
 			int eid = dep.getEid();

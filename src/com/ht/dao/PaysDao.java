@@ -3,13 +3,14 @@ package com.ht.dao;
 import java.util.List;
 
 import com.ht.bean.Dep;
+import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
 import com.ht.common.Pager;
 
 public interface PaysDao extends BaseDao<Pays,Integer>{
 	
-	public List<Dep> queryDep();
+	public List<Dep> queryDep(String did);
 
 	public void BatchAdd(List<Pays> payList);
 	
@@ -19,7 +20,14 @@ public interface PaysDao extends BaseDao<Pays,Integer>{
 
 	Object DateCount(String kssj, String jssj);
 
+	public Pager<Pays> bmQuery(Pager<Pays> pager, String ygxm);
+
+	Object bmCount(String ygxm);
+
+	public List<Department> queryBm();
+
 	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm);
 
 	Object NameCount(String ygxm);
+
 }

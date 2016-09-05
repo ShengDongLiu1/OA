@@ -38,21 +38,6 @@
     // 打开添加窗口
     function addOpen() {
         $("#addWindow").window("open");
-        $("#adddep").combobox({
-            url: "<%=path%>/duty/tjls",
-            method: 'get',
-            valueField: 'id',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
-                var data = $('#adddep').combobox('getData');
-                if (data.length > 0) {
-                    $("#adddep").combobox('select', data[0].id);
-                }
-            }
-        });
-        
-       
 	$('#dstatuses').combobox({
 		url : 'tjls3',
 			editable : false, //不可编辑状态  
@@ -111,23 +96,41 @@
         if (row) {
             $("#editWindow").window("open");
             document.getElementById("did").value = row.did;
-            $("#updatedep").combobox({
-                url: "<%=path%>/duty/tjls",
-                method: 'get',
-                valueField: 'id',
-                textField: 'name',
-                panelHeight: 'auto',
-            });
-            $("#updatedep").combobox("setValue", row.dep.ename);
-            $("#updatedep").combobox('select', row.dep.eid);
+            document.getElementById("depid").value = row.dep.eid;
             
-            $("#updatedrange").combobox({
-                url: "<%=path%>/duty/tjls2",
-                method: 'get',
-                valueField: 'name',
-                textField: 'name',
-                panelHeight: 'auto',
-            });
+        	$('#dstatus').combobox({
+        		url : 'tjls3',
+       			editable : false, //不可编辑状态  
+       			cache : false,
+       			panelHeight : '150',
+       			valueField : 'name',
+       			textField : 'name',
+
+       			onHidePanel : function() {
+    				$("#updatedrange").combobox("setValue", '');//清空课程  
+       				var id = $('#dstatus').combobox('getValue');
+
+       				$.ajax({
+       					type : "POST",
+       					url : 'tjls2?lx='+id,
+       					cache : false,
+       					dataType : "json",
+       					success : function(data) {
+       						$("#updatedrange").combobox("loadData", data);
+       						}
+       					});
+        			}
+        		});
+            $("#dstatus").combobox("setValue", row.dstatus);
+            $("#dstatus").combobox('select', row.dstatus);
+        		$('#updatedrange').combobox({   
+        	        //url:'itemManage!categorytbl',   
+        	        editable:true, //不可编辑状态  
+        	        cache: false,  
+        	        panelHeight: '150',//自动高度适合  
+        	        valueField:'name',     
+        	        textField:'name'  
+        	       });  
             $("#updatedrange").combobox("setValue", row.drange);
             $("#updatedrange").combobox('select', row.drange);
             $("#ddatetime").textbox("setValue", row.ddatetime);
@@ -214,18 +217,13 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post">
+        	<input type="hidden" id="eid" name="duty.eid" value="${sessionScope.user.dep.getEid()}" />
             <table>
-             	<tr>
-		  			<td>选择员工:</td>
-		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="adddep" name="duty.eid" /><br/><br/>
-		  			</td>
-		  		</tr>
                 <tr>
                     <td>值班时间:</td>
                     <td>
                     	<input class="easyui-datetimebox" name="duty.ddatetime" style="width: 150px;" 
-                    		   data-options="required:true,novalidate:true">
+                    		   data-options="required:true,novalidate:true"><br/><br/>
                     </td>
                 </tr>
                  <tr>
@@ -236,14 +234,14 @@
                 </tr>
             	<tr>
 		  			<td>巡查对象:</td>
-		  			<td><br>
+		  			<td>
 		  			<input class="easyui-combobox" data-options="required:true,novalidate:true" id="addddrange1" name="duty.drange" /><br/><br/>
 		  			</td>
 		  		</tr>
                 <tr>
                     <td>情况记录:</td>
                     <td>
-                   	 <input class="easyui-textbox" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
+                   	 <input class="easyui-textbox" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px"><br/>
                     </td>
                 </tr>
             </table>
@@ -263,39 +261,31 @@
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
         	<input type="hidden" id="did" name="duty.did" />
+        	<input type="hidden" id="depid" name="duty.eid" />
             <table>
-                <tr>
-		  			<td>选择员工:</td>
-		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="updatedep" name="duty.eid" /><br/><br/>
-		  			</td>
-		  		</tr>
                 <tr>
                     <td>巡查时间:</td>
                     <td>
                     	<input class="easyui-datetimebox" id="ddatetime" name="duty.ddatetime" style="width: 150px;" 
-                    		   data-options="required:true,novalidate:true">
+                    		   data-options="required:true,novalidate:true"><br/><br/>
                     </td>
                 </tr>
                 <tr>
                		 <td>巡查类型:</td>
                		<td>
-               			<select class="easyui-combobox" style="width: 150px;" id="dstatus" name="duty.dstatus" data-options="required:true">
-	                        <option value="宿舍巡查">宿舍巡查</option>
-	                        <option value="班级巡查">班级巡查</option>
-                        </select>
+               			<input class="easyui-combobox" data-options="required:true,novalidate:true" id="dstatus" name="duty.dstatus" /><br/><br/>
                     </td>
                 </tr>
                 <tr>
 		  			<td>巡查对象:</td>
-		  			<td><br>
+		  			<td>
 		  			<input class="easyui-combobox" data-options="required:true" id="updatedrange" name="duty.drange" /><br/><br/>
 		  			</td>
 		  		</tr>
                 <tr>
                     <td>情况记录:</td>
                     <td>
-                    <input class="easyui-textbox" id="ddesc" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px">
+                    <input class="easyui-textbox" id="ddesc" name="duty.ddesc" data-options="validType:'length[5,30]',multiline:true,required:true,novalidate:true" style="width:150px;height:60px"><br/>
                     </td>
                 </tr>
             </table>

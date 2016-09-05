@@ -1,5 +1,6 @@
 package com.ht.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
@@ -55,6 +56,7 @@ public class MsgAction extends ActionSupport{
 	}
 
 	public String add(){
+		msg.setMsgks(new Date());
 		msg = msgService.add(msg);
 		if(msg == null){
 			result = ControllerResult.getFailResult("添加失败");
@@ -76,8 +78,9 @@ public class MsgAction extends ActionSupport{
 	}
 	
 	public String delete(){
+		System.out.println(msg);
 		msgService.delete(msg);
-		result = ControllerResult.getSuccessRequest("删除成功");
+		result = ControllerResult.getSuccessRequest("删除成功！");
 		return SUCCESS;
 	}
 	

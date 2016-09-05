@@ -40,7 +40,7 @@
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="addOpen();" data-options="iconCls:'icon-add'" >添加</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'" >编辑</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'" >删除</a>
-		<a href="<%=path%>/work/all" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >返回用品列表</a>
+		<a href="<%=path%>/work/all" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" >返回用品列表</a>
 	</div>
 	<!-- 添加窗口 -->
 	<div style="margin:20px 0;"></div>

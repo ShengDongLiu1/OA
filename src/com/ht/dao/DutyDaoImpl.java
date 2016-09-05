@@ -67,7 +67,7 @@ public class DutyDaoImpl implements DutyDao {
 	@Override
 	public Pager<Duty> queryAll(Pager<Duty> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Duty");
+		Query query = session.createQuery("from Duty order by did desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -89,7 +89,7 @@ public class DutyDaoImpl implements DutyDao {
 	@Override
 	public List<Dep> queryDepname(){
 		session=sessionFactory.openSession();
-		Query query=session.createQuery("from Dep where estatus =3");
+		Query query=session.createQuery("from Dep where estatus = 2");
 		@SuppressWarnings("unchecked")
 		List<Dep> list = query.list();
 		return list;

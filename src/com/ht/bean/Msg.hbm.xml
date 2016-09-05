@@ -13,11 +13,8 @@
         <property name="msgcon" type="java.lang.String">
             <column name="msgcon" />
         </property>
-        <property name="msgks" type="java.lang.String">
+        <property name="msgks" type="java.util.Date">
             <column name="msgks" />
-        </property>
-        <property name="msgjz" type="java.lang.String">
-            <column name="msgjz" />
         </property>
     </class>
 </hibernate-mapping>

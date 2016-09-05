@@ -3,6 +3,7 @@ package com.ht.service;
 import java.util.List;
 
 import com.ht.bean.Dep;
+import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
 import com.ht.common.Pager;
@@ -47,8 +48,8 @@ public class PaysServiceImp implements PaysService {
 	}
 
 	@Override
-	public List<Dep> queryDep() {
-		return paysdao.queryDep();
+	public List<Dep> queryDep(String did) {
+		return paysdao.queryDep(did);
 	}
 
 	@Override
@@ -67,8 +68,17 @@ public class PaysServiceImp implements PaysService {
 	}
 
 	@Override
+	public Pager<Pays> bmQuery(Pager<Pays> pager, String ygxm) {
+		return paysdao.bmQuery(pager,ygxm);
+	}
+
+	@Override
+	public List<Department> queryBm() {
+		return paysdao.queryBm();
+	}
+
+	@Override
 	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm) {
 		return paysdao.NameQuery(pager,ygxm);
 	}
-
 }

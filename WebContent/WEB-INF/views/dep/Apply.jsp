@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	 pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -48,14 +49,23 @@
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="addOpen();" data-options="iconCls:'icon-add'" >添加</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'" >编辑</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();" data-options="iconCls:'icon-remove'" >删除</a>
-		<a href="javascript:(0);" class="easyui-linkbutton" onclick="updateSP();" data-options="iconCls:'icon-add'">通过审批</a>	
+		<c:choose>
+             <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
+                <a href="javascript:(0);" class="easyui-linkbutton" onclick="updateSP();" data-options="iconCls:'icon-add'">通过审批</a>
+             </c:when>
+         </c:choose>
+         <br/>
 		<input class="easyui-textbox" id="name" size="10px" />
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按员工姓名查询</a>
 		<input class="easyui-textbox" id="lname" size="10px" />
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByWorktypeName();" data-options="iconCls:'icon-search'">按物品类型查询</a><br/>
 		<input class="easyui-datebox" id="time" size="10px" />
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByTime();" data-options="iconCls:'icon-search'">按时间查询</a>
-		<input class="easyui-textbox" id="status" size="10px" />
+		<select class="easyui-combobox" style="width: 80px;" id="status" data-options="required:true">
+			 <option value="未审批">未审批</option>
+			 <option value="已审批">已审批</option>
+			 <option value="已购买">已购买</option>
+		</select>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByStatus();" data-options="iconCls:'icon-search'">按状态查询</a>
 		<a href="javascript:(0);" class="easyui-linkbutton" onclick="QueryAll();" data-options="iconCls:'icon-search'">查询所有</a>
 	</div>
@@ -64,11 +74,8 @@
 	<div id="addWindow" class="easyui-window" title="添加" data-options="closed:true,iconCls:'icon-add'" style="padding:10px;">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="ff" method="post">
+			<input type="hidden" id="eid" name="apply.dep.eid" value="${sessionScope.user.dep.getEid()}" />
 			  	<table>
-			  		<tr>
-						<td>员工姓名:</td>
-						<td><input class="easyui-combobox" id="eid" name="apply.dep.eid" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-					</tr>
 					<tr>
 						<td>物品名称:</td>
 						<td><input class="easyui-textbox" name="apply.gname" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
@@ -107,11 +114,8 @@
 			<form id="editForm">
 			<input type="hidden" id="aid" name="apply.aid" />
 			<input type="hidden" id="astatus" name="apply.astatus" />
+			<input type="hidden" id="ei" name="apply.dep.eid" />
 			<table>
-				<tr>
-					<td>员工姓名:</td>
-					<td><input class="easyui-combobox" id="ei" name="apply.dep.eid" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-				</tr>
 				<tr>
 					<td>物品名称</td>
 					<td>
@@ -173,19 +177,6 @@
 		}
 		// 打开添加窗口
 		function addOpen() {
-			$("#eid").combobox({
-				url:"<%=path%>/apply/xzyg",
-				method:'get',
-			    valueField:'id',
-			    textField:'name',
-			    panelHeight:'auto',
-			    onLoadSuccess: function () { //数据加载完毕事件
-	                var data = $('#eid').combobox('getData');
-	                if (data.length > 0) {
-	                    $("#eid").combobox('select', data[0].id);
-	                }
-	            }
-			});
 			$("#wid").combobox({
 				url:"<%=path%>/apply/xzlx",
 				method:'get',
@@ -205,7 +196,6 @@
 		 function add(){
 			 toValidate("ff");
 		     if (validateForm("ff")){
-		    	 alert("add:"+add);
 				$.post('<%=path%>/apply/add',$("#ff").serialize(),
 					function(data) {
 					if (data.result.result == 'success') {
@@ -224,15 +214,6 @@
 		function editOpen() {
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
-				$("#ei").combobox({
-					url:"<%=path%>/apply/xzyg",
-					method:'get',
-				    valueField:'id',
-				    textField:'name',
-				    panelHeight:'auto'
-				});
-				$("#ei").combobox("setValue",row.dep.ename);
-				$("#ei").combobox('select',row.dep.eid);
 				$("#wi").combobox({
 					url:'<%=path%>/apply/xzlx',
 					method:'post',
@@ -244,6 +225,7 @@
 				$("#wi").combobox('select',row.worktype.swid);
 				document.getElementById("aid").value = row.aid;
 				document.getElementById("astatus").value = row.astatus;
+				document.getElementById("ei").value = row.dep.eid;
 				$("#gn").textbox("setValue", row.gname);
 				$("#gs").textbox("setValue", row.gcounts);
 				$("#gp").textbox("setValue", row.gprice);
@@ -330,7 +312,7 @@
 	        }); 
 		}
 		function queryByStatus(){
-			status=$('#status').val()
+			status=$('#status').combobox('getValue');
             $('#list').datagrid('load',{  
             	status:status
             }); 

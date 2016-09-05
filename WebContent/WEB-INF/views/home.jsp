@@ -29,40 +29,46 @@
         <%
             /*
             1-任课教师
-            2-班主任
-            3-招生老师
-            4-教务主任
-            5-后勤主任
-            6-老廖或老陈
-            7-辅导老师
+            2-辅导老师
+            3-班主任
+            4-招生老师
+            5-教务主任
+            6-后勤主任
+            7-助理
             8-意向学生
             9-预定学生
             10-正式学员
             11-超级管理员
-            12-普通管理员
+            12-财务主任
             */
         %>
         <div title="日常办公" data-options="iconCls:'icon-edit'" class="site_menu">
             <p><a href="javascript:void(0);" src="<%=path %>/user/getSet" class="site-navi-tab">修改密码</a></p>
-            <p><a href="javascript:void(0);" src="<%=path %>/receiue/all" class="site-navi-tab">物品申领</a></p>
+                    
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 6}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/duty/all" class="site-navi-tab">巡查</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/msg/all" class="site-navi-tab">发布公告</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/work/all" class="site-navi-tab">办公用品</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/workcheck/all" class="site-navi-tab">打卡记录</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">申购审批</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/receiue/all" class="site-navi-tab">申领审批</a></p>
                 </c:when>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 5}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/work/all" class="site-navi-tab">办公用品</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/#" class="site-navi-tab">学生意见</a></p>
+                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品购买</a></p>
+                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品发放</a></p>
                 </c:when>
+                <c:otherwise>
+           			<p><a href="javascript:void(0);" src="<%=path %>/receiue/all" class="site-navi-tab">物品申领</a></p>
+                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品申购</a></p>
+                </c:otherwise>
             </c:choose>
         </div>
         <div title="招生管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 3 || sessionScope.user.statuss.getZid() eq 6}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 4 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/yx-allyx" class="site-navi-tab">意向学生</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">预定学生</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">正式学生</a></p>
                 </c:when>
                 <c:otherwise>
@@ -72,15 +78,18 @@
         </div>
         <div title="教务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1 ||  sessionScope.user.statuss.getZid() eq 2 || sessionScope.user.statuss.getZid() eq 6 || sessionScope.user.statuss.getZid() eq 3}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1}">
                     <p><a href="javascript:void(0);" src="<%=path %>/course/all" class="site-navi-tab">课程</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/courseplan/all" class="site-navi-tab">课程进度</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
                 </c:when>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 7}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 2}">
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
+                </c:when>
+                <c:when test="${sessionScope.user.statuss.getZid() eq 4}">
+                    <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                 </c:when>
                 <c:otherwise>
                     <span>权限不足!</span>
@@ -89,7 +98,7 @@
         </div>
         <div title="学生管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 2 || sessionScope.user.statuss.getZid() eq 6}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 3 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/classes/all" class="site-navi-tab">班级</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/hourse/all" class="site-navi-tab">宿舍</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">查看学员</a></p>
@@ -100,7 +109,7 @@
                     <p><a href="javascript:void(0);" src="<%=path %>/computer/all" class="site-navi-tab">电脑领用</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/stutotal/all" class="site-navi-tab">学生总结</a></p>
                 </c:when>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 5}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/computer/all" class="site-navi-tab">电脑领用</a></p>
                 </c:when>
                 <c:otherwise>
@@ -110,7 +119,7 @@
         </div>
         <div title="财务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 6}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/income/money" class="site-navi-tab">收取学费</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/income/all" class="site-navi-tab">查看收入</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/expend/all" class="site-navi-tab">查看支出</a></p>
@@ -123,7 +132,7 @@
         </div>
         <div title="系统管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 6 || sessionScope.user.statuss.getZid() eq 11}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 7 || sessionScope.user.statuss.getZid() eq 11}">
                     <p><a href="javascript:void(0);" src="<%=path %>/department/all" class="site-navi-tab">部门</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/dep/all" class="site-navi-tab">员工</a></p>
                 </c:when>
@@ -147,15 +156,16 @@
                     <div class="easyui-calendar" style="width:300px;height:350px;"></div>
                 </div>
             </div>
-            <div style="width:15%;height:100%;float:left;;margin-left:50px;">
+          <!--   <div style="width:15%;height:100%;float:left;;margin-left:50px;">
                 <div style="height:30%;"></div>
                 <div style="width:100%;height:30%">
                     <input type="button" id="cd" style="width:100%; height:100%;border-radius:50%;color:white;background-color:#B4CDE6;
 					border:0px;font-size:40px;" value="打&nbsp;卡" onclick='work()'/>
                 </div>
-            </div>
+            </div> -->
+            
             <!-- 公告管理 -->
-            <div class="easyui-navpanel" style="float:left;margin-left:50px;">
+            <div class="easyui-navpanel" style="float:left;margin-left:15%;">
                 <div id="content" class="easyui-panel" title="公告" style="width:450px;height:450px;"
                      data-options="iconCls:'icon-man',headerCls:'bt'"><br/>
                     <c:forEach items="${requestScope.Msgs }" var="MsgsList">
@@ -168,10 +178,6 @@
                         <div style="margin-left: 5px;float: left; ">
 							<c:out value="${MsgsList.getMsgks() }"></c:out>
                         </div>
-                        <p style="clear:both;"></p>
-                        <div style="margin-left: 15px;float: left; "><span style=" font-size: 13px;">截止时间：</span></div>
-                        <div style="margin-left: 5px;float: left; "><c:out
-                                value="${MsgsList.getMsgjz() }"></c:out></div>
                         <p style="clear:both;"></p><br/>
                         <hr/>
                     </c:forEach>

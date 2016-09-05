@@ -46,7 +46,7 @@
 			<form id="ff" method="post">
 			  	<table>
 			  		<tr>
-			  			<td>课程:</td>
+			  			<td style="width: 35px;">课程:</td>
 			  			<td><input class="easyui-textbox" id="objectname" name="course.objectname" data-options="required:true" ></input></td>
 			  		</tr>
 			  		<tr>
@@ -73,7 +73,7 @@
 			<input type="hidden" id="oid" name="course.objectid" />
 			<table>
 		  		<tr>
-		  			<td>课程:</td>
+		  			<td  style="width: 35px;">课程:</td>
 		  			<td><input class="easyui-textbox" id="oname" name="course.objectname" data-options="required:true" ></input></td>
 		  		</tr>
 		  		<tr>

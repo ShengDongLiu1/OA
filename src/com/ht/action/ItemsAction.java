@@ -103,7 +103,6 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
-		System.out.println("queryall");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		pager = new Pager<>();
 		pager.setPageNo(page);

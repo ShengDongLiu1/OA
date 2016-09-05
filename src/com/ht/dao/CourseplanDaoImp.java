@@ -30,9 +30,10 @@ public class CourseplanDaoImp implements CourseplanDao{
 	}
 
 	@Override
-	public Pager<Courseplan> queryAll(Pager<Courseplan> pager) {
+	public Pager<Courseplan> queryAll(Pager<Courseplan> pager,int uid) {
 		session=sessionFactory.openSession();
-		Query query = session.createQuery("from Courseplan");
+		Query query = session.createQuery("from Courseplan where empid=:uid order by kid DESC");
+		query.setInteger("uid",uid);
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -40,6 +41,11 @@ public class CourseplanDaoImp implements CourseplanDao{
 		pager.setRows(list);
 		pager.setTotal((long) count());
 		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Pager<Courseplan> queryAll(Pager<Courseplan> pager) {
 		return pager;
 	}
 	

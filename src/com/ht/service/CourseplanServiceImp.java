@@ -61,4 +61,9 @@ public class CourseplanServiceImp implements CourseplanService{
 		return courseplandao.queryDep();
 	}
 
+	@Override
+	public Pager<Courseplan> queryAll(Pager<Courseplan> pager, int uid) {
+		return courseplandao.queryAll(pager,uid);
+	}
+
 }

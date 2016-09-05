@@ -29,7 +29,8 @@
 				<th data-options="field:'kid',checkbox:true,width:100" align="center">编号</th>
 				<th data-options="field:'dep',width:100" formatter="formatterDepName" align="center">教师</th>
 				<th data-options="field:'course',width:100" formatter="formatterCoureseName" align="center">课程</th>
-				<th data-options="field:'content',width:100" align="center">当前课时</th>
+				<th data-options="field:'current_course',width:100" align="center">当前课时</th>
+				<th data-options="field:'content',width:100" align="center">课程内容</th>
 			</tr>
 		</thead>
 	</table>
@@ -52,6 +53,10 @@
 			  		
 			  		<tr>
 			  			<td>当前课时:</td>
+			  			<td><input class="easyui-textbox" id="current_course" name="cplan.current_course" data-options="required:true" ></input></td>
+			  		</tr>
+			  		<tr>
+			  			<td>课程内容:</td>
 			  			<td><input class="easyui-textbox" id="content" name="cplan.content" data-options="required:true" ></input></td>
 			  		</tr>
 				</table>
@@ -78,9 +83,12 @@
 		  			<td>课程:</td>
 		  			<td><input class="easyui-combobox" id="ob" name="cplan.course.objectid" data-options="required:true" ></input></td>
 		  		</tr>
-		  		
 		  		<tr>
 		  			<td>当前课时:</td>
+		  			<td><input class="easyui-textbox" id="cc" name="cplan.current_course" data-options="required:true" ></input></td>
+		  		</tr>
+		  		<tr>
+		  			<td>课程内容:</td>
 		  			<td><input class="easyui-textbox" id="co" name="cplan.content" data-options="required:true" ></input></td>
 		  		</tr>
 			</table>
@@ -169,6 +177,7 @@
 				$("#emp").combobox("setValue", row.dep.ename);
 				$("#emp").combobox("select", row.dep.eid);
 				$("#ki").textbox("setValue", row.kid);
+				$("#cc").textbox("setValue", row.current_course);
 				$("#co").textbox("setValue", row.content); 
 				$("#editWindow").window("open");
 			} else {

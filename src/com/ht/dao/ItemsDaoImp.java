@@ -27,7 +27,7 @@ public class ItemsDaoImp implements ItemsDao{
 	@Override
 	public Pager<Items> queryAll(Pager<Items> tem,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where steacher=:id");
+		Query query = session.createQuery("from Items where steacher=:id order by xid DESC");
 		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
@@ -42,7 +42,7 @@ public class ItemsDaoImp implements ItemsDao{
 	@Override
 	public Pager<Items> queryAll(Pager<Items> tem) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items");
+		Query query = session.createQuery("from Items order by xid DESC");
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -103,7 +103,7 @@ public class ItemsDaoImp implements ItemsDao{
 	@Override
 	public Pager<Items> queryByName(Pager<Items> tem, String name,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where sname like '%"+name+"%' and steacher=:id");
+		Query query = session.createQuery("from Items where sname like '%"+name+"%' and steacher=:id order by xid DESC");
 		query.setInteger("id", id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
@@ -118,7 +118,7 @@ public class ItemsDaoImp implements ItemsDao{
 	@Override
 	public Pager<Items> queryByClass(Pager<Items> tem, int classid,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where student.classes.classid=:classid and steacher=:id");
+		Query query = session.createQuery("from Items where student.classes.classid=:classid and steacher=:id order by xid DESC");
 		query.setInteger("classid", classid);
 		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
@@ -134,7 +134,7 @@ public class ItemsDaoImp implements ItemsDao{
 	@Override
 	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where steacher=:id and score between '"+begin+"' and '"+end+"'");
+		Query query = session.createQuery("from Items where steacher=:id and score between '"+begin+"' and '"+end+"' order by xid DESC");
 		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());

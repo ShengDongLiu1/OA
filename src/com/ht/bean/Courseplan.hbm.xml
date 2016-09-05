@@ -8,6 +8,8 @@
             <column name="kid" />
             <generator class="native" />
         </id>
+        <property name="current_course" column="current_course"></property>
+        
         <property name="content" type="java.lang.String">
             <column name="content">
             </column>

@@ -11,6 +11,7 @@ public class Courseplan implements java.io.Serializable {
 	private Integer kid;
 	private Integer empid;
 	private Integer objectid;
+	private String current_course;
 	private String content;
 	private Course course;
 	private Dep dep;
@@ -24,6 +25,13 @@ public class Courseplan implements java.io.Serializable {
 		this.content = content;
 	}
 
+	public String getCurrent_course() {
+		return current_course;
+	}
+
+	public void setCurrent_course(String current_course) {
+		this.current_course = current_course;
+	}
 
 	public Integer getKid() {
 		return this.kid;

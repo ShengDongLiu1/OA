@@ -35,7 +35,7 @@ public class CourseDaoImp implements CourseDao{
 	@Override
 	public Pager<Course> queryAll(Pager<Course> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Course");
+		Query query = session.createQuery("from Course order by objectid DESC");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

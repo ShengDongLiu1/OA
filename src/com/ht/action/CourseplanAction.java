@@ -38,6 +38,8 @@ public class CourseplanAction extends ActionSupport{
 	private int page;
 	private List<Course> course;
 	private List<Dep> dep;
+	HttpSession session = ServletActionContext.getRequest().getSession();
+	User user=(User) session.getAttribute("user");
 	
 	public void setCourseplanService(CourseplanService courseplanService) {
 		this.courseplanService = courseplanService;
@@ -147,7 +149,7 @@ public class CourseplanAction extends ActionSupport{
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = courseplanService.queryAll(pager);
+		pager = courseplanService.queryAll(pager,user.getDep().getEid());
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

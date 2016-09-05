@@ -255,7 +255,7 @@ $(function() {
 
 	$('#' + formId + ' .validatebox-text').validatebox('enableValidation')
 			.validatebox('validate');
-
+}
 
 function validateForm(id) {
 	return $("#" + id).form("validate");

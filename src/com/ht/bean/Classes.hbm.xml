@@ -15,7 +15,12 @@
         </property>
         <property name="classcount" type="java.lang.Integer">
             <column name="classcount">
-                <comment>班级人数</comment>
+                <comment>班级实际人数</comment>
+            </column>
+        </property>
+        <property name="classmax" type="java.lang.Integer">
+            <column name="classmax">
+                <comment>班级限定人数</comment>
             </column>
         </property>
         <property name="classaddr" type="java.lang.String">

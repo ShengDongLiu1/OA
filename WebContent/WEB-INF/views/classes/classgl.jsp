@@ -81,7 +81,7 @@
                 if (remain > 10) {
                     pattern = "字数超过10个限制！请重新输入！";
                 } else {
-                    var result = limitNum - remain;
+                    var result = 10 - remain;
                     pattern = '还可以输入' + result + '字';
                 }
                 $("#classnamets").html(pattern);
@@ -95,7 +95,7 @@
                 if (dremain > 50) {
                     pattern = "字数超过50个限制！请重新输入！";
                 } else {
-                    var dresult = dlimitNum - dremain;
+                    var dresult = 50 - dremain;
                     dpattern = '还可以输入' + dresult + '字';
                 }
                 $("#wordage").html(dpattern);
@@ -104,6 +104,7 @@
             $("#rkls").combobox({
                 url: "<%=path%>/classes/tjrkls",
                 method: 'get',
+                editable:false,
                 valueField: 'id',
                 textField: 'name',
                 panelHeight: 'auto',
@@ -118,6 +119,7 @@
             $("#fdls").combobox({
                 url: "<%=path%>/classes/tjfdls",
                 method: 'get',
+                editable:false,
                 valueField: 'id',
                 textField: 'name',
                 panelHeight: 'auto',
@@ -132,6 +134,7 @@
             $("#bzr").combobox({
                 url: "<%=path%>/classes/tjls",
                 method: 'get',
+                editable:false,
                 valueField: 'id',
                 textField: 'name',
                 panelHeight: 'auto',
@@ -152,7 +155,8 @@
         function doAdd() {
             var title = document.getElementsByName("classes.classname")[0].value;
             var wordtext = document.getElementsByName("classes.classaddr")[0].value;
-
+            var classmax = $("#classmax").combobox("getValue");
+        	
             if (trim(title) == "") {
                 alert("班级名称填写不能为空，请重新输入！");
                 return;
@@ -162,7 +166,10 @@
             } else if (wordtext.length > 50) {
                 alert("您输入的班级地址不得超过50字，请重新输入！")
                 return;
-            }
+            }else if(isNaN(classmax)){
+        		alert("班级限定人数必须输入数字！");
+        	}
+            
             if ($("#addForm").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
                 $.post(
                         "classes/add",
@@ -220,6 +227,7 @@
                 document.getElementById("classid").value = row.classid;
                 document.getElementById("classlx").value = row.classlx;
                 document.getElementById("classcount").value = row.classcount;
+                $("#xgclassmax").combobox("setValue",row.classmax);
                 var xglimitNum = 10 - row.classname.length;
                 var xgpattern = '还可以输入' + xglimitNum + '字';
                 $('#xgclassnamets').html(xgpattern);
@@ -228,7 +236,7 @@
                     if (xgremain > 10) {
                         xgpattern = "字数超过10个限制！请重新输入！";
                     } else {
-                        var xgresult = xglimitNum - xgremain;
+                        var xgresult = 10 - xgremain;
                         xgpattern = '还可以输入' + xgresult + '字';
                     }
                     $("#xgclassnamets").html(xgpattern);
@@ -242,7 +250,7 @@
                     if (xgdremain > 50) {
                         xgpattern = "字数超过50个限制！请重新输入！";
                     } else {
-                        var xgdresult = xgdlimitNum - xgdremain;
+                        var xgdresult = 50 - xgdremain;
                         xgdpattern = '还可以输入' + xgdresult + '字';
                     }
                     $("#xgwordage").html(xgdpattern);
@@ -251,6 +259,7 @@
                 $("#xgrkls").combobox({
                     url: "<%=path%>/classes/tjrkls",
                     method: 'get',
+                    editable:false,
                     valueField: 'id',
                     textField: 'name',
                     panelHeight: 'auto'
@@ -261,6 +270,7 @@
                 $("#xgfdls").combobox({
                     url: "<%=path%>/classes/tjfdls",
                     method: 'get',
+                    editable:false,
                     valueField: 'id',
                     textField: 'name',
                     panelHeight: 'auto'
@@ -271,6 +281,7 @@
                 $("#xgbzr").combobox({
                     url: "<%=path%>/classes/tjls",
                     method: 'get',
+                    editable:false,
                     valueField: 'id',
                     textField: 'name',
                     panelHeight: 'auto'
@@ -287,9 +298,27 @@
             $("#editWin").window("close");
             $("#editForm").form("clear");
         }
+        
         //提交修改
         function doEdit() {
             var row = $("#list").datagrid("getSelected");
+            var xgclassmax = $("#xgclassmax").combobox("getValue");
+            var title = document.getElementById("xgclassname").value;
+            var wordtext = document.getElementById("xgwordtext").value;
+			
+            if (trim(title) == "") {
+                alert("班级名称填写不能为空，请重新输入！");
+                return;
+            } else if (title.length > 10) {
+                alert("您输入的班级名称不得超过10字，请重新输入！")
+                return;
+            } else if (wordtext.length > 50) {
+                alert("您输入的班级地址不得超过50字，请重新输入！")
+                return;
+            }else if(isNaN(xgclassmax)){
+        		alert("班级限定人数必须输入数字！");
+        	}
+            
             if ($("#editForm").form("validate")) {
                 $.post("update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                         function (data) {
@@ -323,7 +352,7 @@
 <body>
 <div class="easyui-navpanel">
     <div style="margin:20px 0 10px 0;"></div>
-    <div id="content" class="easyui-panel" title="班级管理" style="width:930px;height:491px;"
+    <div id="content" class="easyui-panel" title="班级管理" style="width:1030px;height:491px;"
          data-options="iconCls:'icon-man',headerCls:'bt'">
         <table id="list" class="easyui-datagrid" data-options=" 
 			toolbar:'#tb',
@@ -340,7 +369,8 @@
                 <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
                 <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
                 <th align="center" data-options="field:'empteaches'" width="100" formatter="formatterChesName" align="center">班主任</th>
-                <th align="center" data-options="field:'classcount'" width="100" align="center">班级人数</th>
+                <th align="center" data-options="field:'classmax'" width="100" align="center">班级限定人数</th>
+                <th align="center" data-options="field:'classcount'" width="100" align="center">班级实际人数</th>
                 <th align="center" data-options="field:'classaddr'" width="400" align="center">班级地址</th>
                 <th align="center" data-options="field:'classlx'" width="100" align="center">班级类型</th>
             </tr>
@@ -357,7 +387,7 @@
 
         <div id="addWin" class="easyui-window" title="添加班级"
              data-options="iconCls:'icon-edit', closable:true, closed:true"
-             style="width: 400px; height: 450px; padding: 5px;">
+             style="width: 400px; height: 500px; padding: 5px;">
             <form id="addForm" enctype="multipart/form-data">
                 <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
                     <div>班级名称:</div>
@@ -367,13 +397,21 @@
                     <div id="classnamets"></div>
                 </div>
                 <div style="margin-bottom:20px;margin-left: 40px;">
-                    任课老师：<input id="rkls" class="easyui-combobox" data-options="required:true"
+                    	&nbsp;&nbsp;任课老师：<input id="rkls" class="easyui-combobox" data-options="required:true"
                                 name="classes.empteach.eid"/><br/><br/>
-                    辅导老师：<input id="fdls" class="easyui-combobox" data-options="required:true"
+                 		&nbsp;&nbsp;辅导老师：<input id="fdls" class="easyui-combobox" data-options="required:true"
                                 name="classes.empteachs.eid"/><br/><br/>
-                    &nbsp;班主任：<input id="bzr" class="easyui-combobox" data-options="required:true"
-                                     name="classes.empteaches.eid"/>
+                   &nbsp;&nbsp;&nbsp;班主任：<input id="bzr" class="easyui-combobox" data-options="required:true"
+                                name="classes.empteaches.eid"/><br/><br/>
+						班级限定人数：<select id="classmax" name="classes.classmax" style="width:172px;" class="easyui-combobox" data-options="required:true">
+									<option value="10">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+									<option value="50">50</option>	
+								</select>
                 </div>
+                
                 <div style="margin-bottom: 20px;margin-left: 40px;">
                     <div>班级地址:</div>
                     <br/>
@@ -393,7 +431,7 @@
 
         <div id="editWin" class="easyui-window" title="修改班级信息"
              data-options="iconCls:'icon-edit', closable:true, closed:true"
-             style="width: 400px; height: 450px; padding: 5px;">
+             style="width: 400px; height: 500px; padding: 5px;">
             <form id="editForm" enctype="multipart/form-data">
                 <input type="hidden" id="classid" name="classes.classid"/>
                 <input type="hidden" id="classlx" name="classes.classlx"/>
@@ -406,9 +444,16 @@
                     <div id="xgclassnamets"></div>
                 </div>
                 <div style="margin-bottom:20px;margin-left: 40px;">
-			                    任课老师：<input id="xgrkls" class="easyui-combobox" data-options="required:true" name="classes.empteach.eid"/><br/><br/>
-			                    辅导老师：<input id="xgfdls" class="easyui-combobox" data-options="required:true" name="classes.empteachs.eid"/><br/><br/>
-                   &nbsp;班主任：<input id="xgbzr" class="easyui-combobox" data-options="required:true" name="classes.empteaches.eid"/>
+					&nbsp;&nbsp;任课老师：<input id="xgrkls" class="easyui-combobox" data-options="required:true" name="classes.empteach.eid"/><br/><br/>
+					&nbsp;&nbsp;辅导老师：<input id="xgfdls" class="easyui-combobox" data-options="required:true" name="classes.empteachs.eid"/><br/><br/>
+		        	&nbsp;&nbsp;&nbsp;班主任：<input id="xgbzr" class="easyui-combobox" data-options="required:true" name="classes.empteaches.eid"/><br/><br/>
+		        	班级限定人数：<select id="xgclassmax" name="classes.classmax" style="width:172px;" class="easyui-combobox" data-options="required:true">
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>	
+							</select>
                 </div>
                 <div style="margin-bottom: 20px;margin-left: 40px;">
                     <div>班级地址:</div>

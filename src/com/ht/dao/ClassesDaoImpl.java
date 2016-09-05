@@ -38,6 +38,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	public Classes query(Classes t) {
 		session = sessionFactory.openSession();
 		Classes classes = (Classes) session.get(Classes.class, t.getClassid());
+		System.out.println(classes.getEmpteachs());
 		session.close();
 		return classes;
 	}

@@ -54,17 +54,8 @@
 <body>
 <div class="easyui-navpanel">
     <div style="margin:20px 0 10px 0;"></div>
-    <div id="content" class="easyui-panel" data-options="footer:'#ft'" style="width:711px;height:600px;"
+    <div id="content" class="easyui-panel" data-options="footer:'#ft'" style="width:711px;height:520px;"
          data-options="headerCls:'bt'">
-        <header>
-            <div class="m-toolbar">
-                <div class="m-left" style="margin-left: 60px;">
-                    <a href="<%=path%>/classes/all" class="easyui-linkbutton m-back"
-                       data-options="plain:true,outline:true,back:true">返回班级列表</a>
-                </div>
-                <div><h2><s:property value="classes.classname"/>详情信息</h2></div>
-            </div>
-        </header>
         <!-- 表格 -->
         <table id="list" class="easyui-datagrid" data-options="
 				toolbar:'#tb',
@@ -88,7 +79,9 @@
             </thead>
         </table>
         <div id="tb" style="padding:5px;">
-            <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">选择查看学生详情</a>
+            <a href="<%=path%>/classes/all" class="easyui-linkbutton m-back"
+                       data-options="plain:true,outline:true,back:true">返回班级列表</a>
+            <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
         </div>
     </div>
     <div id="ft" style="padding:5px;">
@@ -99,9 +92,6 @@
         </div>
         <br/><br/>
         <div style="float: left;">
-            学生人数：<s:property value="classes.classcount"/>
-        </div>
-        <div style="float: left;margin-left: 150px;">
             班级地址：<s:property value="classes.classaddr"/>
         </div>
     </div>

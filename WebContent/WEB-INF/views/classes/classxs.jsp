@@ -46,49 +46,45 @@
                     <a href="<%=path%>/classes/query?classes.classid=${student.classes.classid}"
                        class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">返回学生列表</a>
                 </div>
-                <div><h2>学生详情信息</h2></div>
             </div>
         </header>
-        <div style="padding:10px;margin-left: 50px;margin-top: 50px; ">
+        <div style="padding:10px;margin-left: 50px;margin-top: 20px; ">
             <div class="zl"><h3>学生姓名:</h3></div>
             <div class="textS"><s:property value="student.intenname"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>就读学校:</h3></div>
             <div class="textS"><s:property value="student.intensch"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>学生性别:</h3></div>
             <div class="textS"><s:property value="student.intensex"/></div>
-            <br/><br/>
-            <div class="zl"><h3>学生爱好:</h3></div>
-            <div class="textS"><s:property value="student.intenhob"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>出生年月:</h3></div>
             <div class="textS"><s:property value="student.intenbir"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>家长姓名:</h3></div>
             <div class="textS"><s:property value="student.intenfat"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>学生号码:</h3></div>
             <div class="textS"><s:property value="student.intentel"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>学生家长号码:</h3></div>
             <div class="textS"><s:property value="student.intenfatel"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>家庭住址:</h3></div>
             <div class="textS"><s:property value="student.intenaddr"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>就读疑问:</h3></div>
             <div class="textS"><s:property value="student.intenpeo"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>学生班级:</h3></div>
             <div class="textS"><s:property value="student.classes.classname"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>学生宿舍:</h3></div>
             <div class="textS"><s:property value="student.hourse.hourname"/></div>
-            <br/><br/>
+            <br/>
             <div class="zl"><h3>入学时间:</h3></div>
             <div class="textS"><s:property value="student.intendate"/></div>
-            <br/><br/>
+            <br/>
         </div>
     </div>
     <div id="ft" style="padding:5px;">

@@ -17,6 +17,7 @@ public class Classes implements java.io.Serializable {
 	private Integer classid;
 	private String classname;
 	private Integer classcount;
+	private Integer classmax;
 	private String classaddr;
 	private String classlx;
 	private Dep empteach;
@@ -51,6 +52,14 @@ public class Classes implements java.io.Serializable {
 		return this.classid;
 	}
 	
+	public Integer getClassmax() {
+		return classmax;
+	}
+
+	public void setClassmax(Integer classmax) {
+		this.classmax = classmax;
+	}
+
 	public String getClasslx() {
 		return classlx;
 	}

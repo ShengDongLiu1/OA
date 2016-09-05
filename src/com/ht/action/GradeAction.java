@@ -186,7 +186,6 @@ public class GradeAction extends ActionSupport {
 					pager = gradeService.queryAll(pager);
 				} else {
 					int classID = Integer.parseInt(className);
-					System.out.println("按班级查询..." + "        班级ID：" + classID);
 					pager = gradeService.queryByClass(pager, classID);
 				}
 			} else {

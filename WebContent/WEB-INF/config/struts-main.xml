@@ -6,7 +6,7 @@
 
 <struts>
 
-    <constant name="struts.devMode" value="true"></constant><!-- 是否为开发模式，可支持struts提供的debug功能 -->
+    <constant name="struts.devMode" value="false"></constant><!-- 是否为开发模式，可支持struts提供的debug功能 -->
     <constant name="struts.action.extension" value=",action,do"></constant><!-- action的扩展名 -->
     <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
     <constant name="struts.multipart.maxSize" value="20971520"></constant><!-- 单位是字节 -->
@@ -16,6 +16,7 @@
         	<result name="succ">/WEB-INF/views/home.jsp</result>
         	<result name="fail">/WEB-INF/views/admin/login.jsp</result>
         	<result name="login">/WEB-INF/views/admin/login.jsp</result>
+        	<result name="success" type="json"></result>
         </action>
     </package>
 

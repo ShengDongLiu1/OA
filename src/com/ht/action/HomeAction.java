@@ -8,20 +8,50 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import com.ht.bean.Msg;
+import com.ht.bean.User;
+import com.ht.common.ControllerResult;
+import com.ht.common.EncryptUtil;
 import com.ht.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class HomeAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private UserService userService;
-	
+	private ControllerResult result;
+	private String oldPwd;
+	private String newPwd;
+
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
-	public String login(){
+	public void setResult(ControllerResult result) {
+		this.result = result;
+	}
+
+	public ControllerResult getResult() {
+		return result;
+	}
+
+	public String getOldPwd() {
+		return oldPwd;
+	}
+
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
+	public String login() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		session.invalidate();
 		return "login";
@@ -29,7 +59,7 @@ public class HomeAction extends ActionSupport {
 
 	public String index() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		String name =  (String) session.getAttribute("password");
+		String name = (String) session.getAttribute("password");
 		if (name != null) {
 			List<Msg> Msgs = new ArrayList<>();
 			Msgs = userService.queryAllMsg();
@@ -38,6 +68,25 @@ public class HomeAction extends ActionSupport {
 		} else {
 			return "fail";
 		}
+	}
+
+	public String updatePassword() {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		User name = (User) session.getAttribute("user");
+		String oldPass = EncryptUtil.md5(oldPwd);
+		String password = EncryptUtil.md5(newPwd);
+		User user = new User();
+		user = userService.query(name);
+		if (user != null) {
+			String pwd = user.getPwd();
+			if(oldPass.equals(pwd)){
+				userService.updatePwd(name.getUname(), password);
+				result = ControllerResult.getSuccessRequest("修改密码成功!");
+			} else {
+				result = ControllerResult.getFailResult("原密码输入错误!");
+			}
+		}
+		return SUCCESS;
 	}
 
 }

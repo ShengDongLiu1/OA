@@ -110,22 +110,4 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String update_pwd() {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		String pwd = (String) session.getAttribute("password");
-		String name = (String) session.getAttribute("email");
-		String endPwd = EncryptUtil.md5(password);
-		if (!newPwd.equals(conPwd)) {
-			result = ControllerResult.getFailResult("新密码与确认密码不符!");
-		} else if (newPwd.equals(conPwd)) {
-			if (!endPwd.equals(pwd)) {
-				result = ControllerResult.getFailResult("修改成功");
-			} else if (endPwd.equals(pwd)) {
-				userService.updatePwd(name, EncryptUtil.md5(newPwd));
-				result = ControllerResult.getSuccessRequest("修改成功");
-			}
-		}
-		return SUCCESS;
-	}
-
 }

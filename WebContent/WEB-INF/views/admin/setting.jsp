@@ -22,19 +22,24 @@
             <table class="input_big">
                 <caption>修改账号密码</caption>
                 <tr>
+                    <td>原密码:</td>
+                    <td><input type="password" id="oldPwd" name="oldPwd" class="easyui-validatebox easyui-textbox"
+                               data-options="validType:'length[6,20]',novalidate:true"/></td>
+                </tr>
+                <tr>
                     <td>新密码:</td>
-                    <td><input type="password" name="newPwd" class="easyui-validatebox easyui-textbox"
-                               data-options="required:true,validType:'length[6,20]',novalidate:true"/></td>
+                    <td><input type="password" id="newPwd" name="newPwd" class="easyui-validatebox easyui-textbox"
+                               data-options="validType:'length[6,20]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>确认密码:</td>
-                    <td><input type="password" name="conPwd" class="easyui-validatebox easyui-textbox"
-                               data-options="required:true,validType:'length[6,20]',novalidate:true"/></td>
+                    <td><input type="password" id="conPwd" name="conPwd" class="easyui-validatebox easyui-textbox"
+                               data-options="validType:'length[6,20]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <button type="button" onclick="updatePwd();">确认</button>
+                        <button type="button" onclick="updatePassword();">确认</button>
                     </td>
                 </tr>
             </table>
@@ -44,23 +49,41 @@
 </div>
 <!------------------------------------------------------------------------------->
 <script type="text/javascript">
-    function updatePwd() {
-        toValidate("updateForm");
-        if (validateForm("updateForm")) {
-            $.post('update_pwd',
-                    $("#updateForm").serialize(),
-                    function (data) {
-                        if (data.result.result == "success") {
-                            $.messager.alert("提示", data.result.msg, "info");
-                            $("#updateForm").form("clear");
-                            $('#editWindow').dialog('close');
-                        } else {
-                            $("#errMsg").html(data.result.msg);
-                        }
-                    }, "JSON"
-            );
-        }
-    }
+    function updatePassword() {
+		var oldPwd = $("#oldPwd").val();
+		var newPwd = $("#newPwd").val();
+		var conPwd = $("#conPwd").val();
+		if(oldPwd == null || oldPwd == ""){
+			$.messager.alert('提示', '请输入旧密码!', 'info');
+			return false;
+		}
+		if(newPwd == null || newPwd == ""){
+			$.messager.alert('提示', '请输入新密码!', 'info');
+			return false;
+		}
+		if(conPwd == null || conPwd == ""){
+			$.messager.alert('提示', '请输入确认密码!', 'info');
+			return false;
+		}
+		if($("#newPwd").val() == $("#conPwd").val()){
+			toValidate("updateForm");
+			if (validateForm("updateForm")) {
+	            $.post('<%=path%>/updatePassword',
+	                    $("#updateForm").serialize(),
+	                    function (data) {
+	                        if (data.result.result == "success") {
+	                            $.messager.alert("提示", data.result.msg, "info");
+	                            $("#updateForm").form("clear");
+	                        } else {
+	                        	$.messager.alert("提示", data.result.msg, "info");
+	                        }
+	                    }, "JSON"
+	            );
+	        }
+		} else {
+			$.messager.alert('提示', '确认密码与新密码不符!', 'info');
+		}
+	}
 </script>
 </body>
 </html>

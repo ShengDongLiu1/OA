@@ -180,7 +180,6 @@ public class StudentAction extends ActionSupport {
 		HttpServletRequest req= ServletActionContext.getRequest();
 		String classid = req.getParameter("classid");
 		String tiaoname = req.getParameter("tiaoname");
-		System.out.println(classid);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		if((classid ==null ||classid.equals("")) && (tiaoname==null || tiaoname.equals("")) ){

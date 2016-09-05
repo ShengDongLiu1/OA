@@ -11,4 +11,6 @@ import com.ht.bean.Course;
  */
 public interface CourseDao extends BaseDao<Course,Integer>{
 	
+	public List<Course> queryCourse();
+
 }

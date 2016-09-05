@@ -1,8 +1,15 @@
 package com.ht.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
+import com.alibaba.fastjson.JSON;
 import com.ht.bean.Course;
+import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.CourseService;
@@ -92,6 +99,33 @@ public class CourseAction extends ActionSupport {
 
 	public String all() {
 		return "all";
+	}
+
+	/**
+	 * Zhongyu
+	 * 
+	 * @throws IOException
+	 */
+	public String queryCourse() throws IOException {
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out = resp.getWriter();
+		List<Combox> list = new ArrayList<Combox>();
+		rows = courseService.queryCourse();
+		for(Course course : rows){
+			int id = course.getObjectid();
+			String name = course.getObjectname();
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(id));
+			combox.setName(name);
+			list.add(combox);
+		}
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "combox";
 	}
 
 }

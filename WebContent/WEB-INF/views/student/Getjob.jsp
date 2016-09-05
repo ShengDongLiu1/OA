@@ -57,24 +57,32 @@
     <div style="padding: 10px 60px 20px 60px">
         <form id="ff" method="post">
             <table cellpadding="5">
+               <tr>
+                    <td>学生姓名:</td>
+                    <td><br/>
+                    	<div style="float: left;">
+	                    	<input class="easyui-combobox" data-options="required:true" id=jobstu name="getjob.student.intenid"/><br/><br/>
+	             		</div>
+	               		<div style="float: left;">
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+						</div>
+						<p style="clear: both;"></p>
+                    </td>
+                </tr>
+            
                 <tr>
                     <td>公司名称:</td>
                		<td><input class="easyui-textbox" name="getjob.jobname" style="width: 150px;"
                            data-options="required:true,validType:'length[2,20]',novalidate:true"/></td>
                 </tr>
-                <tr>
-                    <td>选择学生:</td>
-                    <td><input class="easyui-combobox" id="jobstu" name="getjob.student.intenid"
-                               data-options="required:true"/></td>
-                </tr>
-                <tr>
+                             <tr>
                     <td>就业时间:</td>
                     <td><input class="easyui-datebox" name="getjob.jobtime" /></td>
                 </tr>
                 <tr>
                     <td>就业薪资:</td>
                     <td><input class="easyui-textbox" name="getjob.jobmoney"
-                           data-options="required:true,validType:'length[1,20]',novalidate:true"/></td>
+                           data-options="required:true,validType:'length[3,20]',novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>职位描述:</td>
@@ -87,9 +95,9 @@
                  style="text-align: right; padding: 5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton"
                    data-options="iconCls:'icon-ok'" onclick="add();"
-                   style="width: 80px">添加</a> <a href="javascript:(0);"
-                                                 class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-                                                 onclick="closeAdd();" style="width: 80px">取消</a>
+                   style="width: 80px">添加</a> 
+                   <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
+                    onclick="closeAdd();" style="width: 80px">取消</a>
             </div>
         </form>
     </div>
@@ -103,16 +111,23 @@
           <input type="hidden" id="ji" name="getjob.jobid"/>
             <table>
                 <tr>
+                    <td>学生姓名</td>
+                    <td><br /><div style="float: left;">
+	                    	<input class="easyui-combobox" data-options="required:true" id=js name="getjob.student.intenid"/><br/><br/>
+	             		</div>
+	               		<div style="float: left;">
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+						</div>
+						<p style="clear: both;"></p>
+					</td>
+                </tr>
+                <tr>
                     <td>公司名称</td>
                     <td>
                        <input class="easyui-textbox" id="jn" name="getjob.jobname" style="width: 150px;"
                            data-options="required:true,validType:'length[2,20]',novalidate:true"/></td>
                 </tr>
-                <tr>
-                    <td>学生编码</td>
-                    <td><input class="easyui-combobox" id="js" name="getjob.student.intenid"
-                               data-options="required:true"/></td>
-                </tr>
+         
                 <tr>
                     <td>就业时间</td>
 					<td><input class="easyui-datebox" id="jt" name="getjob.jobtime" 
@@ -121,12 +136,12 @@
    		     	<tr>
                     <td>就业薪资</td>
 					<td><input class="easyui-textbox" id="jm" name="getjob.jobmoney" 
-   								data-options="required:true,validType:'length[1,20]',novalidate:true, multiline:true"/></td>      
+   								data-options="required:true,validType:'length[3,20]',novalidate:true"/></td>      
    		     	</tr>
                 <tr>
                     <td>职位描述</td>
 					<td><input class="easyui-textbox" id="jd" name="getjob.jobdesc" 
-   								data-options="required:true,validType:'length[5,20]',novalidate:true, multiline:true" style="width: 150px;height: 55px;" name="dep.eaddr"  /></td>      
+   								data-options="required:true,validType:'length[5,20]',novalidate:true,multiline:true" style="width: 150px;height: 55px;" name="dep.eaddr"  /></td>      
    		      	</tr>
    		      </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -139,7 +154,62 @@
     </div>
 </div>
 
+<div id="studentwin1" class="easyui-window" title="选择学生"
+		data-options="iconCls:'icon-edit', closable:true, closed:true"
+		style="width: 800px; height: 500px; padding: 5px;">
+		<form id="xuanForm1" enctype="multipart/form-data">
+			<table id="student_list" class="easyui-datagrid"
+				data-options=" 
+				toolbar:'#tc',
+				url:'<%=path%>/stu/queryAll', 
+				method:'get', 
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight: true,
+				pagination:true,
+				border:false
+				">
+				<thead>
+					<tr>
+						<th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
+				        <th data-options="field:'intenname',width:100" align="center">名称</th>
+				        <th data-options="field:'intensch',width:100" align="center">就读学校</th>
+				        <th data-options="field:'intensex',width:100" align="center">性别</th>
+				        <th data-options="field:'intenage',width:50" align="center">年龄</th>
+				        <th data-options="field:'intentel',width:100" align="center">学生记录号码</th>
+				        <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
+				        <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
+				        <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>
+					</tr>
+				</thead>
+			</table>
+			<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'" onclick="student_xuan();">确定选择</a>
+		</form>
+	</div>
+	
+	<div id="tc" style="padding: 5px;">
+		<div style="float: left;">
+			<input class="easyui-combobox" data-options="required:true"
+				style="width: 150px;" id="classid" name="rawpun.jstuid" /> <a
+				href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryByClassName();">按照班级查询</a> <input
+				class="easyui-textbox" style="width: 150px;" id="tiaoname" name="rawpun.jstuid" />
+				<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryName();">模糊查询</a>
+				<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryall();">查询全部</a>
+		</div>
+	</div>
+
 <script type="text/javascript">
+	function forHourse(value) {
+	    return value.hourname;
+	}
+	function forClasses(value) {
+	    return value.classname;
+	}
+	
     function forStudentName(value) {
         return value.intenname;
     }
@@ -281,6 +351,57 @@
         	time:""
         }); 
     }
+    
+    function openstudent(){
+		$("#student_list").datagrid("reload");
+		$("#classid").combobox({
+            url: "<%=path%>/rawpun/tjls",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#classid').combobox('getData');
+                if (data.length > 0) {
+                    $("#classid").combobox('select', data[0].id);
+                }
+            }
+        });
+		$("#studentwin1").window("open");
+	}
+    
+    function student_xuan(){
+		var row=$("#student_list").datagrid("getSelected");	//获取datagrid中选中的行
+		if(row){
+	         $("#jobstu").combobox("setValue", row.intenname);
+	         $("#jobstu").combobox('select', row.intenid);
+	         
+	         $("#js").combobox("setValue", row.intenname);
+	         $("#js").combobox('select', row.intenid);
+			 $("#studentwin1").window("close");
+		}else{
+			$.messager.alert('提示','请选择学生','info');	//messager消息控件
+		}
+	}
+    
+	function queryByClassName() {
+        classid=$('#classid').combobox("getValue");
+        $('#student_list').datagrid('load',{  
+        	classid:classid
+        });
+	}
+	
+	function queryName(){
+		tiaoname = $("#tiaoname").textbox("getValue");
+		$('#student_list').datagrid('load',{
+			tiaoname:tiaoname
+		});
+	}
+	
+	function queryall(){
+		$('#student_list').datagrid('load',{
+		});
+	}
 </script>
 </body>
 </html>

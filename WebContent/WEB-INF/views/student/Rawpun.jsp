@@ -302,7 +302,7 @@
         </form>
     </div>
 </div>
-	<div id="studentwin1" class="easyui-window" title="选择员工"
+	<div id="studentwin1" class="easyui-window" title="选择学生"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
 		style="width: 800px; height: 500px; padding: 5px;">
 		<form id="xuanForm1" enctype="multipart/form-data">

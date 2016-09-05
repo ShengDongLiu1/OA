@@ -120,6 +120,13 @@ public class StudentAction extends ActionSupport {
 	
 	public String add() {
 		student.setIntendate(Calendar.getInstance().getTime());
+
+        Calendar a=Calendar.getInstance();
+        int year = a.get(Calendar.YEAR);//得到年
+        
+		String[] str=student.getIntenbir().split("-");
+		int ye = Integer.valueOf(str[0]);
+		student.setIntenage(year - ye);
 		student.setIntenstatus("在读");	
 		student = studentService.add(student);
 		if (student == null) {
@@ -174,7 +181,6 @@ public class StudentAction extends ActionSupport {
 	}
 
 	public String queryAll() {
-		int count = 0;
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		HttpServletRequest req= ServletActionContext.getRequest();
@@ -184,22 +190,13 @@ public class StudentAction extends ActionSupport {
 		pager.setPageSize(pageSize);
 		if((classid ==null ||classid.equals("")) && (tiaoname==null || tiaoname.equals("")) ){
 			pager = studentService.queryAll(pager);
-			for(Student stu : pager.getRows()){
-				count++;
-			}
 		}else if(classid!=null){
 			pager = studentService.queryClasses(pager, Integer.valueOf(classid));
-			for(Student stu : pager.getRows()){
-				count++;
-			}
 		}else{
 			pager = studentService.queryName(pager, tiaoname);
-			for(Student stu : pager.getRows()){
-				count++;
-			}
 		}
 		rows = pager.getRows();
-		total = count;
+		total = pager.getTotal();
 		return SUCCESS;
 	}
 	

@@ -228,4 +228,33 @@ public class StudentDaoImpl implements StudentDao {
 		session.close();
 		return t;
 	}
+	
+	@Override
+	public Pager<Student> queryClasses(Pager<Student> pager, int id){
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Student where classid=?");
+		query.setInteger(0, id);
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Student> list = query.list();
+		pager.setRows(list);
+		session.close();
+		return pager;
+	}
+	
+	
+	@Override
+	public Pager<Student> queryName(Pager<Student> pager,String name){
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Student where intenname  like :name");
+		query.setString("name", "%"+name+"%");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Student> list = query.list();
+		pager.setRows(list);
+		session.close();
+		return pager;
+	}
 }

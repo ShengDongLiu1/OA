@@ -302,7 +302,8 @@
 			<a href="javascript:;" class="easyui-linkbutton"
 			data-options="iconCls:'icon-edit'" onclick="updateCount();">归还</a>
 	</div>
-
+	
+	
 	<div id="editWin" class="easyui-window" title="修改申领记录"
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
 		style="width: 350px; height: 400px; padding: 5px;">
@@ -312,7 +313,7 @@
 				<tr>
 		  			<td>选择员工:</td>
 		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="rece" name="receiue.eid" /><br/><br/>
+		  				<input class="easyui-combobox" data-options="required:true" id="rece" name="receiue.eid" /><br/><br/>
 		  			</td>
 		  		</tr>
 				<tr>

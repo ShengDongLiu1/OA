@@ -21,6 +21,13 @@
    function studentname(value){
 	   return value.intenname;
    }
+   
+   function forClasses(value) {
+       return value.classname;
+   }
+   function forHourse(value) {
+       return value.hourname;
+   }
     // 显示数据
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
@@ -134,6 +141,58 @@
     function Winclose(c) {
         $("#" + c).window("close");
     }
+    
+    
+    function openstudent(){
+		$("#student_list").datagrid("reload");
+		$("#classid").combobox({
+            url: "<%=path%>/rawpun/tjls",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#classid').combobox('getData');
+                if (data.length > 0) {
+                    $("#classid").combobox('select', data[0].id);
+                }
+            }
+        });
+		$("#studentwin1").window("open");
+	}
+    
+    function student_xuan(){
+		var row=$("#student_list").datagrid("getSelected");	//获取datagrid中选中的行
+		if(row){
+	         $("#addrawpun").combobox("setValue", row.intenname);
+	         $("#addrawpun").combobox('select', row.intenid);
+	         
+	         $("#updaterawpun").combobox("setValue", row.intenname);
+	         $("#updaterawpun").combobox('select', row.intenid);
+			 $("#studentwin1").window("close");
+		}else{
+			$.messager.alert('提示','请选择学生','info');	//messager消息控件
+		}
+	}
+    
+	function queryByClassName() {
+        classid=$('#classid').combobox("getValue");
+        $('#student_list').datagrid('load',{  
+        	classid:classid
+        });
+	}
+	
+	function queryName(){
+		tiaoname = $("#tiaoname").textbox("getValue");
+		$('#student_list').datagrid('load',{
+			tiaoname:tiaoname
+		});
+	}
+	
+	function queryall(){
+		$('#student_list').datagrid('load',{
+		});
+	}
 </script>
 </head>
 <body>
@@ -149,7 +208,7 @@
 		pageSize:10,fit:true">
     <thead>
     <tr>
-        <th data-options="field:'jid',width:100" align="center">ID</th>
+        <th data-options="field:'jid',width:100,checkbox:true" align="center">ID</th>
         <th data-options="field:'students',width:100" formatter="studentname" align="center"> 奖惩对象</th>
         <th data-options="field:'jtitle',width:120" align="center"> 奖惩标题</th>
         <th data-options="field:'jcontent',width:250" align="center">奖惩内容</th>
@@ -173,7 +232,13 @@
                 <tr>
 	                <td>奖惩对象:</td>
 	                <td><br>
-	                    <input class="easyui-combobox" data-options="required:true" id="addrawpun" name="rawpun.jstuid"/><br/><br/>
+	              		<div style="float: left;">
+	                    	<input class="easyui-combobox" data-options="required:true" id="addrawpun" name="rawpun.jstuid"/><br/><br/>
+	             		</div>
+	               		<div style="float: left;">
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+						</div>
+						<p style="clear: both;"></p>
 	                </td>
 	            </tr>
                 <tr>
@@ -206,7 +271,13 @@
                <tr>
 	                <td>奖惩对象:</td>
 	                <td><br>
-	                    <input class="easyui-combobox" data-options="required:true" id="updaterawpun" name="rawpun.jstuid"/><br/><br/>
+	                  	<div style="float: left;">
+	                    	<input class="easyui-combobox" data-options="required:true" id="updaterawpun" name="rawpun.jstuid"/><br/><br/>
+	             		</div>
+	               		<div style="float: left;">
+							<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;" onclick="openstudent();">选择学生</a>
+						</div>
+						<p style="clear: both;"></p>
 	                </td>
 	            </tr>
                 <tr>
@@ -231,7 +302,53 @@
         </form>
     </div>
 </div>
-
+	<div id="studentwin1" class="easyui-window" title="选择员工"
+		data-options="iconCls:'icon-edit', closable:true, closed:true"
+		style="width: 800px; height: 500px; padding: 5px;">
+		<form id="xuanForm1" enctype="multipart/form-data">
+			<table id="student_list" class="easyui-datagrid"
+				data-options=" 
+				toolbar:'#tc',
+				url:'<%=path%>/stu/queryAll', 
+				method:'get', 
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight: true,
+				pagination:true,
+				border:false
+				">
+				<thead>
+					<tr>
+						<th data-options="field:'intenid',checkbox:true,width:100" align="center">编号</th>
+				        <th data-options="field:'intenname',width:100" align="center">名称</th>
+				        <th data-options="field:'intensch',width:100" align="center">就读学校</th>
+				        <th data-options="field:'intensex',width:100" align="center">性别</th>
+				        <th data-options="field:'intenage',width:50" align="center">年龄</th>
+				        <th data-options="field:'intentel',width:100" align="center">学生记录号码</th>
+				        <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
+				        <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
+				        <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>
+					</tr>
+				</thead>
+			</table>
+			<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'" onclick="student_xuan();">确定选择</a>
+		</form>
+	</div>
+	
+	<div id="tc" style="padding: 5px;">
+		<div style="float: left;">
+			<input class="easyui-combobox" data-options="required:true"
+				style="width: 150px;" id="classid" name="rawpun.jstuid" /> <a
+				href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryByClassName();">按照班级查询</a> <input
+				class="easyui-textbox" style="width: 150px;" id="tiaoname" name="rawpun.jstuid" />
+				<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryName();">模糊查询</a>
+				<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryall();">查询全部</a>
+		</div>
+	</div>
 
 </body>
 </html>

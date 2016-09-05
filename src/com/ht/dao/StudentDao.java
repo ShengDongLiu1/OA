@@ -18,4 +18,8 @@ public interface StudentDao extends BaseDao<Student, Integer> {
 	public List<Classes> queryClass(Integer eid);
 	public void CloseSession();
 	public Student addStu(Student t);
+	
+	public Pager<Student> queryClasses(Pager<Student> pager, int id);
+	
+	public Pager<Student> queryName(Pager<Student> pager,String name);
 }

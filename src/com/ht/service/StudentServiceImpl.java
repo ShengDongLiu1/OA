@@ -91,4 +91,14 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.addStu(t);
 	}
 
+	@Override
+	public Pager<Student> queryClasses(Pager<Student> pager, int id) {
+		return studentDao.queryClasses(pager, id);
+	}
+
+	@Override
+	public Pager<Student> queryName(Pager<Student> pager, String name) {
+		return studentDao.queryName(pager, name);
+	}
+
 }

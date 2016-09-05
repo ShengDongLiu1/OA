@@ -74,8 +74,12 @@
 							<input class="easyui-textbox" id="sname" name="items.sname" data-options="required:true" /></input>
 						</td>
 					</tr>
+					<tr>
+			  			<td>班级:</td>
+			  			<td><input class="easyui-combobox" id="classtj" data-options="required:true" /></input></td>
+			  		</tr>
 			  		<tr>
-			  			<td>学生ID:</td>
+			  			<td>学生:</td>
 			  			<td><input class="easyui-combobox" id="sstuid" name="items.student.intenid" data-options="required:true" /></input></td>
 			  		</tr>
 			  		<tr>
@@ -108,9 +112,13 @@
 					</td>
 				</tr>
 				<tr>
-					<td >学生ID:</td>
+		  			<td>班级:</td>
+		  			<td><input class="easyui-combobox" id="classbj" data-options="required:true" /></input></td>
+		  		</tr>
+				<tr>
+					<td >学生:</td>
 					<td >
-						<input class="easyui-combobox" id="si" name="items.student.intenid"  data-options="required:true,validType:'length[1,items.count]',novalidate:true" />
+						<input class="easyui-combobox" id="si" name="items.student.intenid"  data-options="required:true" />
 					</td>
 				</tr>
 				<tr>
@@ -136,7 +144,7 @@
 	
 	<script type="text/javascript">
 		function queryall(){
-			location.reload();
+			$('#list').datagrid('load', {});  
 		}
 	
 		function Score(){
@@ -153,10 +161,10 @@
 		}
 	
 		function Class(){
-			var class_name=$("#classes").combobox('getValue');
-	    	if(class_name!=''){
+			var classid=$("#classes").combobox('getValue');
+	    	if(classid!=''){
 	    		$('#list').datagrid('load', {   
-	    			class_name:class_name
+	    			classid:classid
 	    		});  
 	    	}
 		}  
@@ -211,19 +219,36 @@
 		}
 		// 打开添加窗口
 		function addOpen() {
-			$("#sstuid").combobox({
-				url:"<%=path%>/items/stud",
-				method:'get',
-			    valueField:'id',
-			    textField:'name',
-			    panelHeight:'auto',
-			    onLoadSuccess: function () { //数据加载完毕事件
-	                var data = $('#sstuid').combobox('getData');
-	                if (data.length > 0) {
-	                    $("#sstuid").combobox('select', data[0].id);
-	                }
-	            }
-			}); 
+			$('#classtj').combobox({
+				url : 'classes',
+					editable : false, //不可编辑状态  
+					cache : false,
+					panelHeight : '150',
+					valueField : 'id',
+					textField : 'name',
+
+					onHidePanel : function() {
+						$("#sstuid").combobox("setValue", '');
+						var id = $('#classtj').combobox('getValue');
+						
+						$.ajax({
+							type : "POST",
+							url : 'stud?classid='+id,
+							cache : false,
+							dataType : "json",
+							success : function(data) {
+								$("#sstuid").combobox("loadData", data);
+								}
+							});
+					}
+				});
+				$('#sstuid').combobox({   
+			        editable:false, //不可编辑状态  
+			        cache: false,  
+			        panelHeight: '150',//自动高度适合  
+			        valueField:'id',     
+			        textField:'name'  
+			       });  
 			
 			$("#addWindow").window("open");
 		}
@@ -255,15 +280,43 @@
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
 				document.getElementById("id").value=row.xid;
-				$("#si").combobox({
-					url:"<%=path%>/items/stud",
-					method:'get',
-				    valueField:'id',
-				    textField:'name',
-				    panelHeight:'auto',
-				});
-				$("#si").combobox('setValue',row.student.intenname);
-				$("#si").combobox('select',row.student.intenid);
+				
+				$('#classbj').combobox({
+					url : 'classes',
+						editable : false, //不可编辑状态  
+						cache : false,
+						panelHeight : '150',
+						valueField : 'id',
+						textField : 'name',
+
+						onHidePanel : function() {
+							$("#si").combobox("setValue", '');
+							var id = $('#classbj').combobox('getValue');
+							
+							$.ajax({
+								type : "POST",
+								url : 'stud?classid='+id,
+								cache : false,
+								dataType : "json",
+								success : function(data) {
+									$("#si").combobox("loadData", data);
+									}
+								});
+						}
+					});
+					$('#si').combobox({   
+				        editable:false, //不可编辑状态  
+				        cache: false,  
+				        panelHeight: '150',//自动高度适合  
+				        valueField:'id',     
+				        textField:'name'  
+				       });  
+				
+				$("#classbj").combobox("setValue", row.student.classes.classid);
+				$("#classbj").combobox('select', row.student.classes.classname);
+				$("#si").combobox("setValue", row.student.intenid);
+				$("#si").combobox('select', row.student.intenname);	
+				
 				$("#sn").textbox("setValue", row.sname);
 				$("#sd").textbox("setValue", row.sdate);
 				$("#sc").textbox("setValue", row.score);

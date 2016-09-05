@@ -37,6 +37,8 @@ public class ItemsAction extends ActionSupport{
 	private ControllerResult result;
 	private List<Classes> classes;
 	private List<Student> student;
+	HttpSession session = ServletActionContext.getRequest().getSession();
+	User user=(User) session.getAttribute("user");
 
 	public void setitemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
@@ -67,9 +69,6 @@ public class ItemsAction extends ActionSupport{
 	}
 
 	public String add() {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user=(User) session.getAttribute("user");
-		System.out.println("user:+"+user);
 		Dep d=new Dep();
 		d.setEid(user.getDep().getEid()); 
 		items.setDep(d);
@@ -84,8 +83,6 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String update(){
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user=(User) session.getAttribute("user");
 		Dep d=new Dep();
 		d.setEid(user.getDep().getEid());
 		items.setDep(d);
@@ -106,6 +103,7 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
+		System.out.println("queryall");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		pager = new Pager<>();
 		pager.setPageNo(page);
@@ -114,46 +112,25 @@ public class ItemsAction extends ActionSupport{
 		int  begin=0;
 		int end=0;
 		int classid=0;
-		if(request.getParameter("class_name")!=null)
-			classid=Integer.valueOf(request.getParameter("class_name"));
+		if(request.getParameter("classid")!=null)
+			classid=Integer.valueOf(request.getParameter("classid"));
 		if(request.getParameter("begin")!=null)
 			begin=Integer.valueOf(request.getParameter("begin"));
 		if(request.getParameter("end")!=null)
 			end=Integer.valueOf(request.getParameter("end"));
 		
 		if(request.getParameter("name") != null){
-			pager = itemsService.queryByName(pager, request.getParameter("name"));
+			pager = itemsService.queryByName(pager, request.getParameter("name"),user.getDep().getEid());
 		}else if( classid!= 0){
-			System.out.println("classid:"+request.getParameter("class_name"));
-			pager = itemsService.queryByClass(pager, Integer.valueOf(request.getParameter("class_name")));
+			pager = itemsService.queryByClass(pager, Integer.valueOf(request.getParameter("classid")),user.getDep().getEid());
 		}else if(begin != 0 || end!=0){
-			pager = itemsService.queryByScore(pager, begin, end);
+			pager = itemsService.queryByScore(pager, begin, end,user.getDep().getEid());
 		}else{
-			pager = itemsService.queryAll(pager);	
+			pager = itemsService.queryAll(pager,user.getDep().getEid());	
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
-	}
-	
-	public String stud() throws IOException{
-		HttpServletRequest req = ServletActionContext.getRequest();
-		HttpServletResponse resp = ServletActionContext.getResponse();
-		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/json");
-		PrintWriter out=resp.getWriter();
-		student = itemsService.student();
-		List<Combox> list = new ArrayList<>();
-		for (Student stu : student) {
-			Combox combox = new Combox();
-			combox.setId(String.valueOf(stu.getIntenid()));
-			combox.setName(stu.getIntenname());
-			list.add(combox);
-		}
-		out.write(JSON.toJSONString(list));
-		out.close();
-		return "stud";
 	}
 	
 	public String classes() throws IOException{
@@ -174,6 +151,32 @@ public class ItemsAction extends ActionSupport{
 		out.write(JSON.toJSONString(list));
 		out.close();
 		return "all";
+	}
+	
+	public String stud() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		String clid=req.getParameter("classid");
+		int classid=0;
+		if(clid!=null){
+			classid=Integer.valueOf(clid);
+		}
+		
+		student = itemsService.student(classid);
+		List<Combox> list = new ArrayList<>();
+		for (Student stu : student) {
+			Combox combox = new Combox();
+			combox.setId(String.valueOf(stu.getIntenid()));
+			combox.setName(stu.getIntenname());
+			list.add(combox);
+		}
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "stud";
 	}
 	
 	public String all(){

@@ -25,6 +25,21 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 	
 	@Override
+	public Pager<Items> queryAll(Pager<Items> tem,int id) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Items where steacher=:id");
+		query.setInteger("id",id);
+		query.setFirstResult(tem.getBeginIndex());
+		query.setMaxResults(tem.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Items> list = query.list();
+		tem.setRows(list);
+		tem.setTotal((long) count());
+		session.close();
+		return tem;
+	}
+	
+	@Override
 	public Pager<Items> queryAll(Pager<Items> tem) {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Items");
@@ -86,10 +101,10 @@ public class ItemsDaoImp implements ItemsDao{
 
 
 	@Override
-	public Pager<Items> queryByName(Pager<Items> tem, String name) {
+	public Pager<Items> queryByName(Pager<Items> tem, String name,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where sname=:name");
-		query.setString("name", name);
+		Query query = session.createQuery("from Items where sname like '%"+name+"%' and steacher=:id");
+		query.setInteger("id", id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -101,10 +116,11 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 
 	@Override
-	public Pager<Items> queryByClass(Pager<Items> tem, int classid) {
+	public Pager<Items> queryByClass(Pager<Items> tem, int classid,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where student.classes.classid=:classid");
+		Query query = session.createQuery("from Items where student.classes.classid=:classid and steacher=:id");
 		query.setInteger("classid", classid);
+		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -116,9 +132,10 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 
 	@Override
-	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end) {
+	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end,int id) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where score between '"+begin+"' and '"+end+"'");
+		Query query = session.createQuery("from Items where steacher=:id and score between '"+begin+"' and '"+end+"'");
+		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -154,9 +171,10 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 
 	@Override
-	public List<Student> student() {
+	public List<Student> student(int c) {
 		session=sessionFactory.openSession();
-		Query q = session.createQuery("from Student");
+		Query q = session.createQuery("from Student where classid=:c");
+		q.setInteger("c",c);
 		@SuppressWarnings("unchecked")
 		List<Student> list=q.list();
 		session.close();

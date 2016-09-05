@@ -35,7 +35,12 @@ public class ItemsServiceImp implements ItemsService {
 	public void delete(Items t) {
 		itemsDao.delete(t);
 	}
-
+	
+	@Override
+	public Pager<Items> queryAll(Pager<Items> t,int items) {
+		return itemsDao.queryAll(t,items);
+	}
+	
 	@Override
 	public Pager<Items> queryAll(Pager<Items> t) {
 		return itemsDao.queryAll(t);
@@ -47,18 +52,18 @@ public class ItemsServiceImp implements ItemsService {
 	}
 
 	@Override
-	public Pager<Items> queryByName(Pager<Items> tem, String name) {
-		return itemsDao.queryByName(tem, name);
+	public Pager<Items> queryByName(Pager<Items> tem, String name,int id) {
+		return itemsDao.queryByName(tem, name,id);
 	}
 
 	@Override
-	public Pager<Items> queryByClass(Pager<Items> tem, int classid) {
-		return itemsDao.queryByClass(tem, classid);
+	public Pager<Items> queryByClass(Pager<Items> tem, int classid,int id) {
+		return itemsDao.queryByClass(tem, classid,id);
 	}
 
 	@Override
-	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end) {
-		return itemsDao.queryByScore(tem,begin,end);
+	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end,int id) {
+		return itemsDao.queryByScore(tem,begin,end,id);
 	}
 
 	@Override
@@ -77,8 +82,8 @@ public class ItemsServiceImp implements ItemsService {
 	}
 
 	@Override
-	public List<Student> student() {
-		return itemsDao.student();
+	public List<Student> student(int c) {
+		return itemsDao.student(c);
 	}
 
 

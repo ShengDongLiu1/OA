@@ -36,7 +36,7 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectClassWindow').dialog('open')"
        data-options="iconCls:'icon-add'">添加</a>
        <a href="javascript:(0);" class="easyui-linkbutton" onclick="$('#selectMultipleClassWindow').dialog('open')"
-       data-options="iconCls:'icon-add'">多个多个学生成绩</a>
+       data-options="iconCls:'icon-add'">添加多个学生成绩</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editScores();"
        data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="deleteGrade();"

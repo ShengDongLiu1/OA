@@ -71,6 +71,7 @@
             $("#eanton").textbox('setValue', row.eanton);
             $("#edu").textbox("setValue", row.edu);
             $("#eaddr").textbox('setValue', row.eaddr);
+            $("#basepay").textbox("setValue", row.basepay);
             $("#estatus").textbox("setValue", row.dstatuss.dsname);
             $("#depar1").combobox({
                 url: '<%=path%>/dep/tjls',
@@ -237,6 +238,7 @@
         <th data-options="field:'edu',width:100" align="center">学历</th>
         <th data-options="field:'eaddr',width:100" align="center">家庭住址</th>
         <th data-options="field:'etry',width:150" align="center">招聘时间</th>
+        <th data-options="field:'basepay',width:100" align="center">基本工资</th>
         <th data-options="field:'dstatuss',width:100" formatter="statuname" align="center">员工状态</th>
     </tr>
 
@@ -387,6 +389,13 @@
                 <td><br/><input class="easyui-textbox" id="eaddr" style="width: 150px;height: 55px;" name="dep.eaddr"
                                 data-options="multiline:true,required:true,novalidate:true"></td>
             </tr>
+            
+            <tr>
+                <td><br/>基本工资:</td>
+                <td><br/><input class="easyui-textbox easyui-numberbox" id="basepay" style="width: 150px;" name="dep.basepay"
+                                data-options="required:true,validType:'length[3,10]',novalidate:true"
+                                style="width:200px"></td>
+            </tr>
             <tr>
                 <td>选择状态:</td>
                 <td><br>
@@ -437,7 +446,7 @@
             </tr>
             <tr>
                 <td><br/>员工手机:</td>
-                <td><br/><input class="easyui-textbox" id="enumber" style="width: 150px;" name="dep.enumber"
+                <td><br/><input class="easyui-textbox easyui-numberbox" id="enumber" style="width: 150px;" name="dep.enumber"
                                 data-options="required:true,validType:'length[11,11]',novalidate:true"
                                 style="width:150px"></td>
             </tr>
@@ -531,6 +540,12 @@
                 <td><br/>家庭住址:</td>
                 <td><br/><input class="easyui-textbox" data-options="multiline:true" name="dep.eaddr"
                                 style="width: 150px;height: 55px;"/></td>
+            </tr>
+               
+            <tr>
+                <td><br/>基本工资:</td>
+                <td><br/><input class="easyui-textbox easyui-numberbox" style="width: 150px;" name="dep.basepay"
+                                data-options="required:true,validType:'length[3,10]',novalidate:true"></td>
             </tr>
             <tr>
                 <td>选择职位:</td>

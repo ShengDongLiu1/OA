@@ -38,7 +38,10 @@
             <column name="eaddr"/>
         </property>
         <property name="etry" type="java.util.Date">
-            <column name="etry" length="0"/>
+            <column name="etry" />
+        </property>
+        <property name="basepay" type="java.lang.Double">
+        	<column name="basepay"></column>
         </property>
         
 		<!-- 多个员工一个部门 -->

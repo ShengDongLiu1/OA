@@ -232,7 +232,7 @@
         <th data-options="field:'edu',width:100" align="center">学历</th>
         <th data-options="field:'eaddr',width:100" align="center">家庭住址</th>
         <th data-options="field:'etry',width:100" align="center">招聘时间</th>
-        <th data-options="field:'ecreate',width:100" align="center">创建时间</th>
+        <th data-options="field:'basepay',width:100" align="center">基本工资</th>
     </tr>
 
     </thead>

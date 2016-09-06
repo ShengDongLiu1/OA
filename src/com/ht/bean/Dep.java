@@ -25,6 +25,7 @@ public class Dep implements java.io.Serializable {
 	private String eaddr;
 	private Date etry;
 	private String ecreate;
+	private Double basepay;
 	
     private Set<User> users;
 	private Set<Fankui> fankuis;
@@ -165,6 +166,15 @@ public class Dep implements java.io.Serializable {
 
 	public void setEcreate(String ecreate) {
 		this.ecreate = ecreate;
+	}
+	
+
+	public Double getBasepay() {
+		return basepay;
+	}
+
+	public void setBasepay(Double basepay) {
+		this.basepay = basepay;
 	}
 
 	@JSON(serialize=false)

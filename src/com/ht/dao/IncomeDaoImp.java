@@ -24,11 +24,40 @@ public class IncomeDaoImp implements IncomeDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
+	@Override
+	public Pager<Income> queryByTime(Pager<Income> pager,String begin,String end) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Income where mdate between '"+begin+"' and '"+end+"' order by monid DESC");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Income> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Pager<Income> queryByName(Pager<Income> pager,String name) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Income where mname like :name order by monid DESC");
+		query.setString("name","%"+name+"%");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Income> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+	
 	@Override
 	public Pager<Income> queryAll(Pager<Income> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Income");
+		Query query = session.createQuery("from Income order by monid DESC");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

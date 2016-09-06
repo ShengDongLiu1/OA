@@ -1,6 +1,7 @@
 package com.ht.action;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import com.ht.bean.Expend;
 import com.ht.common.Pager;
@@ -67,11 +68,21 @@ public class ExpendAction extends ActionSupport{
 	}
 
 	public String queryAll() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String  begin=request.getParameter("begin");
+		String end=request.getParameter("end");
+		String name=request.getParameter("name");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = expendService.queryAll(pager);
+		if(begin!=null || end!=null){
+			pager = expendService.queryByTime(pager,begin,end);
+		}else if(name!=null){
+			pager = expendService.queryByName(pager,name);
+		}else{
+			pager = expendService.queryAll(pager);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

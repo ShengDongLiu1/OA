@@ -120,11 +120,21 @@ public class IncomeAction extends ActionSupport {
 	}
 
 	public String queryAll() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String  begin=request.getParameter("begin");
+		String end=request.getParameter("end");
+		String name=request.getParameter("name");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = incomeService.queryAll(pager);
+		if(begin!=null || end!=null){
+			pager = incomeService.queryByTime(pager, begin, end);
+		}else if(name!=null){
+			pager = incomeService.queryByName(pager, name);
+		}else{
+			pager = incomeService.queryAll(pager);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

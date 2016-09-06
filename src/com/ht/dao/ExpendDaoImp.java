@@ -20,11 +20,39 @@ public class ExpendDaoImp implements ExpendDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
+	@Override
+	public Pager<Expend> queryByTime(Pager<Expend> pager,String begin,String end) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Expend where ptime between '"+begin+"' and '"+end+"' order by payid DESC");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Expend> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Pager<Expend> queryByName(Pager<Expend> pager,String name) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Expend where payname like '%"+name+"%' order by payid DESC");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Expend> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+	
 	@Override
 	public Pager<Expend> queryAll(Pager<Expend> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Expend");
+		Query query = session.createQuery("from Expend order by payid DESC");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")

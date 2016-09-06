@@ -43,4 +43,14 @@ public class ExpendServiceImp implements ExpendService {
 		return expenddao.count();
 	}
 
+	@Override
+	public Pager<Expend> queryByTime(Pager<Expend> pager, String begin, String end) {
+		return expenddao.queryByTime(pager,begin,end);
+	}
+
+	@Override
+	public Pager<Expend> queryByName(Pager<Expend> pager, String name) {
+		return expenddao.queryByName(pager, name);
+	}
+
 }

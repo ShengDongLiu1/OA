@@ -55,4 +55,14 @@ public class IncomeServiceImp implements IncomeService {
 		incomedao.batchSave(grades);
 	}
 
+	@Override
+	public Pager<Income> queryByTime(Pager<Income> pager, String begin, String end) {
+		return incomedao.queryByTime(pager, begin, end);
+	}
+
+	@Override
+	public Pager<Income> queryByName(Pager<Income> pager, String name) {
+		return incomedao.queryByName(pager, name);
+	}
+
 }

@@ -4,23 +4,23 @@
 
 <hibernate-mapping>
     <class name="com.ht.bean.Income" table="income" catalog="oa">
-        <id name="monid" type="java.lang.Integer">
+        <id name="monid">
             <column name="monid" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
-        <property name="moncount" type="java.lang.Double">
-            <column name="moncount" precision="10" scale="2">
+        <property name="moncount">
+            <column name="moncount" >
             </column>
         </property>
-        <property name="monpro" type="java.lang.String">
+        <property name="monpro" >
             <column name="monpro">
             </column>
         </property>
-        <property name="mname" type="java.lang.String">
+        <property name="mname">
             <column name="mname">
             </column>
         </property>
-        <property name="mdate" type="java.util.Date">
+        <property name="mdate">
             <column name="mdate">
             </column>
         </property>

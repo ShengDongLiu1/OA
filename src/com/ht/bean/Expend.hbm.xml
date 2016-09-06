@@ -4,24 +4,24 @@
 
 <hibernate-mapping>
     <class name="com.ht.bean.Expend" table="expend" catalog="oa">
-        <id name="payid" type="java.lang.Integer">
+        <id name="payid">
             <column name="payid" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
-        <property name="paypro" type="java.lang.String">
-            <column name="paypro" length="1000">
+        <property name="paypro">
+            <column name="paypro">
             </column>
         </property>
-        <property name="paycount" type="java.lang.Double">
+        <property name="paycount">
             <column name="paycount">
             </column>
         </property>
-        <property name="ptime" type="java.util.Date">
+        <property name="ptime">
             <column name="ptime">
             </column>
         </property>
-        <property name="payname" type="java.lang.String">
-            <column name="payname" length="1000">
+        <property name="payname">
+            <column name="payname">
             </column>
         </property>
     </class>

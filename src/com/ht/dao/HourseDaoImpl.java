@@ -63,7 +63,7 @@ public class HourseDaoImpl implements HourseDao{
 	@Override
 	public Pager<Hourse> queryAll(Pager<Hourse> pager) {
 		session=sessionFactory.openSession();
-		Query query=session.createQuery("from Hourse");
+		Query query=session.createQuery("from Hourse order by hourid DESC");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -88,7 +88,7 @@ public class HourseDaoImpl implements HourseDao{
 		Query query = session.createQuery("from Hourse");
 		@SuppressWarnings("unchecked")
 		List<Hourse> d  = query.list();
-		session.close();
+//		session.close();
 		return d;
 	}
 

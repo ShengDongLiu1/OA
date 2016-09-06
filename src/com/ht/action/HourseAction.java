@@ -53,6 +53,8 @@ public class HourseAction extends ActionSupport {
 	}
 
 	public String add(){
+		System.out.println("hourse:"+hourse);
+		hourse.setHourhkz(hourse.getHourkz()-hourse.getHouryz());
 		hourse = hourseService.add(hourse);
 		if(hourse == null){
 			result = ControllerResult.getFailResult("添加失败");
@@ -68,6 +70,7 @@ public class HourseAction extends ActionSupport {
 	}
 	
 	public String update(){
+		hourse.setHourhkz(hourse.getHourkz()-hourse.getHouryz());
 		hourse = hourseService.update(hourse);
 		if(hourse == null){
 			result = ControllerResult.getFailResult("修改失败");

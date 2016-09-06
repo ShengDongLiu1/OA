@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>值班情况</title>
+    <title>宿舍管理</title>
     <link rel="stylesheet" href="<%=path %>/js/jquery-easyui/themes/default/easyui.css"/>
     <link rel="stylesheet" href="<%=path %>/css/site_main.css"/>
     <link rel="stylesheet" type="text/css" href="/Automation/js/jquery-easyui/themes/icon.css">
@@ -28,6 +28,9 @@
     <tr>
         <th data-options="field:'hourid',checkbox:true,width:100" align="center">宿舍编号</th>
         <th data-options="field:'hourname',width:100" align="center">宿舍名称</th>
+        <th data-options="field:'hourkz',width:100" align="center">固定人数</th>
+        <th data-options="field:'houryz',width:100" align="center">已住人数</th>
+        <th data-options="field:'hourhkz',width:100" align="center">可住人数</th>
     </tr>
     </thead>
 </table>
@@ -47,8 +50,20 @@
             <table cellpadding="5">
                 <tr>
                     <td>宿舍名称:</td>
-                    <td><input class="easyui-textbox" id="hourname" data-options="required:true"/></td>
+                    <td><input class="easyui-textbox" id="hourname" name="hourse.hourname" data-options="required:true"/></td>
                 </tr>
+                 <tr>
+                    <td>固定人数:</td>
+                    <td><input name="hourse.hourkz" id="hourkz" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+                </tr>
+                 <tr>
+                    <td>已住人数:</td>
+                    <td><input name="hourse.houryz" id="houryz" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+                </tr>
+                <!--  <tr>
+                    <td>可住人数:</td>
+                    <td><input name="hourse.hourhkz" id="hourhkz" type="text" class="easyui-numberbox" data-options="max:1000.00,min:0,maxlength:4"  /></td>
+                </tr> -->
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="add();"
@@ -65,20 +80,29 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
+        <input type="hidden" id="hid" name="hourse.hourid" />
             <table>
-                <tr>
-                    <td>宿舍编号</td>
-                    <td>
-                        <input class="textbox" name="hourid" id="hid" readonly/>
-                    </td>
-                </tr>
                 <tr>
                     <td>宿舍名称</td>
                     <td>
-                        <input class="easyui-validatebox textbox" name="hourname" id="hname"
-                               data-options="required:true"/><!-- 由dataoptions指定验证的规则 -->
+                        <input class="easyui-textbox" name="hourse.hourname" id="hna"
+                               data-options="required:true"/>
                     </td>
                 </tr>
+                <tr>
+                    <td>固定人数:</td>
+                    <td>
+                   		<input name="hourse.hourkz" id="gdr" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true"   />
+                    </td>
+                </tr>
+                 <tr>
+                    <td>已住人数:</td>
+                    <td> <input name="hourse.houryz" id="yzr" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+                </tr>
+               <!--   <tr>
+                    <td>可住人数:</td>
+                    <td> <input name="hourse.hourhkz" id="kzr" type="text" class="easyui-numberbox" data-options="max:1000.00,min:0,maxlength:4"  /></td>
+                </tr> -->
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
                 <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="edit();"
@@ -114,60 +138,63 @@
     }
     // 添加(提交後臺)
     function add() {
-        if ($("#ff").form("validate")) {
-            var hoursename = $("#hourname").val();
-            $.post('hourse/add', {'hourse.hourname': hoursename},
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#addWindow").window("close");
-                                $("#list").datagrid("reload");
-                                $("#ff").form("clear");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.msg, "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
+    	 toValidate("ff");
+	     if (validateForm("ff")){
+			$.get('hourse/add',
+				$("#ff").serialize(),
+				function(data) {
+				if (data.result.result == 'success') {
+					$.messager.alert("提示", data.result.msg, "info", function() {
+						$("#addWindow").window("close");
+						$("#list").datagrid("reload");
+						$("#ff").form("clear");
+					});
+				} else {
+					$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+				}
+			},"JSON");
+		}
+		$("#list").datagrid("reload");
     }
 
     // 打开编辑窗口
     function editOpen() {
         var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
         if (row) {
-            $("#editForm").form("load", row);
+        	document.getElementById("hid").value=row.hourid;
+            $("#hna").textbox("setValue", row.hourname);
+			$("#gdr").numberbox("setValue", row.hourkz);
+			$("#yzr").numberbox("setValue", row.houryz);
+			/* $("#kzr").numberbox("setValue", row.hourhkz); */
             $("#editWindow").window("open");
+            
         } else {
             $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
         }
     }
     // 编辑提交
     function edit() {
-        if ($("#editForm").form("validate")) {
-            var hourseid = $("#hid").val();
-            var hoursename = $("#hname").val();
-
-            //alert(did+"  "+eid +" "+ddatetime+" "+drange+" "+ddesc);
-            $.get('hourse/update', {'hourse.hourid': hourseid, 'hourse.hourname': hoursename},
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#editWindow").window("close");
-                                $("#list").datagrid("reload");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
+    	if($("#editForm").form("validate")){
+			$.get('update',$("#editForm").serialize(),
+				function(data) {
+				if (data.result.result == 'success') {
+					$.messager.alert("提示", data.result.msg, "info", function() {
+						$("#editWindow").window("close");
+						$("#list").datagrid("reload");
+						$("#editForm").form("clear");
+					});
+				} else {
+					$.messager.alert("提示", data.result.msg + " 请稍候再试", "info");
+				}
+			},"JSON");
+		}
+    	$("#list").datagrid("reload");
     }
     //删除
     function expurgate() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $.messager.confirm("提示", "确认要删除这个产品吗？", function (r) {
+            $.messager.confirm("提示", "确认要删除这个选项吗？", function (r) {
                 if (r) {
                     $.post("hourse/delete", {'hourse.hourid': row.hourid}, function (data) {
                         if (data.result.result == "success") {
@@ -180,7 +207,7 @@
                 }
             });
         } else {
-            $.messager.alert('提示', '请选中需要删除的产品', 'info');
+            $.messager.alert('提示', '请选中需要删除的选项', 'info');
         }
     }
     // 关闭窗口

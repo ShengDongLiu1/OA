@@ -10,11 +10,17 @@
             <column name="comid" />
             <generator class="native" />
         </id>
+        <property name="comno" type="java.lang.Integer">
+            <column name="comno" />
+        </property>
         <property name="coma" type="java.lang.String">
             <column name="coma" />
         </property>
         <property name="comb" type="java.lang.String">
             <column name="comb" />
+        </property>
+        <property name="reason" type="java.lang.String">
+            <column name="reason" />
         </property>
         <many-to-one name="student" class="com.ht.bean.Student" lazy="false" column="stuid" cascade="delete" ></many-to-one>
     </class>

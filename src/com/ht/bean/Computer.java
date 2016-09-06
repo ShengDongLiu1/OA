@@ -11,8 +11,10 @@ public class Computer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer comid;
+	private Integer comno;
 	private String coma;
 	private String comb;
+	private String reason;
 	private Integer stuid;
 	
 	private Student student;
@@ -62,6 +64,22 @@ public class Computer implements java.io.Serializable {
 
 	public void setComb(String comb) {
 		this.comb = comb;
+	}
+	
+	public Integer getComno() {
+		return comno;
+	}
+
+	public void setComno(Integer comno) {
+		this.comno = comno;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 	public Integer getStuid() {

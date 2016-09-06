@@ -40,7 +40,7 @@
 				<th data-options="field:'gtotle',width:100" align="center">物品总价</th>
 				<th data-options="field:'gpurpose',width:100" align="center">物品用途</th>
 				<th data-options="field:'adatetime',width:100" align="center">申请时间</th>
-				<th data-options="field:'astatus',width:100" align="center">状态</th>
+				<th data-options="field:'astatus',width:100" align="center" formatter="formatPrice">状态</th>
 			</tr>
 		</thead>
 	</table>
@@ -86,7 +86,7 @@
 					</tr>
 					<tr>
 						<td>物品数量:</td>
-						<td><input class="easyui-textbox" name="apply.gcounts"
+						<td><input class="easyui-numberbox" name="apply.gcounts"
 							data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 					</tr>
 					<tr>
@@ -128,7 +128,7 @@
 				</tr>
 				<tr>
 					<td>物品数量</td>
-					<td><input class="easyui-textbox" id="gs" name="apply.gcounts" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+					<td><input class="easyui-numberbox" id="gs" name="apply.gcounts" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 				</tr>
 				<tr>
 					<td>物品单价</td>
@@ -324,6 +324,15 @@
 		  		time:'',
 		  		status:''
 			});
+		}
+		function formatPrice(val,row){
+			if (val == "未购买"){
+				return val;
+			} else if(val == "已审批"){
+				return '<span style="color:red;">'+val+'</span>';
+			} else if(val == "已购买"){
+				return '<span style="color:green;">'+val+'</span>';
+			}
 		}
 	</script>
 </body>

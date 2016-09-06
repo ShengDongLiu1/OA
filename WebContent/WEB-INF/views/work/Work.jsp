@@ -62,12 +62,12 @@
 			  			<td><input class="easyui-textbox" id="wname" name="work.wname" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
 			  		</tr>
 			  		<tr>
-			  			<td>数量:</td>
-			  			<td><input class="easyui-textbox" id="wcount" name="work.wcount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+			  			<td>可用数量:</td>
+			  			<td><input class="easyui-numberbox" id="wcount" name="work.wcount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 			  		</tr>
 			  		<tr>
-			  			<td>数量:</td>
-			  			<td><input class="easyui-textbox" id="wamount" name="work.wamount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
+			  			<td>总数量:</td>
+			  			<td><input class="easyui-numberbox" id="wamount" name="work.wamount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 			  		</tr>
 				</table>
 				<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -95,15 +95,15 @@
 					<td><input class="easyui-textbox" id="wn" name="work.wname" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
 				</tr>
 				<tr>
-					<td>数量</td>
+					<td>可用数量</td>
 					<td>
-						<input class="easyui-textbox" name="work.wcount" id="wc" data-options="required:true,validType:'length[1,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
+						<input class="easyui-numberbox" name="work.wcount" id="wc" data-options="required:true,validType:'length[1,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
 					</td>
 				</tr>
 				<tr>
-					<td>数量</td>
+					<td>总数量</td>
 					<td>
-						<input class="easyui-textbox" name="work.wamount" id="wa" data-options="required:true,validType:'length[1,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
+						<input class="easyui-numberbox" name="work.wamount" id="wa" data-options="required:true,validType:'length[1,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
 					</td>
 				</tr>
 			</table>
@@ -155,20 +155,27 @@
 		}
 		// 添加(提交後臺)
 		 function add(){
+			 var k =$('#wcount').textbox('getValue');
+			 var z =$('#wamount').textbox('getValue');
 			 toValidate("ff");
 		     if (validateForm("ff")){
-				$.post('<%=path%>/work/add',$("#ff").serialize(),
-					function(data) {
-					if (data.result.result == 'success') {
-						$.messager.alert("提示", data.result.msg, "info", function() {
-							$("#addWindow").window("close");
-							$("#list").datagrid("reload");
-							$("#ff").form("clear");
-						});
-					} else {
-						$.messger.alert("提示", data.msg, "info");
-					}
-				},"JSON");
+		    	 if(k > z){
+		    		 $.messager.alert('提示', '可用数量不能大于总量', 'info');
+		    	 }else{
+		    		 $.post('<%=path%>/work/add',$("#ff").serialize(),
+	 					function(data) {
+	 					alert(9)
+	 					if (data.result.result == 'success') {
+	 						$.messager.alert("提示", data.result.msg, "info", function() {
+	 							$("#addWindow").window("close");
+	 							$("#list").datagrid("reload");
+	 							$("#ff").form("clear");
+	 						});
+	 					} else {
+	 						$.messger.alert("提示",data.result.msg, "info");
+	 					}
+	 				},"JSON");
+		    	 }
 			}
 		} 
 		// 打开编辑窗口
@@ -199,19 +206,25 @@
 		}
 		// 编辑提交
 		function edit(){
+			var k =$('#wc').textbox('getValue');
+			var z =$('#wa').textbox('getValue');
 			toValidate("editForm");
 	    	if (validateForm("editForm")){
-				$.post('update',$("#editForm").serialize(),
-					function(data) {
-					if (data.result.result == 'success') {
-						$.messager.alert("提示", data.result.msg, "info", function() {
-							$("#editWindow").window("close");
-							$("#list").datagrid("reload");
-						});
-					} else {
-						$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
-					}
-				},"JSON");
+	    		if(k > z){
+		    		 $.messager.alert('提示', '可用数量不能大于总量', 'info');
+		    	 }else{
+					$.post('update',$("#editForm").serialize(),
+						function(data) {
+						if (data.result.result == 'success') {
+							$.messager.alert("提示", data.result.msg, "info", function() {
+								$("#editWindow").window("close");
+								$("#list").datagrid("reload");
+							});
+						} else {
+							$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+						}
+					},"JSON");
+		    	 }
 			}
 		}
 		//删除

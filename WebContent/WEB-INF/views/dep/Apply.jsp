@@ -326,7 +326,7 @@
 			});
 		}
 		function formatPrice(val,row){
-			if (val == "未购买"){
+			if (val == "未审批"){
 				return val;
 			} else if(val == "已审批"){
 				return '<span style="color:red;">'+val+'</span>';

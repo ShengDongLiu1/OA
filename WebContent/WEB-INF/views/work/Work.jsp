@@ -189,13 +189,9 @@
 				    valueField:'id',
 				    textField:'name',
 				    panelHeight:'auto',
-				    onLoadSuccess: function () { //数据加载完毕事件
-		                var data = $('#wt').combobox('getData');
-		                if (data.length > 0) {
-		                    $("#wt").combobox('select', data[0].id);
-		                }
-		            }
 				});
+				$("#wt").combobox("setValue",row.worktype.swname);
+				$("#wt").combobox('select',row.worktype.swid);
 				$("#wn").textbox("setValue", row.wname);
 				$("#wc").textbox("setValue", row.wcount);
 				$("#wa").textbox("setValue", row.wamount);

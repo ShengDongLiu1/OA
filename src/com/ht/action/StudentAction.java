@@ -1,5 +1,7 @@
 package com.ht.action;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -11,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSON;
@@ -160,12 +167,10 @@ public class StudentAction extends ActionSupport {
 	}
 
 	public String update() {
+		student.setHourid(student.getHourse().getHourid());
+		student.setClassid(student.getClasses().getClassid());
 		student = studentService.update(student);
-		if (student == null) {
-			result = ControllerResult.getFailResult("修改失败");
-		} else {
-			result = ControllerResult.getSuccessRequest("修改成功");
-		}
+		result = ControllerResult.getSuccessRequest("修改成功");
 		return SUCCESS;
 	}
 
@@ -311,5 +316,93 @@ public class StudentAction extends ActionSupport {
 		}
 		
 		return SUCCESS;
+	}
+	
+	
+	public String daochu() throws Exception{
+		// 声明一个工作薄
+       HSSFWorkbook hwb = new HSSFWorkbook();
+       //声明一个单子并命名
+       HSSFSheet sheet = hwb.createSheet("学生表");
+       //给单子名称一个长度
+       sheet.setDefaultColumnWidth((int)15);
+       // 生成一个样式  
+       HSSFCellStyle style = hwb.createCellStyle();
+       //创建第一行（也可以称为表头）
+       HSSFRow row = sheet.createRow(0);
+       //样式字体居中
+       style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+       //给表头第一行一次创建单元格
+       HSSFCell cell = row.createCell((int) 0);
+       cell.setCellValue("编号");
+       cell.setCellStyle(style); 
+       cell = row.createCell((int) 1);
+       cell.setCellValue("姓名");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 2);
+       cell.setCellValue("毕业学校");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 3);
+       cell.setCellValue("性别");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 4);
+       cell.setCellValue("年龄");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 5);
+       cell.setCellValue("手机号码");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 6);
+       cell.setCellValue("家长姓名");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 7);
+       cell.setCellValue("家长电话号码");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 8);
+       cell.setCellValue("家庭住址");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 9);
+       cell.setCellValue("所在班级");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 10);
+       cell.setCellValue("所在宿舍");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 11);
+       cell.setCellValue("入学时间");
+       cell.setCellStyle(style);
+	   	pager = new Pager<>();
+		pager.setPageNo(page);
+		pager.setPageSize(100);
+		pager = studentService.queryAll(pager);
+        List<Student> list = pager.getRows();
+        try{
+	          //向单元格里填充数据
+			for (short i = 0; i < list.size(); i++) {
+				row = sheet.createRow(i + 1);
+				row.createCell(0).setCellValue(list.get(i).getIntenid());
+				row.createCell(1).setCellValue(list.get(i).getIntenname());
+				row.createCell(2).setCellValue(list.get(i).getIntensch());
+				row.createCell(3).setCellValue(list.get(i).getIntensex());
+				row.createCell(4).setCellValue(list.get(i).getIntenage());
+				row.createCell(5).setCellValue(list.get(i).getIntentel());
+				row.createCell(6).setCellValue(list.get(i).getIntenfat());
+				row.createCell(7).setCellValue(list.get(i).getIntenfatel());
+				row.createCell(8).setCellValue(list.get(i).getIntenaddr());
+				row.createCell(9).setCellValue(list.get(i).getClasses().getClassname());
+				row.createCell(10).setCellValue(list.get(i).getHourse().getHourname());
+				row.createCell(11).setCellValue(list.get(i).getIntendate());
+			}
+        }catch(NullPointerException e){
+        	 e.printStackTrace();
+        }
+         
+       try {  
+           FileOutputStream out = new FileOutputStream("D:/导出文件/student.xls");
+           hwb.write(out);
+           out.flush();
+           out.close();
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       }
+		return "all";
 	}
 }

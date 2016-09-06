@@ -239,27 +239,6 @@ public class DepAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String queryByName(){
-		int count = 0;
-		pager = new Pager<>();
-		pager.setPageNo(page);
-		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
-		pager.setPageSize(pageSize);
-		HttpServletRequest req = ServletActionContext.getRequest();
-		HttpSession session = req.getSession();
-		String ename = session.getAttribute("ename").toString();
-		pager = depService.queryByName(pager, ename);
-		for(Dep d : pager.getRows()){
-			count ++;
-			Department depar = d.getDepartments();
-			if(depar != null){
-				d.setMid(depar.getDid());
-			}
-		}
-		rows = pager.getRows();
-		total = count;
-		return SUCCESS;
-	}
 	
 	public String byname(){
 		HttpServletRequest req = ServletActionContext.getRequest();
@@ -339,22 +318,26 @@ public class DepAction extends ActionSupport{
 		pager.setPageSize(100);
 		pager = depService.queryAll(pager);
         List<Dep> list = pager.getRows();
-          //向单元格里填充数据
-		for (short i = 0; i < list.size(); i++) {
-			row = sheet.createRow(i + 1);
-			row.createCell(0).setCellValue(list.get(i).getEid());
-			row.createCell(1).setCellValue(list.get(i).getEname());
-			row.createCell(2).setCellValue(list.get(i).getEsex());
-			row.createCell(3).setCellValue(list.get(i).getDepartments().getDname());
-			row.createCell(4).setCellValue(list.get(i).getEbirth());
-			row.createCell(5).setCellValue(list.get(i).getEnumber());
-			row.createCell(6).setCellValue(list.get(i).getEcertid());
-			row.createCell(7).setCellValue(list.get(i).getEcity());
-			row.createCell(8).setCellValue(list.get(i).getEanton());
-			row.createCell(9).setCellValue(list.get(i).getEdu());
-			row.createCell(10).setCellValue(list.get(i).getEaddr());
-			row.createCell(11).setCellValue(list.get(i).getDstatuss().getDsname());
-		}
+        try{
+	          //向单元格里填充数据
+			for (short i = 0; i < list.size(); i++) {
+				row = sheet.createRow(i + 1);
+				row.createCell(0).setCellValue(list.get(i).getEid());
+				row.createCell(1).setCellValue(list.get(i).getEname());
+				row.createCell(2).setCellValue(list.get(i).getEsex());
+				row.createCell(3).setCellValue(list.get(i).getDepartments().getDname());
+				row.createCell(4).setCellValue(list.get(i).getEbirth());
+				row.createCell(5).setCellValue(list.get(i).getEnumber());
+				row.createCell(6).setCellValue(list.get(i).getEcertid());
+				row.createCell(7).setCellValue(list.get(i).getEcity());
+				row.createCell(8).setCellValue(list.get(i).getEanton());
+				row.createCell(9).setCellValue(list.get(i).getEdu());
+				row.createCell(10).setCellValue(list.get(i).getEaddr());
+				row.createCell(11).setCellValue(list.get(i).getDstatuss().getDsname());
+			}
+        }catch(NullPointerException e){
+        	e.printStackTrace();
+        }
          
        try {  
            FileOutputStream out = new FileOutputStream("D:/导出文件/dep.xls");

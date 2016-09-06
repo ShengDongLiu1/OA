@@ -47,6 +47,16 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>
+   <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
+   	<input class="easyui-textbox" id="tiaoname" size="10px" />
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
+    <input class="easyui-combobox" data-options="required:true"
+				style="width: 150px;" id="classid" name="student.classes.classid" /> <a
+				href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryByClassName();">按照班级查询</a>   
+	<a href="javascript:;" class="easyui-linkbutton"
+				data-options="iconCls:'icon-search'" onclick="queryall();">查询全部</a>			
+				
 </div>
 <!-- 添加窗口 -->
 <div style="margin:20px 0;"></div>
@@ -419,7 +429,6 @@
                         }
                     }, "JSON");
         }
-        $("#list").datagrid('reload');
     }
     // 打开编辑窗口
     function editOpen() {
@@ -464,7 +473,7 @@
     function edit() {
     	toValidate("editForm");
     	if (validateForm("editForm")){
-            $.get('stu/update', $("#editForm").serialize(),
+            $.post('stu/update', $("#editForm").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
                             $.messager.alert("提示", data.result.msg, "info", function () {
@@ -476,7 +485,6 @@
                         }
                     }, "JSON");
         }
-        $("#list").datagrid('reload');
     }
     //删除
     function expurgate() {
@@ -497,12 +505,52 @@
         } else {
             $.messager.alert('提示', '请选中需要删除的学生记录', 'info');
         }
-        $("#list").datagrid('reload');
     }
     // 关闭窗口
     function Winclose(c) {
         $("#" + c).window("close");
     }
+    
+    
+    function daochu(){ 
+    	window.location.href='<%=path %>/stu/daochu';
+    	$.messager.alert('提示', '导出成功', 'info');
+    }
+    
+	function queryByDepName() {
+        //按条件进行查询数据，首先我们得到数据的值
+        tiaoname=$('#tiaoname').val()
+        $('#list').datagrid('load',{  
+        	tiaoname:tiaoname
+        });
+	}
+	function queryByClassName() {
+        classid=$('#classid').combobox("getValue");
+        $('#list').datagrid('load',{  
+        	classid:classid
+        });
+	}
+	
+	function queryall(){
+		$('#list').datagrid('load',{
+		});
+	}
+	$(function(){
+		$("#classid").combobox({
+            url: "<%=path%>/rawpun/tjls",
+            method: 'get',
+            valueField: 'id',
+            textField: 'name',
+            panelHeight: 'auto',
+            onLoadSuccess: function () { //数据加载完毕事件
+                var data = $('#classid').combobox('getData');
+                if (data.length > 0) {
+                    $("#classid").combobox('select', data[0].id);
+                }
+            }
+        });
+	});
+	
 </script>
 </body>
 </html>

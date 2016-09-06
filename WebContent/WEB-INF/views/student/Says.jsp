@@ -400,7 +400,7 @@
 				data-options="iconCls:'icon-search'" onclick="queryByClassName();">按照班级查询</a> <input
 				class="easyui-textbox" style="width: 150px;" id="tiaoname" name="rawpun.jstuid" />
 				<a href="javascript:;" class="easyui-linkbutton"
-				data-options="iconCls:'icon-search'" onclick="queryName();">模糊查询</a>
+				data-options="iconCls:'icon-search'" onclick="queryName();">按姓名查询</a>
 				<a href="javascript:;" class="easyui-linkbutton"
 				data-options="iconCls:'icon-search'" onclick="queryall();">查询全部</a>
 		</div>

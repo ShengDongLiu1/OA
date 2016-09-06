@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ht.bean.Msg;
 import com.ht.bean.User;
@@ -50,10 +52,14 @@ public class HomeAction extends ActionSupport {
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
 	}
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeAction.class);
 
 	public String login() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
+		User user = (User) session.getAttribute("user");
 		session.invalidate();
+		logger.info("用户：" + user.getUname() + "  退出了系统...");
 		return "login";
 	}
 
@@ -82,6 +88,7 @@ public class HomeAction extends ActionSupport {
 			if(oldPass.equals(pwd)){
 				userService.updatePwd(name.getUname(), password);
 				result = ControllerResult.getSuccessRequest("修改密码成功!");
+				logger.info("用户：" + name.getUname() + "  修改了密码...");
 			} else {
 				result = ControllerResult.getFailResult("原密码输入错误!");
 			}

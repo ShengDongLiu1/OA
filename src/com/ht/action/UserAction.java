@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ht.bean.Msg;
 import com.ht.bean.User;
@@ -78,6 +80,8 @@ public class UserAction extends ActionSupport {
 
 	/////////////////////////
 
+	private static final Logger logger = LoggerFactory.getLogger(UserAction.class);
+
 	public String getSet() {
 		return "set";
 	}
@@ -86,11 +90,12 @@ public class UserAction extends ActionSupport {
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		String code = (String) session.getAttribute("checkCode");
 		String password = EncryptUtil.md5(user.getPwd());
+		logger.info("用户：" + user.getUname() + "  尝试登录系统...");
 		if (checkCode != null && checkCode.equals(code)) {
 			User users = new User();
 			users = userService.query(user);
 			if (users != null) {
-				if(users.getPwd().equals(password)){
+				if (users.getPwd().equals(password)) {
 					session.setAttribute("user", users);
 					session.setAttribute("password", password);
 					session.setAttribute("email", user.getUname());
@@ -98,16 +103,19 @@ public class UserAction extends ActionSupport {
 					Msgs = userService.queryAllMsg();
 					ServletActionContext.getRequest().setAttribute("Msgs", Msgs);
 					result = ControllerResult.getSuccessRequest("正在执行登录!");
-				}else{
+					logger.info("用户：" + user.getUname() + "  登录系统成功...");
+				} else {
 					result = ControllerResult.getFailResult("用户名或密码错误!");
+					logger.info("用户：" + user.getUname() + "  登录系统失败,密码错误.");
 				}
 			} else {
 				result = ControllerResult.getFailResult("用户名或密码错误!");
+				logger.info("用户：" + user.getUname() + "  登录系统失败,用户名错误.");
 			}
 		} else {
 			result = ControllerResult.getFailResult("验证码输入错误!");
 		}
 		return SUCCESS;
 	}
-	
+
 }

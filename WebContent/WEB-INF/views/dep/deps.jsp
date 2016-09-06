@@ -208,6 +208,11 @@
             $.messager.alert('提示', '请选中需要查看的员工', 'info');// messager消息控件
         }
     }
+    
+    function daochu(){ 
+    	window.location.href='<%=path %>/dep/daochu';
+    	$.messager.alert('提示', '导出成功', 'info');
+    }
 
 </script>
 </head>
@@ -257,6 +262,7 @@
            data-options="iconCls:'icon-edit'" onclick="edit();">修改</a>
         <a href="javascript:;" class="easyui-linkbutton"
            data-options="iconCls:'icon-search'" onclick="queryById1();">查看该员工工作经历</a>
+           <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
     </div>
     <p style="clear: both;"></p>
 </div>

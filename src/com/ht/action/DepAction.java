@@ -1,5 +1,7 @@
 package com.ht.action;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSON;
@@ -92,6 +99,11 @@ public class DepAction extends ActionSupport{
 	
 	public ControllerResult getResult() {
 		return result;
+	}
+	
+	
+	public void setPager(Pager<Dep> pager) {
+		this.pager = pager;
 	}
 	
 	public String tjls() throws IOException{
@@ -270,6 +282,89 @@ public class DepAction extends ActionSupport{
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
+	}
+	
+	public String daochu() throws Exception{
+		// 声明一个工作薄
+       HSSFWorkbook hwb = new HSSFWorkbook();
+       //声明一个单子并命名
+       HSSFSheet sheet = hwb.createSheet("员工表");
+       //给单子名称一个长度
+       sheet.setDefaultColumnWidth((int)15);
+       // 生成一个样式  
+       HSSFCellStyle style = hwb.createCellStyle();
+       //创建第一行（也可以称为表头）
+       HSSFRow row = sheet.createRow(0);
+       //样式字体居中
+       style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+       //给表头第一行一次创建单元格
+       HSSFCell cell = row.createCell((int) 0);
+       cell.setCellValue("编号");
+       cell.setCellStyle(style); 
+       cell = row.createCell((int) 1);
+       cell.setCellValue("姓名");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 2);
+       cell.setCellValue("性别");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 3);
+       cell.setCellValue("部门");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 4);
+       cell.setCellValue("生日");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 5);
+       cell.setCellValue("手机号码");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 6);
+       cell.setCellValue("身份证号码");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 7);
+       cell.setCellValue("民族");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 8);
+       cell.setCellValue("学历");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 9);
+       cell.setCellValue("家庭住址");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 10);
+       cell.setCellValue("入职时间");
+       cell.setCellStyle(style);
+       cell = row.createCell((int) 11);
+       cell.setCellValue("职位");
+       cell.setCellStyle(style);
+	   	pager = new Pager<>();
+		pager.setPageNo(page);
+		pager.setPageSize(100);
+		pager = depService.queryAll(pager);
+        List<Dep> list = pager.getRows();
+          //向单元格里填充数据
+		for (short i = 0; i < list.size(); i++) {
+			row = sheet.createRow(i + 1);
+			row.createCell(0).setCellValue(list.get(i).getEid());
+			row.createCell(1).setCellValue(list.get(i).getEname());
+			row.createCell(2).setCellValue(list.get(i).getEsex());
+			row.createCell(3).setCellValue(list.get(i).getDepartments().getDname());
+			row.createCell(4).setCellValue(list.get(i).getEbirth());
+			row.createCell(5).setCellValue(list.get(i).getEnumber());
+			row.createCell(6).setCellValue(list.get(i).getEcertid());
+			row.createCell(7).setCellValue(list.get(i).getEcity());
+			row.createCell(8).setCellValue(list.get(i).getEanton());
+			row.createCell(9).setCellValue(list.get(i).getEdu());
+			row.createCell(10).setCellValue(list.get(i).getEaddr());
+			row.createCell(11).setCellValue(list.get(i).getDstatuss().getDsname());
+		}
+         
+       try {  
+           FileOutputStream out = new FileOutputStream("D:/导出文件/dep.xls");
+           hwb.write(out);
+           out.flush();
+           out.close();
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       }
+		return "all";
 	}
 	
 	public String byid(){

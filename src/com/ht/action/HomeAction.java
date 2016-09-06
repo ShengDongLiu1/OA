@@ -13,6 +13,7 @@ import com.ht.bean.Msg;
 import com.ht.bean.User;
 import com.ht.common.ControllerResult;
 import com.ht.common.EncryptUtil;
+import com.ht.common.SessionUtil;
 import com.ht.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -57,9 +58,9 @@ public class HomeAction extends ActionSupport {
 
 	public String login() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user = (User) session.getAttribute("user");
+		String name = SessionUtil.getUserName();
 		session.invalidate();
-		logger.info("用户：" + user.getUname() + "  退出了系统...");
+		logger.info("用户：" + name + "  退出了系统...");
 		return "login";
 	}
 
@@ -95,5 +96,5 @@ public class HomeAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-
+	
 }

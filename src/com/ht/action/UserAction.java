@@ -13,6 +13,7 @@ import com.ht.bean.Msg;
 import com.ht.bean.User;
 import com.ht.common.ControllerResult;
 import com.ht.common.EncryptUtil;
+import com.ht.common.SessionUtil;
 import com.ht.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -90,7 +91,7 @@ public class UserAction extends ActionSupport {
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		String code = (String) session.getAttribute("checkCode");
 		String password = EncryptUtil.md5(user.getPwd());
-		logger.info("用户：" + user.getUname() + "  尝试登录系统...");
+		logger.info("账号为：" + user.getUname() + "  正尝试登录系统...");
 		if (checkCode != null && checkCode.equals(code)) {
 			User users = new User();
 			users = userService.query(user);
@@ -103,14 +104,14 @@ public class UserAction extends ActionSupport {
 					Msgs = userService.queryAllMsg();
 					ServletActionContext.getRequest().setAttribute("Msgs", Msgs);
 					result = ControllerResult.getSuccessRequest("正在执行登录!");
-					logger.info("用户：" + user.getUname() + "  登录系统成功...");
+					logger.info("用户：" + SessionUtil.getUserName() + "成功登录系统");
 				} else {
 					result = ControllerResult.getFailResult("用户名或密码错误!");
-					logger.info("用户：" + user.getUname() + "  登录系统失败,密码错误.");
+					logger.info("账号为：" + user.getUname() + "  登录系统失败,密码错误.");
 				}
 			} else {
 				result = ControllerResult.getFailResult("用户名或密码错误!");
-				logger.info("用户：" + user.getUname() + "  登录系统失败,用户名错误.");
+				logger.info("账号为：" + user.getUname() + "  登录系统失败,用户名错误.");
 			}
 		} else {
 			result = ControllerResult.getFailResult("验证码输入错误!");

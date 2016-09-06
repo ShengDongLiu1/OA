@@ -340,6 +340,7 @@ public class DepAction extends ActionSupport{
         }
          
        try {  
+    	   /*导出的数据放在d盘的 导出文件 的文件夹里*/
            FileOutputStream out = new FileOutputStream("D:/导出文件/dep.xls");
            hwb.write(out);
            out.flush();

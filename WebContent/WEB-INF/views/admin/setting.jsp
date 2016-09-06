@@ -73,7 +73,7 @@
 	                    function (data) {
 	                        if (data.result.result == "success") {
 	                            $.messager.alert("提示", data.result.msg, "info");
-	                            $("#updateForm").form("clear");
+	                            $("#editWindow").window("close");
 	                        } else {
 	                        	$.messager.alert("提示", data.result.msg, "info");
 	                        }

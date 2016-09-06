@@ -80,5 +80,11 @@ public class Courseplan implements java.io.Serializable {
 	public void setDep(Dep dep) {
 		this.dep = dep;
 	}
+
+	@Override
+	public String toString() {
+		return "Courseplan [kid=" + kid + ", empid=" + empid + ", objectid=" + objectid + ", current_course="
+				+ current_course + ", content=" + content + ", course=" + course + ", dep=" + dep + "]";
+	}
 	
 }

@@ -83,10 +83,10 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String update(){
+		System.out.println("action update");
 		Dep d=new Dep();
 		d.setEid(user.getDep().getEid());
 		items.setDep(d);
-		items.setSteacher(user.getDep().getEid());
 		items = itemsService.update(items);
 		if(items == null){
 			result = ControllerResult.getFailResult("修改失败");

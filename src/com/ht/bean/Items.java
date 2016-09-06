@@ -109,4 +109,10 @@ public class Items implements java.io.Serializable {
 		this.score = score;
 	}
 
+	@Override
+	public String toString() {
+		return "Items [xid=" + xid + ", sname=" + sname + ", sstuid=" + sstuid + ", steacher=" + steacher + ", sdate="
+				+ sdate + ", score=" + score + ", student=" + student + ", dep=" + dep + "]";
+	}
+	
 }

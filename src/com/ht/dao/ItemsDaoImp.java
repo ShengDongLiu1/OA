@@ -156,7 +156,6 @@ public class ItemsDaoImp implements ItemsDao{
 		session = sessionFactory.openSession();
 		Query q = session.createQuery("select max(intenid) from Student t");
 		int obj = (int) q.uniqueResult();
-		System.out.println("obj,xid:"+obj);
 		return obj;
 	}
 

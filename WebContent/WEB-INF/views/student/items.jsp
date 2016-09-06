@@ -71,24 +71,26 @@
 			  		<tr>
 						<td>项目名称</td>
 						<td>
-							<input class="easyui-textbox" id="sname" name="items.sname" data-options="required:true" /></input>
+							<input class="easyui-textbox" id="sname" name="items.sname" data-options="required:true" />
 						</td>
 					</tr>
 					<tr>
 			  			<td>班级:</td>
-			  			<td><input class="easyui-combobox" id="classtj" data-options="required:true" /></input></td>
+			  			<td><input class="easyui-combobox" id="classtj" data-options="required:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>学生:</td>
-			  			<td><input class="easyui-combobox" id="sstuid" name="items.student.intenid" data-options="required:true" /></input></td>
+			  			<td><input class="easyui-combobox" id="sstuid" name="items.student.intenid" data-options="required:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>答辩时间:</td>
-			  			<td><input class="easyui-datebox" id="sdate" name="items.sdate" data-options="required:true" /></input></td>
+			  			<td><input class="easyui-datebox" id="sdate" name="items.sdate" data-options="required:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>答辩成绩:</td>
-			  			<td><input class="easyui-textbox" id="score" name="items.score" data-options="required:true,validType:'length[1,3]',novalidate:true" /></input></td>
+			  			<td>
+			  				<input name="items.score" id="score" type="text" class="easyui-numberbox" data-options="precision:2,max:100.00,min:0,maxlength:4"  />
+						</td>
 			  		</tr>
 				</table>
 				<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -130,7 +132,7 @@
 				<tr>
 					<td >成绩:</td>
 					<td >
-						<input class="easyui-textbox" name="items.score" id="sc" data-options="required:true,validType:'length[1,3]',novalidate:true"  /><!-- 由dataoptions指定验证的规则 -->
+						<input name="items.score" id="sc" type="text" class="easyui-numberbox" data-options="precision:2,max:100.00,min:0,maxlength:4"   />
 					</td>
 				</tr>
 			</table>
@@ -280,7 +282,6 @@
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
 				document.getElementById("id").value=row.xid;
-				
 				$('#classbj').combobox({
 					url : 'classes',
 						editable : false, //不可编辑状态  
@@ -288,7 +289,25 @@
 						panelHeight : '150',
 						valueField : 'id',
 						textField : 'name',
-
+						onLoadSuccess: function () { //数据加载完毕事件
+				            var data = $('#classbj').combobox('getData');
+				            if (data.length > 0) {
+								$("#classbj").combobox('select', row.student.classes.classid);
+				            }
+				            $("#si").combobox("setValue", '');
+							var id = $('#classbj').combobox('getValue');
+							
+							$.ajax({
+								type : "POST",
+								url : 'stud?classid='+id,
+								cache : false,
+								dataType : "json",
+								success : function(data) {
+									$("#si").combobox("loadData", data);
+									$("#si").combobox('select', row.student.intenid);
+								}
+							});
+				        },
 						onHidePanel : function() {
 							$("#si").combobox("setValue", '');
 							var id = $('#classbj').combobox('getValue');
@@ -300,26 +319,23 @@
 								dataType : "json",
 								success : function(data) {
 									$("#si").combobox("loadData", data);
-									}
-								});
+								}
+							});
 						}
-					});
-					$('#si').combobox({   
-				        editable:false, //不可编辑状态  
-				        cache: false,  
-				        panelHeight: '150',//自动高度适合  
-				        valueField:'id',     
-				        textField:'name'  
-				       });  
+				});
 				
-				$("#classbj").combobox("setValue", row.student.classes.classid);
-				$("#classbj").combobox('select', row.student.classes.classname);
-				$("#si").combobox("setValue", row.student.intenid);
-				$("#si").combobox('select', row.student.intenname);	
-				
+				$('#si').combobox({   
+			        editable:false, //不可编辑状态  
+			        cache: false,  
+			        panelHeight: '150',//自动高度适合  
+			        valueField:'id',     
+			        textField:'name'
+		       });  
+					
 				$("#sn").textbox("setValue", row.sname);
 				$("#sd").textbox("setValue", row.sdate);
-				$("#sc").textbox("setValue", row.score);
+				$("#sc").numberbox("setValue", row.score);
+				
 				$("#editWindow").window("open");
 			} else {
 				$.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
@@ -327,6 +343,8 @@
 		}
 		// 编辑提交
 		function edit(){
+			items=$("#si").combobox("getValue");
+			alert(items);
 			if($("#editForm").form("validate")){
 				$.post('<%=path%>/items/update',$("#editForm").serialize(),
 					function(data) {

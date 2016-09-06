@@ -4,11 +4,11 @@
 
 <hibernate-mapping>
     <class name="com.ht.bean.Course" table="course" catalog="oa">
-        <id name="objectid" type="java.lang.Integer">
+        <id name="objectid">
             <column name="objectid" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
-        <property name="objectname"  type="java.lang.String">
+        <property name="objectname">
             <column name="objectname">
             </column>
         </property>

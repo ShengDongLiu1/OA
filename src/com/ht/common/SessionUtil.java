@@ -11,7 +11,7 @@ public class SessionUtil {
 	public static String getUserName(){
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		User user = (User) session.getAttribute("user");
-		return user.getUname();
+		return user.getDep().getEname();
 	}
 
 }

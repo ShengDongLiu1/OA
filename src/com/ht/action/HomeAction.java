@@ -58,9 +58,12 @@ public class HomeAction extends ActionSupport {
 
 	public String login() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		String name = SessionUtil.getUserName();
+		try {
+			logger.info("用户：" + SessionUtil.getUserName() + "  退出了系统...");
+		} catch (Exception e) {
+			
+		}
 		session.invalidate();
-		logger.info("用户：" + name + "  退出了系统...");
 		return "login";
 	}
 
@@ -89,7 +92,7 @@ public class HomeAction extends ActionSupport {
 			if(oldPass.equals(pwd)){
 				userService.updatePwd(name.getUname(), password);
 				result = ControllerResult.getSuccessRequest("修改密码成功!");
-				logger.info("用户：" + name.getUname() + "  修改了密码...");
+				logger.info("用户：" + SessionUtil.getUserName() + "  修改了密码...");
 			} else {
 				result = ControllerResult.getFailResult("原密码输入错误!");
 			}

@@ -140,7 +140,7 @@ public class ReceiueAction extends ActionSupport{
 		receiue.setWork(work);
 		receiue.setRestore("借");
 		work = workService.queryById(work.getWid());
-		int w = work.getWamount();
+		int w = work.getWcount();
 		int re = Integer.valueOf(receiue.getUcount());
 		if(w>=re){
 			Dep dep2 = new Dep();
@@ -148,7 +148,7 @@ public class ReceiueAction extends ActionSupport{
 			receiue.setDep(dep2);
 			Receiue r = receiueService.add(receiue);
 			int a = w-re;
-			work.setWamount(a);
+			work.setWcount(a);
 			work.setWid(receiue.getUwork());
 			workService.update(work);
 			if(r!=null){
@@ -182,11 +182,11 @@ public class ReceiueAction extends ActionSupport{
 		work.setWid(receiue.getUwork());
 		receiue.setWork(work);
 		work = workService.queryById(work.getWid());
-		int wamount = work.getWamount();
+		int wcount = work.getWcount();
 		int ucount2  = Integer.valueOf(receiue.getUcount());
 		if(ucount2>ucounts){
-			int c = wamount - ucount2;
-			work.setWamount(c);
+			int c = wcount - ucount2;
+			work.setWcount(c);
 			if(c>=1){
 				workService.update(work);
 			}else{
@@ -194,8 +194,8 @@ public class ReceiueAction extends ActionSupport{
 				return SUCCESS;
 			}
 		}else if(ucount2<ucounts){
-			int c = wamount + (ucounts-ucount2);
-			work.setWamount(c);
+			int c = wcount + (ucounts-ucount2);
+			work.setWcount(c);
 			workService.update(work);
 		}
 		Dep dep2 = new Dep();
@@ -234,9 +234,9 @@ public class ReceiueAction extends ActionSupport{
 		Work work = new Work();
 		work.setWid(wid);
 		work = workService.queryById(work.getWid());
-		int wamount = work.getWamount();
-		int a = ucount + wamount;
-		work.setWamount(a);
+		int wcount = work.getWcount();
+		int a = ucount + wcount;
+		work.setWcount(a);
 		receiue.setWork(work);
 		workService.update(work);
 		receiue.setRestore("还");

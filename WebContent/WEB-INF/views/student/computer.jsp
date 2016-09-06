@@ -23,15 +23,13 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,
 		fit:true">
 		<thead>
 			<tr>
 				<th data-options="field:'comid',checkbox:true,width:100" align="center">电脑编号</th>
-				<th data-options="field:'comno',width:100" align="center">电脑编号</th>
 				<th data-options="field:'coma',width:100" align="center">电脑型号</th>
 				<th data-options="field:'comb',width:100" align="center">电脑名称</th>
-				<th data-options="field:'reason',width:100" align="center">领用原因</th>
+				<th data-options="field:'comcount',width:100" align="center">领用数量</th>
 				<th data-options="field:'student',width:100" formatter="forStudentName" align="center">学生姓名</th>
 			</tr>
 		</thead>
@@ -49,20 +47,12 @@
 			<form id="ff" method="post">
 			  	<table cellpadding="5">
 			  		<tr>
-			  			<td>电脑编号:</td>
-			  			<td><input class="easyui-numberbox" name="computer.comno" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-			  		</tr>
-			  		<tr>
 			  			<td>电脑型号:</td>
 			  			<td><input class="easyui-textbox" name="computer.coma" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>电脑名称:</td>
 			  			<td><input class="easyui-textbox" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-			  		</tr>
-			  		<tr>
-			  			<td>领用原因:</td>
-			  			<td><input class="easyui-textbox" name="computer.reason" data-options="required:true,validType:'length[2,20]',novalidate:true" style="width: 150px;height: 55px;" name="dep.eaddr"/></td>
 			  		</tr>
 			  		<tr>
 			  			<td>学生姓名:</td>
@@ -92,12 +82,6 @@
 			<input type="hidden" id="ci" name="computer.comid"/>
 			<table>
 				<tr>
-					<td>电脑编号</td>
-					<td>
-						<input class="easyui-numberbox" name="computer.comno" id="co" data-options="required:true,validType:'length[2,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
-					</td>
-				</tr>
-				<tr>
 					<td>电脑型号</td>
 					<td>
 						<input class="easyui-textbox" name="computer.coma" id="ca" data-options="required:true,validType:'length[2,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
@@ -106,10 +90,6 @@
 				<tr>
 					<td>电脑名称</td>
 					<td><input class="easyui-textbox" id="cb" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-				</tr>
-				<tr>
-					<td>领用原因</td>
-					<td><input class="easyui-textbox" id="cr" name="computer.reason" data-options="required:true,validType:'length[2,20]',novalidate:true" style="width: 150px;height: 55px;" name="dep.eaddr"/></td>
 				</tr>
 				<tr>
 					<td>学生姓名</td>
@@ -198,6 +178,7 @@
 		function setPagination(tableId) {
 			var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
 			$(p).pagination({
+				pageSize:15,
 				pageList:[5,10, 15,20],
 				beforePageText:"第",
 				afterPageText:"页    共{pages}页",
@@ -248,10 +229,8 @@
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
 				document.getElementById("ci").value = row.comid;
-				$("#co").textbox("setValue", row.comno);
 				$("#ca").textbox("setValue", row.coma);
 				$("#cb").textbox("setValue", row.comb);
-				$("#cr").textbox("setValue", row.reason);
 				$("#si").combobox({
 					url:"<%=path%>/computer/xzxs",
 					method:'get',

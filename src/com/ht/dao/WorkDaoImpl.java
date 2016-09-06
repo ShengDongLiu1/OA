@@ -45,12 +45,10 @@ public class WorkDaoImpl implements WorkDao {
 
 	@Override
 	public Work query(Work t) {
-		System.out.println("wid:"+t.getWid());
 		session = sessionFactory.openSession();
-		Work wk=new Work();
-		System.out.println("work.dao:"+wk);
+		Work jobs = (Work) session.get(Work.class,5);
 		session.close();
-		return wk;
+		return jobs;
 	}
 
 	@Override

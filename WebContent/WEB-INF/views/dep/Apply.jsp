@@ -27,7 +27,6 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,
 		fit:true">
 		<thead>
 			<tr>
@@ -150,7 +149,13 @@
 		</form>
 		</div>
 	</div>
-	
+	<c:choose>
+        <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
+		<div id="mm" class="easyui-menu" style="width: 120px;">
+			<div data-options="name:'add',iconCls:'icon-edit'" onclick="updateSP();">审批</div>
+		</div>
+		</c:when>
+	</c:choose>
 	<script type="text/javascript">
 		function forDepName(value){
 			return value.ename;
@@ -165,6 +170,7 @@
 		function setPagination(tableId) {
 			var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
 			$(p).pagination({
+				pageSize:15,
 				pageList:[5,10,15,20],
 				beforePageText:"第",
 				afterPageText:"页    共{pages}页",
@@ -175,6 +181,19 @@
 				}
 			});
 		}
+		$(function() {
+			$("#list").datagrid({
+				onRowContextMenu: function(e, rowindex, rowData) {//datagrid中的每一行都绑定右键菜单
+					e.preventDefault();
+					$("#mm").menu("show",{
+						left:e.pageX,
+						top:e.pageY
+					});
+				}
+			});
+			setPagination("list");
+			
+		});
 		// 打开添加窗口
 		function addOpen() {
 			$("#wid").combobox({

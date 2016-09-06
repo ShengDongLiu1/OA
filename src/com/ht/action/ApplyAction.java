@@ -221,10 +221,10 @@ public class ApplyAction extends ActionSupport {
 		}
 		apply = applyService.updateSP(apply);
 		result = ControllerResult.getSuccessRequest("通过审批");
-
 		Work work = new Work();
 		work.setWorktype(apply.getWorktype());
 		work.setWname(apply.getGname());
+		work.setWcount(apply.getGcounts());
 		work.setWamount(apply.getGcounts());
 		workService.add(work);
 
@@ -232,11 +232,6 @@ public class ApplyAction extends ActionSupport {
 		e.setPaypro("购买物品");
 		e.setPaycount(apply.getGcounts() * apply.getGprice());
 		paysService.addexpend(e);
-		return SUCCESS;
-	}
-
-	public String queryByDepName() {
-
 		return SUCCESS;
 	}
 }

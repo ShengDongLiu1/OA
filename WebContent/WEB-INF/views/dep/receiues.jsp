@@ -48,6 +48,7 @@
 	function setPagination(tableId) {
 		var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
 		$(p).pagination({
+			pageSize:15,
 			pageList:[10,15,20,25],
 			beforePageText:"第",
 			afterPageText:"页    共{pages}页",
@@ -60,10 +61,6 @@
 	}
 	
 	$(function() {
-		$("#new").click(function(){
-			$.messager.alert("提示","新建菜单","info");
-		});
-		
 		$("#list").datagrid({
 			onRowContextMenu: function(e, rowindex, rowData) {//datagrid中的每一行都绑定右键菜单
 				e.preventDefault();
@@ -275,7 +272,6 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,
 		fit:true">
 		<thead>
 			<tr>
@@ -406,11 +402,7 @@
 	</div>
 
 	<div id="mm" class="easyui-menu" style="width: 120px;">
-		<div id="new" data-options="name:'new'">New</div>
-		<div data-options="name:'save',iconCls:'icon-save'">Save</div>
-		<div data-options="name:'print',iconCls:'icon-print'">Print</div>
-		<div class="menu-sep"></div>
-		<div data-options="name:'exit'">Exit</div>
+		<div data-options="name:'edit',iconCls:'icon-edit'" onclick="updateCount();">归还</div>
 	</div>
 </body>
 </html>

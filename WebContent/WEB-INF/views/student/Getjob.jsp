@@ -25,7 +25,6 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,
 		fit:true">
     <thead>
     <tr>
@@ -220,6 +219,7 @@
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
         $(p).pagination({
+    		pageSize:15,
             pageList: [5, 10, 15, 20],
             beforePageText: "第",
             afterPageText: "页    共{pages}页",
@@ -252,7 +252,7 @@
     	toValidate("ff");
     	if (validateForm("ff")){
          // 验证整个表单里的所有validatabox是否通过验证
-            $.post("getjob/add", $("#ff").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
+            $.post("add", $("#ff").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
                   function (data) {
                       if (data.result.result == 'success') {
                           $.messager.alert("提示", data.result.msg, "info", function () {

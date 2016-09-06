@@ -63,9 +63,14 @@ public class ComputerAction extends ActionSupport {
 	public ControllerResult getResult() {
 		return result;
 	}
+	
+	public ComputerService getComputerService() {
+		return computerService;
+	}
 
 	public String add() {
-		computer = computerService.add(computer);
+		computer.setComcount(1);
+		computerService.add(computer);
 		if(computer == null){
 			result = ControllerResult.getFailResult("添加失败");
 		}else{
@@ -75,6 +80,7 @@ public class ComputerAction extends ActionSupport {
 	}
 	
 	public String update(){
+		computer.setComcount(1);
 		Computer c = computerService.update(computer);
 		if(c == null){
 			result = ControllerResult.getFailResult("修改失败");

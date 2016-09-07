@@ -1,5 +1,6 @@
 package com.ht.action;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -396,6 +397,10 @@ public class StudentAction extends ActionSupport {
         }
          
        try {  
+    	   File file = new File("D:/导出文件");
+    	   if(file.exists() == false){
+    		   file.mkdir();
+    	   }
            FileOutputStream out = new FileOutputStream("D:/导出文件/student.xls");
            hwb.write(out);
            out.flush();

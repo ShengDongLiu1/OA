@@ -47,10 +47,10 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>
-       <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
    	<input class="easyui-textbox" id="tiaoname" size="10px" />
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
+      <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
     <input class="easyui-combobox" data-options="required:true"
 				style="width: 150px;" id="classid" name="student.classes.classid" /> <a
 				href="javascript:;" class="easyui-linkbutton"
@@ -176,7 +176,7 @@
                 <tr>
                     <td>就读疑问:</td>
                     <td><input class="easyui-textbox" name="student.intenpeo" style="width: 200px; height: 80px;"
-                                 data-options="multiline:true,required:true,novalidate:true"/></td>
+                     data-options="multiline:true,required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>选择班级:</td>
@@ -320,8 +320,7 @@
                 </tr>
                 <tr>
                     <td>就读疑问:</td>
-                    <td><input class="easyui-textbox" id="peo" name="student.intenpeo" style="width: 200px; height: 80px;" data-options="multiline:true,required:true"/>
-                    </td>
+                      <td><input class="easyui-textbox" id="peo" name="student.intenpeo" style="width: 200px; height: 80px;" data-options="multiline:true,required:true"/>
                 </tr>
                 <!-- <tr>
                     <td>学生状态:</td>
@@ -347,7 +346,7 @@
         </form>
     </div>
 </div>
-
+<input  class="easyui-textbox" type="hidden" id="hours"> 
 <script type="text/javascript">
 
     function forClasses(value) {
@@ -420,7 +419,7 @@
                                 $("#ff").form("clear");
                             });
                         } else {
-                            $.messger.alert("提示", data.msg, "info");
+                        	$.messager.alert("提示", data.result.msg, "info");
                         }
                     }, "JSON");
         }
@@ -459,6 +458,8 @@
             });
             $("#hous").combobox("setValue", row.hourse.hourname);
             $("#hous").combobox('select', row.hourse.hourid);
+            var house = $("#hous").combobox("getValue");
+           	$("#hours").textbox('setValue',house);
             $("#editWindow").window("open");
         } else {
             $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
@@ -468,6 +469,8 @@
     function edit() {
     	toValidate("editForm");
     	if (validateForm("editForm")){
+    		var hous = $("#hours").textbox("getValue");
+    		$.get('stu/hourses',{'hourseid':hous},"json");
             $.post('stu/update', $("#editForm").serialize(),
                     function (data) {
                         if (data.result.result == 'success') {
@@ -476,7 +479,7 @@
                                 $("#list").datagrid("reload");
                             });
                         } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+                            $.messager.alert("提示", data.result.msg, "info");
                         }
                     }, "JSON");
         }
@@ -545,7 +548,8 @@
             }
         });
 	});
-
+	
+	
     //选择查看详情
     function addLook() {
         var row = $("#list").datagrid("getSelected");
@@ -555,6 +559,7 @@
             $.messager.alert('提示', '请选中需要查看的学生!', 'info');// messager消息控件
         }
     }
+	
 </script>
 </body>
 </html>

@@ -23,7 +23,7 @@
             <column name="hourhkz" />
         </property>
         
-        <set name="students" lazy="false">
+        <set name="students" lazy="false" inverse="true">
         	<key column="hourid"></key>
         	<one-to-many class="com.ht.bean.Student"/>
         </set>

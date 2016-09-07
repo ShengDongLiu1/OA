@@ -128,19 +128,28 @@ public class StudentAction extends ActionSupport {
 	
 	public String add() {
 		student.setIntendate(Calendar.getInstance().getTime());
-
         Calendar a=Calendar.getInstance();
         int year = a.get(Calendar.YEAR);//得到年
-        
 		String[] str=student.getIntenbir().split("-");
 		int ye = Integer.valueOf(str[0]);
 		student.setIntenage(year - ye);
 		student.setIntenstatus("在读");	
 		student = studentService.add(student);
-		if (student == null) {
-			result = ControllerResult.getFailResult("添加失败");
-		} else {
-			result = ControllerResult.getSuccessRequest("添加成功");
+		result = ControllerResult.getSuccessRequest("添加成功");
+		hourse = hourseService.queryById(student.getHourse().getHourid());
+		int kezhu = hourse.get(0).getHourkz();
+		int yizhu = hourse.get(0).getHouryz() + 1;
+		int hkezhu = kezhu - yizhu;
+		if(hkezhu > 1){
+			Hourse hourse1 = new Hourse();
+			hourse1.setHourkz(kezhu);
+			hourse1.setHouryz(yizhu);
+			hourse1.setHourhkz(hkezhu);
+			hourse1.setHourname(hourse.get(0).getHourname());
+			hourse1.setHourid(student.getHourse().getHourid());
+			hourseService.update(hourse1);
+		}else{
+			result = ControllerResult.getFailResult("该宿舍楼已经注满人");
 		}
 		return SUCCESS;
 	}
@@ -166,12 +175,51 @@ public class StudentAction extends ActionSupport {
 		studentyx = studentService.addyx(studentyx);
 		return "yx";
 	}
-
+	
+	
+	public String hourses(){
+		 int hourseid =  Integer.valueOf(ServletActionContext.getRequest().getParameter("hourseid"));
+		 if(hourseid != 0){
+			HttpServletRequest req = ServletActionContext.getRequest();
+			HttpSession session  = req.getSession();
+			session.setAttribute("hourseid", hourseid);
+		 }
+		 return SUCCESS;
+	}
 	public String update() {
 		student.setHourid(student.getHourse().getHourid());
 		student.setClassid(student.getClasses().getClassid());
 		student = studentService.update(student);
-		result = ControllerResult.getSuccessRequest("修改成功");
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpSession session  = req.getSession();	
+		int hourseid = Integer.valueOf(session.getAttribute("hourseid").toString());
+		hourse = hourseService.queryById(hourseid);
+		int kezhu = hourse.get(0).getHourkz();
+		int zhiqianhkezhu = hourse.get(0).getHourhkz() + 1;
+		int zhiqianyizhu = hourse.get(0).getHouryz() - 1;
+		Hourse hourse1 = new Hourse();
+		hourse1.setHourkz(kezhu);
+		hourse1.setHouryz(zhiqianyizhu);
+		hourse1.setHourhkz(zhiqianhkezhu);
+		hourse1.setHourname(hourse.get(0).getHourname());
+		hourse1.setHourid(hourseid);
+		hourseService.update(hourse1);
+		hourse = hourseService.queryById(student.getHourse().getHourid());
+		int kezhu2 = hourse.get(0).getHourkz();
+		int yizhu2 = hourse.get(0).getHouryz() + 1;
+		int hkezhu2 = kezhu2 - yizhu2;
+		if(hkezhu2>0){
+			Hourse hourse2 = new Hourse();
+			hourse2.setHourkz(kezhu2);
+			hourse2.setHouryz(yizhu2);
+			hourse2.setHourhkz(hkezhu2);
+			hourse2.setHourname(hourse.get(0).getHourname());
+			hourse2.setHourid(student.getHourse().getHourid());
+			hourseService.update(hourse2);
+			result = ControllerResult.getSuccessRequest("修改成功");
+		}else{
+			result = ControllerResult.getFailResult("该宿舍楼已经注满人");
+		}
 		return SUCCESS;
 	}
 
@@ -184,11 +232,6 @@ public class StudentAction extends ActionSupport {
 	public String query() {
 		student = studentService.query(student);
 		return "xs";
-	}
-
-	public String queryStu() {
-		student = studentService.query(student);
-		return "stu";
 	}
 
 	public String queryAll() {
@@ -320,7 +363,6 @@ public class StudentAction extends ActionSupport {
 		}else{
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}
-		
 		return SUCCESS;
 	}
 	
@@ -415,4 +457,10 @@ public class StudentAction extends ActionSupport {
        }
 		return "all";
 	}
+	
+	public String queryStu() {
+		student = studentService.query(student);
+		return "stu";
+	}
+
 }

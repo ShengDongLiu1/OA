@@ -35,7 +35,7 @@ public class HourseDaoImpl implements HourseDao{
 	public Hourse query(Hourse t) {
 		session=sessionFactory.openSession();
 		Transaction transaction=session.beginTransaction();
-		session.get(Hourse.class, t.getHourid());
+		t = (Hourse) session.get(Hourse.class, t.getHourid());
 		transaction.commit();
 		session.close();
 		return t;
@@ -90,6 +90,17 @@ public class HourseDaoImpl implements HourseDao{
 		List<Hourse> d  = query.list();
 //		session.close();
 		return d;
+	}
+	
+	@Override
+	public List<Hourse> queryById(int hourseid){
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Hourse where hourid="+hourseid);
+		@SuppressWarnings("unchecked")
+		List<Hourse> d  = query.list();
+		session.close();
+		return d;
+		
 	}
 
 }

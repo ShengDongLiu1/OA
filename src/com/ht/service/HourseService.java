@@ -7,4 +7,7 @@ import com.ht.dao.BaseDao;
 
 public interface HourseService extends BaseDao<Hourse, Integer> {
 	public List<Hourse> queryHourse();
+	
+	
+	public List<Hourse> queryById(int hourseid);
 }

@@ -54,18 +54,17 @@
         </property>
         
         <!-- 多个学生一个班级 -->
-        <many-to-one name="classes" class="com.ht.bean.Classes" lazy="false">
+        <many-to-one name="classes" class="com.ht.bean.Classes" lazy="false" >
 			<column name="classid"></column>
 		</many-to-one>
         <!-- 多个学生一个宿舍 -->
-        <many-to-one name="hourse" class="com.ht.bean.Hourse" lazy="false">
+        <many-to-one name="hourse" class="com.ht.bean.Hourse" lazy="false" insert="true">
 			<column name="hourid"></column>
 		</many-to-one>
         <!-- 多个学生一个状态 -->
         <many-to-one name="status" class="com.ht.bean.Status" lazy="false">
 			<column name="stustatus"></column>
 		</many-to-one>
-        
         
         <!-- 一个学生多个项目 -->
         <set name="items" lazy="false" inverse="false" >

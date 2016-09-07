@@ -57,20 +57,20 @@
 <!-- //////////////////////////////////////////////////////////////////// -->
 
 <script type="text/javascript">
-
+	
     $("#subject").combobox({
-        url: "<%=path%>/course/queryCourse",
-        method: 'get',
-        valueField: 'name',
-        textField: 'name',
-        panelHeight: 'auto', onLoadSuccess: function () { //数据加载完毕事件
+		url:"<%=path%>/courseplan/object",
+		method:'get',
+	    valueField:'name',
+	    textField:'name',
+	    panelHeight:'auto',
+	    onLoadSuccess: function () { //数据加载完毕事件
             var data = $('#subject').combobox('getData');
             if (data.length > 0) {
                 $("#subject").combobox('select', data[0].name);
             }
         }
-    })
-    ;
+	});
 
     function adds() {
         var score = $(".score");

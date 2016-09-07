@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Classes;
@@ -17,6 +19,7 @@ import com.ht.bean.Student;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
+import com.ht.common.SessionUtil;
 import com.ht.service.GradeService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -140,10 +143,13 @@ public class GradeAction extends ActionSupport {
 
 	///////////////////////////////
 
+	private static final Logger logger = LoggerFactory.getLogger(GradeAction.class);
+
 	public String add() {
 		grade = gradeService.add(grade);
 		if (grade != null) {
 			result = ControllerResult.getSuccessRequest("添加成功");
+			logger.info(SessionUtil.getUserName() + "  添加学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		} else {
 			result = ControllerResult.getFailResult("添加失败");
 		}
@@ -156,12 +162,14 @@ public class GradeAction extends ActionSupport {
 			result = ControllerResult.getFailResult("修改失败");
 		} else {
 			result = ControllerResult.getSuccessRequest("修改成功");
+			logger.info(SessionUtil.getUserName() + "  修改学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		}
 		return SUCCESS;
 	}
 
 	public String delete() {
 		gradeService.delete(grade);
+		logger.info(SessionUtil.getUserName() + "  删除学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
 	}
@@ -182,7 +190,7 @@ public class GradeAction extends ActionSupport {
 		pager.setPageSize(pageSize);
 		if (studentName == null || studentName.equals("")) {
 			if (courseName == null || courseName.equals("")) {
-				if(className == null || className.equals("")){
+				if (className == null || className.equals("")) {
 					pager = gradeService.queryAll(pager);
 				} else {
 					int classID = Integer.parseInt(className);
@@ -192,7 +200,7 @@ public class GradeAction extends ActionSupport {
 				pager = gradeService.queryByCourse(pager, courseName);
 			}
 		} else {
-				pager = gradeService.queryByName(pager, studentName);
+			pager = gradeService.queryByName(pager, studentName);
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
@@ -238,8 +246,8 @@ public class GradeAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-	
-	public String queryClasses() throws IOException{
+
+	public String queryClasses() throws IOException {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		req.setCharacterEncoding("UTF-8");
@@ -249,7 +257,7 @@ public class GradeAction extends ActionSupport {
 		List<Combox> list = new ArrayList<Combox>();
 		List<Classes> classes = new ArrayList<Classes>();
 		classes = gradeService.queryClasses();
-		for(Classes classes2 : classes){
+		for (Classes classes2 : classes) {
 			int id = classes2.getClassid();
 			String name = classes2.getClassname();
 			Combox combox = new Combox();

@@ -48,4 +48,9 @@ public class HourseServiceImpl implements HourseService {
 		return hourseDao.queryHourse();
 	}
 
+	@Override
+	public List<Hourse> queryById(int hourseid) {
+		return hourseDao.queryById(hourseid);
+	}
+
 }

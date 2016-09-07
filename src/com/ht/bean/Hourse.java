@@ -81,11 +81,5 @@ public class Hourse implements java.io.Serializable {
 	public void setHourhkz(Integer hourhkz) {
 		this.hourhkz = hourhkz;
 	}
-
-	@Override
-	public String toString() {
-		return "Hourse [hourid=" + hourid + ", hourname=" + hourname + ", hourkz=" + hourkz + ", houryz=" + houryz
-				+ ", hourhkz=" + hourhkz + ", students=" + students + "]";
-	}
 	
 }

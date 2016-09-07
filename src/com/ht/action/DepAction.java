@@ -229,12 +229,23 @@ public class DepAction extends ActionSupport{
 		depService.query(dep);
 		return SUCCESS;
 	}
+	
 	public String queryAll(){
+		HttpServletRequest req = ServletActionContext.getRequest();
+		String czbmyg = req.getParameter("czbmyg");
+		String czygxm = req.getParameter("czygxm");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		pager = depService.queryAll(pager);
+		if(czbmyg != null){
+			pager = depService.bmQuery(pager,czbmyg);
+		}else if(czygxm != null){
+			pager = depService.NameQuery(pager,czygxm);
+		}else{
+			pager = depService.queryAll(pager);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

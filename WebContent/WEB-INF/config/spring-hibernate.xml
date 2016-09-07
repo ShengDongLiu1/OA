@@ -78,6 +78,8 @@
 			<value>com/ht/bean/Work.hbm.xml</value>
 			<value>com/ht/bean/Workcheck.hbm.xml</value>
 			<value>com/ht/bean/Worktype.hbm.xml</value>
+			<value>com/ht/bean/Money.hbm.xml</value>
+			<value>com/ht/bean/Tuition.hbm.xml</value>
         </list>
         </property>
     </bean>

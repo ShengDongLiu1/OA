@@ -81,4 +81,9 @@ public class PaysServiceImp implements PaysService {
 	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm) {
 		return paysdao.NameQuery(pager,ygxm);
 	}
+
+	@Override
+	public List<Dep> queryDepGz(int eid) {
+		return paysdao.queryDepGz(eid);
+	}
 }

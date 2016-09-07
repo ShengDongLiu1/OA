@@ -32,6 +32,7 @@
         <c:forEach items="${requestScope.depList }" var="depGz">
             <div style="margin-bottom:20px; padding-left: 20px; ">
                 <input name="depid" value="${depGz.getId()  }" type="hidden">
+                <input name="payssta" value="${depGz.getGz()}" type="hidden">
                 <span style="font-size: 13px;">员工姓名：</span><input class="easyui-textbox" disabled="disabled"
                                                                   value="${depGz.getName() }"
                                                                   style="font-size:15px; width:60px;height:32px">
@@ -44,7 +45,7 @@
             </div>
             <div style="margin-bottom:20px; padding-left: 20px; ">
                 <span style="margin-left:158px; font-size: 13px;">基本工资：</span><input
-                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" name="payssta"
+                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" disabled="disabled" value="${depGz.getGz()}"
                     style="font-size:15px; width:100px;height:32px">
                 <span style="margin-left:25px; font-size: 13px;">补贴工资：</span><input
                     class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" name="paysc"

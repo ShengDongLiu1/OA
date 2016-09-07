@@ -2,6 +2,8 @@ package com.ht.bean;
 
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * WMF
  */
@@ -24,6 +26,7 @@ public class Course implements java.io.Serializable {
 		this.period = period;
 	}
 
+	@JSON(serialize=false)
 	public Set<Courseplan> getCourseplan() {
 		return courseplan;
 	}
@@ -62,10 +65,4 @@ public class Course implements java.io.Serializable {
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
-
-	@Override
-	public String toString() {
-		return "Course [objectid=" + objectid + ", objectname=" + objectname + ", semester=" + semester + "]";
-	}
-	
 }

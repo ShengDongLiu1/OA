@@ -1,7 +1,11 @@
 package com.ht.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +15,7 @@ import com.ht.bean.Dep;
 import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
+import com.ht.bean.User;
 import com.ht.common.Pager;
 
 public class PaysDaoImp implements PaysDao{
@@ -28,7 +33,7 @@ public class PaysDaoImp implements PaysDao{
 	@Override
 	public Pager<Pays> queryAll(Pager<Pays> tem) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Pays order by paytime desc");
+		Query query = session.createQuery("from Pays order by paysid desc");
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -127,11 +132,20 @@ public class PaysDaoImp implements PaysDao{
 	                session.save(pays);
 	                p += pays.getPaysd();
 	            }
-	            transaction.commit();
-	            Expend e = new Expend();
+	            
+	            HttpSession session = ServletActionContext.getRequest().getSession();
+	    		User user = (User) session.getAttribute("user");
+	    		Dep dep = new Dep();
+	    		dep.setEname(user.getDep().getEname());
+	    		
+	    		Expend e = new Expend();
 	    		e.setPaypro("发放工资");
 	    		e.setPaycount(p);
+	    		e.setPtime(new Date());
+	    		e.setPayname(dep.getEname());
+	    		
 	    		addexpend(e);
+	            transaction.commit();
 	        } catch (Exception e) {
 	            transaction.rollback();
 	        } finally {
@@ -219,5 +233,15 @@ public class PaysDaoImp implements PaysDao{
 		q.setString("name","%"+ygxm+"%");
 		Object obj = q.uniqueResult();
 		return obj;
+	}
+
+	@Override
+	public List<Dep> queryDepGz(int eid) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Dep where eid = "+eid);
+		@SuppressWarnings("unchecked")
+		List<Dep> list = query.list();
+		session.close();
+		return list;
 	}
 }

@@ -3,10 +3,12 @@ package com.ht.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -15,9 +17,11 @@ import com.ht.bean.Dep;
 import com.ht.bean.Department;
 import com.ht.bean.Expend;
 import com.ht.bean.Pays;
+import com.ht.bean.User;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
+import com.ht.common.Yglb;
 import com.ht.service.PaysService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -38,6 +42,7 @@ public class PaysAction extends ActionSupport{
 	private List<Dep> deps;
 	private String id;
 	private String name;
+	private String gz;
 	
 	private Integer[] depid;	//员工编码
 	private double[] paysa;	//奖励金额
@@ -46,6 +51,14 @@ public class PaysAction extends ActionSupport{
 	private double[] payssta;	//基本工资
 	private double[] paysc;	//补贴工资
 	
+	public String getGz() {
+		return gz;
+	}
+
+	public void setGz(String gz) {
+		this.gz = gz;
+	}
+
 	public Integer[] getDepid() {
 		return depid;
 	}
@@ -150,10 +163,20 @@ public class PaysAction extends ActionSupport{
 		pays.setPaysb(0 - pays.getPaysb());
 		pays.setPaysd(pays.getPaysa()+pays.getPaysb()+pays.getPaysc()+pays.getPayssta());
 		pays=paysService.add(pays);
+		
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		User user = (User) session.getAttribute("user");
+		Dep dep = new Dep();
+		dep.setEname(user.getDep().getEname());
+		
 		Expend e = new Expend();
 		e.setPaypro("发放工资");
 		e.setPaycount(pays.getPaysd());
+		e.setPtime(new Date());
+		e.setPayname(dep.getEname());
+		
 		paysService.addexpend(e);
+		
 		if(pays == null){
 			result = ControllerResult.getFailResult("添加失败");
 		}else{
@@ -237,7 +260,6 @@ public class PaysAction extends ActionSupport{
 		resp.setContentType("text/json");
 		PrintWriter out=resp.getWriter();
 		String did = req.getParameter("did");
-		System.out.println("Action"+did);
 		deps = paysService.queryDep(did);
 		List<Combox> list  = new ArrayList<>();
 		for (Dep dep : deps) {
@@ -254,14 +276,16 @@ public class PaysAction extends ActionSupport{
 	}
 	
 	public String pL(){
-		List<Combox> depList  = new ArrayList<>();
+		List<Yglb> depList  = new ArrayList<>();
         String[] idStrArray = id.split(",");
         String[] nameStrArray = name.split(",");
+        String[] gzStrArray = gz.split(",");
         for (int i = 0; i < idStrArray.length; i++) {
-        	Combox combox = new Combox();
-			combox.setId(idStrArray[i]);
-			combox.setName(nameStrArray[i]);
-			depList.add(combox);
+        	Yglb yglb = new Yglb();
+        	yglb.setId(idStrArray[i]);
+        	yglb.setName(nameStrArray[i]);
+        	yglb.setGz(gzStrArray[i]);
+			depList.add(yglb);
         }
         ServletActionContext.getRequest().setAttribute("depList", depList);
         return "pl";
@@ -291,5 +315,25 @@ public class PaysAction extends ActionSupport{
 	
 	public String all(){
 		return "all";
+	}
+	
+	public String jbgz() throws IOException{
+		HttpServletRequest req = ServletActionContext.getRequest();
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/json");
+		PrintWriter out=resp.getWriter();
+		int eid = Integer.valueOf(req.getParameter("eid"));
+		deps = paysService.queryDepGz(eid);
+		String gz = deps.get(0).getBasepay()+"";
+		List<Combox> list  = new ArrayList<>();
+		Combox combox = new Combox();
+		combox.setId(gz);
+		combox.setName(gz);
+		list.add(combox);
+		out.write(JSON.toJSONString(list));
+		out.close();
+		return "tjls";
 	}
 }

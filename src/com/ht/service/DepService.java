@@ -19,4 +19,9 @@ public interface DepService extends BaseDao<Dep, Integer> {
 	public Dep addn(Dep d);
 	
 	public void addUser(User user);
+
+	public Pager<Dep> bmQuery(Pager<Dep> pager, String czbmyg);
+
+	public Pager<Dep> NameQuery(Pager<Dep> pager, String czygxm);
+
 }

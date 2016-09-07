@@ -123,14 +123,14 @@
         		});
             $("#dstatus").combobox("setValue", row.dstatus);
             $("#dstatus").combobox('select', row.dstatus);
-        		$('#updatedrange').combobox({   
-        	        //url:'itemManage!categorytbl',   
-        	        editable:true, //不可编辑状态  
-        	        cache: false,  
-        	        panelHeight: '150',//自动高度适合  
-        	        valueField:'name',     
-        	        textField:'name'  
-        	       });  
+       		$('#updatedrange').combobox({   
+       	       	url:'tjls2?lx='+row.dstatus,  
+       	        editable:true, //不可编辑状态  
+       	        cache: false,  
+       	        panelHeight: '150',//自动高度适合  
+       	        valueField:'name',     
+       	        textField:'name'  
+       	       });  
             $("#updatedrange").combobox("setValue", row.drange);
             $("#updatedrange").combobox('select', row.drange);
             $("#ddatetime").textbox("setValue", row.ddatetime);

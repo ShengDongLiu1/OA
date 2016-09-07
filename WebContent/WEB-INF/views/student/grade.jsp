@@ -292,19 +292,19 @@
             $("#addGradeForm").form("load", row);
             $('#addGradeWindow').dialog('open');
         }
-        $("#selectCourse").combobox({
-            url: "<%=path%>/course/queryCourse",
-            method: 'get',
-            valueField: 'name',
-            textField: 'name',
-            panelHeight: 'auto',
-            onLoadSuccess: function () { //数据加载完毕事件
+		$("#selectCourse").combobox({
+			url:"<%=path%>/courseplan/object",
+			method:'get',
+		    valueField:'name',
+		    textField:'name',
+		    panelHeight:'auto',
+		    onLoadSuccess: function () { //数据加载完毕事件
                 var data = $('#selectCourse').combobox('getData');
                 if (data.length > 0) {
                     $("#selectCourse").combobox('select', data[0].name);
                 }
             }
-        });
+		});
     }
     
   //选择学生(选择多个学生)
@@ -334,13 +334,12 @@
                     'grade.sconame': sconame
                 },
                 function (data) {
-                    $.messager.alert("提示", data.result.msg, "info");
-                    $("#list").datagrid('reload');
+                    $.messager.alert("提示", data.result.msg, "info" ,function () {
+                        $("#addGradeWindow").window("close");
+                        $("#list").datagrid("reload");
+                        $("#addGradeForm").form("clear");
+                    });
                 }, "JSON");
-        $("#list").datagrid('reload');
-        $('#addGradeWindow').dialog('close');
-        $("#addGradeForm").form("clear");
-        $("#list").datagrid('reload');
     }
 
     //修改成绩加载数据
@@ -351,19 +350,19 @@
             $("#ec").textbox('setValue', row.score);
             document.getElementById("ssid").value = row.scoid;
             $("#editGradeWindow").dialog('open');
-            $("#en").combobox({
-                url: "<%=path%>/course/queryCourse",
-                method: 'get',
-                valueField: 'name',
-                textField: 'name',
-                panelHeight: 'auto',
-                onLoadSuccess: function () { //数据加载完毕事件
+    		$("#en").combobox({
+    			url:"<%=path%>/courseplan/object",
+    			method:'get',
+    		    valueField:'name',
+    		    textField:'name',
+    		    panelHeight:'auto',
+    		    onLoadSuccess: function () { //数据加载完毕事件
                     var data = $('#en').combobox('getData');
                     if (data.length > 0) {
                         $("#en").combobox('select', row.sconame);
                     }
                 }
-            });
+    		});
         } else {
             $.messager.alert('提示', '请选中需要编辑的成绩', 'info');
         }

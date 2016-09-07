@@ -120,7 +120,7 @@
         <div title="财务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
-                    <p><a href="javascript:void(0);" src="<%=path %>/income/money" class="site-navi-tab">收取学费</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/money/all" class="site-navi-tab">收取学费</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/income/all" class="site-navi-tab">查看收入</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/expend/all" class="site-navi-tab">查看支出</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/pays/all" class="site-navi-tab">工资发放</a></p>

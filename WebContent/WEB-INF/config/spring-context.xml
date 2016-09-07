@@ -88,4 +88,8 @@
   
     <bean id="stutotalDao" class="com.ht.dao.StutotalDaoImpl" autowire="byType"/>
     <bean id="stutotalService" class="com.ht.service.StutotalServiceImpl" autowire="byType"/>
+    
+    <bean id="moneyDao" class="com.ht.dao.MoneyDaoImpl" autowire="byType"/>
+    <bean id="moneyService" class="com.ht.service.MoneyServiceImpl" autowire="byType"/>
+    
 </beans>  

@@ -1,5 +1,6 @@
 package com.ht.action;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class MsgAction extends ActionSupport{
 	}
 
 	public String add(){
-		msg.setMsgks(new Date());
+		msg.setMsgks(Calendar.getInstance().getTime());
 		msg = msgService.add(msg);
 		if(msg == null){
 			result = ControllerResult.getFailResult("添加失败");

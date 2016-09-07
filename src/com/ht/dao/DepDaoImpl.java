@@ -52,9 +52,10 @@ public class DepDaoImpl implements DepDao {
 	@Override
 	public Dep query(Dep d) {
 		session = sessionFactory.openSession();
-		session.get(Dep.class, d.getEid());
+		Dep dep = (Dep)session.get(Dep.class, d.getEid());
+		System.out.println(dep.toString());
 		session.close();
-		return d;
+		return dep;
 	}
 
 	@Override
@@ -158,4 +159,54 @@ public class DepDaoImpl implements DepDao {
 		transaction.commit();
 		session.close();
 	}
+	
+
+	@Override
+	public Pager<Dep> bmQuery(Pager<Dep> pager, String czbmyg) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Dep where departments.did=:id order by etry desc");
+		query.setInteger("id",Integer.valueOf(czbmyg));
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Dep> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) bmCount(czbmyg));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object bmCount(String ygxm) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Dep t where departments.did=:id");
+		q.setInteger("id",Integer.valueOf(ygxm));
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+
+	@Override
+	public Pager<Dep> NameQuery(Pager<Dep> pager, String czygxm) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Dep where ename like:name order by etry desc");
+		query.setString("name","%"+czygxm+"%");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Dep> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) NameCount(czygxm));
+		session.close();
+		return pager;
+	}
+	
+	@Override
+	public Object NameCount(String czygxm) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Dep t where ename like:name");
+		q.setString("name","%"+czygxm+"%");
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+
 }

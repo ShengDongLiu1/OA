@@ -30,4 +30,6 @@ public interface PaysDao extends BaseDao<Pays,Integer>{
 
 	Object NameCount(String ygxm);
 
+	public List<Dep> queryDepGz(int eid);
+
 }

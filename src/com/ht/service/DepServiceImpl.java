@@ -71,4 +71,14 @@ public class DepServiceImpl implements DepService{
 		depDao.addUser(user);
 	}
 
+	@Override
+	public Pager<Dep> bmQuery(Pager<Dep> pager, String czbmyg) {
+		return depDao.bmQuery(pager,czbmyg);
+	}
+
+	@Override
+	public Pager<Dep> NameQuery(Pager<Dep> pager, String czygxm) {
+		return depDao.NameQuery(pager,czygxm);
+	}
+
 }

@@ -24,4 +24,6 @@ public interface PaysService extends BaseDao<Pays, Integer> {
 	public List<Department> queryBm();
 
 	public Pager<Pays> NameQuery(Pager<Pays> pager, String ygxm);
+	
+	public List<Dep> queryDepGz(int eid);
 }

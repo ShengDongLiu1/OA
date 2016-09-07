@@ -97,7 +97,7 @@
 	</div>
 
 	<div id="addWindow" class="easyui-window" title="添加"
-		data-options="closed:true,iconCls:'icon-add'" style="padding: 10px;"  data-options="novalidate:true">
+		data-options="closed:true,iconCls:'icon-add'" style="padding: 10px;" >
 		<div style="padding:10px 60px 20px 60px">
         <form id="ff" class="easyui-form"  method="post" data-options="novalidate:true">
             <table>

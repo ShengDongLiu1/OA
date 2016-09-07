@@ -266,4 +266,15 @@
     	</action>
     </package>
     
+    <package name="money-js" extends="json-default" namespace="/money">
+    	<action name="*" class="com.ht.action.MoneyAction" method="{1}">
+    		<result name="success" type="json"></result>
+    		<result name="all">/WEB-INF/views/student/money.jsp</result>
+    	</action>
+        <action name="tuition-*" class="com.ht.action.TuitionAction" method="{1}" >
+        	<result name="success" type="json"></result>
+        	<result name="allxf">/WEB-INF/views/student/tuition.jsp</result>
+        </action>
+    </package>
+    
 </struts>

@@ -35,6 +35,10 @@ public class Student implements java.io.Serializable {
 	private String intenjg;
 	private int stustatus;
 	
+
+	private Status status;
+	private Classes classes;
+	private Hourse hourse;
 	private Set<Items> items;
 	private Set<Grade> grades;
 	private Set<Computer> computer;
@@ -42,9 +46,9 @@ public class Student implements java.io.Serializable {
 	private Set<Stutotal> stutotal;
 	private Set<Says> says;
 	private Set<Rawpun> raws;
-	private Status status;
-	private Classes classes;
-	private Hourse hourse;
+	private Set<Money> money;
+	
+	
 	/** default constructor */
 	public Student() {
 	}
@@ -301,6 +305,15 @@ public class Student implements java.io.Serializable {
 
 	public void setRaws(Set<Rawpun> raws) {
 		this.raws = raws;
+	}
+
+	@JSON(serialize=false)
+	public Set<Money> getMoney() {
+		return money;
+	}
+
+	public void setMoney(Set<Money> money) {
+		this.money = money;
 	}
 
 }

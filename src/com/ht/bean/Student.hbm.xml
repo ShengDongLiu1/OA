@@ -92,17 +92,24 @@
         	<key column="stuid"></key>
         	<one-to-many class="com.ht.bean.Stutotal"/>
         </set>
+        <!-- 一个学生多个谈心记录 -->
         <set name="says" lazy="false" cascade="all">
         	<key>
         		<column name="sayface"></column>
         	</key>
         	<one-to-many class="com.ht.bean.Says"/>
         </set>
+        <!-- 一个学生多个奖惩记录 -->
         <set name="raws" lazy="false" cascade="all">
         	<key>
         		<column name="jstuid"></column>
         	</key>
         	<one-to-many class="com.ht.bean.Rawpun"/>
          </set>
+        <!-- 一个员工多个收费记录 -->
+        <set name="money" inverse="true">
+        	<key column="stuid"></key>
+        	<one-to-many class="com.ht.bean.Money"/>
+        </set>
     </class>
 </hibernate-mapping>

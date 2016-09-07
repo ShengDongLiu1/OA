@@ -112,12 +112,18 @@
             <key column="eid" />
             <one-to-many class="com.ht.bean.Duty" />
         </set>
-        
+        <!-- 一个员工多个谈心记录 -->
         <set name="says" cascade="all" inverse="true" lazy="true">
         	<key>
         		<column name="sayempid"></column>
         	</key>
         	<one-to-many class="com.ht.bean.Says"/>
+        </set>
+        
+        <!-- 一个员工多个收费记录 -->
+        <set name="money" inverse="true">
+        	<key column="eid"></key>
+        	<one-to-many class="com.ht.bean.Money"/>
         </set>
         
     </class>

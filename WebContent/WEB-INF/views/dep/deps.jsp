@@ -63,6 +63,11 @@
         if (row) {
             document.getElementById("eid").value = row.eid;
             $("#ename").textbox('setValue', row.ename);
+            if(row.esex == '男'){
+            	$("#esex1").attr("checked","true");
+            }else{
+            	$("#esex2").attr("checked","true");
+            }
             $("#mid").textbox('setValue', row.mid);
             $("#ebirth").textbox("setValue", row.ebirth);
             $("#enumber").textbox("setValue", row.enumber);
@@ -282,9 +287,9 @@
                 <td><br/>员工性别:</td>
                 <td><br/>
                     <label>男</label>
-                    <input type="radio" id="esex" name="dep.esex" value="男" checked="checked"/>
+                    <input type="radio" id="esex1" name="dep.esex" value="男" checked="checked"/>
                     <label>女</label>
-                    <input type="radio" id="esex" name="dep.esex" value="女"/>
+                    <input type="radio" id="esex2" name="dep.esex" value="女"/>
                 </td>
             </tr>
             <tr>
@@ -386,6 +391,7 @@
                         <option value="本科">本科</option>
                         <option value="硕士">硕士</option>
                         <option value="专科">专科</option>
+                        <option value="博士">博士</option>
                         <option value="其它">其它</option>
                     </select>
                 </td>
@@ -433,9 +439,9 @@
                 <td><br/>员工性别:</td>
                 <td><br/>
                     <label>男</label>
-                    <input type="radio" id="planType" id="esex" name="dep.esex" value="男" checked="checked"/>
+                    <input type="radio" id="esex1" name="dep.esex" value="男" checked="checked"/>
                     <label>女</label>
-                    <input type="radio" id="planType1" id="esex" name="dep.esex" value="女"/>
+                    <input type="radio" id="esex2" name="dep.esex" value="女"/>
                 </td>
             </tr>
             <tr>
@@ -538,6 +544,7 @@
                         <option value="本科">本科</option>
                         <option value="硕士">硕士</option>
                         <option value="专科">专科</option>
+                        <option value="博士">博士</option>
                         <option value="其它">其它</option>
                     </select>
                 </td>

@@ -25,8 +25,11 @@ public class Dep implements java.io.Serializable {
 	private String eaddr;
 	private Date etry;
 	private String ecreate;
-	private Double basepay;
-	
+	private double basepay;
+
+	private Jobs jobs;
+	private Department departments;
+	private Dstatus dstatuss;
     private Set<User> users;
 	private Set<Fankui> fankuis;
 	private Set<Items> items;
@@ -38,10 +41,8 @@ public class Dep implements java.io.Serializable {
 	private Set<Workcheck> workcheck;
 	private Set<Pays> pays;
 	private Set<Duty> dutys;
-	private Jobs jobs;
-	private Department departments;
-	private Dstatus dstatuss;
 	private Set<Says> says;
+	private Set<Money> money;
 
 	public Dep(String ename, String esex, Integer mid, String ebirth,
 			String ecertid, String ecity, String eanton, String edu,
@@ -167,14 +168,37 @@ public class Dep implements java.io.Serializable {
 	public void setEcreate(String ecreate) {
 		this.ecreate = ecreate;
 	}
-	
 
-	public Double getBasepay() {
+	public double getBasepay() {
 		return basepay;
 	}
 
-	public void setBasepay(Double basepay) {
+	public void setBasepay(double basepay) {
 		this.basepay = basepay;
+	}
+
+	public Jobs getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(Jobs jobs) {
+		this.jobs = jobs;
+	}
+
+	public Department getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(Department departments) {
+		this.departments = departments;
+	}
+
+	public Dstatus getDstatuss() {
+		return dstatuss;
+	}
+
+	public void setDstatuss(Dstatus dstatuss) {
+		this.dstatuss = dstatuss;
 	}
 
 	@JSON(serialize=false)
@@ -285,29 +309,13 @@ public class Dep implements java.io.Serializable {
 		this.says = says;
 	}
 
-	public Jobs getJobs() {
-		return jobs;
+	@JSON(serialize=false)
+	public Set<Money> getMoney() {
+		return money;
 	}
 
-	public void setJobs(Jobs jobs) {
-		this.jobs = jobs;
+	public void setMoney(Set<Money> money) {
+		this.money = money;
 	}
-
-	public Department getDepartments() {
-		return departments;
-	}
-
-	public void setDepartments(Department departments) {
-		this.departments = departments;
-	}
-
-	public Dstatus getDstatuss() {
-		return dstatuss;
-	}
-
-	public void setDstatuss(Dstatus dstatuss) {
-		this.dstatuss = dstatuss;
-	}
-	
 
 }

@@ -161,11 +161,11 @@
                     <td><input class="easyui-textbox" name="student.intenfat" data-options="required:true,validType:'length[2,6]',novalidate:true"/></td>
                 </tr>
                 <tr>
-                    <td>学生记录号码:</td>
+                    <td>学生号码:</td>
                     <td><input class="easyui-textbox" name="student.intentel" data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
                 <tr>
-                    <td>学生记录家长号码:</td>
+                    <td>学生家长号码:</td>
                     <td><input class="easyui-textbox" name="student.intenfatel" data-options="required:true,validType:'length[11,11]',novalidate:true"/></td>
                 </tr>
                 <tr>
@@ -329,7 +329,7 @@
                     </td>
                 </tr>
                 <!-- <tr>
-                    <td>学生记录状态:</td>
+                    <td>学生状态:</td>
                     <td><input class="easyui-textbox" id="status" name="student.intenstatus" /></td>
                 </tr> -->
                 <tr>

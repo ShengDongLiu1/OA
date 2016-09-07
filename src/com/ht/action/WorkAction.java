@@ -16,7 +16,6 @@ import com.ht.bean.Worktype;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
-import com.ht.service.ComputerService;
 import com.ht.service.WorkService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -36,16 +35,7 @@ public class WorkAction extends ActionSupport {
 	private int page;
 	private ControllerResult result;
 	private List<Worktype> worktype;
-	private ComputerService computerService;
-
-	public ComputerService getComputerService() {
-		return computerService;
-	}
-
-	public void setComputerService(ComputerService computerService) {
-		this.computerService = computerService;
-	}
-
+	
 	public Work getWork() {
 		return work;
 	}
@@ -77,10 +67,7 @@ public class WorkAction extends ActionSupport {
 	public void setPage(int page) {
 		this.page = page;
 	}
-	public String name(){
-		String workname=work.getWname();
-		return workname;
-	}
+	
 	public String add() {
 		work = workService.add(work);
 		if(work == null){
@@ -102,7 +89,6 @@ public class WorkAction extends ActionSupport {
 	}
 
 	public String update() {
-		
 		work = workService.update(work);
 		if(work == null){
 			result = ControllerResult.getFailResult("修改失败");

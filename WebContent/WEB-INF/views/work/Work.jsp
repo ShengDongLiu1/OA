@@ -234,7 +234,7 @@
 					}
 				});
 			} else {
-				$.messager.alert('提示', '请选中需要删除的lie', 'info');
+				$.messager.alert('提示', '请选中需要删除的列', 'info');
 			}
 		}
 		// 关闭窗口

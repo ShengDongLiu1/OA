@@ -266,7 +266,7 @@
 		function expurgate() {
 			var row = $("#list").datagrid("getSelected");
 			if (row) {
-				$.messager.confirm("提示", "确认要删除这个产品吗？", function(r) {
+				$.messager.confirm("提示", "确认要删除这条记录吗？", function(r) {
 					if (r) {
 						$.post("computer/delete",{'computer.comid':row.comid}, function(data) {
 							if (data.result.result == "success") {

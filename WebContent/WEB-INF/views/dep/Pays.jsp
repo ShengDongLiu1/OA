@@ -24,7 +24,7 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10">
+		pageSize:20,fit:true">
     <thead>
     <tr>
         <th data-options="field:'paysid',checkbox:true,width:100" align="center">工资编码</th>
@@ -54,8 +54,8 @@
 		<a href="#" class="easyui-linkbutton" onclick="NameQuery();" data-options="iconCls:'icon-search'">按姓名查找</a>
 	</div>
 	<div style="margin-top: 2px;margin-left:10px;">
-		开始时间:<input class="easyui-datetimebox" name="kssj" id="kssj" style="width:150px;margin-left:10px;">
-		结束时间:<input class="easyui-datetimebox" name="jssj" id="jssj" style="width:150px;margin-left:10px;">
+		开始时间:<input class="easyui-datebox" name="kssj" id="kssj" style="width:150px;margin-left:10px;">
+		结束时间:<input class="easyui-datebox" name="jssj" id="jssj" style="width:150px;margin-left:10px;">
 		<a href="#" class="easyui-linkbutton" onclick="DateQuery();" data-options="iconCls:'icon-search'">按时间查找</a>
 	</div>
 </div>
@@ -85,23 +85,23 @@
                 </tr>
                 <tr>
                     <td>奖励金额:</td>
-                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysa" data-options="required:true,precision:2"/></td>
+                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysa" data-options="required:true,precision:2,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>惩罚金额:</td>
-                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysb" data-options="required:true,precision:2"/></td>
+                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysb" data-options="required:true,precision:2,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>补贴工资:</td>
-                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysc" data-options="required:true,precision:2"/></td>
+                    <td><input class="easyui-validatebox easyui-numberbox" name="pays.paysc" data-options="required:true,precision:2,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>发放时间:</td>
-                    <td><input class="easyui-datetimebox" name="pays.paytime" data-options="required:true"/></td>
+                    <td><input class="easyui-datebox" name="pays.paytime" data-options="required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
                     <td>奖罚原因和备注:</td>
-                    <td><input class="easyui-textbox" name="pays.payspro"/></td>
+                    <td><input class="easyui-textbox" name="pays.payspro" style="width: 200px; height: 80px;" data-options="multiline:true"/></td>
                 </tr>
             </table>
             <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -278,7 +278,7 @@
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
         $(p).pagination({
-            pageList: [5, 10, 15, 20],
+            pageList: [20, 30, 40],
             beforePageText: "第",
             afterPageText: "页    共{pages}页",
             displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",

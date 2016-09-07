@@ -351,9 +351,8 @@
 </head>
 <body>
 <div class="easyui-navpanel">
-    <div style="margin:20px 0 10px 0;"></div>
-    <div id="content" class="easyui-panel" title="班级管理" style="width:1030px;height:491px;"
-         data-options="iconCls:'icon-man',headerCls:'bt'">
+    <div id="content" class="easyui-panel" style="width:100%;height:500px;"
+         data-options="iconCls:'icon-man'">
         <table id="list" class="easyui-datagrid" data-options=" 
 			toolbar:'#tb',
 			url:'<%=path %>/classes/queryAll',  	
@@ -372,7 +371,6 @@
                 <th align="center" data-options="field:'classmax'" width="100" align="center">班级限定人数</th>
                 <th align="center" data-options="field:'classcount'" width="100" align="center">班级实际人数</th>
                 <th align="center" data-options="field:'classaddr'" width="400" align="center">班级地址</th>
-                <th align="center" data-options="field:'classlx'" width="100" align="center">班级类型</th>
             </tr>
             </thead>
         </table>

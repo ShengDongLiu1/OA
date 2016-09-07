@@ -71,7 +71,7 @@
             <tr>
                 <th data-options="field:'intenid',checkbox:true,width:100" align="center">学生编号</th>
                 <th data-options="field:'intenname',width:100" align="center" align="center">学生姓名</th>
-                <th data-options="field:'intensch',width:150" align="center" align="center">就读学校</th>
+                <th data-options="field:'intensch',width:150" align="center" align="center">毕业学校</th>
                 <th data-options="field:'intensex',width:100" align="center" align="center">性别</th>
                 <th data-options="field:'intenbir',width:150" align="center" align="center">出生年月</th>
                 <th data-options="field:'intentel',width:150" align="center" align="center">学生号码</th>

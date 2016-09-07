@@ -30,6 +30,7 @@
         	<result name="all">/WEB-INF/views/student/student.jsp</result>
         	<result name="yx">/WEB-INF/views/student/yx.jsp</result>
         	<result name="xs">/WEB-INF/views/classes/classxs.jsp</result>
+        	<result name="stu">/WEB-INF/views/student/studentXq.jsp</result>
         </action>
     </package>
     

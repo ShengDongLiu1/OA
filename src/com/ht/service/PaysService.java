@@ -13,7 +13,7 @@ public interface PaysService extends BaseDao<Pays, Integer> {
 	
 	public List<Dep> queryDep(String did);
 
-	public void BatchAdd(List<Pays> payList);
+	public void BatchAdd(List<Pays> payList,String name);
 	
 	public void addexpend(Expend e);
 

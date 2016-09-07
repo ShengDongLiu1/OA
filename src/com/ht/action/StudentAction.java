@@ -186,6 +186,11 @@ public class StudentAction extends ActionSupport {
 		return "xs";
 	}
 
+	public String queryStu() {
+		student = studentService.query(student);
+		return "stu";
+	}
+
 	public String queryAll() {
 		pager = new Pager<>();
 		pager.setPageNo(page);

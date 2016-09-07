@@ -78,15 +78,17 @@
         </div>
         <div title="教务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 1 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/course/all" class="site-navi-tab">课程</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/courseplan/all" class="site-navi-tab">课程进度</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/items/all" class="site-navi-tab">项目管理</a></p>
                 </c:when>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 2}">
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/items/all" class="site-navi-tab">项目管理</a></p>
                 </c:when>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 4}">
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
@@ -99,13 +101,12 @@
         <div title="学生管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 3 || sessionScope.user.statuss.getZid() eq 7}">
-                    <p><a href="javascript:void(0);" src="<%=path %>/classes/all" class="site-navi-tab">班级</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/hourse/all" class="site-navi-tab">宿舍</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">查看学员</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/classes/all" class="site-navi-tab">班级管理</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/hourse/all" class="site-navi-tab">宿舍管理</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">学生管理</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/says/all" class="site-navi-tab">谈心记录</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/rawpun/all" class="site-navi-tab">奖惩情况</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/items/all" class="site-navi-tab">项目</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/getjob/all" class="site-navi-tab">就业情况</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/rawpun/all" class="site-navi-tab">奖惩管理</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/getjob/all" class="site-navi-tab">就业管理</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/computer/all" class="site-navi-tab">电脑领用</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/stutotal/all" class="site-navi-tab">学生总结</a></p>
                 </c:when>
@@ -119,7 +120,7 @@
         </div>
         <div title="财务管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7 || sessionScope.user.statuss.getZid() eq 12}">
                     <p><a href="javascript:void(0);" src="<%=path %>/money/all" class="site-navi-tab">收取学费</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/income/all" class="site-navi-tab">查看收入</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/expend/all" class="site-navi-tab">查看支出</a></p>
@@ -130,17 +131,14 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div title="系统管理" data-options="iconCls:'icon-edit'" class="site_menu">
             <c:choose>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 7 || sessionScope.user.statuss.getZid() eq 11}">
-                    <p><a href="javascript:void(0);" src="<%=path %>/department/all" class="site-navi-tab">部门</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/dep/all" class="site-navi-tab">员工</a></p>
+       				<div title="系统管理" data-options="iconCls:'icon-edit'" class="site_menu">
+	                    <p><a href="javascript:void(0);" src="<%=path %>/department/all" class="site-navi-tab">部门</a></p>
+	                    <p><a href="javascript:void(0);" src="<%=path %>/dep/all" class="site-navi-tab">员工</a></p>
+     			   	</div>
                 </c:when>
-                <c:otherwise>
-                    <span>权限不足!</span>
-                </c:otherwise>
             </c:choose>
-        </div>
     </div>
 </div>
 <div id="mainPanle" data-options="region:'center',border:true">

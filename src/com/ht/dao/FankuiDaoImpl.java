@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ht.bean.Dep;
 import com.ht.bean.Fankui;
 import com.ht.common.Pager;
 
@@ -39,6 +40,8 @@ public class FankuiDaoImpl implements FankuiDao {
 	public Fankui query(Fankui d) {
 		session = sessionFactory.openSession();
 		d = (Fankui) session.get(Fankui.class, d.getTbackid());
+		Dep dep = (Dep)session.get(Dep.class, d.getDep().getEid());
+		d.setDep(dep);
 		session.close();
 		return d;
 	}
@@ -85,5 +88,28 @@ public class FankuiDaoImpl implements FankuiDao {
 		session.delete(d);
 		transaction.commit();
 		session.close();
+	}
+	
+
+	@Override
+	public Pager<Fankui> queryByDepId(Pager<Fankui> pager,int id) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Fankui where eid = "+id+" order by time desc ");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Fankui> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) countByDepId(id));
+		session.close();
+		return pager;
+	}
+
+	@Override
+	public Object countByDepId(int id) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Fankui t where eid = "+id);
+		Object obj = q.uniqueResult();
+		return obj;
 	}
 }

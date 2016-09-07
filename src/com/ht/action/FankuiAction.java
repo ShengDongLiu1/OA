@@ -1,10 +1,12 @@
 package com.ht.action;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.struts2.ServletActionContext;
 
-import com.ht.bean.Dep;
 import com.ht.bean.Fankui;
+import com.ht.bean.User;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.FankuiService;
@@ -24,13 +26,12 @@ public class FankuiAction extends ActionSupport {
 	private List<Fankui> rows;
 	private long total;
 	private ControllerResult result;
+	private int page;
 
 	public ControllerResult getResult() {
 		return result;
 	}
 	
-	@SuppressWarnings("unused")
-	private int page;
 	
 	public void setFankuiService(FankuiService fankuiService) {
 		this.fankuiService = fankuiService;
@@ -57,9 +58,6 @@ public class FankuiAction extends ActionSupport {
 	}
 
 	public String add() {
-		Dep dep = new Dep();
-		dep.setEid(2);
-		fankui.setDep(dep);
 		fankui.setAns("暂未回复");
 		Fankui f=fankuiService.add(fankui);
 		if(f == null){
@@ -87,17 +85,24 @@ public class FankuiAction extends ActionSupport {
 	}
 	
 	public String query(){
-		fankui=fankuiService.query(fankui);
+		fankui = fankuiService.query(fankui);
 		return "xq";
 	}
 	
 	public String queryAll(){
+		HttpSession session = ServletActionContext.getRequest().getSession();
 		pager = new Pager<>();
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
-		int p = Integer.valueOf(ServletActionContext.getRequest().getParameter("page"));
 		pager.setPageSize(pageSize);
-		pager.setPageNo(p);
-		pager = fankuiService.queryAll(pager);
+		pager.setPageNo(page);
+		User user = (User) session.getAttribute("user");
+		
+		if(user.getStatuss().getZid() == 11 || user.getStatuss().getZid() == 7){
+			pager = fankuiService.queryAll(pager);
+		}else{
+			int id = user.getDep().getEid();
+			pager = fankuiService.queryByDepId(pager,id);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

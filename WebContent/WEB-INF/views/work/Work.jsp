@@ -49,6 +49,7 @@
 	<div id="addWindow" class="easyui-window" title="添加" data-options="closed:true,iconCls:'icon-add'" style="padding:10px;">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="ff" method="post">
+			<input type="hidden" id="wct" name="work.wcount"/>
 			  	<table>
 			  		<tr>
 						<td>类型:</td>
@@ -59,10 +60,6 @@
 			  		<tr>
 			  			<td>名称:</td>
 			  			<td><input class="easyui-textbox" id="wname" name="work.wname" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-			  		</tr>
-			  		<tr>
-			  			<td>可用数量:</td>
-			  			<td><input class="easyui-numberbox" id="wcount" name="work.wcount" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
 			  		</tr>
 			  		<tr>
 			  			<td>总数量:</td>
@@ -155,13 +152,10 @@
 		}
 		// 添加(提交後臺)
 		 function add(){
-			 var k =$('#wcount').textbox('getValue');
 			 var z =$('#wamount').textbox('getValue');
+			document.getElementById("wct").value = z;
 			 toValidate("ff");
 		     if (validateForm("ff")){
-		    	 if(k > z){
-		    		 $.messager.alert('提示', '可用数量不能大于总量', 'info');
-		    	 }else{
 		    		 $.post('<%=path%>/work/add',$("#ff").serialize(),
 	 					function(data) {
 	 					if (data.result.result == 'success') {
@@ -174,7 +168,6 @@
 	 						$.messger.alert("提示",data.result.msg, "info");
 	 					}
 	 				},"JSON");
-		    	 }
 			}
 		} 
 		// 打开编辑窗口
@@ -205,7 +198,7 @@
 			var z =$('#wa').textbox('getValue');
 			toValidate("editForm");
 	    	if (validateForm("editForm")){
-	    		if(k > z){
+	    		if((z-k) < 0){
 		    		 $.messager.alert('提示', '可用数量不能大于总量', 'info');
 		    	 }else{
 					$.post('update',$("#editForm").serialize(),

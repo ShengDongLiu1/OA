@@ -42,7 +42,7 @@
         <header>
             <div class="m-toolbar">
                 <div class="m-left" style="margin-left: 60px;">
-                    <a href="<%=path%>/classes/query?classes.classid=${student.classes.classid}"
+                    <a href="<%=path%>/stu/all"
                        class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">返回学生列表</a>
                 </div>
             </div>

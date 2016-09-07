@@ -200,6 +200,7 @@
 <div id="addWin" class="easyui-window" title="添加反馈" data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="width: 400px; height: 380px; padding: 5px;">
     <form id="addForm">
+        <input type="hidden" id="eid" name="fankui.dep.eid" value="${sessionScope.user.dep.getEid()}"/>
         <div style="margin-bottom:20px;margin-left: 40px;margin-top: 10px;">
             <div>标题:</div>
             <br/>

@@ -123,7 +123,7 @@ public class PaysDaoImp implements PaysDao{
 	}
 
 	@Override
-	public void BatchAdd(List<Pays> payList) {
+	public void BatchAdd(List<Pays> payList,String name) {
 		 session = sessionFactory.openSession();
 	        Transaction transaction = session.beginTransaction();
 	        try {
@@ -139,12 +139,12 @@ public class PaysDaoImp implements PaysDao{
 	    		dep.setEname(user.getDep().getEname());
 	    		
 	    		Expend e = new Expend();
-	    		e.setPaypro("发放工资");
+	    		e.setPaypro("给"+name+"发放工资");
 	    		e.setPaycount(p);
 	    		e.setPtime(new Date());
 	    		e.setPayname(dep.getEname());
-	    		
 	    		addexpend(e);
+	    		
 	            transaction.commit();
 	        } catch (Exception e) {
 	            transaction.rollback();
@@ -164,7 +164,7 @@ public class PaysDaoImp implements PaysDao{
 	@Override
 	public Pager<Pays> DateQuery(Pager<Pays> pager, String kssj, String jssj) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Pays where paytime between ? and ? order by paytime desc");
+		Query query = session.createQuery("from Pays where paytime between ? and ? order by paysid desc");
 		query.setString(0,kssj);
 		query.setString(1,jssj);
 		query.setFirstResult(pager.getBeginIndex());

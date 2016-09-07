@@ -47,6 +47,7 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>
+       <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
    	<input class="easyui-textbox" id="tiaoname" size="10px" />
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
@@ -174,7 +175,7 @@
                 </tr>
                 <tr>
                     <td>就读疑问:</td>
-                    <td><input class="easyui-textbox" name="student.intenpeo" style="width: 200px; height: 100px;"
+                    <td><input class="easyui-textbox" name="student.intenpeo" style="width: 200px; height: 80px;"
                                  data-options="multiline:true,required:true,novalidate:true"/></td>
                 </tr>
                 <tr>
@@ -225,12 +226,6 @@
                         <input type="radio" id="sex" name="student.intensex" value="女"/>
                     </td>
                 </tr>
-                <tr>
-	                <td>学生年龄:</td>
-	                <td><input class="easyui-textbox" id="age" style="width: 150px;" name="student.intenage"
-                                data-options="required:true,validType:'length[1,3]',novalidate:true"
-                                style="width:200px"></td>
-           		 </tr>
                 <tr>
                 <td>民族:</td>
                 <td><br/>
@@ -325,7 +320,7 @@
                 </tr>
                 <tr>
                     <td>就读疑问:</td>
-                    <td><input class="easyui-textbox" id="peo" name="student.intenpeo" data-options="required:true"/>
+                    <td><input class="easyui-textbox" id="peo" name="student.intenpeo" style="width: 200px; height: 80px;" data-options="multiline:true,required:true"/>
                     </td>
                 </tr>
                 <!-- <tr>
@@ -550,7 +545,16 @@
             }
         });
 	});
-	
+
+    //选择查看详情
+    function addLook() {
+        var row = $("#list").datagrid("getSelected");
+        if (row) {
+            window.location.href = "<%=path%>/stu/queryStu?student.intenid=" + row.intenid;
+        } else {
+            $.messager.alert('提示', '请选中需要查看的学生!', 'info');// messager消息控件
+        }
+    }
 </script>
 </body>
 </html>

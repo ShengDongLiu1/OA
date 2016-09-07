@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%String path = request.getContextPath(); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
@@ -87,8 +88,8 @@
             <s:hidden name="fankui.title"></s:hidden>
             <s:hidden name="fankui.pro"></s:hidden>
             <s:hidden name="fankui.time"></s:hidden>
-            <h3>反馈编号:</h3>
-            <div class="textS"><s:property value="fankui.tbackid"/></div>
+            <h3>员工姓名:</h3>
+            <div class="textS"><s:property value="fankui.dep.ename"/></div>
             <br/><br/>
             <h3>反馈标题:</h3>
             <div class="textS"><s:property value="fankui.title"/></div>
@@ -102,9 +103,15 @@
             <h3>反馈时间:</h3>
             <div class="textS"><s:date name="fankui.time" format="yyyy-MM-dd HH:mm:ss"/></div>
         </div>
+        
         <div style="margin-right: 100px; float:right;">
-            <a href="javascript:;" onclick="addPro();" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
-               style="height:32px;">反馈回复</a>
+		    <c:if test="${ sessionScope.user.statuss.getZid() eq 11}">
+		        <c:if test="${ sessionScope.user.statuss.getZid() eq 6}">
+			            <a href="javascript:;" onclick="addPro();" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
+	               style="height:32px;">反馈回复</a>
+		        </c:if>
+		    </c:if>
+           
         </div>
     </div>
 </div>

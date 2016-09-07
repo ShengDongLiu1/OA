@@ -42,4 +42,9 @@ public class FankuiServiceImpl implements FankuiService{
 	public void delete(Fankui d) {
 		fankuiDao.delete(d);
 	}
+
+	@Override
+	public Pager<Fankui> queryByDepId(Pager<Fankui> pager, int id) {
+		return fankuiDao.queryByDepId(pager, id);
+	}
 }

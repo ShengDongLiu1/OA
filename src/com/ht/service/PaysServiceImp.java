@@ -53,8 +53,8 @@ public class PaysServiceImp implements PaysService {
 	}
 
 	@Override
-	public void BatchAdd(List<Pays> payList) {
-		paysdao.BatchAdd(payList);
+	public void BatchAdd(List<Pays> payList,String name) {
+		paysdao.BatchAdd(payList,name);
 	}
 
 	@Override

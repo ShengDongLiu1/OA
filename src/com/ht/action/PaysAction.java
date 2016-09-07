@@ -22,6 +22,7 @@ import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.common.Yglb;
+import com.ht.service.DepService;
 import com.ht.service.PaysService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -43,6 +44,7 @@ public class PaysAction extends ActionSupport{
 	private String id;
 	private String name;
 	private String gz;
+	private DepService depService;
 	
 	private Integer[] depid;	//员工编码
 	private double[] paysa;	//奖励金额
@@ -51,6 +53,10 @@ public class PaysAction extends ActionSupport{
 	private double[] payssta;	//基本工资
 	private double[] paysc;	//补贴工资
 	
+	public void setDepService(DepService depService) {
+		this.depService = depService;
+	}
+
 	public String getGz() {
 		return gz;
 	}
@@ -162,18 +168,20 @@ public class PaysAction extends ActionSupport{
 	public String add() {
 		pays.setPaysb(0 - pays.getPaysb());
 		pays.setPaysd(pays.getPaysa()+pays.getPaysb()+pays.getPaysc()+pays.getPayssta());
+		if(pays.getPayspro().equals("") || pays.getPayspro() == null){
+			pays.setPayspro("无");
+		}
 		pays=paysService.add(pays);
 		
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		User user = (User) session.getAttribute("user");
-		Dep dep = new Dep();
-		dep.setEname(user.getDep().getEname());
 		
+		Dep dep = depService.query(pays.getDep());
 		Expend e = new Expend();
-		e.setPaypro("发放工资");
+		e.setPaypro("给"+dep.getEname()+"发放工资");
 		e.setPaycount(pays.getPaysd());
 		e.setPtime(new Date());
-		e.setPayname(dep.getEname());
+		e.setPayname(user.getDep().getEname());
 		
 		paysService.addexpend(e);
 		
@@ -292,12 +300,22 @@ public class PaysAction extends ActionSupport{
 	}
 	
 	public String BatchAdd(){
+		String name = "";
 		List<Pays> payList = new ArrayList<>();
 		String time = pays.getPaytime();
 		for (int i = 0; i < depid.length; i++) {
 			Pays pays = new Pays();
 			Dep dep = new Dep();
 			dep.setEid(depid[i]);
+			dep = depService.query(dep);
+			if(i+1 == depid.length){
+				name += dep.getEname();
+			}else{
+				name += dep.getEname()+"、";	
+			}
+			if(pays.getPayspro().equals("") || pays.getPayspro() == null){
+				pays.setPayspro("无");
+			}
 			pays.setDep(dep);
 			pays.setPaysa(paysa[i]);
 			pays.setPaysb(0 - paysb[i]);
@@ -308,7 +326,7 @@ public class PaysAction extends ActionSupport{
 			pays.setPaytime(time);
 			payList.add(pays);
 		}
-		paysService.BatchAdd(payList);
+		paysService.BatchAdd(payList,name);
 		result = ControllerResult.getSuccessRequest("工资已发放！");
 		return SUCCESS;
 	}

@@ -31,21 +31,21 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,fit:true">
+		pageSize:20,fit:true">
 		<thead>
 			<tr>
 				<th data-options="field:'mname',width:100" align="center">收入人</th>
 				<th data-options="field:'moncount',width:100" align="center">收入金额</th>
-				<th data-options="field:'monpro',width:100" align="center">收入原因</th>
-				<th data-options="field:'mdate',width:100" align="center">收入时间</th>
+				<th data-options="field:'monpro',width:600" align="center">收入原因</th>
+				<th data-options="field:'mdate',width:150" align="center">收入时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="tb" style="padding:2px;">
 	&nbsp;&nbsp;
 		<!-- 按时间查询 -->
-		<input  class="easyui-datebox" id="begin" size="10px" />&nbsp;-&nbsp;
-		<input  class="easyui-datebox" id="end" size="10px" />
+		<input  class="easyui-datebox" id="begin" size="15px" />&nbsp;-&nbsp;
+		<input  class="easyui-datebox" id="end" size="15px" />
 		 <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByTime();" >时间查询</a>
 		
 		<!-- 按支出人查询 -->
@@ -65,7 +65,7 @@
 		function setPagination(tableId) {
 			var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
 			$(p).pagination({
-				pageList : [ 5, 10, 15, 20 ],
+				pageList : [20,30,40],
 				beforePageText : "第",
 				afterPageText : "页    共{pages}页",
 				displayMsg : "当前显示{from} - {to} 条记录    共{total}条记录",

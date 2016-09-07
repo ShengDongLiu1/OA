@@ -36,19 +36,19 @@
                 <span style="font-size: 13px;">员工姓名：</span><input class="easyui-textbox" disabled="disabled"
                                                                   value="${depGz.getName() }"
                                                                   style="font-size:15px; width:60px;height:32px">
-                <span style="margin-left:25px; font-size: 13px;">奖励金额：</span><input
-                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" name="paysa"
+                <span style="margin-left:25px; font-size: 13px;">基本工资：</span><input
+                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" disabled="disabled" value="${depGz.getGz()}"
                     style="font-size:15px; width:100px;height:32px">
-                <span style="margin-left:25px; font-size: 13px;">惩罚金额：</span><input
-                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" name="paysb"
+                <span style="margin-left:25px; font-size: 13px;">奖励金额：</span><input
+                    class="easyui-validatebox easyui-numberbox" data-options="precision:2" name="paysa"
                     style="font-size:15px; width:100px;height:32px">
             </div>
             <div style="margin-bottom:20px; padding-left: 20px; ">
-                <span style="margin-left:158px; font-size: 13px;">基本工资：</span><input
-                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" disabled="disabled" value="${depGz.getGz()}"
+                <span style="margin-left:158px; font-size: 13px;">惩罚金额：</span><input
+                    class="easyui-validatebox easyui-numberbox" data-options="precision:2" name="paysb"
                     style="font-size:15px; width:100px;height:32px">
                 <span style="margin-left:25px; font-size: 13px;">补贴工资：</span><input
-                    class="easyui-validatebox easyui-numberbox" data-options="required:true,precision:2" name="paysc"
+                    class="easyui-validatebox easyui-numberbox" data-options="precision:2" name="paysc"
                     style="font-size:15px; width:100px;height:32px">
             </div>
             <div style="margin-bottom:20px; padding-left: 20px; ">
@@ -59,7 +59,7 @@
         </c:forEach>
        		<div style="margin-bottom:20px; padding-left: 20px; ">
                 <span style="margin-left:158px; font-size: 13px;">发放时间:</span>
-                <input class="easyui-datetimebox" name="pays.paytime" data-options="required:true"/>
+                <input class="easyui-datebox" name="pays.paytime" data-options="required:true,novalidate:true"/>
             </div>
         <br/>
         <div style="margin-left: 350px;">
@@ -70,20 +70,18 @@
 </div>
 <br/>
 <script type="text/javascript">
-    function adds() {
-        $.post('<%=path %>/pays/BatchAdd',
-                $("#addsForm").serialize(),
-                function (data) {
-                    if (data.result.result == 'success') {
-                        $.messager.alert("提示", data.result.msg, "info", function () {
-                            window.location.href = "<%=path %>/pays/all";
-                        });
-                    } else {
-                        $.messger.alert("提示", data.msg, "info");
-                    }
-                }
-                , "JSON");
-    }
+function adds() {
+    $.post('BatchAdd',$("#addsForm").serialize(),
+		function (data) {
+		    if (data.result.result == 'success') {
+		        $.messager.alert("提示", data.result.msg, "info", function () {
+		            window.location.href = "<%=path %>/pays/all";
+		        });
+		    } else {
+		        $.messager.alert("提示", data.msg, "info");
+		    }
+		}, "JSON");
+}
 </script>
 </body>
 </html>

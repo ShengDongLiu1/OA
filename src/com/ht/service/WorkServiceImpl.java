@@ -63,5 +63,4 @@ public class WorkServiceImpl implements WorkService {
 	public String deleteW(Work t) {
 		return workDao.deleteW(t);
 	}
-
 }

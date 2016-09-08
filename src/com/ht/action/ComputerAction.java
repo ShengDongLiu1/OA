@@ -13,10 +13,12 @@ import org.apache.struts2.ServletActionContext;
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Computer;
 import com.ht.bean.Student;
+import com.ht.bean.Work;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.ComputerService;
+import com.ht.service.WorkService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 
@@ -35,6 +37,15 @@ public class ComputerAction extends ActionSupport {
 	private long total;
 	private List<Student> student;
 	private int page;
+	private WorkService workService;
+
+	public WorkService getWorkService() {
+		return workService;
+	}
+
+	public void setWorkService(WorkService workService) {
+		this.workService = workService;
+	}
 
 	public void setComputerService(ComputerService computerService) {
 		this.computerService = computerService;
@@ -69,12 +80,20 @@ public class ComputerAction extends ActionSupport {
 	}
 
 	public String add() {
-		computer.setComcount(1);
-		computerService.add(computer);
-		if(computer == null){
-			result = ControllerResult.getFailResult("添加失败");
-		}else{
+		Work work = new Work();
+		work.setWname("电脑");
+		work = workService.query(work);
+		if(work != null){
+			computer.setComcount(1);
+			computerService.add(computer);
+			int count = work.getWcount()-1;
+			int mount = work.getWamount()-1;
+			work.setWcount(count);
+			work.setWamount(mount);
+			workService.update(work);
 			result = ControllerResult.getSuccessRequest("添加成功");
+		}else{
+			result = ControllerResult.getFailResult("没有电脑可领用，添加失败");
 		}
 		return SUCCESS;
 	}

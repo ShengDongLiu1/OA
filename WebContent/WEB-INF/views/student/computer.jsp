@@ -219,7 +219,7 @@
 							$("#list").datagrid('reload');
 						});
 					} else {
-						$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+						$.messager.alert("提示", data.result.msg + " 请稍候再试", "info");
 					}
 				},"JSON");
 			}

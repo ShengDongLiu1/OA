@@ -46,9 +46,19 @@ public class WorkDaoImpl implements WorkDao {
 	@Override
 	public Work query(Work t) {
 		session = sessionFactory.openSession();
-		Work jobs = (Work) session.get(Work.class,5);
+		Query query = session.createQuery("from Work where wname=:wname");
+		query.setString("wname", t.getWname());
+		@SuppressWarnings("unchecked")
+		List<Work> work = query.list();
+		Work w = null;
+		try{
+			w = work.get(0);
+		}catch(Exception e){
+			e.getStackTrace();
+			return null;
+		}
 		session.close();
-		return jobs;
+		return w;
 	}
 
 	@Override
@@ -128,5 +138,4 @@ public class WorkDaoImpl implements WorkDao {
 		session.close();
 		return work;
 	}
-
 }

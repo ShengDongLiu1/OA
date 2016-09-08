@@ -81,8 +81,7 @@ public class Work implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Work [wid=" + wid + ", wtypeid=" + wtypeid + ", wname=" + wname + ", wcount=" + wcount + ", wamount=" + wamount + ", worktype="
-				+ worktype + "]";
+		return "Work [wid=" + wid + ", wtypeid=" + wtypeid + ", wname=" + wname + ", wcount=" + wcount + ", wamount=" + wamount + "]";
 	}
 	
 	

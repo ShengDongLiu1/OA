@@ -53,6 +53,8 @@ public class ApplyAction extends ActionSupport {
 
 	private int page;
 
+	private Work work;
+
 	public Apply getApply() {
 		return apply;
 	}
@@ -219,19 +221,34 @@ public class ApplyAction extends ActionSupport {
 			result = ControllerResult.getSuccessRequest("已通过审批，不需要再次审批！");
 			return SUCCESS;
 		}
+
 		apply = applyService.updateSP(apply);
 		result = ControllerResult.getSuccessRequest("通过审批");
-		Work work = new Work();
-		work.setWorktype(apply.getWorktype());
+		
+		work = new Work();
 		work.setWname(apply.getGname());
-		work.setWcount(apply.getGcounts());
-		work.setWamount(apply.getGcounts());
-		workService.add(work);
+		work=workService.query(work);
+		if(work!=null){
+			int count = work.getWcount()+apply.getGcounts();
+			int mount = work.getWamount()+apply.getGcounts();
+			work.setWcount(count);
+			work.setWamount(mount);
+			workService.update(work);
+		}else{
+			work.setWorktype(apply.getWorktype());
+			work.setWname(apply.getGname());
+			work.setWcount(apply.getGcounts());
+			work.setWamount(apply.getGcounts());
+			workService.add(work);
+		}
 
+		
+		
 		Expend e = new Expend();
 		e.setPaypro("购买物品");
 		e.setPaycount(apply.getGcounts() * apply.getGprice());
 		paysService.addexpend(e);
+		
 		return SUCCESS;
 	}
 }

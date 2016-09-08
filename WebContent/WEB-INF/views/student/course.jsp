@@ -51,11 +51,15 @@
 			  		</tr>
 			  		<tr>
 			  			<td>学期:</td>
-			  			<td><input class="easyui-textbox" id="semester" name="course.semester" data-options="required:true"  ></input></td>
+			  			<td>
+			  				<input name="course.semester" id="semester" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" />
+			  			</td>
 			  		</tr>
 			  		<tr>
 			  			<td>课时:</td>
-			  			<td><input class="easyui-textbox" id="period" name="course.period" data-options="required:true" ></input></td>
+			  			<td>
+			  				<input name="course.period" id="period" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" />
+			  			</td>
 			  		</tr>
 				</table>
 				<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -78,11 +82,15 @@
 		  		</tr>
 		  		<tr>
 		  			<td>学期:</td>
-		  			<td><input class="easyui-textbox" title="请输入学期数" id="ser" name="course.semester" data-options="required:true" ></input></td>
+		  			<td>
+		  				<input name="course.semester" id="ser" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" />
+		  			</td>
 		  		</tr>
 		  		<tr>
 		  			<td>课时:</td>
-		  			<td><input class="easyui-textbox" id="pod" name="course.period" data-options="required:true" ></input></td>
+		  			<td>
+						<input name="course.period" id="pod" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" />
+					</td>
 		  		</tr>
 			</table>
 			<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -122,7 +130,8 @@
 		}
 		// 添加(提交後臺)
 		 function add(){
-			 if($("#ff").form("validate")){
+			 toValidate("ff");
+		     if (validateForm("ff")){
 				 var semester=$("#semester").textbox("getValue");
 				 if(semester>0 && semester<5){
 					$.post('<%=path%>/course/add',$("#ff").serialize(),

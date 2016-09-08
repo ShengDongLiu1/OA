@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
     <class name="com.ht.bean.Courseplan" table="courseplan">
-        <id name="kid" type="java.lang.Integer">
+        <id name="kid">
             <column name="kid" />
             <generator class="native" />
         </id>

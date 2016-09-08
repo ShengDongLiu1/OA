@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.ServletActionContext;
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Course;
@@ -38,6 +37,8 @@ public class CourseplanAction extends ActionSupport{
 	private int page;
 	private List<Course> course;
 	private List<Dep> dep;
+	HttpSession session = ServletActionContext.getRequest().getSession();
+	User user=(User) session.getAttribute("user");
 	
 	public void setCourseplanService(CourseplanService courseplanService) {
 		this.courseplanService = courseplanService;
@@ -68,25 +69,35 @@ public class CourseplanAction extends ActionSupport{
 	}
 
 	public String add() {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user=(User) session.getAttribute("user");
-		Dep d=new Dep();
-		d.setEid(user.getDep().getEid());
-		cplan.setDep(d);
-		courseplanService.add(cplan);
-		result = ControllerResult.getSuccessRequest("添加成功！");
+		Course t=new Course();
+		t.setObjectid(cplan.getCourse().getObjectid());
+		t=courseplanService.query(t);
+		if(cplan.getCurrent_course()<=t.getPeriod()){
+			Dep d=new Dep();
+			d.setEid(user.getDep().getEid());
+			cplan.setDep(d);
+			courseplanService.add(cplan);
+			result = ControllerResult.getSuccessRequest("添加成功！");
+		}else{
+			result=ControllerResult.getFailResult("当前课时不能大于总课时！");
+		}
 		return SUCCESS;
 	}
 	
 	public String update(){
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user=(User) session.getAttribute("user");
-		Dep d=new Dep();
-		d.setEid(user.getDep().getEid());
-		cplan.setDep(d);
-		cplan.setEmpid(user.getDep().getEid());
-		courseplanService.update(cplan);
-		result = ControllerResult.getSuccessRequest("修改成功");
+		Course t=new Course();
+		t.setObjectid(cplan.getCourse().getObjectid());
+		t=courseplanService.query(t);
+		if(cplan.getCurrent_course()<=t.getPeriod()){
+			Dep d=new Dep();
+			d.setEid(user.getDep().getEid());
+			cplan.setDep(d);
+			cplan.setEmpid(user.getDep().getEid());
+			courseplanService.update(cplan);
+			result = ControllerResult.getSuccessRequest("修改成功");
+		}else{
+			result=ControllerResult.getFailResult("当前课时不能大于总课时！");
+		}
 		return SUCCESS;
 	}
 	
@@ -143,8 +154,6 @@ public class CourseplanAction extends ActionSupport{
 	
 	
 	public String queryAll(){
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		User user=(User) session.getAttribute("user");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));

@@ -53,7 +53,9 @@
 			  		
 			  		<tr>
 			  			<td>当前课时:</td>
-			  			<td><input class="easyui-textbox" id="current_course" name="cplan.current_course" data-options="required:true" ></input></td>
+			  			<td>
+			  			<input type="text" class="easyui-numberbox" id="current_course" name="cplan.current_course" data-options="required:true" >
+			  			</td>
 			  		</tr>
 			  		<tr>
 			  			<td>课程内容:</td>
@@ -72,20 +74,15 @@
 	<div id="editWindow" class="easyui-window" title="编辑" data-options="closed:true,iconCls:'icon-edit'" style="padding:10px;">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="editForm">
+			<input type="hidden" id="ki" name="cplan.kid" />
 			<table>
-				<tr>
-					<td>编号:</td>
-					<td>
-						<input class="easyui-textbox" id="ki" name="cplan.kid" data-options="required:true" readonly ></input>
-					</td>
-				</tr>
 		  		<tr>
 		  			<td>课程:</td>
 		  			<td><input class="easyui-combobox" id="ob" name="cplan.course.objectid" data-options="required:true" ></input></td>
 		  		</tr>
 		  		<tr>
 		  			<td>当前课时:</td>
-		  			<td><input class="easyui-textbox" id="cc" name="cplan.current_course" data-options="required:true" ></input></td>
+		  			<td><input type="text" class="easyui-numberbox" id="cc" name="cplan.current_course" data-options="required:true" ></input></td>
 		  		</tr>
 		  		<tr>
 		  			<td>课程内容:</td>
@@ -149,7 +146,7 @@
 							$("#ff").form("clear");
 						});
 					} else {
-						$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+						$.messager.alert("提示",data.result.msg + " 请稍候再试", "info");
 					}
 				},"JSON");
 			}
@@ -165,6 +162,7 @@
 		function editOpen() {
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
+				document.getElementById("ki").value=row.kid;
 				$("#ob").combobox({
 					url:"<%=path%>/courseplan/object",
 					method:'get',
@@ -176,7 +174,7 @@
 				$("#ob").combobox("select", row.course.objectid);
 				$("#emp").combobox("setValue", row.dep.ename);
 				$("#emp").combobox("select", row.dep.eid);
-				$("#ki").textbox("setValue", row.kid);
+				//$("#ki").textbox("setValue", row.kid);
 				$("#cc").textbox("setValue", row.current_course);
 				$("#co").textbox("setValue", row.content); 
 				$("#editWindow").window("open");
@@ -196,7 +194,7 @@
 							$("#editForm").form("clear");
 						});
 					} else {
-						$.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
+						$.messager.alert("提示", data.result.msg + " 请稍候再试", "info");
 					}
 				},"JSON");
 			}

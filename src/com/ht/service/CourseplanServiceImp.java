@@ -25,7 +25,12 @@ public class CourseplanServiceImp implements CourseplanService{
 	public Courseplan add(Courseplan t) {
 		return courseplandao.add(t);
 	}
-
+	
+	@Override
+	public Course query(Course c){
+		return courseplandao.query(c);
+	}
+	
 	@Override
 	public Courseplan query(Courseplan t) {
 		return courseplandao.query(t);

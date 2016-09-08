@@ -53,12 +53,28 @@ public class CourseplanDaoImp implements CourseplanDao{
 	public Courseplan add(Courseplan t) {
 		session=sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(t);
+		try{
+			session.save(t);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 		transaction.commit();
 		session.close();
 		return t;
 	}
-
+	
+	@Override
+	public Course query(Course t) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Course where objectid=:objectid");
+		query.setInteger("objectid",t.getObjectid());
+		@SuppressWarnings("unchecked")
+		List<Course> courses = query.list();
+		Course w=courses.get(0);
+		return w;
+	}
+	
 	@Override
 	public Courseplan query(Courseplan t) {
 
@@ -97,7 +113,7 @@ public class CourseplanDaoImp implements CourseplanDao{
 		Query q = session.createQuery("from Course");
 		@SuppressWarnings("unchecked")
 		List<Course> list=q.list();
-		session.close();
+//		session.close();
 		return list;
 	}
 
@@ -107,7 +123,7 @@ public class CourseplanDaoImp implements CourseplanDao{
 		Query q = session.createQuery("from Dep");
 		@SuppressWarnings("unchecked")
 		List<Dep> list=q.list();
-		session.close();
+//		session.close();
 		return list;
 	}
 

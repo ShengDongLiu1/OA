@@ -15,14 +15,14 @@ public class Course implements java.io.Serializable {
 	private Integer objectid;
 	private String objectname;
 	private int semester;
-	private String period;
+	private int period;
 	private Set<Courseplan> courseplan;
 	
-	public String getPeriod() {
+	public int getPeriod() {
 		return period;
 	}
 
-	public void setPeriod(String period) {
+	public void setPeriod(int period) {
 		this.period = period;
 	}
 
@@ -65,4 +65,11 @@ public class Course implements java.io.Serializable {
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
+
+	@Override
+	public String toString() {
+		return "Course [objectid=" + objectid + ", objectname=" + objectname + ", semester=" + semester + ", period="
+				+ period + ", courseplan=" + courseplan + "]";
+	}
+	
 }

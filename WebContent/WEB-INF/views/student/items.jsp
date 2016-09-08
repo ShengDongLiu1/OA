@@ -89,7 +89,7 @@
 			  		<tr>
 			  			<td>答辩成绩:</td>
 			  			<td>
-			  				<input name="items.score" id="score" type="text" class="easyui-numberbox" data-options="precision:2,max:100.00,min:0,maxlength:4"  />
+			  				<input name="items.score" id="score" type="text" class="easyui-numberbox" data-options="required:true,precision:2,max:100.00,min:0,maxlength:4"  />
 						</td>
 			  		</tr>
 				</table>
@@ -132,7 +132,7 @@
 				<tr>
 					<td >成绩:</td>
 					<td >
-						<input name="items.score" id="sc" type="text" class="easyui-numberbox" data-options="precision:2,max:100.00,min:0,maxlength:4"   />
+						<input name="items.score" id="sc" type="text" class="easyui-numberbox" data-options="required:true,precision:2,max:100.00,min:0,maxlength:4"   />
 					</td>
 				</tr>
 			</table>
@@ -152,8 +152,10 @@
 		function Score(){
 			var begin= $('#begin').textbox('getValue');
 			var end= $('#end').textbox('getValue');
-	    	if(begin=='' && end=='' || begin==null && end==null){
+	    	if(begin=='' && end=='' || begin==null && end==null ){
 	    		alert("请输入分数线")
+	    	}else if(isNaN(begin)== true || isNaN(end)== true){
+	    		alert("不能输入非法数字！");
 	    	}else{
 	    		$('#list').datagrid('load', {   
 	    			begin:begin,
@@ -343,8 +345,6 @@
 		}
 		// 编辑提交
 		function edit(){
-			items=$("#si").combobox("getValue");
-			alert(items);
 			if($("#editForm").form("validate")){
 				$.post('<%=path%>/items/update',$("#editForm").serialize(),
 					function(data) {

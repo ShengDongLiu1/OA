@@ -16,5 +16,5 @@ public interface CourseplanDao extends BaseDao<Courseplan,Integer>{
 	public List<Course> queryCourse();
 	public List<Dep> queryDep();
 	public Pager<Courseplan> queryAll(Pager<Courseplan> pager,int uid);
-	
+	public Course query(Course c);
 }

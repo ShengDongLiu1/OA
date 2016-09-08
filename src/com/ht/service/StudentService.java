@@ -27,7 +27,11 @@ public interface StudentService extends BaseDao<Student, Integer> {
 	
 	public Student addStu(Student t);
 	
-	public Pager<Student> queryClasses(Pager<Student> pager, int id);
+	public Pager<Student> queryAll(Pager<Student> pager, int i);
 	
-	public Pager<Student> queryName(Pager<Student> pager,String name);
+	public Pager<Student> queryClasses(Pager<Student> pager, int id, int i);
+	
+	public Pager<Student> queryName(Pager<Student> pager,String name, int i);
+
+	public Student updateZ(Student t);
 }

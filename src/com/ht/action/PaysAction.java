@@ -313,15 +313,16 @@ public class PaysAction extends ActionSupport{
 			}else{
 				name += dep.getEname()+"、";	
 			}
-			if(pays.getPayspro().equals("") || pays.getPayspro() == null){
+			if(payspro[i].equals("") || payspro[i] == null){
 				pays.setPayspro("无");
+			}else{
+				pays.setPayspro(payspro[i]);
 			}
 			pays.setDep(dep);
 			pays.setPaysa(paysa[i]);
 			pays.setPaysb(0 - paysb[i]);
 			pays.setPaysc(paysc[i]);
-			pays.setPayspro(payspro[i]);
-			pays.setPayssta(payssta[i]);
+			pays.setPayssta(dep.getBasepay());
 			pays.setPaysd(pays.getPaysa()+pays.getPaysb()+pays.getPaysc()+pays.getPayssta());
 			pays.setPaytime(time);
 			payList.add(pays);

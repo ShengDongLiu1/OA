@@ -79,9 +79,6 @@ public class StudentDaoImpl implements StudentDao {
 			c.setClassid(t.getClassid());
 			Hourse h = new Hourse();
 			h.setHourid(t.getHourid());
-			Status s = new Status();
-			s.setZid(9);
-			stu.setStatus(s);
 			stu.setClasses(c);
 			stu.setHourse(h);
 			session.update(stu);
@@ -157,7 +154,6 @@ public class StudentDaoImpl implements StudentDao {
 		return obj;
 	}
 
-	@Override
 	public Object countyx() {
 		session = sessionFactory.openSession();
 		Query q = session.createQuery("select count(t) from Studentyx t");
@@ -232,46 +228,87 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public Pager<Student> queryClasses(Pager<Student> pager, int id){
+	public Pager<Student> queryClasses(Pager<Student> pager, int id, int i){
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Student where classid="+id);
+		Query query = session.createQuery("from Student t where t.classes.classid="+id+" and t.status.zid = "+i);
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<Student> list = query.list();
 		pager.setRows(list);
-		pager.setTotal((long)countClass(id));
+		pager.setTotal((long)countClass(id, i));
 		session.close();
 		return pager;
 	}
 	
-	public Object countClass(int id){
+	public Object countClass(int id, int i){
 		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Student t where classid="+id);
+		Query q = session.createQuery("select count(t) from Student t where classid="+id+" and t.status.zid = "+i);
 		Object obj = q.uniqueResult();
 		return obj;
 	}
 	
 	@Override
-	public Pager<Student> queryName(Pager<Student> pager,String name){
+	public Pager<Student> queryName(Pager<Student> pager,String name, int i){
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Student where intenname  like :name");
+		Query query = session.createQuery("from Student t where intenname  like :name and t.status.zid = "+i);
 		query.setString("name", "%"+name+"%");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<Student> list = query.list();
 		pager.setRows(list);
-		pager.setTotal((long)countName(name));
+		pager.setTotal((long)countName(name, i));
 		session.close();
 		return pager;
 	}
 
-	public Object countName(String name){
+	public Object countName(String name,int i){
 		session = sessionFactory.openSession();
-		Query q = session.createQuery("select count(t) from Student t where intenname  like :name");
+		Query q = session.createQuery("select count(t) from Student t where intenname  like :name and t.status.zid = "+i);
 		q.setString("name", "%"+name+"%");
 		Object obj = q.uniqueResult();
 		return obj;
+	}
+
+
+	@Override
+	public Pager<Student> queryAll(Pager<Student> pager,int i) {
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("from Student t where t.status.zid = "+i+" order by intenid desc");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Student> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count(i));
+		transaction.commit();
+		session.close();
+		return pager;
+	}
+
+	public Object count(int i) {
+		session = sessionFactory.openSession();
+		Query q = session.createQuery("select count(t) from Student t where t.status.zid = "+i);
+		Object obj = q.uniqueResult();
+		return obj;
+	}
+	
+	@Override
+	public Student updateZ(Student t){
+		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Object obj = session.get(Student.class, t.getIntenid());
+		if (obj != null) {
+			Student stu = (Student) obj;
+			Status s = new Status();
+			s.setZid(10);
+			stu.setStatus(s);
+			session.update(stu);
+		}
+		transaction.commit();
+		session.close();
+		return t;
 	}
 }

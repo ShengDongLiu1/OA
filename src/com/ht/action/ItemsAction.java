@@ -4,14 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
 import com.alibaba.fastjson.JSON;
 import com.ht.bean.Classes;
-import com.ht.bean.Dep;
 import com.ht.bean.Items;
 import com.ht.bean.Student;
 import com.ht.bean.User;
@@ -37,8 +38,6 @@ public class ItemsAction extends ActionSupport{
 	private ControllerResult result;
 	private List<Classes> classes;
 	private List<Student> student;
-	HttpSession session = ServletActionContext.getRequest().getSession();
-	User user=(User) session.getAttribute("user");
 
 	public void setitemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
@@ -69,10 +68,7 @@ public class ItemsAction extends ActionSupport{
 	}
 
 	public String add() {
-		Dep d=new Dep();
-		d.setEid(user.getDep().getEid()); 
-		items.setDep(d);
-		items.setSteacher(user.getDep().getEid());
+		items.setDep(itemsService.queryByDep(items.getStudent()));
 		items = itemsService.add(items);
 		if(items == null){
 			result = ControllerResult.getFailResult("添加失败");
@@ -83,10 +79,6 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String update(){
-		System.out.println("action update");
-		Dep d=new Dep();
-		d.setEid(user.getDep().getEid());
-		items.setDep(d);
 		items = itemsService.update(items);
 		if(items == null){
 			result = ControllerResult.getFailResult("修改失败");
@@ -103,6 +95,8 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String queryAll(){
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		User user = (User) session.getAttribute("user");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		pager = new Pager<>();
 		pager.setPageNo(page);
@@ -119,13 +113,13 @@ public class ItemsAction extends ActionSupport{
 			end=Integer.valueOf(request.getParameter("end"));
 		
 		if(request.getParameter("name") != null){
-			pager = itemsService.queryByName(pager, request.getParameter("name"),user.getDep().getEid());
+			pager = itemsService.queryByName(pager, request.getParameter("name"));
 		}else if( classid!= 0){
-			pager = itemsService.queryByClass(pager, Integer.valueOf(request.getParameter("classid")),user.getDep().getEid());
+			pager = itemsService.queryByClass(pager, Integer.valueOf(request.getParameter("classid")));
 		}else if(begin != 0 || end!=0){
-			pager = itemsService.queryByScore(pager, begin, end,user.getDep().getEid());
+			pager = itemsService.queryByScore(pager, begin, end);
 		}else{
-			pager = itemsService.queryAll(pager,user.getDep().getEid());	
+			pager = itemsService.queryAll(pager);	
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
@@ -179,7 +173,6 @@ public class ItemsAction extends ActionSupport{
 	}
 	
 	public String all(){
-		System.out.println("all");
 		return "all";
 	}
 }

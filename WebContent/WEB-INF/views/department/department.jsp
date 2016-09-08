@@ -21,8 +21,7 @@
     function setPagination(tableId) {
         var p = $("#" + tableId).datagrid("getPager"); // 获取由tableId指定的datagrid控件的分页组件
         $(p).pagination({
-            pageSize: 3,
-            pageList: [3, 5, 10, 15],
+            pageList: [20, 30, 40],
             beforePageText: "第",
             afterPageText: "页    共{pages}页",
             displayMsg: "当前显示{from} - {to} 条记录    共{total}条记录",
@@ -147,7 +146,7 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,fit:true">
+		pageSize:20,fit:true">
     <thead>
     <tr>
         <th data-options="field:'did',checkbox:true" width="100" align="center">部门编号</th>

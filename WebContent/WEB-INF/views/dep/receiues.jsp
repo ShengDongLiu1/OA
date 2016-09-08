@@ -78,16 +78,7 @@
 		if (row) {
 			if(row.restore=="借"){
 				document.getElementById("uid").value = row.uid;
-				$("#rece").combobox({
-					url:"<%=path%>/receiue/tjls",
-					method:'get',
-				    valueField:'id',
-				    textField:'name',
-				    panelHeight:'auto',
-				});
-				
-			    $("#rece").combobox("setValue", row.dep.ename);
-	            $("#rece").combobox('select', row.dep.eid);
+				document.getElementById("eid").value = row.dep.eid;
 				$("#workname").combobox({
 					url:"<%=path%>/receiue/tjls2",
 					method:'get',
@@ -211,19 +202,6 @@
 	//打开添加申领记录窗口
 	function addPro() {
 		$("#addWin").window("open");
-		$("#addrece").combobox({
-			url:"<%=path%>/receiue/tjls",
-			method:'get',
-		    valueField:'id',
-		    textField:'name',
-		    panelHeight:'auto',
-		    onLoadSuccess: function () { //数据加载完毕事件
-	            var data = $('#addrece').combobox('getData');
-	            if (data.length > 0) {
-	                $("#addrece").combobox('select', data[0].id);
-	            }
-	        }
-		});
 		
 		$("#addwork").combobox({
 			url:"<%=path%>/receiue/tjls2",
@@ -305,13 +283,8 @@
 		style="width: 350px; height: 400px; padding: 5px;">
 		<form id="editForm" enctype="multipart/form-data">
 			<input type="hidden" id="uid" name="receiue.uid"/>
+			<input type="hidden" id="eid" name="receiue.dep.eid"/>
 			<table>
-				<tr>
-		  			<td>选择员工:</td>
-		  			<td><br>
-		  				<input class="easyui-combobox" data-options="required:true" id="rece" name="receiue.eid" /><br/><br/>
-		  			</td>
-		  		</tr>
 				<tr>
 		  			<td>选择物品:</td>
 		  			<td><br>
@@ -361,13 +334,9 @@
 		data-options="iconCls:'icon-edit', closable:true, closed:true"
 		style="width: 350px; height: 350px; padding: 5px;">
 		<form id="addForm" enctype="multipart/form-data">
+			<input type="hidden" id="rece" name="receiue.dep.eid" value="${sessionScope.user.dep.getEid()}"/>
 			<table>
 			<tr>
-		  		<td>选择员工:</td>
-		  			<td><br>
-		  			<input class="easyui-combobox" data-options="required:true" id="addrece" name="receiue.eid" /><br/><br/>
-		  			</td>
-		  		</tr>
 				<tr>
 		  			<td>选择物品:</td>
 		  			<td><br>

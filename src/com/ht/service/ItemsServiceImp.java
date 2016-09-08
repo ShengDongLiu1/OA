@@ -52,18 +52,18 @@ public class ItemsServiceImp implements ItemsService {
 	}
 
 	@Override
-	public Pager<Items> queryByName(Pager<Items> tem, String name,int id) {
-		return itemsDao.queryByName(tem, name,id);
+	public Pager<Items> queryByName(Pager<Items> tem, String name) {
+		return itemsDao.queryByName(tem, name);
 	}
 
 	@Override
-	public Pager<Items> queryByClass(Pager<Items> tem, int classid,int id) {
-		return itemsDao.queryByClass(tem, classid,id);
+	public Pager<Items> queryByClass(Pager<Items> tem, int classid) {
+		return itemsDao.queryByClass(tem, classid);
 	}
 
 	@Override
-	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end,int id) {
-		return itemsDao.queryByScore(tem,begin,end,id);
+	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end) {
+		return itemsDao.queryByScore(tem,begin,end);
 	}
 
 	@Override
@@ -84,6 +84,11 @@ public class ItemsServiceImp implements ItemsService {
 	@Override
 	public List<Student> student(int c) {
 		return itemsDao.student(c);
+	}
+
+	@Override
+	public Dep queryByDep(Student t) {
+		return itemsDao.queryByDep(t);
 	}
 
 

@@ -142,11 +142,27 @@ public class MoneyAction extends ActionSupport {
 	}
 
 	public String queryAll() {
+		HttpServletRequest req = ServletActionContext.getRequest();
+		String begin = req.getParameter("begin");
+		String end = req.getParameter("end");
+		String xq =req.getParameter("xq");
+		String depname =req.getParameter("depname");
+		String stuname =req.getParameter("stuname");
 		pager = new Pager<>();
 		pager.setPageNo(page);
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
-		pager = moneyService.queryAll(pager);
+		if(begin != null || end != null){
+			pager = moneyService.queryByTime(pager,begin,end);
+		}else if(xq != null){
+			pager = moneyService.queryByXq(pager,xq);
+		}else if(depname != null){
+			pager = moneyService.queryByDepName(pager,depname);
+		}else if(stuname != null){
+			pager = moneyService.queryByStuName(pager,stuname);
+		}else{
+			pager = moneyService.queryAll(pager);
+		}
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;

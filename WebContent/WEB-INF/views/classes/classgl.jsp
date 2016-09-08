@@ -207,7 +207,7 @@
         								$("#list").datagrid("reload");	
         							});
         						}
-        					});
+        					},"JSON");
         				}
         			});
         		}else{

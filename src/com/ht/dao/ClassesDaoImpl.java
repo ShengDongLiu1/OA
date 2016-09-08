@@ -91,7 +91,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public Pager<Classes> queryAll(Pager<Classes> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Classes");
+		Query query = session.createQuery("from Classes order by classid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -129,7 +129,6 @@ public class ClassesDaoImpl implements ClassesDao {
 		Query query = session.createQuery("from Dep where estatus = 3");
 		@SuppressWarnings("unchecked")
 		List<Dep> deps= query.list();
-		session.close();
 		return deps;
 	}
 	

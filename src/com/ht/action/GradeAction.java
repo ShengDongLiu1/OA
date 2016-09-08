@@ -19,7 +19,6 @@ import com.ht.bean.Student;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
-import com.ht.common.SessionUtil;
 import com.ht.service.GradeService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -141,8 +140,7 @@ public class GradeAction extends ActionSupport {
 		this.intenname = intenname;
 	}
 
-	///////////////////////////////
-
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(GradeAction.class);
 
 	public String add() {

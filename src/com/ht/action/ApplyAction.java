@@ -5,11 +5,13 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -17,12 +19,14 @@ import com.alibaba.fastjson.JSON;
 import com.ht.bean.Apply;
 import com.ht.bean.Dep;
 import com.ht.bean.Expend;
+import com.ht.bean.User;
 import com.ht.bean.Work;
 import com.ht.bean.Worktype;
 import com.ht.common.Combox;
 import com.ht.common.ControllerResult;
 import com.ht.common.Pager;
 import com.ht.service.ApplyService;
+import com.ht.service.DepService;
 import com.ht.service.PaysService;
 import com.ht.service.WorkService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -34,6 +38,7 @@ public class ApplyAction extends ActionSupport {
 	private ApplyService applyService;
 	private PaysService paysService;
 	private WorkService workService;
+	private DepService depService;
 	private ControllerResult result;
 	private Pager<Apply> pager;
 	private Apply apply;
@@ -73,6 +78,10 @@ public class ApplyAction extends ActionSupport {
 
 	public void setApplyService(ApplyService applyService) {
 		this.applyService = applyService;
+	}
+
+	public void setDepService(DepService depService) {
+		this.depService = depService;
 	}
 
 	public void setPaysService(PaysService paysService) {
@@ -221,9 +230,32 @@ public class ApplyAction extends ActionSupport {
 			result = ControllerResult.getSuccessRequest("已通过审批，不需要再次审批！");
 			return SUCCESS;
 		}
-
+		apply.setAstatus("已审批");
 		apply = applyService.updateSP(apply);
 		result = ControllerResult.getSuccessRequest("通过审批");
+		return SUCCESS;
+	}
+	
+
+	public String allG() {
+		return "allg";
+	}
+
+	public String queryAllG() throws ParseException {
+		pager = new Pager<>();
+		pager.setPageNo(page);
+		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
+		pager.setPageSize(pageSize);
+		pager = applyService.queryAllG(pager);
+		rows = pager.getRows();
+		total = pager.getTotal();
+		return SUCCESS;
+	}
+
+	public String updateGM() {
+		apply.setAstatus("已购买");
+		apply = applyService.updateSP(apply);
+		result = ControllerResult.getSuccessRequest("完成购买");
 		
 		work = new Work();
 		work.setWname(apply.getGname());
@@ -242,11 +274,15 @@ public class ApplyAction extends ActionSupport {
 			workService.add(work);
 		}
 
-		
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		User user = (User) session.getAttribute("user");
+		Dep dep = depService.query(user.getDep());
 		
 		Expend e = new Expend();
 		e.setPaypro("购买物品");
+		e.setPayname(dep.getEname());
 		e.setPaycount(apply.getGcounts() * apply.getGprice());
+		e.setPtime(Calendar.getInstance().getTime());
 		paysService.addexpend(e);
 		
 		return SUCCESS;

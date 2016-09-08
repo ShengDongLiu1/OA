@@ -28,9 +28,11 @@
         <action name="*" class="com.ht.action.StudentAction" method="{1}" >
         	<result name="success" type="json"></result>
         	<result name="all">/WEB-INF/views/student/student.jsp</result>
+        	<result name="ally">/WEB-INF/views/student/studentY.jsp</result>
         	<result name="yx">/WEB-INF/views/student/yx.jsp</result>
         	<result name="xs">/WEB-INF/views/classes/classxs.jsp</result>
         	<result name="stu">/WEB-INF/views/student/studentXq.jsp</result>
+        	<result name="stuy">/WEB-INF/views/student/studentXq2.jsp</result>
         </action>
     </package>
     
@@ -215,6 +217,7 @@
 		<action name="*" class="com.ht.action.ApplyAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="all">/WEB-INF/views/dep/Apply.jsp</result>
+			<result name="allg">/WEB-INF/views/dep/ApplyG.jsp</result>
 			<result name="xzyg">/WEB-INF/views/dep/Apply.jsp</result>
 			<result name="xzlx">/WEB-INF/views/dep/Apply.jsp</result>
 		</action>

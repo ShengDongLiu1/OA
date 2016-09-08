@@ -57,7 +57,7 @@ public class ApplyDaoImpl implements ApplyDao {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Apply a = (Apply) session.get(Apply.class, t.getAid());
-		a.setAstatus("已审批");
+		a.setAstatus(t.getAstatus());
 		session.update(a);
 		session.getTransaction().commit();
 		session.close();
@@ -76,7 +76,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryAll(Pager<Apply> pager) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply");
+		Query query = session.createQuery("from Apply order by aid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -97,7 +97,7 @@ public class ApplyDaoImpl implements ApplyDao {
 
 	public List<Dep> queryDep() {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Dep where eid != 1");
+		Query query = session.createQuery("from Dep");
 		@SuppressWarnings("unchecked")
 		List<Dep> dep = query.list();
 		return dep;
@@ -115,7 +115,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByDepName(Pager<Apply> pager, String name) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where dep.ename like '%"+name+"%'");
+		Query query = session.createQuery("from Apply where dep.ename like '%"+name+"%' order by aid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -137,7 +137,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByWorktypeName(Pager<Apply> pager, String lname) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where worktype.swname like '%"+lname+"%'");
+		Query query = session.createQuery("from Apply where worktype.swname like '%"+lname+"%' order by aid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -159,7 +159,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where astatus like '%"+status+"%'");
+		Query query = session.createQuery("from Apply where astatus like '%"+status+"%' order by aid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -181,7 +181,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	@Override
 	public Pager<Apply> queryByTime(Pager<Apply> pager, String time) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Apply where adatetime like '%"+time+"%'");
+		Query query = session.createQuery("from Apply where adatetime like '%"+time+"%' order by aid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -196,6 +196,27 @@ public class ApplyDaoImpl implements ApplyDao {
 	public Object DepTimecount(String time) {
 		session = sessionFactory.openSession();
 		Query query = session.createQuery("select count(t) from Apply t where adatetime like '%"+time+"%'");
+		Object obj = query.uniqueResult();
+		return obj;
+	}
+
+	@Override
+	public Pager<Apply> queryAllG(Pager<Apply> pager) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Apply where astatus = '已审批' order by aid desc");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Apply> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long) count());
+		session.close();
+		return pager;
+	}
+
+	public Object countG() {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Apply t where astatus = '已审批'");
 		Object obj = query.uniqueResult();
 		return obj;
 	}

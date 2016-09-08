@@ -62,6 +62,19 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 	
 	@Override
+	public Dep queryByDep(Student t){
+		session =  sessionFactory.openSession();
+		Student stu = (Student)session.get(Student.class, t.getIntenid());
+		Dep dep = null;
+		if(stu != null){
+			session =  sessionFactory.openSession();
+			Query query = session.createQuery("from Dep where eid in (select empteach from Classes where classid = "+stu.getClasses().getClassid()+")");
+			dep = (Dep) query.uniqueResult();
+		}
+		return dep;
+	}
+	
+	@Override
 	public Items add(Items t) {
 		session=sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
@@ -101,10 +114,9 @@ public class ItemsDaoImp implements ItemsDao{
 
 
 	@Override
-	public Pager<Items> queryByName(Pager<Items> tem, String name,int id) {
+	public Pager<Items> queryByName(Pager<Items> tem, String name) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where sname like '%"+name+"%' and steacher=:id order by xid DESC");
-		query.setInteger("id", id);
+		Query query = session.createQuery("from Items where sname like '%"+name+"%'order by xid DESC");
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -116,11 +128,10 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 
 	@Override
-	public Pager<Items> queryByClass(Pager<Items> tem, int classid,int id) {
+	public Pager<Items> queryByClass(Pager<Items> tem, int classid) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where student.classes.classid=:classid and steacher=:id order by xid DESC");
+		Query query = session.createQuery("from Items where student.classes.classid=:classid order by xid DESC");
 		query.setInteger("classid", classid);
-		query.setInteger("id",id);
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")
@@ -132,10 +143,9 @@ public class ItemsDaoImp implements ItemsDao{
 	}
 
 	@Override
-	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end,int id) {
+	public Pager<Items> queryByScore(Pager<Items> tem,int begin,int end) {
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Items where steacher=:id and score between '"+begin+"' and '"+end+"' order by xid DESC");
-		query.setInteger("id",id);
+		Query query = session.createQuery("from Items where score between '"+begin+"' and '"+end+"' order by xid DESC");
 		query.setFirstResult(tem.getBeginIndex());
 		query.setMaxResults(tem.getPageSize());
 		@SuppressWarnings("unchecked")

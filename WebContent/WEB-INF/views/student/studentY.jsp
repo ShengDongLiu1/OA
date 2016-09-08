@@ -16,7 +16,7 @@
 <body>
 <!-- 表格 -->
 <table id="list" class="easyui-datagrid" toolbar="#tb" data-options="
-		url:'<%=path %>/stu/queryAll', 
+		url:'<%=path %>/stu/queryAllY', 
 		method:'get', 
 		rownumbers:true,
 		singleSelect:true,
@@ -49,7 +49,8 @@
        data-options="iconCls:'icon-remove'">删除</a>
       <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
-   	<br/>
+   <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="updateZ();">转为正式学生</a>
+	<br/>
    	<input class="easyui-textbox" id="tiaoname" size="10px" />
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
     <input class="easyui-combobox" data-options="required:true"
@@ -66,7 +67,7 @@
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post">
-  			<input name="student.status.zid" value="10" type="hidden"/>
+  			<input name="student.status.zid" value="9" type="hidden"/>
             <table>
              <tr>
                 <td>学生姓名:</td>
@@ -482,6 +483,25 @@
                     }, "JSON");
         }
     }
+    function updateZ() {
+        var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
+        if (row) {
+            $.post('updateZ',{'student.intenid':row.intenid},
+                 function (data) {
+                     if (data.result.result == 'success') {
+                         $.messager.alert("提示", data.result.msg, "info", function () {
+                             $("#editWindow").window("close");
+                             $("#list").datagrid("reload");
+                         });
+                     } else {
+                         $.messager.alert("提示", data.result.msg, "info");
+                     }
+                 }, "JSON");
+      	  } else {
+	            $.messager.alert('提示', '请选中需要添加的学生', 'info');// messager消息控件
+	        }
+        }
+    
     //删除
     function expurgate() {
         var row = $("#list").datagrid("getSelected");
@@ -528,7 +548,8 @@
 	}
 	
 	function queryall(){
-		$('#list').datagrid('load');
+		$('#list').datagrid('load',{
+		});
 	}
 	$(function(){
 		$("#classid").combobox({
@@ -551,7 +572,7 @@
     function addLook() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            window.location.href = "<%=path%>/stu/queryStu?student.intenid=" + row.intenid;
+            window.location.href = "<%=path%>/stu/queryStuY?student.intenid=" + row.intenid;
         } else {
             $.messager.alert('提示', '请选中需要查看的学生!', 'info');// messager消息控件
         }

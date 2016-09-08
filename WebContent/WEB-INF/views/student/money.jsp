@@ -35,7 +35,7 @@
         <th data-options="field:'ys',width:100" align="center">应交费用</th>
         <th data-options="field:'actual',width:100" align="center">实交费用</th>
         <th data-options="field:'owe',width:100" align="center">还欠费用</th>
-        <th data-options="field:'mtime',width:100" align="center">收取时间</th>
+        <th data-options="field:'mtime',width:150" align="center">收取时间</th>
     </tr>
     </thead>
 </table>
@@ -48,6 +48,22 @@
 	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookOpen();" data-options="iconCls:'icon-search'">学费查看</a>
 	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookOwe();" data-options="iconCls:'icon-search'">查看未交齐学费的学生</a>
 	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookAll();" data-options="iconCls:'icon-search'">查看所有交费情况</a>
+	<br/>
+   	<input class="easyui-textbox" id="stuname" size="10px" />
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByStuName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
+   	<input class="easyui-textbox" id="depname" size="10px" />
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按收取人查询</a>
+   	<select class="easyui-combobox" style="width: 80px;" id="xq" data-options="required:true">
+		 <option value="预科">预科</option>
+		 <option value="第一学期">第一学期</option>
+		 <option value="第二学期">第二学期</option>
+		 <option value="第三学期">第三学期</option>
+		 <option value="第四学期">第四学期</option>
+	</select>
+    <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByXq();" data-options="iconCls:'icon-search'">按学期查询</a>
+	<input  class="easyui-datebox" id="begin" size="15px" />&nbsp;-&nbsp;
+	<input  class="easyui-datebox" id="end" size="15px" />
+	<a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByTime();" >时间查询</a>
 </div>
 <div style="margin:20px 0;"></div>
 <div id="studentwin1" class="easyui-window" title="选择学生"
@@ -246,7 +262,7 @@
 	function queryName(){
 		tiaoname = $("#tiaoname").textbox("getValue");
 		$('#student_list').datagrid('load',{
-			tiaoname:tiaoname
+			tiaoname:stuname
 		});
 	}
 	
@@ -447,6 +463,45 @@
     function lookOwe(){
     	window.location.href = "<%=path%>/money/allowe";
     }
+    function lookAll(){
+    	$('#list').datagrid('load');
+    }
+    
+
+	function queryByDepName() {
+        //按条件进行查询数据，首先我们得到数据的值
+        depname=$('#depname').val()
+        $('#list').datagrid('load',{  
+        	depname:depname
+        });
+	}
+	function queryByStuName() {
+        //按条件进行查询数据，首先我们得到数据的值
+        stuname=$('#stuname').val()
+        $('#list').datagrid('load',{  
+        	stuname:stuname
+        });
+	}
+	function queryByXq(){
+		xq=$('#xq').combobox('getValue');
+        $('#list').datagrid('load',{  
+        	xq:xq
+        }); 
+	}
+	function queryByTime(){
+    	var begin= $('#begin').datebox('getValue');
+    	var end= $('#end').datebox('getValue');
+    	if(begin==''){
+    		alert("请输入开始时间")
+    	}else if(end == ''){
+    		alert("请输入结束时间")
+    	}else{
+    		$('#list').datagrid('load', {   
+    			begin:begin,
+    			end:end
+    		});  
+    	}
+	}
 </script>
 </body>
 </html>

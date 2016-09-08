@@ -100,17 +100,17 @@
             <h3>反馈答案:</h3>
             <div class="textS"><s:property value="fankui.ans"/></div>
             <br/><br/>
-            <h3>反馈时间:</h3>
+            <h3>反馈时间${sessionScope.user.statuss.getZid()}:</h3>
             <div class="textS"><s:date name="fankui.time" format="yyyy-MM-dd HH:mm:ss"/></div>
         </div>
         
         <div style="margin-right: 100px; float:right;">
-		    <c:if test="${ sessionScope.user.statuss.getZid() eq 11}">
-		        <c:if test="${ sessionScope.user.statuss.getZid() eq 6}">
-			            <a href="javascript:;" onclick="addPro();" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
+       	 	<c:choose>
+                <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 7}">
+                     <a href="javascript:;" onclick="addPro();" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
 	               style="height:32px;">反馈回复</a>
-		        </c:if>
-		    </c:if>
+                </c:when>
+            </c:choose>
            
         </div>
     </div>

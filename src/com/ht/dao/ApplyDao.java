@@ -27,6 +27,8 @@ public interface ApplyDao extends BaseDao<Apply, Integer>{
 	
 	public Object DepTimecount(String time);
 	
+	public Pager<Apply> queryAllG(Pager<Apply> pager);
+	
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status);
 	
 	public Object Astatuscount(String status);

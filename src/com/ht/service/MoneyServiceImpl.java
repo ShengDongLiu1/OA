@@ -59,6 +59,26 @@ public class MoneyServiceImpl implements MoneyService {
 	public Pager<Money> queryOwe(Pager<Money> pager) {
 		return moneyDao.queryOwe(pager);
 	}
+
+	@Override
+	public Pager<Money> queryByTime(Pager<Money> pager, String begin, String end) {
+		return moneyDao.queryByTime(pager, begin, end);
+	}
+
+	@Override
+	public Pager<Money> queryByXq(Pager<Money> pager, String xq) {
+		return moneyDao.queryByXq(pager, xq);
+	}
+
+	@Override
+	public Pager<Money> queryByDepName(Pager<Money> pager, String name) {
+		return moneyDao.queryByDepName(pager, name);
+	}
+
+	@Override
+	public Pager<Money> queryByStuName(Pager<Money> pager, String name) {
+		return moneyDao.queryByStuName(pager, name);
+	}
 	
 
 }

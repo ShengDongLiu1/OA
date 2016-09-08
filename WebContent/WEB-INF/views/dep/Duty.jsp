@@ -198,10 +198,10 @@
     <tr>
         <th data-options="field:'did',checkbox:true,width:100" align="center">值班管理编号</th>
         <th data-options="field:'dep',width:100" align="center" formatter="depname">班主任姓名</th>
-        <th data-options="field:'ddatetime',width:100" align="center">巡查时间</th>
+        <th data-options="field:'ddatetime',width:150" align="center">巡查时间</th>
          <th data-options="field:'dstatus',width:100" align="center">巡查类型</th>
      	<th data-options="field:'drange',width:100" align="center">巡查范围</th>
-        <th data-options="field:'ddesc',width:100" align="center">情况记录</th>
+        <th data-options="field:'ddesc',width:500" align="center">情况记录</th>
     </tr>
     </thead>
 </table>

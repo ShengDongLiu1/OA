@@ -39,7 +39,7 @@ public class ReceiueDaoImpl implements ReceiueDao{
 	public Receiue update(Receiue d) {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.saveOrUpdate(d);
+		session.update(d);
 		transaction.commit();
 		session.close();
 		return d;

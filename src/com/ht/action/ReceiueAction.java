@@ -143,9 +143,6 @@ public class ReceiueAction extends ActionSupport{
 		int w = work.getWcount();
 		int re = Integer.valueOf(receiue.getUcount());
 		if(w>=re){
-			Dep dep2 = new Dep();
-			dep2.setEid(receiue.getEid());
-			receiue.setDep(dep2);
 			Receiue r = receiueService.add(receiue);
 			int a = w-re;
 			work.setWcount(a);
@@ -199,7 +196,7 @@ public class ReceiueAction extends ActionSupport{
 			workService.update(work);
 		}
 		Dep dep2 = new Dep();
-		dep2.setEid(receiue.getEid());
+		dep2.setEid(receiue.getDep().getEid());
 		receiue.setDep(dep2);
 		Receiue r = receiueService.update(receiue);
 		if(r!=null){

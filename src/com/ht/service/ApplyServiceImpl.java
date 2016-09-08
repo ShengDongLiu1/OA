@@ -81,4 +81,9 @@ public class ApplyServiceImpl implements ApplyService {
 		return applyDao.queryByTime(pager, time);
 	}
 
+	@Override
+	public Pager<Apply> queryAllG(Pager<Apply> pager) {
+		return applyDao.queryAllG(pager);
+	}
+
 }

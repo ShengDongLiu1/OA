@@ -23,4 +23,6 @@ public interface ApplyService extends BaseDao<Apply, Integer> {
 	public Pager<Apply> queryByTime(Pager<Apply> pager, String time);
 	
 	public Pager<Apply> queryByAstatus(Pager<Apply> pager, String status);
+
+	public Pager<Apply> queryAllG(Pager<Apply> pager);
 }

@@ -243,11 +243,11 @@ public class StudentAction extends ActionSupport {
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		if((classid ==null ||classid.equals("")) && (tiaoname==null || tiaoname.equals("")) ){
-			pager = studentService.queryAll(pager);
+			pager = studentService.queryAll(pager, 10);
 		}else if(classid!=null){
-			pager = studentService.queryClasses(pager, Integer.valueOf(classid));
+			pager = studentService.queryClasses(pager, Integer.valueOf(classid), 10);
 		}else{
-			pager = studentService.queryName(pager, tiaoname);
+			pager = studentService.queryName(pager, tiaoname, 10);
 		}
 		rows = pager.getRows();
 		total = pager.getTotal();
@@ -463,4 +463,44 @@ public class StudentAction extends ActionSupport {
 		return "stu";
 	}
 
+	public String queryAllY() {
+		pager = new Pager<>();
+		pager.setPageNo(page);
+		HttpServletRequest req= ServletActionContext.getRequest();
+		String classid = req.getParameter("classid");
+		String tiaoname = req.getParameter("tiaoname");
+		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
+		pager.setPageSize(pageSize);
+		if((classid ==null ||classid.equals("")) && (tiaoname==null || tiaoname.equals("")) ){
+			pager = studentService.queryAll(pager, 9);
+		}else if(classid!=null){
+			pager = studentService.queryClasses(pager, Integer.valueOf(classid), 9);
+		}else{
+			pager = studentService.queryName(pager, tiaoname, 9);
+		}
+		rows = pager.getRows();
+		total = pager.getTotal();
+		return SUCCESS;
+	}
+
+	public String allY() {
+		return "ally";
+	}
+	
+
+
+	public String updateZ() {
+		student = studentService.updateZ(student);
+		if (student == null) {
+			result = ControllerResult.getFailResult("添加失败");
+		} else {
+			result = ControllerResult.getSuccessRequest("添加成功");
+		}
+		return SUCCESS;
+	}
+	
+	public String queryStuY() {
+		student = studentService.query(student);
+		return "stuy";
+	}
 }

@@ -55,8 +55,7 @@
                 </c:when>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/work/all" class="site-navi-tab">办公用品</a></p>
-                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品购买</a></p>
-                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品发放</a></p>
+                	<p><a href="javascript:void(0);" src="<%=path %>/apply/allG" class="site-navi-tab">物品购买</a></p>
                 </c:when>
                 <c:otherwise>
            			<p><a href="javascript:void(0);" src="<%=path %>/receiue/all" class="site-navi-tab">物品申领</a></p>
@@ -68,7 +67,7 @@
             <c:choose>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 11 || sessionScope.user.statuss.getZid() eq 4 || sessionScope.user.statuss.getZid() eq 7}">
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/yx-allyx" class="site-navi-tab">意向学生</a></p>
-                    <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">预定学生</a></p>
+                    <p><a href="javascript:void(0);" src="<%=path %>/stu/allY" class="site-navi-tab">预定学生</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/stu/all" class="site-navi-tab">正式学生</a></p>
                 </c:when>
                 <c:otherwise>

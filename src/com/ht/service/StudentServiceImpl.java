@@ -37,8 +37,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Pager<Student> queryAll(Pager<Student> pager) {
-		return studentDao.queryAll(pager);
+	public Pager<Student> queryAll(Pager<Student> pager,int i) {
+		return studentDao.queryAll(pager, i);
 	}
 
 	@Override
@@ -92,13 +92,23 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Pager<Student> queryClasses(Pager<Student> pager, int id) {
-		return studentDao.queryClasses(pager, id);
+	public Pager<Student> queryClasses(Pager<Student> pager, int id, int i) {
+		return studentDao.queryClasses(pager, id, i);
 	}
 
 	@Override
-	public Pager<Student> queryName(Pager<Student> pager, String name) {
-		return studentDao.queryName(pager, name);
+	public Pager<Student> queryName(Pager<Student> pager, String name, int i) {
+		return studentDao.queryName(pager, name, i);
+	}
+
+	@Override
+	public Pager<Student> queryAll(Pager<Student> pager) {
+		return studentDao.queryAll(pager);
+	}
+
+	@Override
+	public Student updateZ(Student t) {
+		return studentDao.updateZ(t);
 	}
 
 }

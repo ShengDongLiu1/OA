@@ -106,6 +106,7 @@
 		<div style="padding:10px 60px 20px 60px">
 			<form id="editForm">
 			<input type="hidden" id="id" name="items.xid" />
+			<input type="hidden" id="eid" name="items.dep.eid" />
 			<table>
 				<tr>
 					<td >项目:</td>
@@ -130,7 +131,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td >成绩:</td>
+					<td >答辩成绩:</td>
 					<td >
 						<input name="items.score" id="sc" type="text" class="easyui-numberbox" data-options="required:true,precision:2,max:100.00,min:0,maxlength:4"   />
 					</td>
@@ -152,7 +153,7 @@
 		function Score(){
 			var begin= $('#begin').textbox('getValue');
 			var end= $('#end').textbox('getValue');
-	    	if(begin=='' && end=='' || begin==null && end==null ){
+			if(begin=='' && end=='' || begin==null && end==null ){
 	    		alert("请输入分数线")
 	    	}else if(isNaN(begin)== true || isNaN(end)== true){
 	    		alert("不能输入非法数字！");
@@ -284,6 +285,7 @@
 			var row = $("#list").datagrid("getSelected"); // 获取datagrid中被选中的行
 			if (row) {
 				document.getElementById("id").value=row.xid;
+				document.getElementById("eid").value=row.dep.eid;
 				$('#classbj').combobox({
 					url : 'classes',
 						editable : false, //不可编辑状态  
@@ -363,20 +365,22 @@
 		//删除
 		function expurgate() {
 			var row = $("#list").datagrid("getSelected");
-			if (row) {
-				$("#editForm").form("load", row);
-				$.post('items/delete',{'items.xid':row.xid},"JSON");
-				$("#list").datagrid('reload');
-				$.messager.show({
-					title:'提示消息',
-					msg:'删除成功',
-					showType:'show'
-				});
-				$("#list").datagrid('reload');
-			} else {
-				$.messager.alert('提示', '请选中需要删除的选项', 'info');
-			}
-			$("#list").datagrid('reload');
+	        if (row) {
+	            $.messager.confirm("提示", "确认要删除这个学生记录吗？", function (r) {
+	                if (r) {
+	                	$("#editForm").form("load", row);
+	    				$.post('items/delete',{'items.xid':row.xid},function(data) {
+	    					if (data.result.result == "success") {
+	    						$.messager.alert("提示", data.result.msg, "info", function() {
+	    							$("#list").datagrid("reload");	
+	    						});
+	    					}
+	    				},"JSON");
+	                }
+	            });
+	        } else {
+	            $.messager.alert('提示', '请选中需要删除的学生记录', 'info');
+	        }
 		}
 		
 		// 关闭窗口

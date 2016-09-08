@@ -48,7 +48,7 @@ public class MoneyDaoImpl implements MoneyDao {
 	public Money update(Money t) {
 		session= sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.saveOrUpdate(t);
+		session.update(t);
 		transaction.commit();
 		session.close();
 		return t;
@@ -104,4 +104,24 @@ public class MoneyDaoImpl implements MoneyDao {
 		session.close();
 	}
 
+	@Override
+	public Pager<Money> queryOwe(Pager<Money> pager) {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("from Money where owe > 0");
+		query.setFirstResult(pager.getBeginIndex());
+		query.setMaxResults(pager.getPageSize());
+		@SuppressWarnings("unchecked")
+		List<Money> list = query.list();
+		pager.setRows(list);
+		pager.setTotal((long)countOwe());
+		session.close();
+		return pager;
+	}
+	
+	public Object countOwe() {
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Money t where owe > 0");
+		Object obj = query.uniqueResult();
+		return obj;
+	}
 }

@@ -54,6 +54,11 @@ public class MoneyServiceImpl implements MoneyService {
 	public void updateTuition(Tuition t) {
 		moneyDao.updateTuition(t);
 	}
+
+	@Override
+	public Pager<Money> queryOwe(Pager<Money> pager) {
+		return moneyDao.queryOwe(pager);
+	}
 	
 
 }

@@ -111,6 +111,24 @@ public class MoneyAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
+	
+
+	public String updateOwe() {
+		money.setDep(depService.query(money.getDep()));
+		money = moneyService.update(money);
+		if (money == null) {
+			result = ControllerResult.getFailResult("补交失败");
+		} else {
+			result = ControllerResult.getSuccessRequest("补交成功");
+			Income income = new Income();
+			income.setMname(money.getDep().getEname());
+			income.setMoncount(money.getActual());
+			income.setMonpro(money.getStudent().getIntenname()+"同学补交"+money.getSemester()+"的学费");
+			income.setMdate(Calendar.getInstance().getTime());
+			incomeService.add(income);
+		}
+		return SUCCESS;
+	}
 
 	public String delete() {
 		moneyService.delete(money);
@@ -129,6 +147,17 @@ public class MoneyAction extends ActionSupport {
 		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
 		pager.setPageSize(pageSize);
 		pager = moneyService.queryAll(pager);
+		rows = pager.getRows();
+		total = pager.getTotal();
+		return SUCCESS;
+	}
+	
+	public String queryOwe(){
+		pager = new Pager<>();
+		pager.setPageNo(page);
+		int pageSize = Integer.valueOf(ServletActionContext.getRequest().getParameter("rows"));
+		pager.setPageSize(pageSize);
+		pager = moneyService.queryOwe(pager);
 		rows = pager.getRows();
 		total = pager.getTotal();
 		return SUCCESS;
@@ -216,5 +245,13 @@ public class MoneyAction extends ActionSupport {
 	
 	public String all() {
 		return "all";
+	}
+	
+	public String allowe() {
+		return "allowe";
+	}
+	
+	public String allxf() {
+		return "allxf";
 	}
 }

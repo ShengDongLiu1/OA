@@ -45,6 +45,9 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>
+	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookOpen();" data-options="iconCls:'icon-search'">学费查看</a>
+	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookOwe();" data-options="iconCls:'icon-search'">查看未交齐学费的学生</a>
+	<a href="javascript:(0);" class="easyui-linkbutton" onclick="lookAll();" data-options="iconCls:'icon-search'">查看所有交费情况</a>
 </div>
 <div style="margin:20px 0;"></div>
 <div id="studentwin1" class="easyui-window" title="选择学生"
@@ -435,6 +438,14 @@
     // 关闭窗口
     function Winclose(c) {
         $("#" + c).window("close");
+    }
+
+    //选择查看详情
+    function lookOpen() {
+		window.location.href = "<%=path%>/money/allxf";
+    }
+    function lookOwe(){
+    	window.location.href = "<%=path%>/money/allowe";
     }
 </script>
 </body>

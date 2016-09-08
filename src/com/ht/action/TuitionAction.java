@@ -8,10 +8,9 @@ import com.ht.service.MoneyService;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class TuitionAction extends ActionSupport {
-
-	private static final long serialVersionUID = -6812629349289155254L;
 	
-
+	private static final long serialVersionUID = 1L;
+	
 	private MoneyService moneyService;
 	private Tuition tuition;
 	private List<Tuition> rows;
@@ -25,11 +24,11 @@ public class TuitionAction extends ActionSupport {
 		return result;
 	}
 
-	public Tuition gettuition() {
+	public Tuition getTuition() {
 		return tuition;
 	}
 
-	public void settuition(Tuition tuition) {
+	public void setTuition(Tuition tuition) {
 		this.tuition = tuition;
 	}
 	
@@ -50,7 +49,7 @@ public class TuitionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String all() {
-		return "all";
+	public String allxf() {
+		return "allxf";
 	}
 }

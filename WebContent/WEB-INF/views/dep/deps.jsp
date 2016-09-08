@@ -100,7 +100,7 @@
              */
             $("#editWin").window("open");
         } else {
-            $.messager.alert('提示', '请选中需要修改的与员工', 'info');// messager消息控件
+            $.messager.alert('提示', '请选中需要修改的员工', 'info');// messager消息控件
         }
     }
     function closeedit() {
@@ -418,7 +418,7 @@
         </table>
         <div data-options="region:'south',border:false" style="text-align:right;padding:10px 0 0;">
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doEdit();"
-               style="width:80px;height:20px;">添加</a>
+               style="width:80px;height:20px;">保存</a>
             <a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
                onclick="closeedit();" style="width:80px;height:20px;">取消</a>
         </div>

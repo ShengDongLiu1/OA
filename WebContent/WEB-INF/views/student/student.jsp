@@ -47,10 +47,10 @@
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="expurgate();"
        data-options="iconCls:'icon-remove'">删除</a>
+      <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="daochu();">导出数据</a>
    	<input class="easyui-textbox" id="tiaoname" size="10px" />
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="queryByDepName();" data-options="iconCls:'icon-search'">按学生姓名查询</a>
-      <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addLook();">查看学生详情</a>
     <input class="easyui-combobox" data-options="required:true"
 				style="width: 150px;" id="classid" name="student.classes.classid" /> <a
 				href="javascript:;" class="easyui-linkbutton"
@@ -322,10 +322,6 @@
                     <td>就读疑问:</td>
                       <td><input class="easyui-textbox" id="peo" name="student.intenpeo" style="width: 200px; height: 80px;" data-options="multiline:true,required:true"/>
                 </tr>
-                <!-- <tr>
-                    <td>学生状态:</td>
-                    <td><input class="easyui-textbox" id="status" name="student.intenstatus" /></td>
-                </tr> -->
                 <tr>
                     <td>学生班级:</td>
                     <td><input class="easyui-combobox" data-options="required:true" id="clas" name="student.classes.classid"/>

@@ -20,14 +20,8 @@
 <body>
 <!-- 表格 -->
 <table id="list" class="easyui-datagrid" toolbar="#tb" data-options="
-		url:'<%=path %>/money/tuition-queryAll', 
+		url:'<%=path %>/money/tui-queryAll', 
 		method:'post', 
-		rownumbers:true,
-		singleSelect:true,
-		autoRowHeight: true,
-		pagination:true,
-		border:false,
-		pageSize:20,
 		fit:true">
     <thead>
     <tr>
@@ -43,15 +37,15 @@
 <!-- 菜单 -->
 <div id="tb" style="padding: 2px;">
     <a href="javascript:(0);" class="easyui-linkbutton" onclick="editOpen();" data-options="iconCls:'icon-edit'">编辑</a>
+        <a href="<%=path %>/money/all" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回收费管理</a>
 </div>
 <!-- 编辑窗口 -->
-<div style="margin:20px 0;"></div>
-<div id="editWindow" class="easyui-window" title="编辑" data-options="closed:true,iconCls:'icon-edit'"
+<div id="editWindow" class="easyui-window" title="编辑" data-options="iconCls:'icon-edit', closable:true, closed:true"
      style="padding:10px;">
     <div style="padding:10px 60px 20px 60px">
         <form id="editForm">
   			<input  id="tid" name="tuition.tid" type="hidden"/>
-            <table>
+            <table style="margin: auto">
                 <tr>
 	                <td>预科学费:</td>
 	                <td><input class="easyui-textbox easyui-numberbox" id="one" name="tuition.one" style="width: 150px;"
@@ -108,25 +102,32 @@
     }
     // 打开编辑窗口
     function editOpen() {
-		$("#editWindow").window("open");
+        var row = $("#list").datagrid("getSelected");
+        if (row) {
+	        document.getElementById("tid").value = row.tid;
+	        $("#one").textbox('setValue', row.one);
+	        $("#two").textbox('setValue', row.two);
+	        $("#three").textbox('setValue', row.three);
+	        $("#four").textbox('setValue', row.four);
+	        $("#five").textbox('setValue', row.five);
+			$("#editWindow").window("open");
+        } else {
+            $.messager.alert('提示', '请选中需要修改的列', 'info');// messager消息控件
+        }
     }
     // 编辑提交
     function edit() {
-    	toValidate("editForm");
-    	if (validateForm("editForm")){
-            $.get('update', $("#editForm").serialize(),
-                    function (data) {
-                        if (data.result.result == 'success') {
-                            $.messager.alert("提示", data.result.msg, "info", function () {
-                                $("#editWindow").window("close");
-                                $("#list").datagrid("reload");
-                            });
-                        } else {
-                            $.messger.alert("提示", data.result.msg + " 请稍候再试", "info");
-                        }
-                    }, "JSON");
-        }
-        $("#list").datagrid('reload');
+            $.get('tui-update', $("#editForm").serialize(),
+                function (data) {
+                    if (data.result.result == 'success') {
+                        $.messager.alert("提示", data.result.msg, "info", function () {
+                            $("#editWindow").window("close");
+                            $("#list").datagrid("reload");
+                        });
+                    } else {
+                        $.messager.alert("提示", data.result.msg + " 请稍候再试", "info");
+                    }
+                }, "JSON");
     }
     // 关闭窗口
     function Winclose(c) {

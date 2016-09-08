@@ -87,7 +87,9 @@ public class ComputerAction extends ActionSupport {
 			computer.setComcount(1);
 			computerService.add(computer);
 			int count = work.getWcount()-1;
+			int mount = work.getWamount()-1;
 			work.setWcount(count);
+			work.setWamount(mount);
 			workService.update(work);
 			result = ControllerResult.getSuccessRequest("添加成功");
 		}else{

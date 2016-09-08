@@ -149,7 +149,6 @@ public class GradeAction extends ActionSupport {
 		grade = gradeService.add(grade);
 		if (grade != null) {
 			result = ControllerResult.getSuccessRequest("添加成功");
-			logger.info(SessionUtil.getUserName() + "  添加学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		} else {
 			result = ControllerResult.getFailResult("添加失败");
 		}
@@ -162,14 +161,12 @@ public class GradeAction extends ActionSupport {
 			result = ControllerResult.getFailResult("修改失败");
 		} else {
 			result = ControllerResult.getSuccessRequest("修改成功");
-			logger.info(SessionUtil.getUserName() + "  修改学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		}
 		return SUCCESS;
 	}
 
 	public String delete() {
 		gradeService.delete(grade);
-		logger.info(SessionUtil.getUserName() + "  删除学生成绩   学生ID："+ grade.getStudents().getIntenid() +"  科目：" + grade.getSconame() + "  分数：" + grade.getScore());
 		result = ControllerResult.getSuccessRequest("删除成功");
 		return SUCCESS;
 	}

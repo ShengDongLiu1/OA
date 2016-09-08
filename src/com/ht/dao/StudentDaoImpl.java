@@ -122,6 +122,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Pager<Student> queryAll(Pager<Student> pager) {
 		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("from Student order by intenid desc");
 		query.setFirstResult(pager.getBeginIndex());
 		query.setMaxResults(pager.getPageSize());
@@ -129,6 +130,7 @@ public class StudentDaoImpl implements StudentDao {
 		List<Student> list = query.list();
 		pager.setRows(list);
 		pager.setTotal((long) count());
+		transaction.commit();
 		session.close();
 		return pager;
 	}

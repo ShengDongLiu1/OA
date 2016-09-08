@@ -107,6 +107,7 @@ public class UserDaoImpl implements UserDao {
         Query query = session.createQuery("from Msg order by msgks desc");
         @SuppressWarnings("unchecked")
         List<Msg> list = query.list();
+        session.close();
         return list;
 	}
 

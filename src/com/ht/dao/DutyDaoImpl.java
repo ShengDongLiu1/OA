@@ -92,6 +92,7 @@ public class DutyDaoImpl implements DutyDao {
 		Query query=session.createQuery("from Dep where estatus = 2");
 		@SuppressWarnings("unchecked")
 		List<Dep> list = query.list();
+		session.close();
 		return list;
 	}
 	
@@ -101,6 +102,7 @@ public class DutyDaoImpl implements DutyDao {
 		Query query=session.createQuery("from Hourse");
 		@SuppressWarnings("unchecked")
 		List<Hourse> list = query.list();
+		session.close();
 		return list;
 	}
 	
@@ -110,6 +112,7 @@ public class DutyDaoImpl implements DutyDao {
 		Query query=session.createQuery("from Classes");
 		@SuppressWarnings("unchecked")
 		List<Classes> list = query.list();
+		session.close();
 		return list;
 	}
 

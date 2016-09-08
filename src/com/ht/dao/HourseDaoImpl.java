@@ -95,9 +95,11 @@ public class HourseDaoImpl implements HourseDao{
 	@Override
 	public List<Hourse> queryById(int hourseid){
 		session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("from Hourse where hourid="+hourseid);
 		@SuppressWarnings("unchecked")
 		List<Hourse> d  = query.list();
+		transaction.commit();
 		session.close();
 		return d;
 		

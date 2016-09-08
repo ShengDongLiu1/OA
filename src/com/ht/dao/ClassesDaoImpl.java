@@ -154,7 +154,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public List<Classes> queryClasses(){
 		session = sessionFactory.openSession();
-		Query query = session.createQuery("from Classes ");
+		Query query = session.createQuery("from Classes");
 		@SuppressWarnings("unchecked")
 		List<Classes> d  = query.list();
 		session.close();

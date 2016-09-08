@@ -134,13 +134,13 @@ public class StudentAction extends ActionSupport {
 		int ye = Integer.valueOf(str[0]);
 		student.setIntenage(year - ye);
 		student.setIntenstatus("在读");	
-		student = studentService.add(student);
-		result = ControllerResult.getSuccessRequest("添加成功");
 		hourse = hourseService.queryById(student.getHourse().getHourid());
 		int kezhu = hourse.get(0).getHourkz();
 		int yizhu = hourse.get(0).getHouryz() + 1;
 		int hkezhu = kezhu - yizhu;
 		if(hkezhu > 1){
+			student = studentService.add(student);
+			result = ControllerResult.getSuccessRequest("添加成功");
 			Hourse hourse1 = new Hourse();
 			hourse1.setHourkz(kezhu);
 			hourse1.setHouryz(yizhu);
@@ -149,7 +149,7 @@ public class StudentAction extends ActionSupport {
 			hourse1.setHourid(student.getHourse().getHourid());
 			hourseService.update(hourse1);
 		}else{
-			result = ControllerResult.getFailResult("该宿舍楼已经注满人");
+			result = ControllerResult.getFailResult("该宿舍楼已经住满人");
 		}
 		return SUCCESS;
 	}
@@ -218,7 +218,7 @@ public class StudentAction extends ActionSupport {
 			hourseService.update(hourse2);
 			result = ControllerResult.getSuccessRequest("修改成功");
 		}else{
-			result = ControllerResult.getFailResult("该宿舍楼已经注满人");
+			result = ControllerResult.getFailResult("该宿舍楼已经住满人");
 		}
 		return SUCCESS;
 	}

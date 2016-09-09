@@ -255,6 +255,7 @@ public class ApplyAction extends ActionSupport {
 	public String updateGM() {
 		apply.setAstatus("已购买");
 		apply = applyService.updateSP(apply);
+		System.out.println(apply);
 		result = ControllerResult.getSuccessRequest("完成购买");
 		
 		work = new Work();

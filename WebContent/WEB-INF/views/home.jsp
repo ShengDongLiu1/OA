@@ -55,6 +55,8 @@
                 </c:when>
                 <c:when test="${sessionScope.user.statuss.getZid() eq 6}">
                     <p><a href="javascript:void(0);" src="<%=path %>/work/all" class="site-navi-tab">办公用品</a></p>
+           			<p><a href="javascript:void(0);" src="<%=path %>/receiue/all" class="site-navi-tab">物品申领</a></p>
+                	<p><a href="javascript:void(0);" src="<%=path %>/apply/all" class="site-navi-tab">物品申购</a></p>
                 	<p><a href="javascript:void(0);" src="<%=path %>/apply/allG" class="site-navi-tab">物品购买</a></p>
                 </c:when>
                 <c:otherwise>
@@ -89,7 +91,7 @@
                     <p><a href="javascript:void(0);" src="<%=path %>/student/all" class="site-navi-tab">学生成绩</a></p>
                     <p><a href="javascript:void(0);" src="<%=path %>/items/all" class="site-navi-tab">项目管理</a></p>
                 </c:when>
-                <c:when test="${sessionScope.user.statuss.getZid() eq 4}">
+                <c:when test="${sessionScope.user.statuss.getZid() eq 4 || sessionScope.user.statuss.getZid() eq 3}">
                     <p><a href="javascript:void(0);" src="<%=path %>/fankui/all" class="site-navi-tab">教员反馈</a></p>
                 </c:when>
                 <c:otherwise>

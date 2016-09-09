@@ -414,9 +414,6 @@ public class StudentAction extends ActionSupport {
        cell = row.createCell((int) 10);
        cell.setCellValue("所在宿舍");
        cell.setCellStyle(style);
-       cell = row.createCell((int) 11);
-       cell.setCellValue("入学时间");
-       cell.setCellStyle(style);
 	   	pager = new Pager<>();
 		pager.setPageNo(page);
 		pager.setPageSize(100);
@@ -437,7 +434,6 @@ public class StudentAction extends ActionSupport {
 				row.createCell(8).setCellValue(list.get(i).getIntenaddr());
 				row.createCell(9).setCellValue(list.get(i).getClasses().getClassname());
 				row.createCell(10).setCellValue(list.get(i).getHourse().getHourname());
-				row.createCell(11).setCellValue(list.get(i).getIntendate());
 			}
         }catch(NullPointerException e){
         	 e.printStackTrace();

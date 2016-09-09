@@ -53,7 +53,7 @@ public class HourseAction extends ActionSupport {
 	}
 
 	public String add(){
-		System.out.println("hourse:"+hourse);
+		hourse.setHouryz(0);
 		hourse.setHourhkz(hourse.getHourkz()-hourse.getHouryz());
 		hourse = hourseService.add(hourse);
 		if(hourse == null){
@@ -70,6 +70,7 @@ public class HourseAction extends ActionSupport {
 	}
 	
 	public String update(){
+		hourse.setHouryz(Integer.valueOf(hourseService.countStuH(hourse.getHourid()).toString()));
 		hourse.setHourhkz(hourse.getHourkz()-hourse.getHouryz());
 		hourse = hourseService.update(hourse);
 		if(hourse == null){

@@ -53,4 +53,9 @@ public class HourseServiceImpl implements HourseService {
 		return hourseDao.queryById(hourseid);
 	}
 
+	@Override
+	public Object countStuH(int id) {
+		return hourseDao.countStuH(id);
+	}
+
 }

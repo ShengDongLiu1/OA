@@ -256,7 +256,7 @@
 
 <div id="editWin" class="easyui-window" title="修改总结"
      data-options="iconCls:'icon-edit', closable:true, closed:true"
-     style="width: 350px; height: 300px; padding: 5px;">
+     style="width: azimuth; height: 300px; padding: 5px;">
     <form id="editForm" enctype="multipart/form-data">
   		  <input id="sid" name="stutotal.sid" type="hidden"/>
   		  <input id="semester" name="stutotal.semester" type="hidden" />
@@ -268,7 +268,7 @@
                     	<input class="easyui-combobox" data-options="required:true" id="updatestuid" name="stutotal.stuid"/><br/><br/>
              		</div>
                		<div style="float: left;">
-						&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+						&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 					</div>
                 </td>
             </tr>
@@ -290,7 +290,7 @@
 <!-- 添加产品框  -->
 <div id="addWin" class="easyui-window" title="添加总结"
      data-options="iconCls:'icon-edit', closable:true, closed:true"
-     style="width: 350px; height: 300px; padding: 5px;">
+     style="width: azimuth; height: 300px; padding: 5px;">
     <form id="addForm" enctype="multipart/form-data">
         <table>
             <tr>
@@ -300,7 +300,7 @@
                     	<input class="easyui-combobox" data-options="required:true" id="addstuid" name="stutotal.stuid"/><br/><br/>
              		</div>
                		<div style="float: left;">
-						&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+						&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 					</div>
 					<p style="clear: both;"></p>
                 </td>

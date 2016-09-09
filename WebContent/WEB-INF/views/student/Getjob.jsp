@@ -63,7 +63,7 @@
 	                    	<input class="easyui-combobox" data-options="required:true" id=jobstu name="getjob.student.intenid"/><br/><br/>
 	             		</div>
 	               		<div style="float: left;">
-							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 						</div>
 						<p style="clear: both;"></p>
                     </td>
@@ -115,7 +115,7 @@
 	                    	<input class="easyui-combobox" data-options="required:true" id=js name="getjob.student.intenid"/><br/><br/>
 	             		</div>
 	               		<div style="float: left;">
-							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 						</div>
 						<p style="clear: both;"></p>
 					</td>

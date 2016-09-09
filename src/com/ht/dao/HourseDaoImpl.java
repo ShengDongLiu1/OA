@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ht.bean.Classes;
 import com.ht.bean.Hourse;
 import com.ht.common.Pager;
 
@@ -68,10 +69,22 @@ public class HourseDaoImpl implements HourseDao{
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<Hourse> list=query.list();
+		for(Hourse h : list){
+			h.setHouryz(Integer.valueOf(countStuH(h.getHourid()).toString()));
+			h.setHourhkz(h.getHourkz() - h.getHouryz());
+		}
 		pager.setRows(list);
 		pager.setTotal((long) count());
 		session.close();
 		return pager;
+	}
+	
+	@Override
+	public Object countStuH(int id){
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Student t where t.hourse.hourid = "+id);
+		Object obj = query.uniqueResult();
+		return obj;
 	}
 
 	@Override

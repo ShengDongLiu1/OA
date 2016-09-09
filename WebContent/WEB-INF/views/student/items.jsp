@@ -278,7 +278,6 @@
 					}
 				},"JSON");
 			}
-			$("#list").datagrid("reload");
 		} 
 		// 打开编辑窗口
 		function editOpen() {

@@ -56,10 +56,6 @@
                     <td>固定人数:</td>
                     <td><input name="hourse.hourkz" id="hourkz" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
                 </tr>
-                 <tr>
-                    <td>已住人数:</td>
-                    <td><input name="hourse.houryz" id="houryz" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
-                </tr>
                 <!--  <tr>
                     <td>可住人数:</td>
                     <td><input name="hourse.hourhkz" id="hourhkz" type="text" class="easyui-numberbox" data-options="max:1000.00,min:0,maxlength:4"  /></td>
@@ -94,10 +90,6 @@
                     <td>
                    		<input name="hourse.hourkz" id="gdr" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true"   />
                     </td>
-                </tr>
-                 <tr>
-                    <td>已住人数:</td>
-                    <td> <input name="hourse.houryz" id="yzr" type="text" class="easyui-numberbox" data-options="required:true,validType:'length[1,20]',novalidate:true" /></td>
                 </tr>
                <!--   <tr>
                     <td>可住人数:</td>
@@ -154,7 +146,6 @@
 				}
 			},"JSON");
 		}
-		$("#list").datagrid("reload");
     }
 
     // 打开编辑窗口
@@ -164,8 +155,6 @@
         	document.getElementById("hid").value=row.hourid;
             $("#hna").textbox("setValue", row.hourname);
 			$("#gdr").numberbox("setValue", row.hourkz);
-			$("#yzr").numberbox("setValue", row.houryz);
-			/* $("#kzr").numberbox("setValue", row.hourhkz); */
             $("#editWindow").window("open");
             
         } else {
@@ -188,24 +177,28 @@
 				}
 			},"JSON");
 		}
-    	$("#list").datagrid("reload");
     }
     //删除
     function expurgate() {
         var row = $("#list").datagrid("getSelected");
         if (row) {
-            $.messager.confirm("提示", "确认要删除这个选项吗？", function (r) {
-                if (r) {
-                    $.post("hourse/delete", {'hourse.hourid': row.hourid}, function (data) {
-                        if (data.result.result == "success") {
-                            $.messager.alert("提示", data.result.msg, "info",
-                                    function () {
-                                        $("#list").datagrid("reload");
-                                    });
-                        }
-                    }, "JSON");
-                }
-            });
+        	var r = row.houryz;
+            if(r <= 0){
+                $.messager.confirm("提示", "确认要删除这个选项吗？", function (r) {
+                    if (r) {
+                        $.post("hourse/delete", {'hourse.hourid': row.hourid}, function (data) {
+                            if (data.result.result == "success") {
+                                $.messager.alert("提示", data.result.msg, "info",
+                                        function () {
+                                            $("#list").datagrid("reload");
+                                        });
+                            }
+                        }, "JSON");
+                    }
+                });
+            }else{
+            	$.messager.alert('提示', '还有人在住不能删除', 'info');
+            }
         } else {
             $.messager.alert('提示', '请选中需要删除的选项', 'info');
         }

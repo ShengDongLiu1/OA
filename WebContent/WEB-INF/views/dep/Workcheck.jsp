@@ -23,7 +23,7 @@
 		autoRowHeight: true,
 		pagination:true,
 		border:false,
-		pageSize:10,
+		pageSize:20,
 		fit:true">
     <thead>
     <tr>

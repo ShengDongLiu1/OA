@@ -155,7 +155,6 @@
         function doAdd() {
             var title = document.getElementsByName("classes.classname")[0].value;
             var wordtext = document.getElementsByName("classes.classaddr")[0].value;
-            var classmax = $("#classmax").combobox("getValue");
         	
             if (trim(title) == "") {
                 alert("班级名称填写不能为空，请重新输入！");
@@ -166,9 +165,7 @@
             } else if (wordtext.length > 50) {
                 alert("您输入的班级地址不得超过50字，请重新输入！")
                 return;
-            }else if(isNaN(classmax)){
-        		alert("班级限定人数必须输入数字！");
-        	}
+            }
             
             if ($("#addForm").form("validate")) { // 验证整个表单里的所有validatabox是否通过验证
                 $.post(
@@ -227,7 +224,6 @@
                 document.getElementById("classid").value = row.classid;
                 document.getElementById("classlx").value = row.classlx;
                 document.getElementById("classcount").value = row.classcount;
-                $("#xgclassmax").combobox("setValue",row.classmax);
                 var xglimitNum = 10 - row.classname.length;
                 var xgpattern = '还可以输入' + xglimitNum + '字';
                 $('#xgclassnamets').html(xgpattern);
@@ -302,7 +298,6 @@
         //提交修改
         function doEdit() {
             var row = $("#list").datagrid("getSelected");
-            var xgclassmax = $("#xgclassmax").combobox("getValue");
             var title = document.getElementById("xgclassname").value;
             var wordtext = document.getElementById("xgwordtext").value;
 			
@@ -315,9 +310,7 @@
             } else if (wordtext.length > 50) {
                 alert("您输入的班级地址不得超过50字，请重新输入！")
                 return;
-            }else if(isNaN(xgclassmax)){
-        		alert("班级限定人数必须输入数字！");
-        	}
+            }
             
             if ($("#editForm").form("validate")) {
                 $.post("update", $("#editForm").serialize(), // 直接把表单数据序列化成服务端可以接收的数据格式
@@ -368,8 +361,7 @@
                 <th data-options="field:'classid',checkbox:true" width="100" align="center">班级编号</th>
                 <th align="center" data-options="field:'classname'" width="150" align="center">班级名称</th>
                 <th align="center" data-options="field:'empteaches'" width="100" formatter="formatterChesName" align="center">班主任</th>
-                <th align="center" data-options="field:'classmax'" width="100" align="center">班级限定人数</th>
-                <th align="center" data-options="field:'classcount'" width="100" align="center">班级实际人数</th>
+                <th align="center" data-options="field:'classcount'" width="100" align="center">班级人数</th>
                 <th align="center" data-options="field:'classaddr'" width="400" align="center">班级地址</th>
             </tr>
             </thead>
@@ -401,13 +393,6 @@
                                 name="classes.empteachs.eid"/><br/><br/>
                    &nbsp;&nbsp;&nbsp;班主任：<input id="bzr" class="easyui-combobox" data-options="required:true"
                                 name="classes.empteaches.eid"/><br/><br/>
-						班级限定人数：<select id="classmax" name="classes.classmax" style="width:172px;" class="easyui-combobox" data-options="required:true">
-									<option value="10">10</option>
-									<option value="20">20</option>
-									<option value="30">30</option>
-									<option value="40">40</option>
-									<option value="50">50</option>	
-								</select>
                 </div>
                 
                 <div style="margin-bottom: 20px;margin-left: 40px;">
@@ -445,13 +430,6 @@
 					&nbsp;&nbsp;任课老师：<input id="xgrkls" class="easyui-combobox" data-options="required:true" name="classes.empteach.eid"/><br/><br/>
 					&nbsp;&nbsp;辅导老师：<input id="xgfdls" class="easyui-combobox" data-options="required:true" name="classes.empteachs.eid"/><br/><br/>
 		        	&nbsp;&nbsp;&nbsp;班主任：<input id="xgbzr" class="easyui-combobox" data-options="required:true" name="classes.empteaches.eid"/><br/><br/>
-		        	班级限定人数：<select id="xgclassmax" name="classes.classmax" style="width:172px;" class="easyui-combobox" data-options="required:true">
-								<option value="10">10</option>
-								<option value="20">20</option>
-								<option value="30">30</option>
-								<option value="40">40</option>
-								<option value="50">50</option>	
-							</select>
                 </div>
                 <div style="margin-bottom: 20px;margin-left: 40px;">
                     <div>班级地址:</div>

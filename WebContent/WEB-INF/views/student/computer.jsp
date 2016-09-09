@@ -47,24 +47,24 @@
 			<form id="ff" method="post">
 			  	<table cellpadding="5">
 			  		<tr>
-			  			<td>电脑型号:</td>
-			  			<td><input class="easyui-textbox" name="computer.coma" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-			  		</tr>
-			  		<tr>
-			  			<td>电脑名称:</td>
-			  			<td><input class="easyui-textbox" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-			  		</tr>
-			  		<tr>
 			  			<td>学生姓名:</td>
 			  			<td><br/>
 			  			<div style="float: left;">
 			  				<input class="easyui-combobox" id="stuid" name="computer.student.intenid" data-options="required:true" /><br /><br />
 			  			</div>
 			  			<div style="float: left;">
-							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 						</div>
 						<p style="clear: both;"></p>
 						</td>
+			  		</tr>
+			  		<tr>
+			  			<td>电脑型号:</td>
+			  			<td><input class="easyui-textbox" name="computer.coma" data-options="required:true,validType:'length[2,20]',novalidate:true" /><br/><br/></td>
+			  		</tr>
+			  		<tr>
+			  			<td>电脑名称:</td>
+			  			<td><input class="easyui-textbox" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /><br/><br/></td>
 			  		</tr>
 				</table>
 				<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -82,25 +82,25 @@
 			<input type="hidden" id="ci" name="computer.comid"/>
 			<table>
 				<tr>
-					<td>电脑型号</td>
-					<td>
-						<input class="easyui-textbox" name="computer.coma" id="ca" data-options="required:true,validType:'length[2,20]',novalidate:true" /><!-- 由dataoptions指定验证的规则 -->
-					</td>
-				</tr>
-				<tr>
-					<td>电脑名称</td>
-					<td><input class="easyui-textbox" id="cb" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /></td>
-				</tr>
-				<tr>
 					<td>学生姓名</td>
 					<td><br /><div style="float: left;">
 						<input class="easyui-combobox" id="si" name="computer.student.intenid" data-options="required:true" /><br /><br />
 						</div>
 	               		<div style="float: left;">
-							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width: 80px; height: 20px;"  onclick="openstudent();">选择学生</a>
+							&nbsp;<a href="javascript:(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"   onclick="openstudent();">选择学生</a>
 						</div>
 						<p style="clear: both;"></p>
 					</td>
+				</tr>
+				<tr>
+					<td>电脑型号</td>
+					<td>
+						<input class="easyui-textbox" name="computer.coma" id="ca" data-options="required:true,validType:'length[2,20]',novalidate:true" /><br/><br/><!-- 由dataoptions指定验证的规则 -->
+					</td>
+				</tr>
+				<tr>
+					<td>电脑名称</td>
+					<td><input class="easyui-textbox" id="cb" name="computer.comb" data-options="required:true,validType:'length[2,20]',novalidate:true" /><br/><br/></td>
 				</tr>
 			</table>
 			<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">

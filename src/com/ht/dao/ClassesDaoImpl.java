@@ -47,7 +47,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	public Classes update(Classes t) {
 		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-			session.update(t);
+		session.update(t);
 		transaction.commit();
 		session.close();
 		return t;
@@ -96,10 +96,20 @@ public class ClassesDaoImpl implements ClassesDao {
 		query.setMaxResults(pager.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<Classes> list = query.list();
+		for(Classes c : list){
+			c.setClasscount(Integer.valueOf(countStuR(c.getClassid()).toString()));
+		}
 		pager.setRows(list);
 		pager.setTotal((long) count());
 		session.close();
 		return pager;
+	}
+	
+	public Object countStuR(int id){
+		session = sessionFactory.openSession();
+		Query query = session.createQuery("select count(t) from Student t where t.classes.classid = "+id);
+		Object obj = query.uniqueResult();
+		return obj;
 	}
 
 	@Override

@@ -9,4 +9,6 @@ public interface HourseDao extends BaseDao<Hourse, Integer> {
 	
 	
 	public List<Hourse> queryById(int hourseid);
+	
+	public Object countStuH(int id);
 }

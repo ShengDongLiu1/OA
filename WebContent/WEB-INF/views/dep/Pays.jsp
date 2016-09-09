@@ -117,7 +117,7 @@
 <!-- 批量选择 -->
 <!-- 选择员工 -->
 <div id="selectMulti" class="easyui-window" data-options="closed:true,iconCls:'icon-add'" title="批量选择员工">
-		<table id="yg" class="easyui-datagrid" style="width:860px;" data-options="
+		<table id="yg" class="easyui-datagrid" style="width:870px;" data-options="
 				toolbar:'#ass',
 				url:'<%=path %>/dep/queryAll', 
 				method:'get', 

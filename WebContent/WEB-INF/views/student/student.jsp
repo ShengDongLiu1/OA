@@ -37,7 +37,7 @@
         <th data-options="field:'intenaddr',width:100" align="center">家庭住址</th>
         <th data-options="field:'classes',width:100" formatter="forClasses" align="center">所在班级</th>
         <th data-options="field:'hourse',width:100" formatter="forHourse" align="center">所在宿舍</th>
-        <th data-options="field:'intendate',width:100">入学时间</th>
+        <th data-options="field:'intendate',width:150">入学时间</th>
     </tr>
     </thead>
 </table>
@@ -528,7 +528,7 @@
 	}
 	
 	function queryall(){
-		$('#list').datagrid('load');
+		$('#list').datagrid('load',{});
 	}
 	$(function(){
 		$("#classid").combobox({
